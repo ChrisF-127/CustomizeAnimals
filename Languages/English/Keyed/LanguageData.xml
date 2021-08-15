@@ -1,19 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
   <SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
-  <SY_CA.Filter>filter</SY_CA.Filter>
-  <SY_CA.Clear>Clear</SY_CA.Clear>
-  <SY_CA.Reset>Reset</SY_CA.Reset>
   
   <SY_CA.NoAnimalSelected>No animal selected</SY_CA.NoAnimalSelected>
+  
+  <SY_CA.Filter>filter</SY_CA.Filter>
+  <SY_CA.TooltipFilter>Apply a filter to the list
+Use * to filter for modified entries</SY_CA.TooltipFilter>
+  
+  <SY_CA.Clear>Clear</SY_CA.Clear>
+  <SY_CA.TooltipClearFilter>Clear the filter</SY_CA.TooltipClearFilter>
+  
+  <SY_CA.Reset>Reset</SY_CA.Reset>
+  <SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
   
   <SY_CA.Trainability>Trainability</SY_CA.Trainability>
   <SY_CA.TrainabilityRoamingWarning>Trainability above 'None' without removing roaming (set to 0) is of no use, as animals which require a pen cannot leave it.</SY_CA.TrainabilityRoamingWarning>
   <SY_CA.TrainabilityNone>None</SY_CA.TrainabilityNone>
+  <SY_CA.TooltipTrainabilityNone>No trainability</SY_CA.TooltipTrainabilityNone>
   <SY_CA.TrainabilityIntermediate>Interm.</SY_CA.TrainabilityIntermediate>
+  <SY_CA.TooltipTrainabilityIntermediate>Guard and Attack only</SY_CA.TooltipTrainabilityIntermediate>
   <SY_CA.TrainabilityAdvanced>Adv.</SY_CA.TrainabilityAdvanced>
+  <SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
   
   <SY_CA.RoamMtbDays>Mean time before Roam in Days</SY_CA.RoamMtbDays>
-  
-  <SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
+  <SY_CA.TooltipRoamMtbDays>Mean time in days before an animal starts roaming. To disable roaming set it to 0.
+(Roamers require a pen which restricts their movement and makes trainability pointless.)</SY_CA.TooltipRoamMtbDays>
 </LanguageData>

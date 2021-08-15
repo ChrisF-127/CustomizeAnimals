@@ -80,18 +80,21 @@ namespace CustomizeAnimals
 			Text.Font = GameFont.Small;
 
 			// Search field
-			var searchRect = new Rect(0, 36, width - 84, 20);
-			_searchTerm = Widgets.TextArea(searchRect, _searchTerm);
+			var searchFieldRect = new Rect(0, 36, width - 84, 20);
+			_searchTerm = Widgets.TextArea(searchFieldRect, _searchTerm);
 			if (string.IsNullOrEmpty(_searchTerm))
 			{
 				Text.Anchor = TextAnchor.MiddleCenter;
 				GUI.color = Color.grey;
-				Widgets.Label(new Rect(searchRect.x, searchRect.y + 2, searchRect.width, searchRect.height - 2), "SY_CA.Filter".Translate());
+				Widgets.Label(new Rect(searchFieldRect.x, searchFieldRect.y + 2, searchFieldRect.width, searchFieldRect.height - 2), "SY_CA.Filter".Translate());
 				GUI.color = _oriColor;
 				Text.Anchor = TextAnchor.MiddleLeft;
 			}
-			if (Widgets.ButtonText(new Rect(width - 76, 36, 60, 20), "SY_CA.Clear".Translate()))
+			DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
+			var clearButtonRect = new Rect(width - 76, 36, 60, 20);
+			if (Widgets.ButtonText(clearButtonRect, "SY_CA.Clear".Translate()))
 				_searchTerm = "";
+			DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
 
 			// Scrollable area
 			var viewWidth = width - 16;
@@ -165,7 +168,7 @@ namespace CustomizeAnimals
 			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Animal settings
-			var labelRect = new Rect(_settingsIconSize + 32, 0, width - _settingsIconSize + 32, _settingsIconSize);
+			var labelRect = new Rect(_settingsIconSize + 32, 0, width - _settingsIconSize + 32, _listRowHeight);
 			if (animal != null)
 			{
 				// Header
@@ -173,6 +176,8 @@ namespace CustomizeAnimals
 				Widgets.DefIcon(new Rect(8, 0, _settingsIconSize, _settingsIconSize), animal);
 				Widgets.Label(labelRect, animal.label.CapitalizeFirst());
 				Text.Font = GameFont.Small;
+				// Mod name
+				Widgets.Label(new Rect(_settingsIconSize + 32, _listRowHeight, width - _settingsIconSize + 32, _settingsIconSize - _listRowHeight), $"({animal.modContentPack.Name})");
 
 				// Begin
 				var viewWidth = width - 16;
@@ -214,6 +219,7 @@ namespace CustomizeAnimals
 			Text.Anchor = _oriTextAnchor;
 		}
 
+
 		private void SettingTrainability(float offsetY, float viewWidth)
 		{
 			float controlWidth = GetControlWidth(viewWidth);
@@ -239,21 +245,24 @@ namespace CustomizeAnimals
 
 			// None
 			var trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 0;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityNone".Translate());
 			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.None))
 				trainability = TrainabilityDefOf.None;
+			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityNone".Translate());
+			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityNone".Translate());
 
 			// Intermediate
 			trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 1;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityIntermediate".Translate());
 			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Intermediate))
 				trainability = TrainabilityDefOf.Intermediate;
+			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityIntermediate".Translate());
+			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityIntermediate".Translate());
 
 			// Advanced
 			trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 2;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityAdvanced".Translate());
 			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Advanced))
 				trainability = TrainabilityDefOf.Advanced;
+			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityAdvanced".Translate());
+			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
 
 			GUI.color = _oriColor;
 
@@ -280,7 +289,9 @@ namespace CustomizeAnimals
 			// RoamMtbDays Settings; 0 = disable (requires no pen), >0 = roamer (requires pen!)
 			var roamMtbDays = roamMtbDaysSetting.Value ?? 0;
 			var roamMtbDaysBuffer = roamMtbDays.ToString();
-			Widgets.TextFieldNumeric(new Rect(controlWidth, offsetY + (_settingsRowHeight - 20) / 2, controlWidth, 20), ref roamMtbDays, ref roamMtbDaysBuffer);
+			var textFieldRect = new Rect(controlWidth, offsetY + (_settingsRowHeight - 20) / 2, controlWidth, 20);
+			Widgets.TextFieldNumeric(textFieldRect, ref roamMtbDays, ref roamMtbDaysBuffer);
+			DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
 
 			GUI.color = _oriColor;
 
@@ -291,6 +302,7 @@ namespace CustomizeAnimals
 			else
 				roamMtbDaysSetting.Value = roamMtbDays > 0 ? (float?)roamMtbDays : null;
 		}
+
 
 		private bool ResetButton(float offsetY, float viewWidth, string tooltip)
 		{
