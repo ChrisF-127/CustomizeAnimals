@@ -12,8 +12,9 @@ namespace CustomizeAnimals
 	public class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
-		public static CustomizeAnimals_Settings Settings { get; private set; } = null;
-		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
+		public static List<AnimalSettings> Animals { get; private set; } = null;
+		public CustomizeAnimals_Settings Settings { get; private set; } = null;
+		public AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 		#endregion
 
 		#region FIELDS
@@ -39,6 +40,23 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public CustomizeAnimals(ModContentPack content) : base(content)
 		{
+			LongEventHandler.ExecuteWhenFinished(Initialize);
+		}
+		#endregion
+
+		#region PUBLIC METHODS
+		public void Initialize()
+		{
+			Log.Message($"{nameof(CustomizeAnimals)}.{nameof(Initialize)}");
+
+			Animals = new List<AnimalSettings>();
+			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
+			{
+				if (AnimalSettings.IsValidAnimal(thingDef))
+					Animals.Add(new AnimalSettings(thingDef));
+			}
+			Animals.SortBy((a) => a.Animal.label);
+
 			Settings = GetSettings<CustomizeAnimals_Settings>();
 		}
 		#endregion
@@ -68,6 +86,7 @@ namespace CustomizeAnimals
 		#endregion
 
 		#region PRIVATE METHODS
+		#region MOD SETTINGS
 		private void CreateAnimalList(float x, float y, float width, float height)
 		{
 			// Begin
@@ -106,7 +125,7 @@ namespace CustomizeAnimals
 			// Make list
 			int index = 0;
 			string searchLower = _searchTerm?.ToLower();
-			foreach (var animalSettings in CustomizeAnimals_Settings.Animals)
+			foreach (var animalSettings in Animals)
 			{
 				var animal = animalSettings.Animal;
 				if (animal == null)
@@ -218,8 +237,9 @@ namespace CustomizeAnimals
 			Text.Font = _oriTextFont;
 			Text.Anchor = _oriTextAnchor;
 		}
+		#endregion
 
-
+		#region SETTING CONTROLS
 		private void SettingTrainability(float offsetY, float viewWidth)
 		{
 			float controlWidth = GetControlWidth(viewWidth);
@@ -267,7 +287,7 @@ namespace CustomizeAnimals
 			GUI.color = _oriColor;
 
 			// Reset button
-			if (trainabilitySetting.IsModified() && ResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
+			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
 				trainabilitySetting.Reset();
 			// Set Trainability
 			else
@@ -296,15 +316,16 @@ namespace CustomizeAnimals
 			GUI.color = _oriColor;
 
 			// Reset button
-			if (roamMtbDaysSetting.IsModified() && ResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
+			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
 				roamMtbDaysSetting.Reset();
 			// Set RoamMtbDays
 			else
 				roamMtbDaysSetting.Value = roamMtbDays > 0 ? (float?)roamMtbDays : null;
 		}
+		#endregion
 
-
-		private bool ResetButton(float offsetY, float viewWidth, string tooltip)
+		#region CONTROLS HELPER
+		private bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{
 			var buttonRect = new Rect(viewWidth - _settingsRowHeight * 2 + 2, offsetY + 2, _settingsRowHeight * 2 - 4, _settingsRowHeight - 4);
 			var output = Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
@@ -324,6 +345,7 @@ namespace CustomizeAnimals
 
 		private float GetControlWidth(float viewWidth) => 
 			viewWidth / 2 - _settingsRowHeight - 4;
+		#endregion
 		#endregion
 	}
 }

@@ -32,17 +32,65 @@ namespace CustomizeAnimals
 
 		#region METHODS
 		public bool IsModified() =>
-			Trainability.IsModified()
-			|| RoamMtbDays.IsModified();
+			Animal != null
+			&& (Trainability.IsModified() 
+			|| RoamMtbDays.IsModified());
 
 		public static bool IsValidAnimal(ThingDef thingDef) =>
 			thingDef.thingCategories?.Contains(ThingCategoryDefOf.Animals) == true
 			&& thingDef.race != null
 			&& thingDef.race.trainability != null;
+
+		public AnimalSettingsExposable ToExposable() =>
+			new AnimalSettingsExposable(this);
+		public void FromExposable(AnimalSettingsExposable exposable)
+		{
+			if (Animal == exposable.Animal)
+			{
+				Trainability.Value = exposable.Trainability;
+				RoamMtbDays.Value = exposable.RoamMtbDays;
+			}
+			else
+				Log.Error($"{nameof(AnimalSettings)}.{nameof(FromExposable)}: {Animal?.defName} != {exposable?.Animal?.defName} (This should never happen.)");
+		}
 		#endregion
 	}
 
-	#region SETTINGS CLASSES
+	#region EXPOSABLE
+	public class AnimalSettingsExposable : IExposable
+	{
+		#region FIELDS
+		public ThingDef Animal = null;
+
+		public TrainabilityDef Trainability = null;
+		public float? RoamMtbDays = null;
+		#endregion
+
+		#region CONSTRUCTORS
+		public AnimalSettingsExposable()
+		{ }
+		public AnimalSettingsExposable(AnimalSettings animalSettings)
+		{
+			Animal = animalSettings.Animal;
+
+			Trainability = animalSettings.Trainability.Value;
+			RoamMtbDays = animalSettings.RoamMtbDays.Value;
+		}
+		#endregion
+
+		#region INTERFACES
+		public void ExposeData()
+		{
+			Scribe_Defs.Look(ref Animal, nameof(Animal));
+
+			Scribe_Defs.Look(ref Trainability, nameof(Trainability));
+			Scribe_Values.Look(ref RoamMtbDays, nameof(RoamMtbDays));
+		}
+		#endregion
+	}
+	#endregion
+
+	#region SUB SETTINGS
 	public class SettingTrainability : Setting<TrainabilityDef>
 	{
 		public override TrainabilityDef Value
@@ -75,7 +123,7 @@ namespace CustomizeAnimals
 		public ThingDef Animal { get; }
 		public T DefaultValue { get; protected set; }
 		public abstract T Value { get; set; }
-
+		
 		public Setting(ThingDef animal)
 		{
 			Animal = animal;

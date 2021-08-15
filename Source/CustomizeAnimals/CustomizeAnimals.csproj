@@ -75,7 +75,6 @@
     <Compile Include="CustomizeAnimals.cs" />
     <Compile Include="CustomizeAnimals_Settings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StaticInitializer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
