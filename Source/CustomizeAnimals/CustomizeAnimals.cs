@@ -258,6 +258,7 @@ namespace CustomizeAnimals
 
 			// Label
 			Widgets.Label(labelRect, "SY_CA.Trainability".Translate());
+			GUI.color = _oriColor;
 
 			var trainability = trainabilitySetting.Value;
 			var trainabilityOptionWidth = controlWidth / 3;
@@ -284,8 +285,6 @@ namespace CustomizeAnimals
 			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityAdvanced".Translate());
 			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
 
-			GUI.color = _oriColor;
-
 			// Reset button
 			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
 				trainabilitySetting.Reset();
@@ -299,28 +298,38 @@ namespace CustomizeAnimals
 			float controlWidth = GetControlWidth(viewWidth);
 			var roamMtbDaysSetting = SelectedAnimalSettings.RoamMtbDays;
 
+			// Label
 			// Switch color if modified
 			if (roamMtbDaysSetting.IsModified())
 				GUI.color = _modifiedColor;
-
-			// Label
 			Widgets.Label(new Rect(0, offsetY, controlWidth, _settingsRowHeight), "SY_CA.RoamMtbDays".Translate());
-
-			// RoamMtbDays Settings; 0 = disable (requires no pen), >0 = roamer (requires pen!)
-			var roamMtbDays = roamMtbDaysSetting.Value ?? 0;
-			var roamMtbDaysBuffer = roamMtbDays.ToString();
-			var textFieldRect = new Rect(controlWidth, offsetY + (_settingsRowHeight - 20) / 2, controlWidth, 20);
-			Widgets.TextFieldNumeric(textFieldRect, ref roamMtbDays, ref roamMtbDaysBuffer);
-			DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
-
 			GUI.color = _oriColor;
+
+			// RoamMtbDays Settings
+			float? roamMtbDays; 
+			var roamSelected = roamMtbDaysSetting.Value != null;
+			var checkboxSize = _settingsRowHeight - 8;
+			Widgets.Checkbox(controlWidth, offsetY + (_settingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
+			// RoamMtbDays active = roamer (requires pen!)
+			if (roamSelected)
+			{
+				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
+				var roamBuffer = roamValue.ToString();
+				var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY + (_settingsRowHeight - 20) / 2, controlWidth - checkboxSize, 20);
+				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
+				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
+				roamMtbDays = roamValue;
+			}
+			else
+				roamMtbDays = null;
 
 			// Reset button
 			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
 				roamMtbDaysSetting.Reset();
 			// Set RoamMtbDays
 			else
-				roamMtbDaysSetting.Value = roamMtbDays > 0 ? (float?)roamMtbDays : null;
+				roamMtbDaysSetting.Value = roamMtbDays;
 		}
 		#endregion
 

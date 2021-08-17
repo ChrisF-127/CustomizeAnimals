@@ -26,4 +26,5 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
   <SY_CA.RoamMtbDays>Mean time before Roam in Days</SY_CA.RoamMtbDays>
   <SY_CA.TooltipRoamMtbDays>Mean time in days before an animal starts roaming. To disable roaming set it to 0.
 (Roamers require a pen which restricts their movement and makes trainability pointless.)</SY_CA.TooltipRoamMtbDays>
+  <SY_CA.TooltipRoamMtbDaysChk>Make this animal a roamer and as such require a pen. Animals which require a pen won't leave it by themselves, thus making trainability pointless.</SY_CA.TooltipRoamMtbDaysChk>
 </LanguageData>
