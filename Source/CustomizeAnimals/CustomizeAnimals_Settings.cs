@@ -11,29 +11,30 @@ namespace CustomizeAnimals
 		public override void ExposeData()
 		{
 			base.ExposeData();
-
-			// TODO? Can probably be optimized to only fill the exposable list if it is going to be saved & only apply the loaded list if it's being loaded?
+			
 			var animals = CustomizeAnimals.Animals;
-			var animalsExposable = new List<AnimalSettingsExposable>();
-
-			// Get all modified animals into a list of exposables in case of saving
-			foreach (var animal in animals)
+			if (Scribe.mode == LoadSaveMode.Saving)
 			{
-				if (animal.IsModified())
-					animalsExposable.Add(animal.ToExposable());
-			}
-
-			// Save/Load list
-			Scribe_Collections.Look(ref animalsExposable, "AnimalSettings");
-
-			// Apply list to Animals
-			for (int i = 0; i < animals.Count; i++)
-			{
-				var animal = animalsExposable.Find((a) => a.Animal == animals[i].Animal);
-				if (animal != null)
+				for (int i = 0; i < animals.Count; i++)
 				{
-					animals[i].FromExposable(animal);
-					animalsExposable.Remove(animal);
+					var animal = animals[i];
+					if (animal.IsModified())
+						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal.Animal);
+				}
+			}
+			else
+			{
+				for (int i = 0; i < animals.Count; i++)
+				{
+					var animal = animals[i];
+					if (animal.Animal != null)
+					{
+						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal.Animal);
+						if (animal != null)
+							animals[i] = animal;
+					}
+					else
+						Log.Error($"{nameof(CustomizeAnimals_Settings)}.{nameof(ExposeData)}: animal.Animal should not be null !");
 				}
 			}
 		}

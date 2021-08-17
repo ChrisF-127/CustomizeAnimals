@@ -8,10 +8,10 @@ using Verse;
 
 namespace CustomizeAnimals
 {
-	public class AnimalSettings
+	public class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
-		public ThingDef Animal { get; }
+		public ThingDef Animal { get; private set; }
 
 		public SettingTrainability Trainability { get; }
 		public SettingRoamMtbDays RoamMtbDays { get; }
@@ -30,7 +30,7 @@ namespace CustomizeAnimals
 		}
 		#endregion
 
-		#region METHODS
+		#region PUBLIC METHODS
 		public bool IsModified() =>
 			Animal != null
 			&& (Trainability.IsModified() 
@@ -40,55 +40,26 @@ namespace CustomizeAnimals
 			thingDef.thingCategories?.Contains(ThingCategoryDefOf.Animals) == true
 			&& thingDef.race != null
 			&& thingDef.race.trainability != null;
-
-		public AnimalSettingsExposable ToExposable() =>
-			new AnimalSettingsExposable(this);
-		public void FromExposable(AnimalSettingsExposable exposable)
-		{
-			if (Animal == exposable.Animal)
-			{
-				Trainability.Value = exposable.Trainability;
-				RoamMtbDays.Value = exposable.RoamMtbDays;
-			}
-			else
-				Log.Error($"{nameof(AnimalSettings)}.{nameof(FromExposable)}: {Animal?.defName} != {exposable?.Animal?.defName} (This should never happen.)");
-		}
-		#endregion
-	}
-
-	#region EXPOSABLE
-	public class AnimalSettingsExposable : IExposable
-	{
-		#region FIELDS
-		public ThingDef Animal = null;
-
-		public TrainabilityDef Trainability = null;
-		public float? RoamMtbDays = null;
-		#endregion
-
-		#region CONSTRUCTORS
-		public AnimalSettingsExposable()
-		{ }
-		public AnimalSettingsExposable(AnimalSettings animalSettings)
-		{
-			Animal = animalSettings.Animal;
-
-			Trainability = animalSettings.Trainability.Value;
-			RoamMtbDays = animalSettings.RoamMtbDays.Value;
-		}
 		#endregion
 
 		#region INTERFACES
 		public void ExposeData()
 		{
-			Scribe_Defs.Look(ref Animal, nameof(Animal));
+			var trainability = Def2String(Trainability.Value);
+			Scribe_Values.Look(ref trainability, nameof(Trainability), Def2String(Trainability.DefaultValue));
+			Trainability.Value = trainability == null ? null : DefDatabase<TrainabilityDef>.GetNamed(trainability);
 
-			Scribe_Defs.Look(ref Trainability, nameof(Trainability));
-			Scribe_Values.Look(ref RoamMtbDays, nameof(RoamMtbDays));
+			var roamMtbDays = RoamMtbDays.Value;
+			Scribe_Values.Look(ref roamMtbDays, nameof(RoamMtbDays), RoamMtbDays.DefaultValue);
+			RoamMtbDays.Value = roamMtbDays;
 		}
 		#endregion
+
+		#region PRIVATE METHODS
+		private string Def2String(Def def) =>
+			def?.defName ?? "null";
+		#endregion
 	}
-	#endregion
 
 	#region SUB SETTINGS
 	public class SettingTrainability : Setting<TrainabilityDef>
