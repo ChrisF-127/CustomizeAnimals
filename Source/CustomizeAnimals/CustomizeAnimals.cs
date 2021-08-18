@@ -47,8 +47,6 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public void Initialize()
 		{
-			Log.Message($"{nameof(CustomizeAnimals)}.{nameof(Initialize)}");
-
 			Animals = new List<AnimalSettings>();
 			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
 			{

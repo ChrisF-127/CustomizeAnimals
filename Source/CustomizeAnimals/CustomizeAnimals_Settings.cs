@@ -18,8 +18,8 @@ namespace CustomizeAnimals
 				for (int i = 0; i < animals.Count; i++)
 				{
 					var animal = animals[i];
-					if (animal.IsModified())
-						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal.Animal);
+					if (animal?.IsModified() == true)
+						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
 				}
 			}
 			else
@@ -27,9 +27,9 @@ namespace CustomizeAnimals
 				for (int i = 0; i < animals.Count; i++)
 				{
 					var animal = animals[i];
-					if (animal.Animal != null)
+					if (animal?.Animal != null)
 					{
-						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal.Animal);
+						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
 						if (animal != null)
 							animals[i] = animal;
 					}

@@ -28,6 +28,13 @@ namespace CustomizeAnimals
 			Trainability = new SettingTrainability(Animal);
 			RoamMtbDays = new SettingRoamMtbDays(Animal);
 		}
+		public AnimalSettings(AnimalSettings animalSettings)
+		{
+			Animal = animalSettings.Animal;
+
+			Trainability = animalSettings.Trainability;
+			RoamMtbDays = animalSettings.RoamMtbDays;
+		}
 		#endregion
 
 		#region PUBLIC METHODS
@@ -47,7 +54,7 @@ namespace CustomizeAnimals
 		{
 			var trainability = Def2String(Trainability.Value);
 			Scribe_Values.Look(ref trainability, nameof(Trainability), Def2String(Trainability.DefaultValue));
-			Trainability.Value = trainability == null ? null : DefDatabase<TrainabilityDef>.GetNamed(trainability);
+			Trainability.Value = trainability != null ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 
 			var roamMtbDays = RoamMtbDays.Value;
 			Scribe_Values.Look(ref roamMtbDays, nameof(RoamMtbDays), RoamMtbDays.DefaultValue);
