@@ -2,7 +2,9 @@
 <LanguageData>
   <SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
   
-  <SY_CA.NoAnimalSelected>No animal selected</SY_CA.NoAnimalSelected>
+  <SY_CA.AllAnimalsSelection>All Animals</SY_CA.AllAnimalsSelection>
+  <SY_CA.AllAnimals>Modify all animals</SY_CA.AllAnimals>
+  <SY_CA.TooltipAllAnimalsSelection>Allows modifying all animals at once</SY_CA.TooltipAllAnimalsSelection>
   
   <SY_CA.Filter>filter</SY_CA.Filter>
   <SY_CA.TooltipFilter>Apply a filter to the list

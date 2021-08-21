@@ -23,15 +23,14 @@ namespace CustomizeAnimals
 		#endregion
 
 		#region PUBLIC METHODS
-		public abstract float Create(float offsetY, float viewWidt, AnimalSettings animal);
-		
+		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
+		public abstract float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings);
+
 		public static bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{
 			var buttonRect = new Rect(viewWidth - SettingsRowHeight * 2 + 2, offsetY + 2, SettingsRowHeight * 2 - 4, SettingsRowHeight - 4);
-			var output = Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
-
 			DrawTooltip(buttonRect, "SY_CA.TooltipDefaultValue".Translate() + " " + tooltip);
-			return output;
+			return Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
 		}
 
 		public static void DrawTooltip(Rect rect, string tooltip)

@@ -11,11 +11,11 @@ namespace CustomizeAnimals
 {
 	internal class Settings_Trainability : Settings_Base
 	{
-		public override float Create(float offsetY, float viewWidth, AnimalSettings animal)
+		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			float controlWidth = GetControlWidth(viewWidth);
-			var trainabilitySetting = animal.Trainability;
-			var roamMtbDaysSetting = animal.RoamMtbDays;
+			var trainabilitySetting = animalSettings.Trainability;
+			var roamMtbDaysSetting = animalSettings.RoamMtbDays;
 
 			// Switch color if modified
 			var labelRect = new Rect(0, offsetY, controlWidth, SettingsRowHeight);
@@ -66,5 +66,9 @@ namespace CustomizeAnimals
 			return SettingsRowHeight;
 		}
 
+		public override float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
+		{
+			return 0f;
+		}
 	}
 }

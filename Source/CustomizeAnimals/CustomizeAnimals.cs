@@ -29,7 +29,6 @@ namespace CustomizeAnimals
 
 		private const float _listRowHeight = 32;
 		private const float _listIconSize = _listRowHeight - 4;
-		private const float _listOffsetY = 64;
 
 		private Vector2 _listScrollPosition = new Vector2();
 		private Vector2 _settingsScrollPosition = new Vector2();
@@ -67,45 +66,46 @@ namespace CustomizeAnimals
 		}
 		#endregion
 
-		#region OVERRIDES
-		public override string SettingsCategory() => 
-			"Customize Animals";
-
-		public override void DoSettingsWindowContents(Rect inRect)
-		{
-			var listWidth = inRect.width * 1 / 3 - 4;
-			var optionsWidth = inRect.width * 2 / 3 - 4;
-
-			// Save original settings
-			OriTextFont = Text.Font;
-			OriTextAnchor = Text.Anchor;
-			OriColor = GUI.color;
-
-			// Animal selection list
-			CreateAnimalList(inRect.x, inRect.y, listWidth, inRect.height);
-
-			// Animal settings
-			CreateSettings(inRect.x + listWidth + 8, inRect.y, optionsWidth, inRect.height);
-
-			base.DoSettingsWindowContents(inRect);
-		}
-		#endregion
-
 		#region PRIVATE METHODS
-		#region MOD SETTINGS
 		private void CreateAnimalList(float x, float y, float width, float height)
 		{
+			float offsetY = 0;
+			float viewWidth = width - 16;
+
 			// Begin
 			GUI.BeginGroup(new Rect(x, y, width, height));
 			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Label
 			Text.Font = GameFont.Medium;
-			Widgets.Label(new Rect(0, 0, width, _listRowHeight), "SY_CA.SelectAnimalToCustomize".Translate());
+			Widgets.Label(new Rect(0, offsetY, width, _listRowHeight), "SY_CA.SelectAnimalToCustomize".Translate());
+			Text.Font = GameFont.Small;
+			offsetY += 36;
+
+
+			// All animals
+			// Selection
+			var allAnimalsSelectionRect = new Rect(0, offsetY, viewWidth, _listRowHeight);
+			if (Widgets.ButtonInvisible(allAnimalsSelectionRect, true))
+				SelectedAnimalSettings = null;
+			Widgets.DrawOptionBackground(allAnimalsSelectionRect, SelectedAnimalSettings == null);
+			Settings_Base.DrawTooltip(allAnimalsSelectionRect, "SY_CA.TooltipAllAnimalsSelection".Translate());
+
+			// Icon
+			Text.Font = GameFont.Medium;
+			Text.Anchor = TextAnchor.MiddleCenter;
+			Widgets.Label(new Rect(4, offsetY, _listIconSize, _listRowHeight), "∀");
+			Text.Anchor = TextAnchor.MiddleLeft;
 			Text.Font = GameFont.Small;
 
+			// Label
+			float labelWidth = viewWidth - _listIconSize - 12;
+			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.AllAnimalsSelection".Translate());
+			offsetY += 42;
+
+
 			// Search field
-			var searchFieldRect = new Rect(0, 36, width - 84, 20);
+			var searchFieldRect = new Rect(0, offsetY, width - 84, 20);
 			_searchTerm = Widgets.TextArea(searchFieldRect, _searchTerm);
 			if (string.IsNullOrEmpty(_searchTerm))
 			{
@@ -116,17 +116,18 @@ namespace CustomizeAnimals
 				Text.Anchor = TextAnchor.MiddleLeft;
 			}
 			Settings_Base.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
-			var clearButtonRect = new Rect(width - 76, 36, 60, 20);
+			var clearButtonRect = new Rect(width - 76, offsetY, 60, 20);
 			if (Widgets.ButtonText(clearButtonRect, "SY_CA.Clear".Translate()))
 				_searchTerm = "";
 			Settings_Base.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
+			offsetY += 26;
 
 			// Scrollable area
-			var viewWidth = width - 16;
 			Widgets.BeginScrollView(
-				new Rect(0, _listOffsetY, width, height - _listOffsetY),
+				new Rect(0, offsetY, width, height - offsetY),
 				ref _listScrollPosition,
-				new Rect(0, _listOffsetY, viewWidth, _listViewHeight));
+				new Rect(0, offsetY, viewWidth, _listViewHeight));
+			_listScrollPosition.y = Mathf.Round(_listScrollPosition.y / _listViewHeight) * _listViewHeight;
 
 			// Make list
 			int index = 0;
@@ -153,21 +154,21 @@ namespace CustomizeAnimals
 				}
 
 				// Selection
-				float offsetY = _listOffsetY + _listRowHeight * index;
-				if (Widgets.ButtonInvisible(new Rect(0, offsetY, viewWidth, _listRowHeight), true))
+				float listOffsetY = offsetY + _listRowHeight * index;
+				if (Widgets.ButtonInvisible(new Rect(0, listOffsetY, viewWidth, _listRowHeight), true))
 					SelectedAnimalSettings = animalSettings;
-				Widgets.DrawOptionBackground(new Rect(0, offsetY, viewWidth, _listRowHeight), SelectedAnimalSettings == animalSettings);
+				Widgets.DrawOptionBackground(new Rect(0, listOffsetY, viewWidth, _listRowHeight), SelectedAnimalSettings == animalSettings);
 
 				// Icon
-				float offsetX = 2;
-				Widgets.DefIcon(new Rect(offsetX, offsetY + 2, _listIconSize, _listIconSize), animal);
-				offsetX += _listIconSize + 8;
+				float listOffsetX = 2;
+				Widgets.DefIcon(new Rect(listOffsetX, listOffsetY + 2, _listIconSize, _listIconSize), animal);
+				listOffsetX += _listIconSize + 8;
 
 				// Label
-				float labelWidth = viewWidth - _listIconSize - 12;
+				labelWidth = viewWidth - _listIconSize - 12;
 				if (animalSettings.IsModified())
 					GUI.color = ModifiedColor;
-				Widgets.Label(new Rect(offsetX, offsetY, labelWidth, _listRowHeight), animal.label.CapitalizeFirst());
+				Widgets.Label(new Rect(listOffsetX, listOffsetY + 2, labelWidth, _listRowHeight - 2), animal.label.CapitalizeFirst());
 				GUI.color = OriColor;
 
 				index++;
@@ -215,7 +216,7 @@ namespace CustomizeAnimals
 				float totalHeight = SettingsOffsetY;
 				foreach (var setting in SettingsList)
 				{
-					totalHeight += setting.Create(totalHeight, viewWidth, SelectedAnimalSettings);
+					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 				}
 
 				// End
@@ -229,7 +230,7 @@ namespace CustomizeAnimals
 			{
 				// Header
 				Text.Font = GameFont.Medium;
-				Widgets.Label(labelRect, "SY_CA.NoAnimalSelected".Translate());
+				Widgets.Label(labelRect, "SY_CA.AllAnimals".Translate());
 				Text.Font = GameFont.Small;
 
 				// No settings available
@@ -244,6 +245,29 @@ namespace CustomizeAnimals
 			Text.Anchor = OriTextAnchor;
 		}
 		#endregion
+
+		#region OVERRIDES
+		public override string SettingsCategory() =>
+			"Customize Animals";
+
+		public override void DoSettingsWindowContents(Rect inRect)
+		{
+			var listWidth = inRect.width * 1 / 3 - 4;
+			var optionsWidth = inRect.width * 2 / 3 - 4;
+
+			// Save original settings
+			OriTextFont = Text.Font;
+			OriTextAnchor = Text.Anchor;
+			OriColor = GUI.color;
+
+			// Animal selection list
+			CreateAnimalList(inRect.x, inRect.y, listWidth, inRect.height);
+
+			// Animal settings
+			CreateSettings(inRect.x + listWidth + 8, inRect.y, optionsWidth, inRect.height);
+
+			base.DoSettingsWindowContents(inRect);
+		}
 		#endregion
 	}
 }

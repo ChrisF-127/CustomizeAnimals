@@ -11,10 +11,10 @@ namespace CustomizeAnimals
 {
 	internal class Settings_RoamMtbDays : Settings_Base
 	{
-		public override float Create(float offsetY, float viewWidth, AnimalSettings animal)
+		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			float controlWidth = GetControlWidth(viewWidth);
-			var roamMtbDaysSetting = animal.RoamMtbDays;
+			var roamMtbDaysSetting = animalSettings.RoamMtbDays;
 
 			// Label
 			// Switch color if modified
@@ -50,6 +50,11 @@ namespace CustomizeAnimals
 				roamMtbDaysSetting.Value = roamMtbDays;
 
 			return SettingsRowHeight;
+		}
+
+		public override float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
+		{
+			return 0f;
 		}
 	}
 }
