@@ -13,28 +13,36 @@ namespace CustomizeAnimals
 	{
 		#region PROPERTIES
 		public static List<AnimalSettings> Animals { get; private set; } = null;
-		public CustomizeAnimals_Settings Settings { get; private set; } = null;
-		public AnimalSettings SelectedAnimalSettings { get; private set; } = null;
+		public static CustomizeAnimals_Settings Settings { get; private set; } = null;
+		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
+
+		private List<Settings_Base> SettingsList { get; } = new List<Settings_Base>
+		{
+			new Settings_Trainability(),
+			new Settings_RoamMtbDays(),
+		};
 		#endregion
 
 		#region FIELDS
 		private string _searchTerm = "";
 		private float _listViewHeight = 0;
-		private Vector2 _listScrollPosition = new Vector2();
+
 		private const float _listRowHeight = 32;
 		private const float _listIconSize = _listRowHeight - 4;
 		private const float _listOffsetY = 64;
 
-		private float _settingsViewHeight = 0;
+		private Vector2 _listScrollPosition = new Vector2();
 		private Vector2 _settingsScrollPosition = new Vector2();
-		private const float _settingsRowHeight = 32;
-		private const float _settingsIconSize = 64;
-		private const float _settingsOffsetY = 64;
 
-		private GameFont _oriTextFont;
-		private TextAnchor _oriTextAnchor;
-		private Color _oriColor;
-		private Color _modifiedColor = Color.cyan;
+		public static float SettingsViewHeight = 0;
+		public const float SettingsRowHeight = 32;
+		public const float SettingsIconSize = 64;
+		public const float SettingsOffsetY = 64;
+
+		public static GameFont OriTextFont;
+		public static TextAnchor OriTextAnchor;
+		public static Color OriColor;
+		public static Color ModifiedColor = Color.cyan;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -69,9 +77,9 @@ namespace CustomizeAnimals
 			var optionsWidth = inRect.width * 2 / 3 - 4;
 
 			// Save original settings
-			_oriTextFont = Text.Font;
-			_oriTextAnchor = Text.Anchor;
-			_oriColor = GUI.color;
+			OriTextFont = Text.Font;
+			OriTextAnchor = Text.Anchor;
+			OriColor = GUI.color;
 
 			// Animal selection list
 			CreateAnimalList(inRect.x, inRect.y, listWidth, inRect.height);
@@ -104,14 +112,14 @@ namespace CustomizeAnimals
 				Text.Anchor = TextAnchor.MiddleCenter;
 				GUI.color = Color.grey;
 				Widgets.Label(new Rect(searchFieldRect.x, searchFieldRect.y + 2, searchFieldRect.width, searchFieldRect.height - 2), "SY_CA.Filter".Translate());
-				GUI.color = _oriColor;
+				GUI.color = OriColor;
 				Text.Anchor = TextAnchor.MiddleLeft;
 			}
-			DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
+			Settings_Base.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
 			var clearButtonRect = new Rect(width - 76, 36, 60, 20);
 			if (Widgets.ButtonText(clearButtonRect, "SY_CA.Clear".Translate()))
 				_searchTerm = "";
-			DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
+			Settings_Base.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
 
 			// Scrollable area
 			var viewWidth = width - 16;
@@ -158,9 +166,9 @@ namespace CustomizeAnimals
 				// Label
 				float labelWidth = viewWidth - _listIconSize - 12;
 				if (animalSettings.IsModified())
-					GUI.color = _modifiedColor;
+					GUI.color = ModifiedColor;
 				Widgets.Label(new Rect(offsetX, offsetY, labelWidth, _listRowHeight), animal.label.CapitalizeFirst());
-				GUI.color = _oriColor;
+				GUI.color = OriColor;
 
 				index++;
 			}
@@ -171,8 +179,8 @@ namespace CustomizeAnimals
 			GUI.EndGroup();
 
 			// Reset text settings
-			Text.Font = _oriTextFont;
-			Text.Anchor = _oriTextAnchor;
+			Text.Font = OriTextFont;
+			Text.Anchor = OriTextAnchor;
 		}
 
 		private void CreateSettings(float x, float y, float width, float height)
@@ -185,36 +193,36 @@ namespace CustomizeAnimals
 			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Animal settings
-			var labelRect = new Rect(_settingsIconSize + 32, 0, width - _settingsIconSize + 32, _listRowHeight);
+			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
 			if (animal != null)
 			{
 				// Header
 				Text.Font = GameFont.Medium;
-				Widgets.DefIcon(new Rect(8, 0, _settingsIconSize, _settingsIconSize), animal);
+				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), animal);
 				Widgets.Label(labelRect, animal.label.CapitalizeFirst());
 				Text.Font = GameFont.Small;
 				// Mod name
-				Widgets.Label(new Rect(_settingsIconSize + 32, _listRowHeight, width - _settingsIconSize + 32, _settingsIconSize - _listRowHeight), $"({animal.modContentPack.Name})");
+				Widgets.Label(new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight), $"({animal.modContentPack.Name})");
 
 				// Begin
 				var viewWidth = width - 16;
 				Widgets.BeginScrollView(
-					new Rect(0, _settingsOffsetY, width, height - _settingsOffsetY),
+					new Rect(0, SettingsOffsetY, width, height - SettingsOffsetY),
 					ref _settingsScrollPosition,
-					new Rect(0, _settingsOffsetY, viewWidth, _settingsViewHeight));
+					new Rect(0, SettingsOffsetY, viewWidth, SettingsViewHeight));
 
 				// Settings
-				int index = 0;
-				// Trainability
-				SettingTrainability(_settingsOffsetY + _settingsRowHeight * index++, viewWidth);
-				// RoamMtbDays
-				SettingRoamMtbDays(_settingsOffsetY + _settingsRowHeight * index++, viewWidth);
+				float totalHeight = SettingsOffsetY;
+				foreach (var setting in SettingsList)
+				{
+					totalHeight += setting.Create(totalHeight, viewWidth, SelectedAnimalSettings);
+				}
 
 				// End
 				Widgets.EndScrollView();
 
 				// Remember settings view height for potential scrolling
-				_settingsViewHeight = _settingsRowHeight * index;
+				SettingsViewHeight = totalHeight;
 			}
 			// No animal selected
 			else
@@ -225,133 +233,16 @@ namespace CustomizeAnimals
 				Text.Font = GameFont.Small;
 
 				// No settings available
-				_settingsViewHeight = 0;
+				SettingsViewHeight = 0;
 			}
 
 			// End
 			GUI.EndGroup();
 
 			// Reset text settings
-			Text.Font = _oriTextFont;
-			Text.Anchor = _oriTextAnchor;
+			Text.Font = OriTextFont;
+			Text.Anchor = OriTextAnchor;
 		}
-		#endregion
-
-		#region SETTING CONTROLS
-		private void SettingTrainability(float offsetY, float viewWidth)
-		{
-			float controlWidth = GetControlWidth(viewWidth);
-			var trainabilitySetting = SelectedAnimalSettings.Trainability;
-			var roamMtbDaysSetting = SelectedAnimalSettings.RoamMtbDays;
-
-			// Switch color if modified
-			var labelRect = new Rect(0, offsetY, controlWidth, _settingsRowHeight);
-			if (trainabilitySetting.Value != TrainabilityDefOf.None && roamMtbDaysSetting.Value != null)
-			{
-				GUI.color = Color.red;
-				DrawTooltip(labelRect, "SY_CA.TrainabilityRoamingWarning".Translate());
-			}
-			else if (trainabilitySetting.IsModified())
-				GUI.color = _modifiedColor;
-
-			// Label
-			Widgets.Label(labelRect, "SY_CA.Trainability".Translate());
-			GUI.color = _oriColor;
-
-			var trainability = trainabilitySetting.Value;
-			var trainabilityOptionWidth = controlWidth / 3;
-			var trainabilityOffsetY = offsetY + (_settingsRowHeight - 24) / 2;
-
-			// None
-			var trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 0;
-			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.None))
-				trainability = TrainabilityDefOf.None;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityNone".Translate());
-			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityNone".Translate());
-
-			// Intermediate
-			trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 1;
-			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Intermediate))
-				trainability = TrainabilityDefOf.Intermediate;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityIntermediate".Translate());
-			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityIntermediate".Translate());
-
-			// Advanced
-			trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 2;
-			if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Advanced))
-				trainability = TrainabilityDefOf.Advanced;
-			Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TrainabilityAdvanced".Translate());
-			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, _settingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
-
-			// Reset button
-			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
-				trainabilitySetting.Reset();
-			// Set Trainability
-			else
-				trainabilitySetting.Value = trainability;
-		}
-
-		private void SettingRoamMtbDays(float offsetY, float viewWidth)
-		{
-			float controlWidth = GetControlWidth(viewWidth);
-			var roamMtbDaysSetting = SelectedAnimalSettings.RoamMtbDays;
-
-			// Label
-			// Switch color if modified
-			if (roamMtbDaysSetting.IsModified())
-				GUI.color = _modifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, _settingsRowHeight), "SY_CA.RoamMtbDays".Translate());
-			GUI.color = _oriColor;
-
-			// RoamMtbDays Settings
-			float? roamMtbDays; 
-			var roamSelected = roamMtbDaysSetting.Value != null;
-			var checkboxSize = _settingsRowHeight - 8;
-			Widgets.Checkbox(controlWidth, offsetY + (_settingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
-			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
-			// RoamMtbDays active = roamer (requires pen!)
-			if (roamSelected)
-			{
-				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
-				var roamBuffer = roamValue.ToString();
-				var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY + (_settingsRowHeight - 20) / 2, controlWidth - checkboxSize, 20);
-				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
-				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
-				roamMtbDays = roamValue;
-			}
-			else
-				roamMtbDays = null;
-
-			// Reset button
-			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
-				roamMtbDaysSetting.Reset();
-			// Set RoamMtbDays
-			else
-				roamMtbDaysSetting.Value = roamMtbDays;
-		}
-		#endregion
-
-		#region CONTROLS HELPER
-		private bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
-		{
-			var buttonRect = new Rect(viewWidth - _settingsRowHeight * 2 + 2, offsetY + 2, _settingsRowHeight * 2 - 4, _settingsRowHeight - 4);
-			var output = Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
-
-			DrawTooltip(buttonRect, "SY_CA.TooltipDefaultValue".Translate() + " " + tooltip);
-			return output;
-		}
-
-		private void DrawTooltip(Rect rect, string tooltip)
-		{
-			if (Mouse.IsOver(rect))
-			{
-				ActiveTip activeTip = new ActiveTip(tooltip);
-				activeTip.DrawTooltip(GenUI.GetMouseAttachedWindowPos(activeTip.TipRect.width, activeTip.TipRect.height) + (UI.MousePositionOnUIInverted - Event.current.mousePosition));
-			}
-		}
-
-		private float GetControlWidth(float viewWidth) => 
-			viewWidth / 2 - _settingsRowHeight - 4;
 		#endregion
 		#endregion
 	}
