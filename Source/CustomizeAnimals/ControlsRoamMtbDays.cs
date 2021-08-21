@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals
 {
-	internal class Settings_RoamMtbDays : Settings_Base
+	internal class ControlsRoamMtbDays : BaseControls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
@@ -52,7 +52,7 @@ namespace CustomizeAnimals
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
+		public override float CreateSettingGlobal(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
 		{
 			return 0f;
 		}

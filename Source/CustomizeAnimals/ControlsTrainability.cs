@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals
 {
-	internal class Settings_Trainability : Settings_Base
+	internal class ControlsTrainability : BaseControls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
@@ -22,7 +22,7 @@ namespace CustomizeAnimals
 			if (trainabilitySetting.Value != TrainabilityDefOf.None && roamMtbDaysSetting.Value != null)
 			{
 				GUI.color = Color.red;
-				DrawTooltip(labelRect, "SY_CA.TrainabilityRoamingWarning".Translate());
+				DrawTooltip(labelRect, "SY_CA.TooltipTrainabilityRoamingWarning".Translate());
 			}
 			else if (trainabilitySetting.IsModified())
 				GUI.color = ModifiedColor;
@@ -66,9 +66,52 @@ namespace CustomizeAnimals
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
+		public override float CreateSettingGlobal(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
 		{
-			return 0f;
+			//float controlWidth = GetControlWidth(viewWidth);
+
+			//// Switch color if modified
+			//if (SettingTrainability.UseGlobal)
+			//	GUI.color = ModifiedColor;
+
+			//// Label
+			//var labelRect = new Rect(0, offsetY, controlWidth, SettingsRowHeight);
+			//Widgets.Label(labelRect, "SY_CA.TrainabilityGlobal".Translate());
+			//GUI.color = OriColor;
+
+			//TrainabilityDef trainability = SettingTrainability.Global;
+			//var trainabilityOptionWidth = controlWidth / 3;
+			//var trainabilityOffsetY = offsetY + (SettingsRowHeight - 24) / 2;
+
+			//// None
+			//var trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 0;
+			//if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.None))
+			//	trainability = TrainabilityDefOf.None;
+			//Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TrainabilityNone".Translate());
+			//DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TooltipTrainabilityNone".Translate());
+
+			//// Intermediate
+			//trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 1;
+			//if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Intermediate))
+			//	trainability = TrainabilityDefOf.Intermediate;
+			//Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TrainabilityIntermediate".Translate());
+			//DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TooltipTrainabilityIntermediate".Translate());
+
+			//// Advanced
+			//trainabilityOffsetX = controlWidth + trainabilityOptionWidth * 2;
+			//if (Widgets.RadioButton(trainabilityOffsetX, trainabilityOffsetY, trainability == TrainabilityDefOf.Advanced))
+			//	trainability = TrainabilityDefOf.Advanced;
+			//Widgets.Label(new Rect(trainabilityOffsetX + 30, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TrainabilityAdvanced".Translate());
+			//DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
+
+			//// Reset button
+			//if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
+			//	trainabilitySetting.Reset();
+			//// Set Trainability
+			//else
+			//	trainabilitySetting.Value = trainability;
+
+			return SettingsRowHeight;
 		}
 	}
 }

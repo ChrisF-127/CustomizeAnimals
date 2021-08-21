@@ -20,9 +20,6 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public AnimalSettings(ThingDef animal)
 		{
-			if (!IsValidAnimal(animal))
-				throw new Exception(($"CustomizeAnimal.{nameof(AnimalSettings)}: invalid thing added as {nameof(AnimalSettings)}: {animal.label.CapitalizeFirst()} ({animal.defName})"));
-
 			Animal = animal;
 
 			Trainability = new SettingTrainability(Animal);
@@ -52,65 +49,102 @@ namespace CustomizeAnimals
 		#region INTERFACES
 		public void ExposeData()
 		{
-			var trainability = Def2String(Trainability.Value);
-			Scribe_Values.Look(ref trainability, nameof(Trainability), Def2String(Trainability.DefaultValue));
-			Trainability.Value = trainability != null ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
-
-			var roamMtbDays = RoamMtbDays.Value;
-			Scribe_Values.Look(ref roamMtbDays, nameof(RoamMtbDays), RoamMtbDays.DefaultValue);
-			RoamMtbDays.Value = roamMtbDays;
+			Trainability.ExposeData();
+			RoamMtbDays.ExposeData();
 		}
-		#endregion
-
-		#region PRIVATE METHODS
-		private string Def2String(Def def) =>
-			def?.defName ?? "null";
 		#endregion
 	}
 
 	#region SUB SETTINGS
 	public class SettingTrainability : Setting<TrainabilityDef>
 	{
-		public override TrainabilityDef Value
-		{
-			get => Animal?.race?.trainability;
-			set { if (Animal?.race != null) Animal.race.trainability = value; }
-		}
-
 		public SettingTrainability(ThingDef animal) : base(animal)
 		{
 			DefaultValue = animal?.race?.trainability;
 		}
+
+		public override TrainabilityDef Get()
+		{
+			return Animal?.race?.trainability;
+		}
+		public override void Set()
+		{
+			if (Animal?.race != null)
+				Animal.race.trainability = UseGlobal && TrainabilityToInt(Global) > TrainabilityToInt(Value) ? Global : Value;
+		}
+
+		public override void ExposeData()
+		{
+			var trainability = Def2String(Value);
+			Scribe_Values.Look(ref trainability, "Trainability", Def2String(DefaultValue));
+			Value = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
+			Set();
+		}
+
+		public int TrainabilityToInt(TrainabilityDef trainability)
+		{
+			if (trainability == TrainabilityDefOf.None)
+				return 0;
+			if (trainability == TrainabilityDefOf.Intermediate)
+				return 1;
+			if (trainability == TrainabilityDefOf.Advanced)
+				return 2;
+			return -1;
+		}
 	}
 	public class SettingRoamMtbDays : Setting<float?>
 	{
-		public override float? Value
-		{
-			get => Animal?.race?.roamMtbDays;
-			set { if (Animal?.race != null) Animal.race.roamMtbDays = value; }
-		}
-
 		public SettingRoamMtbDays(ThingDef animal) : base(animal)
 		{
 			DefaultValue = animal?.race?.roamMtbDays;
 		}
+
+		public override float? Get()
+		{
+			return Animal?.race?.roamMtbDays;
+		}
+		public override void Set()
+		{
+			if (Animal?.race != null)
+				Animal.race.roamMtbDays = UseGlobal ? Global > 0 ? Value > Global ? Value : Global : null : Value > 0 ? Value : null; // don't ask.
+		}
+
+		public override void ExposeData()
+		{
+			Log.Message($"{Animal?.defName} {Scribe.mode}");
+			var roamMtbDays = Value;
+			Scribe_Values.Look(ref roamMtbDays, "RoamMtbDays", DefaultValue);
+			Value = roamMtbDays;
+			Set();
+		}
 	}
 
-	public abstract class Setting<T>
+	public abstract class Setting<T> : IExposable
 	{
+		public static bool UseGlobal { get; set; }
+		public static T Global { get; set; }
+
 		public ThingDef Animal { get; }
+		public T Value { get; set; }
 		public T DefaultValue { get; protected set; }
-		public abstract T Value { get; set; }
-		
+
 		public Setting(ThingDef animal)
 		{
 			Animal = animal;
+			Set();
 		}
+
+		public abstract T Get();
+		public abstract void Set();
+		public abstract void ExposeData();
 
 		public bool IsModified() =>
 			!(DefaultValue == null && Value == null || DefaultValue?.Equals(Value) == true);
 		public void Reset() =>
 			Value = DefaultValue;
+		
+		protected string Def2String(Def def) =>
+			def?.defName ?? "null";
 	}
 	#endregion
 }

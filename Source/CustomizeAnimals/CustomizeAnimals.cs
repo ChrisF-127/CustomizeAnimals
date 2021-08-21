@@ -12,14 +12,15 @@ namespace CustomizeAnimals
 	public class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
+		public static AnimalSettings Global { get; set; } = new AnimalSettings(default(ThingDef));
 		public static List<AnimalSettings> Animals { get; private set; } = null;
 		public static CustomizeAnimals_Settings Settings { get; private set; } = null;
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
-		private List<Settings_Base> SettingsList { get; } = new List<Settings_Base>
+		private List<BaseControls> SettingsList { get; } = new List<BaseControls>
 		{
-			new Settings_Trainability(),
-			new Settings_RoamMtbDays(),
+			new ControlsTrainability(),
+			new ControlsRoamMtbDays(),
 		};
 		#endregion
 
@@ -83,13 +84,13 @@ namespace CustomizeAnimals
 			offsetY += 36;
 
 
-			// All animals
+			// AnimalSettings Global
 			// Selection
-			var allAnimalsSelectionRect = new Rect(0, offsetY, viewWidth, _listRowHeight);
-			if (Widgets.ButtonInvisible(allAnimalsSelectionRect, true))
+			var globalSettingsSelectionRect = new Rect(0, offsetY, viewWidth, _listRowHeight);
+			if (Widgets.ButtonInvisible(globalSettingsSelectionRect, true))
 				SelectedAnimalSettings = null;
-			Widgets.DrawOptionBackground(allAnimalsSelectionRect, SelectedAnimalSettings == null);
-			Settings_Base.DrawTooltip(allAnimalsSelectionRect, "SY_CA.TooltipAllAnimalsSelection".Translate());
+			Widgets.DrawOptionBackground(globalSettingsSelectionRect, SelectedAnimalSettings == null);
+			BaseControls.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipAllAnimalsSelection".Translate());
 
 			// Icon
 			Text.Font = GameFont.Medium;
@@ -100,7 +101,7 @@ namespace CustomizeAnimals
 
 			// Label
 			float labelWidth = viewWidth - _listIconSize - 12;
-			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.AllAnimalsSelection".Translate());
+			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.SelectionGlobal".Translate());
 			offsetY += 42;
 
 
@@ -115,11 +116,11 @@ namespace CustomizeAnimals
 				GUI.color = OriColor;
 				Text.Anchor = TextAnchor.MiddleLeft;
 			}
-			Settings_Base.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
+			BaseControls.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
 			var clearButtonRect = new Rect(width - 76, offsetY, 60, 20);
 			if (Widgets.ButtonText(clearButtonRect, "SY_CA.Clear".Translate()))
 				_searchTerm = "";
-			Settings_Base.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
+			BaseControls.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
 			offsetY += 26;
 
 			// Scrollable area
@@ -127,7 +128,7 @@ namespace CustomizeAnimals
 				new Rect(0, offsetY, width, height - offsetY),
 				ref _listScrollPosition,
 				new Rect(0, offsetY, viewWidth, _listViewHeight));
-			_listScrollPosition.y = Mathf.Round(_listScrollPosition.y / _listViewHeight) * _listViewHeight;
+			_listScrollPosition.y = Mathf.Round(_listScrollPosition.y / _listRowHeight) * _listRowHeight;
 
 			// Make list
 			int index = 0;
@@ -230,7 +231,7 @@ namespace CustomizeAnimals
 			{
 				// Header
 				Text.Font = GameFont.Medium;
-				Widgets.Label(labelRect, "SY_CA.AllAnimals".Translate());
+				Widgets.Label(labelRect, "SY_CA.SettingsGlobal".Translate());
 				Text.Font = GameFont.Small;
 
 				// No settings available

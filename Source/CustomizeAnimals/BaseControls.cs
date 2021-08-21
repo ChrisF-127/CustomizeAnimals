@@ -8,7 +8,7 @@ using Verse;
 
 namespace CustomizeAnimals
 {
-	internal abstract class Settings_Base
+	internal abstract class BaseControls
 	{
 		#region PROPERTIES
 		protected static float SettingsViewHeight => CustomizeAnimals.SettingsViewHeight;
@@ -24,7 +24,7 @@ namespace CustomizeAnimals
 
 		#region PUBLIC METHODS
 		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
-		public abstract float CreateSettingAll(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings);
+		public abstract float CreateSettingGlobal(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings);
 
 		public static bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{

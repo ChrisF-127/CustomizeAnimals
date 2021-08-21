@@ -15,18 +15,26 @@ namespace CustomizeAnimals
 			var animals = CustomizeAnimals.Animals;
 			if (Scribe.mode == LoadSaveMode.Saving)
 			{
+				var animal = CustomizeAnimals.Global;
+				Scribe_Deep.Look(ref animal, "Global", animal);
+
 				for (int i = 0; i < animals.Count; i++)
 				{
-					var animal = animals[i];
+					animal = animals[i];
 					if (animal?.IsModified() == true)
 						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
 				}
 			}
 			else
 			{
+				var animal = CustomizeAnimals.Global;
+				Scribe_Deep.Look(ref animal, "Global", animal);
+				if (animal != null)
+					CustomizeAnimals.Global = animal;
+
 				for (int i = 0; i < animals.Count; i++)
 				{
-					var animal = animals[i];
+					animal = animals[i];
 					if (animal?.Animal != null)
 					{
 						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
