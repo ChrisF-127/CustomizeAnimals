@@ -67,7 +67,14 @@ namespace CustomizeAnimals
 
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
-
+		
+		public void Reset(AnimalSettings animal)
+		{
+			if (animal == null)
+				return;
+			animal.Reset();
+			Log.Message($"{nameof(CustomizeAnimals)}: '{animal.Animal?.label?.CapitalizeFirst()}' settings have been reset!");
+		}
 		public void ResetAll()
 		{
 			Global.Reset();
@@ -224,6 +231,14 @@ namespace CustomizeAnimals
 				// Title
 				title = animal.label.CapitalizeFirst();
 				subtitle = $"({animal.modContentPack.Name})";
+
+				// Reset button
+				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
+				if (Widgets.ButtonText(resetAllRect, "SY_CA.Reset".Translate()))
+					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+						"SY_CA.DialogSettingsReset".Translate(animal?.label?.CapitalizeFirst()) + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
+						() => Reset(SelectedAnimalSettings)));
+				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal?.label?.CapitalizeFirst()));
 			}
 			else
 			{
@@ -233,10 +248,12 @@ namespace CustomizeAnimals
 				title = "SY_CA.GlobalSettings".Translate();
 				subtitle = $"({"SY_CA.GlobalSettingsSubtitle".Translate()})";
 
-				// Reset all
+				// Reset all button
 				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
 				if (Widgets.ButtonText(resetAllRect, "SY_CA.GlobalSettingsResetAll".Translate()))
-					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("SY_CA.DialogGlobalSettingsResetAll".Translate(), () => ResetAll()));
+					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+						"SY_CA.DialogGlobalSettingsResetAll".Translate() + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
+						() => ResetAll()));
 				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
 			}
 

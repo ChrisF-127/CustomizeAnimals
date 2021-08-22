@@ -1,51 +1,52 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
-  <SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
-  
-  <SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
-  <SY_CA.GlobalSettingsSubtitle>Modifies all animals</SY_CA.GlobalSettingsSubtitle>
-  <SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
-  <SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
-  <SY_CA.TooltipUseGlobal>Apply</SY_CA.TooltipUseGlobal>
-  <SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
-  <SY_CA.DialogGlobalSettingsResetAll>All settings for Customize Animals will be reset.
+	<SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
 
-Are you sure?</SY_CA.DialogGlobalSettingsResetAll>
+	<SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
+	<SY_CA.GlobalSettingsSubtitle>Modifies all animals</SY_CA.GlobalSettingsSubtitle>
+	<SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
+	<SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
+	<SY_CA.TooltipUseGlobal>Apply</SY_CA.TooltipUseGlobal>
+	<SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
+	<SY_CA.DialogGlobalSettingsResetAll>All settings for 'Customize Animals' will be reset.</SY_CA.DialogGlobalSettingsResetAll>
+	
+	<SY_CA.TooltipSettingsReset>Reset all changes for '{0}'</SY_CA.TooltipSettingsReset>
+	<SY_CA.DialogSettingsReset>Settings for '{0}' will be reset.</SY_CA.DialogSettingsReset>
+	<SY_CA.DialogConfirm>Are you sure?</SY_CA.DialogConfirm>
   
-  
-  <SY_CA.Filter>filter</SY_CA.Filter>
-  <SY_CA.TooltipFilter>Apply a filter to the list
+	<SY_CA.Filter>filter</SY_CA.Filter>
+	<SY_CA.TooltipFilter>Apply a filter to the list
 Use * to filter for modified entries</SY_CA.TooltipFilter>
   
-  <SY_CA.Clear>Clear</SY_CA.Clear>
-  <SY_CA.TooltipClearFilter>Clear the filter</SY_CA.TooltipClearFilter>
+	<SY_CA.Clear>Clear</SY_CA.Clear>
+	<SY_CA.TooltipClearFilter>Clear the filter</SY_CA.TooltipClearFilter>
+
+	<SY_CA.Reset>Reset</SY_CA.Reset>
+	<SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
+
+
+	<SY_CA.Trainability>Trainability</SY_CA.Trainability>
+	<SY_CA.TooltipTrainabilityRoamingWarning>Trainability above 'None' without removing roaming (set to 0) is of no use, as animals which require a pen cannot leave it.</SY_CA.TooltipTrainabilityRoamingWarning>
+	<SY_CA.TrainabilityNone>None</SY_CA.TrainabilityNone>
+	<SY_CA.TooltipTrainabilityNone>No trainability</SY_CA.TooltipTrainabilityNone>
+	<SY_CA.TrainabilityIntermediate>Interm.</SY_CA.TrainabilityIntermediate>
+	<SY_CA.TooltipTrainabilityIntermediate>Guard and Attack only</SY_CA.TooltipTrainabilityIntermediate>
+	<SY_CA.TrainabilityAdvanced>Adv.</SY_CA.TrainabilityAdvanced>
+	<SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
+
+	<SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
   
-  <SY_CA.Reset>Reset</SY_CA.Reset>
-  <SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
   
-  
-  <SY_CA.Trainability>Trainability</SY_CA.Trainability>
-  <SY_CA.TooltipTrainabilityRoamingWarning>Trainability above 'None' without removing roaming (set to 0) is of no use, as animals which require a pen cannot leave it.</SY_CA.TooltipTrainabilityRoamingWarning>
-  <SY_CA.TrainabilityNone>None</SY_CA.TrainabilityNone>
-  <SY_CA.TooltipTrainabilityNone>No trainability</SY_CA.TooltipTrainabilityNone>
-  <SY_CA.TrainabilityIntermediate>Interm.</SY_CA.TrainabilityIntermediate>
-  <SY_CA.TooltipTrainabilityIntermediate>Guard and Attack only</SY_CA.TooltipTrainabilityIntermediate>
-  <SY_CA.TrainabilityAdvanced>Adv.</SY_CA.TrainabilityAdvanced>
-  <SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
-  
-  <SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
-  
-  
-  <SY_CA.RoamMtbDays>Roam interval</SY_CA.RoamMtbDays>
-  <SY_CA.TooltipRoamMtbDaysChk>Enable or disable roaming for this animal. Roamers require a pen.
+	<SY_CA.RoamMtbDays>Roam interval</SY_CA.RoamMtbDays>
+	<SY_CA.TooltipRoamMtbDaysChk>Enable or disable roaming for this animal. Roamers require a pen.
 (A pen restricts movement and makes trainability near pointless.)</SY_CA.TooltipRoamMtbDaysChk>
-  <SY_CA.TooltipRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
+	<SY_CA.TooltipRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
 (Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipRoamMtbDays>
 
-  <SY_CA.MinimumRoamMtbDays>Minimum roam interval</SY_CA.MinimumRoamMtbDays>
-  <SY_CA.TooltipMinimumRoamMtbDaysChk>Disable roaming for all animals or activate a minimum roaming interval for animals which already are roamers.
+	<SY_CA.MinimumRoamMtbDays>Minimum roam interval</SY_CA.MinimumRoamMtbDays>
+	<SY_CA.TooltipMinimumRoamMtbDaysChk>Disable roaming for all animals or activate a minimum roaming interval for animals which already are roamers.
 (Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipMinimumRoamMtbDaysChk>
-  <SY_CA.TooltipMinimumRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
+	<SY_CA.TooltipMinimumRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
 This global setting will only affect animals which already are roamers.
 (Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipMinimumRoamMtbDays>
 </LanguageData>
