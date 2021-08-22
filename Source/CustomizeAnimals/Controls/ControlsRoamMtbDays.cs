@@ -35,7 +35,7 @@ namespace CustomizeAnimals.Controls
 			{
 				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
 				var roamBuffer = roamValue.ToString();
-				var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize, 20);
+				var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize - 4, 20);
 				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
@@ -61,7 +61,7 @@ namespace CustomizeAnimals.Controls
 			// Switch color if modified
 			if (SettingRoamMtbDays.UseMinimumRoamMtbDays)
 				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), "SY_CA.RoamMtbDays".Translate());
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), "SY_CA.MinimumRoamMtbDays".Translate());
 			GUI.color = OriColor;
 
 			// RoamMtbDays Settings
@@ -69,15 +69,15 @@ namespace CustomizeAnimals.Controls
 			var roamSelected = SettingRoamMtbDays.MinimumRoamMtbDays != null;
 			var checkboxSize = SettingsRowHeight - 8;
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
-			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipMinimumRoamMtbDaysChk".Translate());
 			// RoamMtbDays active = roamer (requires pen!)
 			if (roamSelected)
 			{
 				var roamValue = SettingRoamMtbDays.MinimumRoamMtbDays ?? 2;
 				var roamBuffer = roamValue.ToString();
-				var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize, 20);
+				var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize - 4, 20);
 				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
-				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
+				DrawTooltip(textFieldRect, "SY_CA.TooltipMinimumRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}
 			else

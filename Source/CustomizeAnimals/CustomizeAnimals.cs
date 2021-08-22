@@ -211,28 +211,27 @@ namespace CustomizeAnimals
 			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Animal settings
-			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
 
 			// Header
+			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
+			var subLabelRect = new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight);
+			string title, subtitle;
 			if (!isGlobal)
 			{
 				// Animal icon
 				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), animal);
 
-				// Animal name
-				Text.Font = GameFont.Medium;
-				Widgets.Label(labelRect, animal.label.CapitalizeFirst());
-				Text.Font = GameFont.Small;
-
-				// Mod name
-				Widgets.Label(new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight), $"({animal.modContentPack.Name})");
+				// Title
+				title = animal.label.CapitalizeFirst();
+				subtitle = $"({animal.modContentPack.Name})";
 			}
 			else
 			{
-				// Header
-				Text.Font = GameFont.Medium;
-				Widgets.Label(labelRect, "SY_CA.GlobalSettingsHeader".Translate());
-				Text.Font = GameFont.Small;
+				// No icon (yet)
+
+				// Title
+				title = "SY_CA.GlobalSettings".Translate();
+				subtitle = $"({"SY_CA.GlobalSettingsSubtitle".Translate()})";
 
 				// Reset all
 				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
@@ -240,6 +239,16 @@ namespace CustomizeAnimals
 					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("SY_CA.DialogGlobalSettingsResetAll".Translate(), () => ResetAll()));
 				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
 			}
+
+			// Title
+			Text.Font = GameFont.Medium;
+			Widgets.Label(labelRect, title);
+			Text.Font = GameFont.Small;
+			// Subtitle
+			Text.Anchor = TextAnchor.UpperLeft;
+			Widgets.Label(subLabelRect, subtitle);
+			Text.Anchor = TextAnchor.MiddleLeft;
+
 
 			// Begin
 			var viewWidth = width - 16;

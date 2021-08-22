@@ -46,7 +46,7 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue()
 		{
 			if (Animal?.race != null)
-				Animal.race.roamMtbDays = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? Value > MinimumRoamMtbDays ? Value : MinimumRoamMtbDays : null : Value > 0 ? Value : null; // don't ask.
+				Animal.race.roamMtbDays = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? MinimumRoamMtbDays > Value ? MinimumRoamMtbDays : Value : null : Value > 0 ? Value : null; // don't ask.
 		}
 
 		public override void ExposeData()

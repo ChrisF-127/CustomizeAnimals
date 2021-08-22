@@ -3,14 +3,15 @@
   <SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
   
   <SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
-  <SY_CA.GlobalSettingsHeader>Modify all animals</SY_CA.GlobalSettingsHeader>
+  <SY_CA.GlobalSettingsSubtitle>Modifies all animals</SY_CA.GlobalSettingsSubtitle>
   <SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
   <SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
-  <SY_CA.TooltipUseGlobal>Apply to all animals</SY_CA.TooltipUseGlobal>
+  <SY_CA.TooltipUseGlobal>Apply</SY_CA.TooltipUseGlobal>
   <SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
   <SY_CA.DialogGlobalSettingsResetAll>All settings for Customize Animals will be reset.
 
 Are you sure?</SY_CA.DialogGlobalSettingsResetAll>
+  
   
   <SY_CA.Filter>filter</SY_CA.Filter>
   <SY_CA.TooltipFilter>Apply a filter to the list
@@ -22,8 +23,8 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
   <SY_CA.Reset>Reset</SY_CA.Reset>
   <SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
   
+  
   <SY_CA.Trainability>Trainability</SY_CA.Trainability>
-  <SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
   <SY_CA.TooltipTrainabilityRoamingWarning>Trainability above 'None' without removing roaming (set to 0) is of no use, as animals which require a pen cannot leave it.</SY_CA.TooltipTrainabilityRoamingWarning>
   <SY_CA.TrainabilityNone>None</SY_CA.TrainabilityNone>
   <SY_CA.TooltipTrainabilityNone>No trainability</SY_CA.TooltipTrainabilityNone>
@@ -32,8 +33,19 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
   <SY_CA.TrainabilityAdvanced>Adv.</SY_CA.TrainabilityAdvanced>
   <SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
   
-  <SY_CA.RoamMtbDays>Mean time before Roam in Days</SY_CA.RoamMtbDays>
-  <SY_CA.TooltipRoamMtbDays>Mean time in days before an animal starts roaming. To disable roaming set it to 0.
-(Roamers require a pen which restricts their movement and makes trainability pointless.)</SY_CA.TooltipRoamMtbDays>
-  <SY_CA.TooltipRoamMtbDaysChk>Make this animal a roamer and as such require a pen. Animals which require a pen won't leave it by themselves, thus making trainability pointless.</SY_CA.TooltipRoamMtbDaysChk>
+  <SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
+  
+  
+  <SY_CA.RoamMtbDays>Roam interval</SY_CA.RoamMtbDays>
+  <SY_CA.TooltipRoamMtbDaysChk>Enable or disable roaming for this animal. Roamers require a pen.
+(A pen restricts movement and makes trainability near pointless.)</SY_CA.TooltipRoamMtbDaysChk>
+  <SY_CA.TooltipRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
+(Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipRoamMtbDays>
+
+  <SY_CA.MinimumRoamMtbDays>Minimum roam interval</SY_CA.MinimumRoamMtbDays>
+  <SY_CA.TooltipMinimumRoamMtbDaysChk>Disable roaming for all animals or activate a minimum roaming interval for animals which already are roamers.
+(Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipMinimumRoamMtbDaysChk>
+  <SY_CA.TooltipMinimumRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
+This global setting will only affect animals which already are roamers.
+(Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipMinimumRoamMtbDays>
 </LanguageData>
