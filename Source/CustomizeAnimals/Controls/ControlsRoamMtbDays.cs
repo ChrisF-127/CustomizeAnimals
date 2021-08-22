@@ -50,13 +50,10 @@ namespace CustomizeAnimals.Controls
 			else
 				roamMtbDaysSetting.Value = roamMtbDays;
 
-			// Apply setting
-			roamMtbDaysSetting.Set();
-
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings)
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
 			return 0f;
 		}

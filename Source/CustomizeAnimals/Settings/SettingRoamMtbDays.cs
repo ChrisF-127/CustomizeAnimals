@@ -9,8 +9,8 @@ namespace CustomizeAnimals.Settings
 {
 	public class SettingRoamMtbDays : BaseSetting<float?>
 	{
-		public static bool UseMinimumRoamMtbDays { get; set; }
-		public static float? MinimumRoamMtbDays { get; set; }
+		public static bool UseMinimumRoamMtbDays { get; set; } = false;
+		public static float? MinimumRoamMtbDays { get; set; } = null;
 
 		public SettingRoamMtbDays(ThingDef animal) : base(animal)
 		{ }

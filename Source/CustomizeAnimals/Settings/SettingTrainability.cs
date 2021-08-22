@@ -10,8 +10,8 @@ namespace CustomizeAnimals.Settings
 {
 	public class SettingTrainability : BaseSetting<TrainabilityDef>
 	{
-		public static bool UseMinimumTrainability { get; set; }
-		public static TrainabilityDef MinimumTrainability { get; set; }
+		public static bool UseMinimumTrainability { get; set; } = false;
+		public static TrainabilityDef MinimumTrainability { get; set; } = TrainabilityDefOf.None;
 
 		public SettingTrainability(ThingDef animal) : base(animal)
 		{ }
@@ -24,7 +24,6 @@ namespace CustomizeAnimals.Settings
 		{
 			if (Animal?.race != null)
 				Animal.race.trainability = UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
-			Log.Message($"SettingTrainability.Set: {Animal.defName} {Animal.race.trainability}");
 		}
 
 		public override void ExposeData()
@@ -40,7 +39,7 @@ namespace CustomizeAnimals.Settings
 			UseMinimumTrainability = useGlobal;
 
 			var trainability = Def2String(MinimumTrainability);
-			Scribe_Values.Look(ref trainability, "MinimumTrainability", "null");
+			Scribe_Values.Look(ref trainability, "MinimumTrainability", Def2String(TrainabilityDefOf.None));
 			MinimumTrainability = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 		}
 

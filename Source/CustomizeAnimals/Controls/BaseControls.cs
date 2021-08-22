@@ -25,15 +25,24 @@ namespace CustomizeAnimals.Controls
 
 		#region PUBLIC METHODS
 		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
-		public abstract float CreateSettingGlobal(float offsetY, float viewWidth, IEnumerable<AnimalSettings> animalSettings);
+		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
 
 		public static bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{
-			var buttonRect = new Rect(viewWidth - SettingsRowHeight * 2 + 2, offsetY + 2, SettingsRowHeight * 2 - 4, SettingsRowHeight - 4);
+			var buttonRect = new Rect(viewWidth + 2 - (SettingsRowHeight * 2), offsetY + 2, SettingsRowHeight * 2 - 2, SettingsRowHeight - 4);
 			DrawTooltip(buttonRect, "SY_CA.TooltipDefaultValue".Translate() + " " + tooltip);
 			return Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
 		}
+		public static bool DrawUseGlobalCheckBox(float offsetY, float viewWidth, bool useGlobal)
+		{
+			var checkboxSize = SettingsRowHeight - 8;
+			var offsetX = viewWidth + 1 - (SettingsRowHeight + checkboxSize / 2);
 
+			Widgets.Checkbox(offsetX, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref useGlobal, checkboxSize);
+			DrawTooltip(new Rect(offsetX, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipUseGlobal".Translate());
+
+			return useGlobal;
+		}
 		public static void DrawTooltip(Rect rect, string tooltip)
 		{
 			if (Mouse.IsOver(rect))

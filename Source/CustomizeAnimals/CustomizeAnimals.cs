@@ -103,7 +103,10 @@ namespace CustomizeAnimals
 
 			// Label
 			float labelWidth = viewWidth - _listIconSize - 12;
+			if (Global.IsGlobalUsed())
+				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.GlobalSettings".Translate());
+			GUI.color = OriColor;
 			offsetY += 42;
 
 
@@ -191,6 +194,7 @@ namespace CustomizeAnimals
 		{
 			// Selected animal for easier access
 			var animal = SelectedAnimalSettings?.Animal;
+			var isGlobal = animal == null;
 
 			// Begin
 			GUI.BeginGroup(new Rect(x, y, width, height));
@@ -198,47 +202,64 @@ namespace CustomizeAnimals
 
 			// Animal settings
 			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
-			if (animal != null)
+
+			// Header
+			if (!isGlobal)
 			{
-				// Header
-				Text.Font = GameFont.Medium;
+				// Animal icon
 				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), animal);
+
+				// Animal name
+				Text.Font = GameFont.Medium;
 				Widgets.Label(labelRect, animal.label.CapitalizeFirst());
 				Text.Font = GameFont.Small;
+
 				// Mod name
 				Widgets.Label(new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight), $"({animal.modContentPack.Name})");
-
-				// Begin
-				var viewWidth = width - 16;
-				Widgets.BeginScrollView(
-					new Rect(0, SettingsOffsetY, width, height - SettingsOffsetY),
-					ref _settingsScrollPosition,
-					new Rect(0, SettingsOffsetY, viewWidth, SettingsViewHeight));
-
-				// Settings
-				float totalHeight = SettingsOffsetY;
-				foreach (var setting in SettingsList)
-				{
-					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-				}
-
-				// End
-				Widgets.EndScrollView();
-
-				// Remember settings view height for potential scrolling
-				SettingsViewHeight = totalHeight;
 			}
-			// No animal selected
 			else
 			{
 				// Header
 				Text.Font = GameFont.Medium;
 				Widgets.Label(labelRect, "SY_CA.GlobalSettingsHeader".Translate());
 				Text.Font = GameFont.Small;
-
-				// No settings available
-				SettingsViewHeight = 0;
 			}
+
+			// Begin
+			var viewWidth = width - 16;
+			Widgets.BeginScrollView(
+				new Rect(0, SettingsOffsetY, width, height - SettingsOffsetY),
+				ref _settingsScrollPosition,
+				new Rect(0, SettingsOffsetY, viewWidth, SettingsViewHeight));
+
+			// Settings
+			float totalHeight = SettingsOffsetY;
+			if (animal != null)
+			{
+				// Draw animal settings
+				foreach (var setting in SettingsList)
+					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+
+				// Apply animal settings
+				SelectedAnimalSettings.Set();
+			}
+			// No animal selected
+			else
+			{
+				// Draw global settings
+				foreach (var setting in SettingsList)
+					totalHeight += setting.CreateSettingGlobal(totalHeight, viewWidth);
+
+				// Apply global settings
+				foreach (var animalSetting in Animals)
+					animalSetting.Set();
+			}
+
+			// End
+			Widgets.EndScrollView();
+
+			// Remember settings view height for potential scrolling
+			SettingsViewHeight = totalHeight;
 
 			// End
 			GUI.EndGroup();

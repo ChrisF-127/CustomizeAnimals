@@ -17,6 +17,10 @@ namespace CustomizeAnimals.Settings
 			foreach (var animal in CustomizeAnimals.Animals)
 				animal.Set();
 		}
+
+		public bool IsGlobalUsed() =>
+			SettingTrainability.UseMinimumTrainability
+			|| SettingRoamMtbDays.UseMinimumRoamMtbDays;
 		#endregion
 
 		#region INTERFACES
@@ -33,7 +37,7 @@ namespace CustomizeAnimals.Settings
 	public class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
-		public ThingDef Animal { get; private set; }
+		public ThingDef Animal { get; }
 
 		public SettingTrainability Trainability { get; }
 		public SettingRoamMtbDays RoamMtbDays { get; }
