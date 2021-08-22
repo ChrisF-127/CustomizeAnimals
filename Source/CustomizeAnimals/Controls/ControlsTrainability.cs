@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using CustomizeAnimals.Settings;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
-namespace CustomizeAnimals
+namespace CustomizeAnimals.Controls
 {
 	internal class ControlsTrainability : BaseControls
 	{
@@ -57,11 +58,14 @@ namespace CustomizeAnimals
 			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
 
 			// Reset button
-			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue.ToString()))
+			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue?.ToString() ?? "null"))
 				trainabilitySetting.Reset();
-			// Set Trainability
+			// Set value
 			else
 				trainabilitySetting.Value = trainability;
+
+			// Apply setting
+			trainabilitySetting.Set();
 
 			return SettingsRowHeight;
 		}

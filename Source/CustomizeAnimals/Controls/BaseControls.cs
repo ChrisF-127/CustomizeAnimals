@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CustomizeAnimals.Settings;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
-namespace CustomizeAnimals
+namespace CustomizeAnimals.Controls
 {
 	internal abstract class BaseControls
 	{

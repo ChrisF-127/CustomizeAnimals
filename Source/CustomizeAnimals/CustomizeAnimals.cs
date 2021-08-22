@@ -1,4 +1,6 @@
-﻿using RimWorld;
+﻿using CustomizeAnimals.Controls;
+using CustomizeAnimals.Settings;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +14,9 @@ namespace CustomizeAnimals
 	public class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
-		public static AnimalSettings Global { get; set; } = new AnimalSettings(default(ThingDef));
+		public static GlobalSettings Global { get; set; } = new GlobalSettings();
 		public static List<AnimalSettings> Animals { get; private set; } = null;
-		public static CustomizeAnimals_Settings Settings { get; private set; } = null;
+		public static CustomizeAnimals_ModSettings Settings { get; private set; } = null;
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
 		private List<BaseControls> SettingsList { get; } = new List<BaseControls>
@@ -63,7 +65,7 @@ namespace CustomizeAnimals
 			}
 			Animals.SortBy((a) => a.Animal.label);
 
-			Settings = GetSettings<CustomizeAnimals_Settings>();
+			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
 		#endregion
 
@@ -90,7 +92,7 @@ namespace CustomizeAnimals
 			if (Widgets.ButtonInvisible(globalSettingsSelectionRect, true))
 				SelectedAnimalSettings = null;
 			Widgets.DrawOptionBackground(globalSettingsSelectionRect, SelectedAnimalSettings == null);
-			BaseControls.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipAllAnimalsSelection".Translate());
+			BaseControls.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipGlobalSettings".Translate());
 
 			// Icon
 			Text.Font = GameFont.Medium;
@@ -101,7 +103,7 @@ namespace CustomizeAnimals
 
 			// Label
 			float labelWidth = viewWidth - _listIconSize - 12;
-			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.SelectionGlobal".Translate());
+			Widgets.Label(new Rect(_listIconSize + 10, offsetY + 2, labelWidth, _listRowHeight - 2), "SY_CA.GlobalSettings".Translate());
 			offsetY += 42;
 
 
@@ -231,7 +233,7 @@ namespace CustomizeAnimals
 			{
 				// Header
 				Text.Font = GameFont.Medium;
-				Widgets.Label(labelRect, "SY_CA.SettingsGlobal".Translate());
+				Widgets.Label(labelRect, "SY_CA.GlobalSettingsHeader".Translate());
 				Text.Font = GameFont.Small;
 
 				// No settings available

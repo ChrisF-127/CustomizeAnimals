@@ -1,4 +1,5 @@
-﻿using RimWorld;
+﻿using CustomizeAnimals.Settings;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
 
-namespace CustomizeAnimals
+namespace CustomizeAnimals.Controls
 {
 	internal class ControlsRoamMtbDays : BaseControls
 	{
@@ -45,9 +46,12 @@ namespace CustomizeAnimals
 			// Reset button
 			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
 				roamMtbDaysSetting.Reset();
-			// Set RoamMtbDays
+			// Set value
 			else
 				roamMtbDaysSetting.Value = roamMtbDays;
+
+			// Apply setting
+			roamMtbDaysSetting.Set();
 
 			return SettingsRowHeight;
 		}
