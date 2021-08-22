@@ -10,29 +10,24 @@ namespace CustomizeAnimals.Settings
 {
 	public class SettingTrainability : BaseSetting<TrainabilityDef>
 	{
-		public static bool UseMinimumTrainability { get; set; } = false;
-		public static TrainabilityDef MinimumTrainability { get; set; } = TrainabilityDefOf.None;
+		#region PROPERTIES
+		public static bool UseMinimumTrainability { get; set; }
+		public static TrainabilityDef MinimumTrainability { get; set; }
+		#endregion
 
+		#region CONSTRUCTORS
 		public SettingTrainability(ThingDef animal) : base(animal)
 		{ }
+		#endregion
 
-		public override TrainabilityDef Get()
+		#region PUBLIC METHODS
+		public override void ResetGlobal()
 		{
-			return Animal?.race?.trainability;
-		}
-		public override void Set()
-		{
-			if (Animal?.race != null)
-				Animal.race.trainability = UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
+			UseMinimumTrainability = false;
+			MinimumTrainability = TrainabilityDefOf.None;
 		}
 
-		public override void ExposeData()
-		{
-			var trainability = Def2String(Value);
-			Scribe_Values.Look(ref trainability, "Trainability", Def2String(DefaultValue));
-			Value = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
-		}
-		public static void ExposeGlobal()
+		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMinimumTrainability;
 			Scribe_Values.Look(ref useGlobal, "UseMinimumTrainability");
@@ -53,5 +48,28 @@ namespace CustomizeAnimals.Settings
 				return 2;
 			return -1;
 		}
+		#endregion
+
+		#region INTERFACES
+		public override TrainabilityDef GetValue()
+		{
+			return Animal?.race?.trainability;
+		}
+		public override void SetValue()
+		{
+			if (Animal?.race != null)
+				Animal.race.trainability = UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
+		}
+
+		public override void ExposeData()
+		{
+			var trainability = Def2String(Value);
+			Scribe_Values.Look(ref trainability, "Trainability", Def2String(DefaultValue));
+			Value = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
+		}
+
+		public override bool IsGlobalUsed() =>
+			UseMinimumTrainability;
+		#endregion
 	}
 }

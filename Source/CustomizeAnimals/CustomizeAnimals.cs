@@ -67,6 +67,14 @@ namespace CustomizeAnimals
 
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
+
+		public void ResetAll()
+		{
+			Global.Reset();
+			foreach (var animal in Animals)
+				animal.Reset();
+			Log.Message($"{nameof(CustomizeAnimals)}: All settings have been reset!");
+		}
 		#endregion
 
 		#region PRIVATE METHODS
@@ -128,6 +136,7 @@ namespace CustomizeAnimals
 			BaseControls.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
 			offsetY += 26;
 
+
 			// Scrollable area
 			Widgets.BeginScrollView(
 				new Rect(0, offsetY, width, height - offsetY),
@@ -185,6 +194,7 @@ namespace CustomizeAnimals
 			Widgets.EndScrollView();
 			GUI.EndGroup();
 
+
 			// Reset text settings
 			Text.Font = OriTextFont;
 			Text.Anchor = OriTextAnchor;
@@ -223,6 +233,12 @@ namespace CustomizeAnimals
 				Text.Font = GameFont.Medium;
 				Widgets.Label(labelRect, "SY_CA.GlobalSettingsHeader".Translate());
 				Text.Font = GameFont.Small;
+
+				// Reset all
+				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
+				if (Widgets.ButtonText(resetAllRect, "SY_CA.GlobalSettingsResetAll".Translate()))
+					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation("SY_CA.DialogGlobalSettingsResetAll".Translate(), () => ResetAll()));
+				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
 			}
 
 			// Begin
@@ -241,7 +257,7 @@ namespace CustomizeAnimals
 					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 
 				// Apply animal settings
-				SelectedAnimalSettings.Set();
+				SelectedAnimalSettings.ApplySettings();
 			}
 			// No animal selected
 			else
@@ -252,7 +268,7 @@ namespace CustomizeAnimals
 
 				// Apply global settings
 				foreach (var animalSetting in Animals)
-					animalSetting.Set();
+					animalSetting.ApplySettings();
 			}
 
 			// End

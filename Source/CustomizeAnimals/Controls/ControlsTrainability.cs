@@ -15,8 +15,8 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			float controlWidth = GetControlWidth(viewWidth);
-			var trainabilitySetting = animalSettings.Trainability;
-			var roamMtbDaysSetting = animalSettings.RoamMtbDays;
+			var trainabilitySetting = (SettingTrainability)animalSettings.Settings["Trainability"];
+			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.Settings["RoamMtbDays"];
 
 			// Switch color if modified
 			var labelRect = new Rect(0, offsetY, controlWidth, SettingsRowHeight);

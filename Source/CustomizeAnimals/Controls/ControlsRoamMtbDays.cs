@@ -14,8 +14,8 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			float controlWidth = GetControlWidth(viewWidth);
-			var roamMtbDaysSetting = animalSettings.RoamMtbDays;
+			var controlWidth = GetControlWidth(viewWidth);
+			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.Settings["RoamMtbDays"];
 
 			// Label
 			// Switch color if modified

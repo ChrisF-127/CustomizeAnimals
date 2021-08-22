@@ -9,17 +9,41 @@ namespace CustomizeAnimals.Settings
 {
 	public class SettingRoamMtbDays : BaseSetting<float?>
 	{
-		public static bool UseMinimumRoamMtbDays { get; set; } = false;
-		public static float? MinimumRoamMtbDays { get; set; } = null;
+		#region PROPERTIES
+		public static bool UseMinimumRoamMtbDays { get; set; } 
+		public static float? MinimumRoamMtbDays { get; set; }
+		#endregion
 
+		#region CONSTRUCTORS
 		public SettingRoamMtbDays(ThingDef animal) : base(animal)
 		{ }
+		#endregion
 
-		public override float? Get()
+		#region PUBLIC METHODS
+		public override void ResetGlobal()
+		{
+			UseMinimumRoamMtbDays = false;
+			MinimumRoamMtbDays = null;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseMinimumRoamMtbDays;
+			Scribe_Values.Look(ref useGlobal, "UseMinimumRoamMtbDays");
+			UseMinimumRoamMtbDays = useGlobal;
+
+			var roamMtbDays = MinimumRoamMtbDays;
+			Scribe_Values.Look(ref roamMtbDays, "MinimumRoamMtbDays");
+			MinimumRoamMtbDays = roamMtbDays > 0 ? roamMtbDays : null;
+		}
+		#endregion
+
+		#region INTERFACES
+		public override float? GetValue()
 		{
 			return Animal?.race?.roamMtbDays;
 		}
-		public override void Set()
+		public override void SetValue()
 		{
 			if (Animal?.race != null)
 				Animal.race.roamMtbDays = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? Value > MinimumRoamMtbDays ? Value : MinimumRoamMtbDays : null : Value > 0 ? Value : null; // don't ask.
@@ -31,15 +55,9 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref roamMtbDays, "RoamMtbDays", DefaultValue);
 			Value = roamMtbDays;
 		}
-		public static void ExposeGlobal()
-		{
-			var useGlobal = UseMinimumRoamMtbDays;
-			Scribe_Values.Look(ref useGlobal, "UseMinimumRoamMtbDays");
-			UseMinimumRoamMtbDays = useGlobal;
 
-			var roamMtbDays = MinimumRoamMtbDays;
-			Scribe_Values.Look(ref roamMtbDays, "MinimumRoamMtbDays");
-			MinimumRoamMtbDays = roamMtbDays > 0 ? roamMtbDays : null;
-		}
+		public override bool IsGlobalUsed() =>
+			UseMinimumRoamMtbDays;
+		#endregion
 	}
 }

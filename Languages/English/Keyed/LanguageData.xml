@@ -4,8 +4,13 @@
   
   <SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
   <SY_CA.GlobalSettingsHeader>Modify all animals</SY_CA.GlobalSettingsHeader>
+  <SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
   <SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
   <SY_CA.TooltipUseGlobal>Apply to all animals</SY_CA.TooltipUseGlobal>
+  <SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
+  <SY_CA.DialogGlobalSettingsResetAll>All settings for Customize Animals will be reset.
+
+Are you sure?</SY_CA.DialogGlobalSettingsResetAll>
   
   <SY_CA.Filter>filter</SY_CA.Filter>
   <SY_CA.TooltipFilter>Apply a filter to the list
