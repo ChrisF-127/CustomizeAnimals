@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			float controlWidth = GetControlWidth(viewWidth);
+			var controlWidth = GetControlWidth(viewWidth);
 			var trainabilitySetting = (SettingTrainability)animalSettings.Settings["Trainability"];
 			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.Settings["RoamMtbDays"];
 
@@ -69,7 +69,7 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			float controlWidth = GetControlWidth(viewWidth);
+			var controlWidth = GetControlWidth(viewWidth);
 
 			// Switch color if modified
 			if (SettingTrainability.UseMinimumTrainability)

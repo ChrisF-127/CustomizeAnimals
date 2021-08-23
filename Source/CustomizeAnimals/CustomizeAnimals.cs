@@ -217,8 +217,6 @@ namespace CustomizeAnimals
 			GUI.BeginGroup(new Rect(x, y, width, height));
 			Text.Anchor = TextAnchor.MiddleLeft;
 
-			// Animal settings
-
 			// Header
 			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
 			var subLabelRect = new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight);
@@ -242,7 +240,8 @@ namespace CustomizeAnimals
 			}
 			else
 			{
-				// No icon (yet)
+				// Icon
+				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), DefDatabase<ThingDef>.AllDefs.First((t) => t.defName == "Plant_Grass"));
 
 				// Title
 				title = "SY_CA.GlobalSettings".Translate();
@@ -274,7 +273,7 @@ namespace CustomizeAnimals
 				ref _settingsScrollPosition,
 				new Rect(0, SettingsOffsetY, viewWidth, SettingsViewHeight));
 
-			// Settings
+			// Animal settings
 			float totalHeight = SettingsOffsetY;
 			if (animal != null)
 			{

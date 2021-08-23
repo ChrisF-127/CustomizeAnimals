@@ -55,7 +55,7 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			float controlWidth = GetControlWidth(viewWidth);
+			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
 			// Switch color if modified
