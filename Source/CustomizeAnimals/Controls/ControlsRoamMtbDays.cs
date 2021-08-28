@@ -31,17 +31,22 @@ namespace CustomizeAnimals.Controls
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
 			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
 			// RoamMtbDays active = roamer (requires pen!)
+			var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY, controlWidth - checkboxSize - 4, SettingsRowHeight);
 			if (roamSelected)
 			{
 				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
 				var roamBuffer = roamValue.ToString();
-				var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize - 4, 20);
-				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
+				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref roamBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}
 			else
+			{
+				Text.Anchor = TextAnchor.MiddleCenter;
+				Widgets.Label(textFieldRect, "SY_CA.RoamMtbDaysDisabled".Translate());
+				Text.Anchor = TextAnchor.MiddleLeft;
 				roamMtbDays = null;
+			}
 
 			// Reset button
 			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
@@ -71,17 +76,22 @@ namespace CustomizeAnimals.Controls
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
 			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipMinimumRoamMtbDaysChk".Translate());
 			// RoamMtbDays active = roamer (requires pen!)
+			var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY, controlWidth - checkboxSize - 4, SettingsRowHeight);
 			if (roamSelected)
 			{
 				var roamValue = SettingRoamMtbDays.MinimumRoamMtbDays ?? 2;
 				var roamBuffer = roamValue.ToString();
-				var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY + (SettingsRowHeight - 20) / 2, controlWidth - checkboxSize - 4, 20);
-				Widgets.TextFieldNumeric(textFieldRect, ref roamValue, ref roamBuffer, 1);
+				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref roamBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipMinimumRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}
 			else
+			{
+				Text.Anchor = TextAnchor.MiddleCenter;
+				Widgets.Label(textFieldRect, "SY_CA.RoamMtbDaysDisabled".Translate());
+				Text.Anchor = TextAnchor.MiddleLeft;
 				roamMtbDays = null;
+			}
 
 			// Set global
 			SettingRoamMtbDays.UseMinimumRoamMtbDays = DrawUseGlobalCheckBox(offsetY, viewWidth, SettingRoamMtbDays.UseMinimumRoamMtbDays);

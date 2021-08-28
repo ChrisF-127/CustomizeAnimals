@@ -38,6 +38,7 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
   
   
 	<SY_CA.RoamMtbDays>Roam interval</SY_CA.RoamMtbDays>
+	<SY_CA.RoamMtbDaysDisabled>(roaming disabled)</SY_CA.RoamMtbDaysDisabled>
 	<SY_CA.TooltipRoamMtbDaysChk>Enable or disable roaming for this animal. Roamers require a pen.
 (A pen restricts movement and makes trainability near pointless.)</SY_CA.TooltipRoamMtbDaysChk>
 	<SY_CA.TooltipRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
