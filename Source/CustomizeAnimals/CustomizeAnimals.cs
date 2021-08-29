@@ -19,10 +19,12 @@ namespace CustomizeAnimals
 		public static CustomizeAnimals_ModSettings Settings { get; private set; } = null;
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
-		private List<BaseControls> SettingsList { get; } = new List<BaseControls>
+		private List<BaseControl> SettingsList { get; } = new List<BaseControl>
 		{
-			new ControlsTrainability(),
-			new ControlsRoamMtbDays(),
+			new ControlTrainability(),
+			new ControlRoamMtbDays(),
+			new ControlMaxTemperature(),
+			new ControlMinTemperature(),
 		};
 		#endregion
 
@@ -107,7 +109,7 @@ namespace CustomizeAnimals
 			if (Widgets.ButtonInvisible(globalSettingsSelectionRect, true))
 				SelectedAnimalSettings = null;
 			Widgets.DrawOptionBackground(globalSettingsSelectionRect, SelectedAnimalSettings == null);
-			BaseControls.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipGlobalSettings".Translate());
+			BaseControl.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipGlobalSettings".Translate());
 
 			// Icon
 			Text.Font = GameFont.Medium;
@@ -136,11 +138,11 @@ namespace CustomizeAnimals
 				GUI.color = OriColor;
 				Text.Anchor = TextAnchor.MiddleLeft;
 			}
-			BaseControls.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
+			BaseControl.DrawTooltip(searchFieldRect, "SY_CA.TooltipFilter".Translate());
 			var clearButtonRect = new Rect(width - 76, offsetY, 60, 20);
 			if (Widgets.ButtonText(clearButtonRect, "SY_CA.Clear".Translate()))
 				_searchTerm = "";
-			BaseControls.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
+			BaseControl.DrawTooltip(clearButtonRect, "SY_CA.TooltipClearFilter".Translate());
 			offsetY += 26;
 
 
@@ -236,7 +238,7 @@ namespace CustomizeAnimals
 					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
 						"SY_CA.DialogSettingsReset".Translate(animal?.label?.CapitalizeFirst()) + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
 						() => Reset(SelectedAnimalSettings)));
-				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal?.label?.CapitalizeFirst()));
+				BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal?.label?.CapitalizeFirst()));
 			}
 			else
 			{
@@ -253,7 +255,7 @@ namespace CustomizeAnimals
 					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
 						"SY_CA.DialogGlobalSettingsResetAll".Translate() + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
 						() => ResetAll()));
-				BaseControls.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
+				BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
 			}
 
 			// Title

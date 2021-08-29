@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlsTrainability : BaseControls
+	internal class ControlTrainability : BaseControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{

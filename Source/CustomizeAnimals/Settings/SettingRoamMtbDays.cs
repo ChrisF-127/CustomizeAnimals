@@ -7,7 +7,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	public class SettingRoamMtbDays : BaseSetting<float?>
+	internal class SettingRoamMtbDays : BaseSetting<float?>
 	{
 		#region PROPERTIES
 		public static bool UseMinimumRoamMtbDays { get; set; } 

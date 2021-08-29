@@ -7,7 +7,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	public abstract class BaseSetting<T> : ISetting, IExposable
+	internal abstract class BaseSetting<T> : ISetting, IExposable
 	{
 		#region PROPERTIES
 		public ThingDef Animal { get; }

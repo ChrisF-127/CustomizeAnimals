@@ -71,14 +71,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="Settings\AnimalSettings.cs" />
     <Compile Include="CustomizeAnimals.cs" />
     <Compile Include="CustomizeAnimals_ModSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Controls\BaseControls.cs" />
-    <Compile Include="Controls\ControlsRoamMtbDays.cs" />
-    <Compile Include="Controls\ControlsTrainability.cs" />
+    <Compile Include="Controls\BaseControl.cs" />
+    <Compile Include="Controls\ControlRoamMtbDays.cs" />
+    <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
+    <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
   </ItemGroup>

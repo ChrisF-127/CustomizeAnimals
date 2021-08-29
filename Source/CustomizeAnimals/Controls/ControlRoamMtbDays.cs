@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlsRoamMtbDays : BaseControls
+	internal class ControlRoamMtbDays : BaseControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
@@ -31,12 +31,12 @@ namespace CustomizeAnimals.Controls
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
 			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
 			// RoamMtbDays active = roamer (requires pen!)
-			var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY, controlWidth - checkboxSize - 4, SettingsRowHeight);
+			var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY, controlWidth - checkboxSize, SettingsRowHeight);
 			if (roamSelected)
 			{
 				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
 				var roamBuffer = roamValue.ToString();
-				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref roamBuffer, 1);
+				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(2, 6), ref roamValue, ref roamBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}

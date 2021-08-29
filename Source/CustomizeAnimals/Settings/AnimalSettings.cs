@@ -20,6 +20,8 @@ namespace CustomizeAnimals.Settings
 		{
 			Settings.Add("Trainability", new SettingTrainability(null));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null));
+			Settings.Add("MaxTemperature", new SettingMaxTemperature(null));
+			Settings.Add("MinTemperature", new SettingMinTemperature(null));
 		}
 		#endregion
 
@@ -65,10 +67,12 @@ namespace CustomizeAnimals.Settings
 		#region CONSTRUCTORS
 		public AnimalSettings(ThingDef animal)
 		{
-			Animal = animal ?? throw new Exception($"CustomizeAnimals.{nameof(AnimalSettings)}: 'Animal' should not be null!");
+			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
 			Settings.Add("Trainability", new SettingTrainability(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
+			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
+			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 
 			ApplySettings();
 		}

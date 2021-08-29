@@ -50,4 +50,22 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
 	<SY_CA.TooltipMinimumRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming.
 This global setting will only affect animals which already are roamers.
 (Roamers require a pen which restricts their movement and makes trainability near pointless.)</SY_CA.TooltipMinimumRoamMtbDays>
+
+	<SY_CA.MaxTemperature>Maximum comfortable temperature</SY_CA.MaxTemperature>
+	<SY_CA.TooltipMaxTemperature>Set the maximum comfortable temperature for this animal.
+Be careful! Setting the temperature too low can result in instant heatstroke!</SY_CA.TooltipMaxTemperature>
+	<SY_CA.MaxTemperatureRange>Maximum comf. temp. range</SY_CA.MaxTemperatureRange>
+	<SY_CA.TooltipMinMaxTemperature>Set the lowest allowed maximum comfortable temperature for all animals.
+Be careful! Setting the temperature too low can result in instant heatstroke!</SY_CA.TooltipMinMaxTemperature>
+	<SY_CA.TooltipMaxMaxTemperature>Set the highest allowed maximum comfortable temperature for all animals.
+Be careful! Setting the temperature too high can result in instant hypothermia!</SY_CA.TooltipMaxMaxTemperature>
+
+	<SY_CA.MinTemperature>Minimum comfortable temperature</SY_CA.MinTemperature>
+	<SY_CA.TooltipMinTemperature>Set the minimum comfortable temperature for this animal.
+Be careful! Setting the temperature too high can result in instant hypothermia!</SY_CA.TooltipMinTemperature>
+	<SY_CA.MinTemperatureRange>Minimum comf. temp. range</SY_CA.MinTemperatureRange>
+	<SY_CA.TooltipMinMinTemperature>Set the lowest allowed minimum comfortable temperature for all animals.
+Be careful! Setting the temperature too low can result in instant heatstroke!</SY_CA.TooltipMinMinTemperature>
+	<SY_CA.TooltipMaxMinTemperature>Set the highest allowed minimum comfortable temperature for all animals.
+Be careful! Setting the temperature too high can result in instant hypothermia!</SY_CA.TooltipMaxMinTemperature>
 </LanguageData>

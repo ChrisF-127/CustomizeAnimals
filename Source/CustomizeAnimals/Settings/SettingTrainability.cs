@@ -8,7 +8,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	public class SettingTrainability : BaseSetting<TrainabilityDef>
+	internal class SettingTrainability : BaseSetting<TrainabilityDef>
 	{
 		#region PROPERTIES
 		public static bool UseMinimumTrainability { get; set; }
