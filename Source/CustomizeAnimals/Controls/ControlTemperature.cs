@@ -1,4 +1,5 @@
 ﻿using CustomizeAnimals.Settings;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,19 +14,28 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			return CreateNumeric(
+			var setting = (BaseSetting<float?>)animalSettings.Settings["MaxTemperature"];
+			var tempMode = Prefs.TemperatureMode;
+			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
 				animalSettings,
-				(BaseSetting<float?>)animalSettings.Settings["MaxTemperature"],
 				"SY_CA.MaxTemperature".Translate(),
 				"SY_CA.TooltipMaxTemperature".Translate(),
-				TemperatureTuning.MinimumTemperature,
-				TemperatureTuning.MaximumTemperature);
+				setting.IsModified(),
+				CelsiusTo(setting.Value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, tempMode), // Value should never be null at this point
+				CelsiusTo(setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, tempMode), // DefaultValue should never be null at this point
+				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
+				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+
+			setting.Value = ToCelsius(temp, tempMode);
+
+			return SettingsRowHeight;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
+			var tempMode = Prefs.TemperatureMode;
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -33,14 +43,14 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMinMaxTemperature".Translate(),
 				"SY_CA.TooltipMaxMaxTemperature".Translate(),
 				SettingMaxTemperature.UseMaxTempLimits,
-				SettingMaxTemperature.MinimumMaxTemp,
-				SettingMaxTemperature.MaximumMaxTemp,
-				TemperatureTuning.MinimumTemperature,
-				TemperatureTuning.MaximumTemperature);
+				CelsiusTo(SettingMaxTemperature.MinimumMaxTemp, tempMode),
+				CelsiusTo(SettingMaxTemperature.MaximumMaxTemp, tempMode),
+				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
+				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
 
 			SettingMaxTemperature.UseMaxTempLimits = use;
-			SettingMaxTemperature.MinimumMaxTemp = min;
-			SettingMaxTemperature.MaximumMaxTemp = max;
+			SettingMaxTemperature.MinimumMaxTemp = ToCelsius(min, tempMode);
+			SettingMaxTemperature.MaximumMaxTemp = ToCelsius(max, tempMode);
 
 			return SettingsRowHeight;
 		}
@@ -51,19 +61,28 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			return CreateNumeric(
+			var setting = (BaseSetting<float?>)animalSettings.Settings["MinTemperature"];
+			var tempMode = Prefs.TemperatureMode;
+			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
 				animalSettings,
-				(BaseSetting<float?>)animalSettings.Settings["MinTemperature"],
 				"SY_CA.MinTemperature".Translate(),
 				"SY_CA.TooltipMinTemperature".Translate(),
-				TemperatureTuning.MinimumTemperature,
-				TemperatureTuning.MaximumTemperature);
+				setting.IsModified(),
+				CelsiusTo(setting.Value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, tempMode), // Value should never be null at this point
+				CelsiusTo(setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, tempMode), // DefaultValue should never be null at this point
+				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
+				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+
+			setting.Value = ToCelsius(temp, tempMode);
+
+			return SettingsRowHeight;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
+			var tempMode = Prefs.TemperatureMode;
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -71,14 +90,14 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMinMinTemperature".Translate(),
 				"SY_CA.TooltipMaxMinTemperature".Translate(),
 				SettingMinTemperature.UseMinTempLimits,
-				SettingMinTemperature.MinimumMinTemp,
-				SettingMinTemperature.MaximumMinTemp,
-				TemperatureTuning.MinimumTemperature,
-				TemperatureTuning.MaximumTemperature);
+				CelsiusTo(SettingMinTemperature.MinimumMinTemp, tempMode),
+				CelsiusTo(SettingMinTemperature.MaximumMinTemp, tempMode),
+				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
+				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
 
 			SettingMinTemperature.UseMinTempLimits = use;
-			SettingMinTemperature.MinimumMinTemp = min;
-			SettingMinTemperature.MaximumMinTemp = max;
+			SettingMinTemperature.MinimumMinTemp = ToCelsius(min, tempMode);
+			SettingMinTemperature.MaximumMinTemp = ToCelsius(max, tempMode);
 
 			return SettingsRowHeight;
 		}

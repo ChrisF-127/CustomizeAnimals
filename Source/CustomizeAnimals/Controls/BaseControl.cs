@@ -54,6 +54,35 @@ namespace CustomizeAnimals.Controls
 
 		public static float GetControlWidth(float viewWidth) =>
 			viewWidth / 2 - SettingsRowHeight - 4;
+
+		public static float ToCelsius(float temp, TemperatureDisplayMode fromMode)
+		{
+			switch (fromMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					return temp;
+				case TemperatureDisplayMode.Fahrenheit:
+					return (temp - 32f) / 1.8f;
+				case TemperatureDisplayMode.Kelvin:
+					return temp - 273.15f;
+				default:
+					throw new InvalidOperationException();
+			};
+		}
+		public static float CelsiusTo(float temp, TemperatureDisplayMode toMode)
+		{
+			switch (toMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					return temp;
+				case TemperatureDisplayMode.Fahrenheit:
+					return temp * 1.8f + 32f;
+				case TemperatureDisplayMode.Kelvin:
+					return temp + 273.15f;
+				default:
+					throw new InvalidOperationException();
+			};
+		}
 		#endregion
 
 		#region STANDARD CONTROLS
@@ -61,24 +90,19 @@ namespace CustomizeAnimals.Controls
 			float offsetY,
 			float viewWidth,
 			AnimalSettings animalSettings,
-			BaseSetting<float?> setting,
 			string label,
 			string tooltip,
+			bool isModified,
+			float value,
+			float defaulValue,
 			float min = 0f,
 			float max = 1e+9f,
 			bool percent = false)
 		{
 			// check stuff
-			if (animalSettings == null 
-				|| setting == null 
-				|| label == null 
-				|| tooltip == null)
+			if (animalSettings == null)
 			{
-				Log.Error($"{nameof(CustomizeAnimals)}: create numeric control failed:" +
-					$"\n{nameof(animalSettings)}: {(animalSettings?.ToString() ?? "null")}" +
-					$"\n{nameof(setting)}: {(setting?.ToString() ?? "null")}" +
-					$"\n{nameof(label)}: {(label ?? "null")}" +
-					$"\n{nameof(label)}: {(tooltip ?? "null")}");
+				Log.Error($"{nameof(CustomizeAnimals)}: create numeric control failed: {nameof(animalSettings)} is null");
 				return 0;
 			}
 
@@ -86,13 +110,12 @@ namespace CustomizeAnimals.Controls
 
 			// Label
 			// Switch color if modified
-			if (setting.IsModified())
+			if (isModified)
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
 			// Settings
-			var value = (setting.Value ?? setting.DefaultValue ?? min);
 			if (percent)
 				value *= 100f;
 
@@ -105,13 +128,10 @@ namespace CustomizeAnimals.Controls
 				value /= 100f;
 
 			// Reset button
-			if (setting.IsModified() && DrawResetButton(offsetY, viewWidth, setting.DefaultValue?.ToString()))
-				setting.Reset();
-			// Set value
-			else
-				setting.Value = value;
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaulValue.ToString()))
+				value = defaulValue;
 
-			return SettingsRowHeight;
+			return value;
 		}
 
 		protected (bool, float, float) CreateNumericGlobalMinMax(
@@ -126,17 +146,6 @@ namespace CustomizeAnimals.Controls
 			float min = 0f,
 			float max = 1e+9f)
 		{
-			// check stuff
-			if (label == null
-				|| tooltipMax == null
-				|| tooltipMin == null)
-			{
-				Log.Warning($"{nameof(CustomizeAnimals)}: create numeric control global min/max failed:" +
-					$"\n{nameof(label)}: {(label ?? "null")}" +
-					$"\n{nameof(label)}: {(tooltipMax ?? "null")}" +
-					$"\n{nameof(label)}: {(tooltipMin ?? "null")}");
-			}
-
 			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
