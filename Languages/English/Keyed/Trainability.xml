@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.Trainability>Trainability</SY_CA.Trainability>
+	<SY_CA.TooltipTrainabilityRoamingWarning>Trainability above 'None' without removing roaming (set to 0) is of no use, as animals which require a pen cannot leave it.</SY_CA.TooltipTrainabilityRoamingWarning>
+	<SY_CA.TrainabilityNone>None</SY_CA.TrainabilityNone>
+	<SY_CA.TooltipTrainabilityNone>No trainability</SY_CA.TooltipTrainabilityNone>
+	<SY_CA.TrainabilityIntermediate>Interm.</SY_CA.TrainabilityIntermediate>
+	<SY_CA.TooltipTrainabilityIntermediate>Guard and Attack only</SY_CA.TooltipTrainabilityIntermediate>
+	<SY_CA.TrainabilityAdvanced>Adv.</SY_CA.TrainabilityAdvanced>
+	<SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
+
+	<SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
+</LanguageData>

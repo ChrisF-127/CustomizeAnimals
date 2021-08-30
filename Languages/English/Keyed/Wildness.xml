@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.Wildness>Wildness</SY_CA.Wildness>
+	<SY_CA.TooltipWildness>Set the wildness for this animal. (0 = 0%, 0.5 = 50%, 1 = 100%)
+Values of 100% or higher will make an animal untamable.
+Keep in mind that some animals are not supposed to be tameable, especially some modded animals will throw errors when tamed!</SY_CA.TooltipWildness>
+	
+	<SY_CA.WildnessRange>Wildness range</SY_CA.WildnessRange>
+	<SY_CA.TooltipMinWildness>Set the lowest possible wildness for all animals.
+Values of 100% or higher will make all animals untamable.</SY_CA.TooltipMinWildness>
+	<SY_CA.TooltipMaxWildness>Set the highest possible wildness for all animals.
+Keep in mind that some animals are not supposed to be tameable, especially some modded animals will throw errors when tamed!</SY_CA.TooltipMaxWildness>
+</LanguageData>

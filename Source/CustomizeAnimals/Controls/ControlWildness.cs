@@ -32,6 +32,8 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
+			return 0;
+#if FALSE
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -47,6 +49,7 @@ namespace CustomizeAnimals.Controls
 			SettingWildness.MaximumWildness = max;
 
 			return SettingsRowHeight;
+#endif
 		}
 	}
 }
