@@ -13,11 +13,15 @@ namespace CustomizeAnimals.Settings
 		public ThingDef Animal { get; }
 		public T Value { get; set; }
 		public T DefaultValue { get; protected set; }
+
+		public bool IsGlobal { get; } = false;
 		#endregion
 
 		#region CONSTRUCTORS
-		public BaseSetting(ThingDef animal)
+		public BaseSetting(ThingDef animal, bool isGlobal = false)
 		{
+			IsGlobal = isGlobal;
+
 			Animal = animal;
 			Value = DefaultValue = GetValue();
 		}

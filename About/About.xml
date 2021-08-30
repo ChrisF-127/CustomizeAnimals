@@ -7,8 +7,5 @@
 		<li>1.3</li>
 	</supportedVersions>
 	<packageId>Syrus.CustomizeAnimals</packageId>
-	<description>Allows you to customize animal stats to your own liking.
-	
-Currently only Trainability and Roaming can be modified, more probably to come when I find time to implement it.
-Let's just call it a "Beta" for now.</description>
+	<description>Allows you to customize animal stats to your own liking.</description>
 </ModMetaData>

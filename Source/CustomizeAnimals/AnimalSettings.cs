@@ -7,7 +7,7 @@ using CustomizeAnimals.Settings;
 using RimWorld;
 using Verse;
 
-namespace CustomizeAnimals.Settings
+namespace CustomizeAnimals
 {
 	public class GlobalSettings : IExposable
 	{
@@ -18,10 +18,11 @@ namespace CustomizeAnimals.Settings
 		#region CONSTRUCTORS
 		public GlobalSettings()
 		{
-			Settings.Add("Trainability", new SettingTrainability(null));
-			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null));
-			Settings.Add("MaxTemperature", new SettingMaxTemperature(null));
-			Settings.Add("MinTemperature", new SettingMinTemperature(null));
+			Settings.Add("Trainability", new SettingTrainability(null, true));
+			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
+			Settings.Add("Wildness", new SettingWildness(null, true));
+			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
+			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 		}
 		#endregion
 
@@ -71,6 +72,7 @@ namespace CustomizeAnimals.Settings
 
 			Settings.Add("Trainability", new SettingTrainability(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
+			Settings.Add("Wildness", new SettingWildness(Animal));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 

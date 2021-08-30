@@ -23,6 +23,7 @@ namespace CustomizeAnimals
 		{
 			new ControlTrainability(),
 			new ControlRoamMtbDays(),
+			new ControlWildness(),
 			new ControlMaxTemperature(),
 			new ControlMinTemperature(),
 		};

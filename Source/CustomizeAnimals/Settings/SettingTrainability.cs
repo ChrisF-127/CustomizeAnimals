@@ -16,7 +16,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingTrainability(ThingDef animal) : base(animal)
+		public SettingTrainability(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
 		#endregion
 

@@ -96,8 +96,7 @@ namespace CustomizeAnimals.Controls
 			float value,
 			float defaulValue,
 			float min = 0f,
-			float max = 1e+9f,
-			bool percent = false)
+			float max = 1e+9f)
 		{
 			// check stuff
 			if (animalSettings == null)
@@ -116,16 +115,10 @@ namespace CustomizeAnimals.Controls
 			GUI.color = OriColor;
 
 			// Settings
-			if (percent)
-				value *= 100f;
-
 			var buffer = value.ToString();
 			var textFieldRect = new Rect(controlWidth, offsetY, controlWidth, SettingsRowHeight).ContractedBy(2, 6);
 			Widgets.TextFieldNumeric(textFieldRect, ref value, ref buffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
-
-			if (percent)
-				value /= 100f;
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaulValue.ToString()))
@@ -175,7 +168,7 @@ namespace CustomizeAnimals.Controls
 			textFieldRect = new Rect(offsetX, offsetY, textFieldWidth, SettingsRowHeight).ContractedBy(2, 6);
 			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref buffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMax);
-			
+
 			// "Apply" checkbox
 			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use);
 

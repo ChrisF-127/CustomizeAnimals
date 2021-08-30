@@ -18,7 +18,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingMaxTemperature(ThingDef animal) : base(animal)
+		public SettingMaxTemperature(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -52,7 +52,8 @@ namespace CustomizeAnimals.Settings
 			if (statBases != null)
 				return statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMax)?.value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue;
 
-			Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMaxTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
+			if (!IsGlobal)
+				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMaxTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
 			return null;
 		}
 		public override void SetValue()
@@ -99,7 +100,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingMinTemperature(ThingDef animal) : base(animal)
+		public SettingMinTemperature(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -133,7 +134,8 @@ namespace CustomizeAnimals.Settings
 			if (statBases != null)
 				return statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMin)?.value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue;
 
-			Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMinTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
+			if (!IsGlobal)
+				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMinTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
 			return null;
 		}
 		public override void SetValue()
