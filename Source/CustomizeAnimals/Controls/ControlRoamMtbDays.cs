@@ -35,8 +35,7 @@ namespace CustomizeAnimals.Controls
 			if (roamSelected)
 			{
 				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
-				var roamBuffer = roamValue.ToString();
-				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(2, 6), ref roamValue, ref roamBuffer, 1);
+				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(2, 6), ref roamValue, ref ValueBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}
@@ -80,8 +79,7 @@ namespace CustomizeAnimals.Controls
 			if (roamSelected)
 			{
 				var roamValue = SettingRoamMtbDays.MinimumRoamMtbDays ?? 2;
-				var roamBuffer = roamValue.ToString();
-				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref roamBuffer, 1);
+				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref MinValueBuffer, 1);
 				DrawTooltip(textFieldRect, "SY_CA.TooltipMinimumRoamMtbDays".Translate());
 				roamMtbDays = roamValue;
 			}

@@ -23,7 +23,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipWildness".Translate(),
 				setting.IsModified(),
 				setting.Value ?? 1f,
-				setting.DefaultValue ?? 1f);
+				setting.DefaultValue ?? 1f,
+				displayFactor: 100f,
+				unit: "%");
 
 			setting.Value = value;
 
@@ -32,8 +34,9 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
+#if TRUE
 			return 0;
-#if FALSE
+#else
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -42,7 +45,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMaxWildness".Translate(),
 				SettingWildness.UseWildnessLimits,
 				SettingWildness.MinimumWildness,
-				SettingWildness.MaximumWildness);
+				SettingWildness.MaximumWildness,
+				displayFactor: 100f,
+				unit: "%");
 
 			SettingWildness.UseWildnessLimits = use;
 			SettingWildness.MinimumWildness = min;

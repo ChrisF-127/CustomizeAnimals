@@ -210,11 +210,18 @@ namespace CustomizeAnimals
 			Text.Anchor = OriTextAnchor;
 		}
 
+		ThingDef prevAnimal = null;
 		private void CreateSettings(float x, float y, float width, float height)
 		{
 			// Selected animal for easier access
 			var animal = SelectedAnimalSettings?.Animal;
 			var isGlobal = animal == null;
+			var isDifferentAnimal = false;
+			if (prevAnimal != animal)
+			{
+				isDifferentAnimal = true;
+				prevAnimal = animal;
+			}
 
 			// Begin
 			GUI.BeginGroup(new Rect(x, y, width, height));
@@ -282,7 +289,11 @@ namespace CustomizeAnimals
 			{
 				// Draw animal settings
 				foreach (var setting in SettingsList)
+				{
+					if (isDifferentAnimal)
+						setting.ResetTextBuffers();
 					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+				}
 
 				// Apply animal settings
 				SelectedAnimalSettings.ApplySettings();
@@ -292,7 +303,11 @@ namespace CustomizeAnimals
 			{
 				// Draw global settings
 				foreach (var setting in SettingsList)
+				{
+					if (isDifferentAnimal)
+						setting.ResetTextBuffers();
 					totalHeight += setting.CreateSettingGlobal(totalHeight, viewWidth);
+				}
 
 				// Apply global settings
 				foreach (var animalSetting in Animals)

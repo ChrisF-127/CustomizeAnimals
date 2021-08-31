@@ -23,9 +23,22 @@ namespace CustomizeAnimals.Controls
 		protected static Color ModifiedColor => CustomizeAnimals.ModifiedColor;
 		#endregion
 
+		#region FIELDS
+		protected string ValueBuffer = null;
+		protected string MinValueBuffer = null;
+		protected string MaxValueBuffer = null;
+		#endregion
+
 		#region METHODS
 		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
 		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
+
+		public virtual void ResetTextBuffers()
+		{
+			ValueBuffer = null;
+			MinValueBuffer = null;
+			MaxValueBuffer = null;
+		}
 
 		public static bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{
@@ -50,6 +63,14 @@ namespace CustomizeAnimals.Controls
 				ActiveTip activeTip = new ActiveTip(tooltip);
 				activeTip.DrawTooltip(GenUI.GetMouseAttachedWindowPos(activeTip.TipRect.width, activeTip.TipRect.height) + (UI.MousePositionOnUIInverted - Event.current.mousePosition));
 			}
+		}
+		public static void DrawTextFieldUnit(Rect rect, string unit)
+		{
+			if (unit == null)
+				return;
+			Text.Anchor = TextAnchor.MiddleRight;
+			Widgets.Label(new Rect(rect.x + 4, rect.y + 1, rect.width - 8, rect.height), unit);
+			Text.Anchor = TextAnchor.MiddleLeft;
 		}
 
 		public static float GetControlWidth(float viewWidth) =>
@@ -96,7 +117,9 @@ namespace CustomizeAnimals.Controls
 			float value,
 			float defaulValue,
 			float min = 0f,
-			float max = 1e+9f)
+			float max = 1e+9f,
+			float displayFactor = 1f,
+			string unit = null)
 		{
 			// check stuff
 			if (animalSettings == null)
@@ -104,7 +127,7 @@ namespace CustomizeAnimals.Controls
 				Log.Error($"{nameof(CustomizeAnimals)}: create numeric control failed: {nameof(animalSettings)} is null");
 				return 0;
 			}
-
+			
 			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
@@ -115,15 +138,18 @@ namespace CustomizeAnimals.Controls
 			GUI.color = OriColor;
 
 			// Settings
-			var buffer = value.ToString();
-			var textFieldRect = new Rect(controlWidth, offsetY, controlWidth, SettingsRowHeight).ContractedBy(2, 6);
-			Widgets.TextFieldNumeric(textFieldRect, ref value, ref buffer, min, max);
+			value *= displayFactor;
+			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
+			Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
+			value /= displayFactor;
+
+			DrawTextFieldUnit(textFieldRect, unit);
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaulValue.ToString()))
 				value = defaulValue;
-
+			
 			return value;
 		}
 
@@ -137,8 +163,12 @@ namespace CustomizeAnimals.Controls
 			float minValue,
 			float maxValue,
 			float min = 0f,
-			float max = 1e+9f)
+			float max = 1e+9f,
+			float displayFactor = 1f,
+			string unit = null)
 		{
+			var oriMinValue = minValue;
+			var oriMaxValue = maxValue;
 			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
@@ -148,26 +178,33 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
-			var textFieldLabelWidth = 32;
+			var textFieldLabelWidth = 28;
 			var textFieldWidth = controlWidth / 2 - textFieldLabelWidth - 2;
 			var offsetX = controlWidth;
 
 			// Minimum setting
+			minValue *= displayFactor;
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "min");
 			offsetX += textFieldLabelWidth;
-			var buffer = minValue.ToString();
-			var textFieldRect = new Rect(offsetX, offsetY, textFieldWidth, SettingsRowHeight).ContractedBy(2, 6);
-			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref buffer, min, max);
+			var textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
+			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref MinValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMin);
+			minValue /= displayFactor;
+
+			DrawTextFieldUnit(textFieldRect, unit);
+
 			offsetX += textFieldWidth + 4;
 
 			// Maximum setting
+			maxValue *= displayFactor;
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "max");
 			offsetX += textFieldLabelWidth;
-			buffer = maxValue.ToString();
-			textFieldRect = new Rect(offsetX, offsetY, textFieldWidth, SettingsRowHeight).ContractedBy(2, 6);
-			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref buffer, min, max);
+			textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
+			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref MaxValueBuffer, min, max);
+			maxValue /= displayFactor;
 			DrawTooltip(textFieldRect, tooltipMax);
+
+			DrawTextFieldUnit(textFieldRect, unit);
 
 			// "Apply" checkbox
 			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use);
