@@ -30,6 +30,8 @@ namespace CustomizeAnimals
 		#endregion
 
 		#region FIELDS
+		private ThingDef _previousAnimal = null;
+
 		private string _searchTerm = "";
 		private float _listViewHeight = 0;
 
@@ -76,6 +78,8 @@ namespace CustomizeAnimals
 			if (animal == null)
 				return;
 			animal.Reset();
+			foreach (var setting in SettingsList)
+				setting.ResetTextBuffers();
 			Log.Message($"{nameof(CustomizeAnimals)}: '{animal.Animal?.label?.CapitalizeFirst()}' settings have been reset!");
 		}
 		public void ResetAll()
@@ -83,6 +87,8 @@ namespace CustomizeAnimals
 			Global.Reset();
 			foreach (var animal in Animals)
 				animal.Reset();
+			foreach (var setting in SettingsList)
+				setting.ResetTextBuffers();
 			Log.Message($"{nameof(CustomizeAnimals)}: All settings have been reset!");
 		}
 		#endregion
@@ -210,17 +216,16 @@ namespace CustomizeAnimals
 			Text.Anchor = OriTextAnchor;
 		}
 
-		ThingDef prevAnimal = null;
 		private void CreateSettings(float x, float y, float width, float height)
 		{
 			// Selected animal for easier access
 			var animal = SelectedAnimalSettings?.Animal;
 			var isGlobal = animal == null;
 			var isDifferentAnimal = false;
-			if (prevAnimal != animal)
+			if (_previousAnimal != animal)
 			{
 				isDifferentAnimal = true;
-				prevAnimal = animal;
+				_previousAnimal = animal;
 			}
 
 			// Begin

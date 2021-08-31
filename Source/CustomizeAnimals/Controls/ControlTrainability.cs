@@ -59,7 +59,10 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (trainabilitySetting.IsModified() && DrawResetButton(offsetY, viewWidth, trainabilitySetting.DefaultValue?.ToString() ?? "null"))
+			{
 				trainabilitySetting.Reset();
+				ValueBuffer = null;
+			}
 			// Set value
 			else
 				trainabilitySetting.Value = trainability;

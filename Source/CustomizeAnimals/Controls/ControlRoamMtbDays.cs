@@ -49,7 +49,10 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
+			{
 				roamMtbDaysSetting.Reset();
+				ValueBuffer = null;
+			}
 			// Set value
 			else
 				roamMtbDaysSetting.Value = roamMtbDays;

@@ -148,7 +148,10 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaulValue.ToString()))
+			{
 				value = defaulValue;
+				ValueBuffer = null;
+			}
 			
 			return value;
 		}
