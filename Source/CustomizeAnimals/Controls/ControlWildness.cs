@@ -24,7 +24,9 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value ?? 1f,
 				setting.DefaultValue ?? 1f,
-				displayFactor: 100f,
+				max: 10f,
+				to: ToPercent,
+				back: FromPercent,
 				unit: "%");
 
 			setting.Value = value;
@@ -46,7 +48,9 @@ namespace CustomizeAnimals.Controls
 				SettingWildness.UseWildnessLimits,
 				SettingWildness.MinimumWildness,
 				SettingWildness.MaximumWildness,
-				displayFactor: 100f,
+				max: 10f,
+				to: ToPercent,
+				back: FromPercent,
 				unit: "%");
 
 			SettingWildness.UseWildnessLimits = use;

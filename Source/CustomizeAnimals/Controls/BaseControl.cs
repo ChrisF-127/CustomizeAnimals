@@ -9,6 +9,8 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
+	internal delegate float ConvertDelegate(float value);
+
 	internal abstract class BaseControl
 	{
 		#region PROPERTIES
@@ -76,34 +78,8 @@ namespace CustomizeAnimals.Controls
 		public static float GetControlWidth(float viewWidth) =>
 			viewWidth / 2 - SettingsRowHeight - 4;
 
-		public static float ToCelsius(float temp, TemperatureDisplayMode fromMode)
-		{
-			switch (fromMode)
-			{
-				case TemperatureDisplayMode.Celsius:
-					return temp;
-				case TemperatureDisplayMode.Fahrenheit:
-					return (temp - 32f) / 1.8f;
-				case TemperatureDisplayMode.Kelvin:
-					return temp - 273.15f;
-				default:
-					throw new InvalidOperationException();
-			};
-		}
-		public static float CelsiusTo(float temp, TemperatureDisplayMode toMode)
-		{
-			switch (toMode)
-			{
-				case TemperatureDisplayMode.Celsius:
-					return temp;
-				case TemperatureDisplayMode.Fahrenheit:
-					return temp * 1.8f + 32f;
-				case TemperatureDisplayMode.Kelvin:
-					return temp + 273.15f;
-				default:
-					throw new InvalidOperationException();
-			};
-		}
+		public static float ToPercent(float value) => value *= 100f;
+		public static float FromPercent(float value) => value /= 100f;
 		#endregion
 
 		#region STANDARD CONTROLS
@@ -118,7 +94,8 @@ namespace CustomizeAnimals.Controls
 			float defaulValue,
 			float min = 0f,
 			float max = 1e+9f,
-			float displayFactor = 1f,
+			ConvertDelegate to = null,
+			ConvertDelegate back = null,
 			string unit = null)
 		{
 			// check stuff
@@ -137,12 +114,24 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
+			// Convert
+			if (to != null)
+			{
+				value = to(value);
+				min = to(min);
+				max = to(max);
+			}
+
 			// Settings
-			value *= displayFactor;
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
-			value /= displayFactor;
+
+			// Convert back
+			if (back != null)
+			{
+				value = back(value);
+			}
 
 			DrawTextFieldUnit(textFieldRect, unit);
 
@@ -167,7 +156,8 @@ namespace CustomizeAnimals.Controls
 			float maxValue,
 			float min = 0f,
 			float max = 1e+9f,
-			float displayFactor = 1f,
+			ConvertDelegate to = null,
+			ConvertDelegate back = null,
 			string unit = null)
 		{
 			var oriMinValue = minValue;
@@ -185,29 +175,41 @@ namespace CustomizeAnimals.Controls
 			var textFieldWidth = controlWidth / 2 - textFieldLabelWidth - 2;
 			var offsetX = controlWidth;
 
+			// Convert
+			if (to != null)
+			{
+				minValue = to(minValue);
+				maxValue = to(maxValue);
+				min = to(min);
+				max = to(max);
+			}
+
 			// Minimum setting
-			minValue *= displayFactor;
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "min");
 			offsetX += textFieldLabelWidth;
 			var textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref MinValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMin);
-			minValue /= displayFactor;
 
 			DrawTextFieldUnit(textFieldRect, unit);
 
 			offsetX += textFieldWidth + 4;
 
 			// Maximum setting
-			maxValue *= displayFactor;
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "max");
 			offsetX += textFieldLabelWidth;
 			textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref MaxValueBuffer, min, max);
-			maxValue /= displayFactor;
 			DrawTooltip(textFieldRect, tooltipMax);
 
 			DrawTextFieldUnit(textFieldRect, unit);
+
+			// Convert back
+			if (back != null)
+			{
+				minValue = back(minValue);
+				maxValue = back(maxValue);
+			}
 
 			// "Apply" checkbox
 			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use);

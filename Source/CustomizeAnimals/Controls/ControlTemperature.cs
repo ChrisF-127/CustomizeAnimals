@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlMaxTemperature : BaseControl
+	internal class ControlMaxTemperature : TemperatureBaseControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
@@ -23,12 +23,15 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.MaxTemperature".Translate(),
 				"SY_CA.TooltipMaxTemperature".Translate(),
 				setting.IsModified(),
-				CelsiusTo(setting.Value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, tempMode), // Value should never be null at this point
-				CelsiusTo(setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, tempMode), // DefaultValue should never be null at this point
-				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
-				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+				setting.Value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // Value should never be null at this point
+				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // DefaultValue should never be null at this point
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
+				to: FromCelsius,
+				back: ToCelsius,
+				unit: GetTemperatureUnit());
 
-			setting.Value = ToCelsius(temp, tempMode);
+			setting.Value = temp;
 
 			return SettingsRowHeight;
 		}
@@ -43,26 +46,28 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMinMaxTemperature".Translate(),
 				"SY_CA.TooltipMaxMaxTemperature".Translate(),
 				SettingMaxTemperature.UseMaxTempLimits,
-				CelsiusTo(SettingMaxTemperature.MinimumMaxTemp, tempMode),
-				CelsiusTo(SettingMaxTemperature.MaximumMaxTemp, tempMode),
-				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
-				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+				SettingMaxTemperature.MinimumMaxTemp,
+				SettingMaxTemperature.MaximumMaxTemp,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
+				to: FromCelsius,
+				back: ToCelsius,
+				unit: GetTemperatureUnit());
 
 			SettingMaxTemperature.UseMaxTempLimits = use;
-			SettingMaxTemperature.MinimumMaxTemp = ToCelsius(min, tempMode);
-			SettingMaxTemperature.MaximumMaxTemp = ToCelsius(max, tempMode);
+			SettingMaxTemperature.MinimumMaxTemp = min;
+			SettingMaxTemperature.MaximumMaxTemp = max;
 
 			return SettingsRowHeight;
 		}
 	}
 
 
-	internal class ControlMinTemperature : BaseControl
+	internal class ControlMinTemperature : TemperatureBaseControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (BaseSetting<float?>)animalSettings.Settings["MinTemperature"];
-			var tempMode = Prefs.TemperatureMode;
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -70,12 +75,15 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.MinTemperature".Translate(),
 				"SY_CA.TooltipMinTemperature".Translate(),
 				setting.IsModified(),
-				CelsiusTo(setting.Value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, tempMode), // Value should never be null at this point
-				CelsiusTo(setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, tempMode), // DefaultValue should never be null at this point
-				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
-				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+				setting.Value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // Value should never be null at this point
+				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // DefaultValue should never be null at this point
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
+				to: FromCelsius,
+				back: ToCelsius,
+				unit: GetTemperatureUnit());
 
-			setting.Value = ToCelsius(temp, tempMode);
+			setting.Value = temp;
 
 			return SettingsRowHeight;
 		}
@@ -90,16 +98,65 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMinMinTemperature".Translate(),
 				"SY_CA.TooltipMaxMinTemperature".Translate(),
 				SettingMinTemperature.UseMinTempLimits,
-				CelsiusTo(SettingMinTemperature.MinimumMinTemp, tempMode),
-				CelsiusTo(SettingMinTemperature.MaximumMinTemp, tempMode),
-				CelsiusTo(TemperatureTuning.MinimumTemperature, tempMode),
-				CelsiusTo(TemperatureTuning.MaximumTemperature, tempMode));
+				SettingMinTemperature.MinimumMinTemp,
+				SettingMinTemperature.MaximumMinTemp,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
+				to: FromCelsius,
+				back: ToCelsius,
+				unit: GetTemperatureUnit());
 
 			SettingMinTemperature.UseMinTempLimits = use;
-			SettingMinTemperature.MinimumMinTemp = ToCelsius(min, tempMode);
-			SettingMinTemperature.MaximumMinTemp = ToCelsius(max, tempMode);
+			SettingMinTemperature.MinimumMinTemp = min;
+			SettingMinTemperature.MaximumMinTemp = max;
 
 			return SettingsRowHeight;
+		}
+	}
+
+
+	internal abstract class TemperatureBaseControl : BaseControl
+	{
+		public static float ToCelsius(float temp)
+		{
+			switch (Prefs.TemperatureMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					return temp;
+				case TemperatureDisplayMode.Fahrenheit:
+					return (temp - 32f) / 1.8f;
+				case TemperatureDisplayMode.Kelvin:
+					return temp - 273.15f;
+				default:
+					throw new InvalidOperationException();
+			};
+		}
+		public static float FromCelsius(float temp)
+		{
+			switch (Prefs.TemperatureMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					return temp;
+				case TemperatureDisplayMode.Fahrenheit:
+					return temp * 1.8f + 32f;
+				case TemperatureDisplayMode.Kelvin:
+					return temp + 273.15f;
+				default:
+					throw new InvalidOperationException();
+			};
+		}
+		public static string GetTemperatureUnit()
+		{
+			switch (Prefs.TemperatureMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					return "°C";
+				case TemperatureDisplayMode.Fahrenheit:
+					return "°F";
+				case TemperatureDisplayMode.Kelvin:
+					return "K";
+			}
+			return "";
 		}
 	}
 }
