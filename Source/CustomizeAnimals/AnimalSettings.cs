@@ -23,6 +23,7 @@ namespace CustomizeAnimals
 			Settings.Add("Wildness", new SettingWildness(null, true));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
+			Settings.Add("HungerRate", new SettingHungerRate(null, true));
 		}
 		#endregion
 
@@ -75,6 +76,7 @@ namespace CustomizeAnimals
 			Settings.Add("Wildness", new SettingWildness(Animal));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
+			Settings.Add("HungerRate", new SettingHungerRate(Animal));
 
 			ApplySettings();
 		}

@@ -26,6 +26,7 @@ namespace CustomizeAnimals
 			new ControlWildness(),
 			new ControlMaxTemperature(),
 			new ControlMinTemperature(),
+			new ControlHungerRate(),
 		};
 		#endregion
 

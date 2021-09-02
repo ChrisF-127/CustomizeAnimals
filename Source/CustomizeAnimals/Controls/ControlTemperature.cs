@@ -119,31 +119,41 @@ namespace CustomizeAnimals.Controls
 	{
 		public static float ToCelsius(float temp)
 		{
+			double output;
 			switch (Prefs.TemperatureMode)
 			{
 				case TemperatureDisplayMode.Celsius:
-					return temp;
+					output = temp;
+					break;
 				case TemperatureDisplayMode.Fahrenheit:
-					return (temp - 32f) / 1.8f;
+					output = (temp - 32.0) / 1.8;
+					break;
 				case TemperatureDisplayMode.Kelvin:
-					return temp - 273.15f;
+					output = temp - 273.15;
+					break;
 				default:
 					throw new InvalidOperationException();
 			};
+			return (float)Math.Round(output, 5);
 		}
 		public static float FromCelsius(float temp)
 		{
+			double output;
 			switch (Prefs.TemperatureMode)
 			{
 				case TemperatureDisplayMode.Celsius:
-					return temp;
+					output = temp;
+					break;
 				case TemperatureDisplayMode.Fahrenheit:
-					return temp * 1.8f + 32f;
+					output = temp * 1.8 + 32.0;
+					break;
 				case TemperatureDisplayMode.Kelvin:
-					return temp + 273.15f;
+					output = temp + 273.15;
+					break;
 				default:
 					throw new InvalidOperationException();
 			};
+			return (float)Math.Round(output, 5);
 		}
 		public static string GetTemperatureUnit()
 		{

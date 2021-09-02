@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlHungerRate.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Controls\ControlRoamMtbDays.cs" />
     <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
+    <Compile Include="Settings\SettingHungerRate.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
