@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.HungerRate>Hunger rate</SY_CA.HungerRate>
+	<SY_CA.TooltipHungerRate>Adjust the hunger rate of this animal.</SY_CA.TooltipHungerRate>
+	
+	<SY_CA.HungerRateRange>Hunger rate range</SY_CA.HungerRateRange>
+	<SY_CA.TooltipMinHungerRate>Adjust the minimum hunger rate of all animals.</SY_CA.TooltipMinHungerRate>
+	<SY_CA.TooltipMaxHungerRate>Adjust the maximum hunger rate of all animals.</SY_CA.TooltipMaxHungerRate>
+</LanguageData>
