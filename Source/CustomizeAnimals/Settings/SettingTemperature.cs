@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingMaxTemperature : BaseSetting<float?>
+	internal class SettingMaxTemperature : NullableFloatSetting
 	{
 		#region PROPERTIES
 		public static bool UseMaxTempLimits { get; set; }
@@ -46,37 +46,10 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue()
-		{
-			var statBases = Animal?.statBases;
-			if (statBases != null)
-				return statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMax)?.value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue;
-
-			if (!IsGlobal)
-				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMaxTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
-			return null;
-		}
-		public override void SetValue()
-		{
-			var statBases = Animal?.statBases;
-			if (statBases != null)
-			{
-				var stat = statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMax);
-				if (Value != null)
-				{
-					var value = (float)Value;
-					if (UseMaxTempLimits)
-						value = Mathf.Clamp(value, MinimumMaxTemp, MaximumMaxTemp);
-
-					if (stat != null)
-						stat.value = value;
-					else
-						statBases.Add(new StatModifier { stat = StatDefOf.ComfyTemperatureMax, value = value });
-				}
-				else if (stat != null)
-					statBases.Remove(stat);
-			}
-		}
+		public override float? GetValue() =>
+			GetStat(StatDefOf.ComfyTemperatureMax, true);
+		public override void SetValue() =>
+			SetStat(StatDefOf.ComfyTemperatureMax, UseMaxTempLimits, MinimumMaxTemp, MaximumMaxTemp);
 
 		public override void ExposeData()
 		{
@@ -91,7 +64,7 @@ namespace CustomizeAnimals.Settings
 	}
 
 
-	internal class SettingMinTemperature : BaseSetting<float?>
+	internal class SettingMinTemperature : NullableFloatSetting
 	{
 		#region PROPERTIES
 		public static bool UseMinTempLimits { get; set; }
@@ -128,37 +101,10 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue()
-		{
-			var statBases = Animal?.statBases;
-			if (statBases != null)
-				return statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMin)?.value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue;
-
-			if (!IsGlobal)
-				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMinTemperature)}: {Animal?.defName} statBases is null, value cannot be set!");
-			return null;
-		}
-		public override void SetValue()
-		{
-			var statBases = Animal?.statBases;
-			if (statBases != null)
-			{
-				var stat = statBases.FirstOrDefault((s) => s.stat == StatDefOf.ComfyTemperatureMin);
-				if (Value != null)
-				{
-					var value = (float)Value;
-					if (UseMinTempLimits)
-						value = Mathf.Clamp(value, MinimumMinTemp, MaximumMinTemp);
-
-					if (stat != null)
-						stat.value = value;
-					else
-						statBases.Add(new StatModifier { stat = StatDefOf.ComfyTemperatureMin, value = value });
-				}
-				else if (stat != null)
-					statBases.Remove(stat);
-			}
-		}
+		public override float? GetValue() =>
+			GetStat(StatDefOf.ComfyTemperatureMin, true);
+		public override void SetValue() =>
+			SetStat(StatDefOf.ComfyTemperatureMin, UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
 
 		public override void ExposeData()
 		{

@@ -22,6 +22,7 @@ namespace CustomizeAnimals
 		private List<BaseControl> SettingsList { get; } = new List<BaseControl>
 		{
 			new ControlTrainability(),
+			new ControlFilthRate(),
 			new ControlRoamMtbDays(),
 			new ControlWildness(),
 			new ControlMaxTemperature(),

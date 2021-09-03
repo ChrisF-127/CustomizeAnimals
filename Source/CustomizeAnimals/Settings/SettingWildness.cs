@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingWildness : BaseSetting<float?>
+	internal class SettingWildness : NullableFloatSetting
 	{
 		#region PROPERTIES
 		public static bool UseWildnessLimits { get; set; }

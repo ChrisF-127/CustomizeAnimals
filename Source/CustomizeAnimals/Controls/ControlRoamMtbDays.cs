@@ -14,89 +14,42 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var controlWidth = GetControlWidth(viewWidth);
-			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.Settings["RoamMtbDays"];
+			var setting = (NullableFloatSetting)animalSettings.Settings["RoamMtbDays"];
+			var value = CreateNullableNumeric(
+				offsetY,
+				viewWidth,
+				"SY_CA.RoamMtbDays".Translate(),
+				"SY_CA.RoamMtbDaysDisabled".Translate(),
+				"SY_CA.TooltipRoamMtbDays".Translate(),
+				"SY_CA.TooltipRoamMtbDaysChk".Translate(),
+				setting.IsModified(),
+				setting.Value,
+				setting.DefaultValue,
+				min: 1f,
+				unit: "d");
 
-			// Label
-			// Switch color if modified
-			if (roamMtbDaysSetting.IsModified())
-				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), "SY_CA.RoamMtbDays".Translate());
-			GUI.color = OriColor;
-
-			// RoamMtbDays Settings
-			float? roamMtbDays;
-			var roamSelected = roamMtbDaysSetting.Value != null;
-			var checkboxSize = SettingsRowHeight - 8;
-			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
-			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipRoamMtbDaysChk".Translate());
-			// RoamMtbDays active = roamer (requires pen!)
-			var textFieldRect = new Rect(controlWidth + checkboxSize, offsetY, controlWidth - checkboxSize, SettingsRowHeight);
-			if (roamSelected)
-			{
-				var roamValue = roamMtbDaysSetting.Value ?? roamMtbDaysSetting.DefaultValue ?? 2;
-				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(2, 6), ref roamValue, ref ValueBuffer, 1);
-				DrawTooltip(textFieldRect, "SY_CA.TooltipRoamMtbDays".Translate());
-				roamMtbDays = roamValue;
-			}
-			else
-			{
-				Text.Anchor = TextAnchor.MiddleCenter;
-				Widgets.Label(textFieldRect, "SY_CA.RoamMtbDaysDisabled".Translate());
-				Text.Anchor = TextAnchor.MiddleLeft;
-				roamMtbDays = null;
-			}
-
-			// Reset button
-			if (roamMtbDaysSetting.IsModified() && DrawResetButton(offsetY, viewWidth, (roamMtbDaysSetting.DefaultValue ?? 0).ToString()))
-			{
-				roamMtbDaysSetting.Reset();
-				ValueBuffer = null;
-			}
-			// Set value
-			else
-				roamMtbDaysSetting.Value = roamMtbDays;
+			setting.Value = value;
 
 			return SettingsRowHeight;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			var controlWidth = GetControlWidth(viewWidth);
+			(var use, var value) = CreateNullableNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.MinimumRoamMtbDays".Translate(),
+				"SY_CA.RoamMtbDaysDisabled".Translate(),
+				"SY_CA.TooltipMinimumRoamMtbDays".Translate(),
+				"SY_CA.TooltipMinimumRoamMtbDaysChk".Translate(),
+				SettingRoamMtbDays.UseMinimumRoamMtbDays,
+				SettingRoamMtbDays.MinimumRoamMtbDays,
+				SettingRoamMtbDays.DefaultMinimum,
+				min: 1f,
+				unit: "d");
 
-			// Label
-			// Switch color if modified
-			if (SettingRoamMtbDays.UseMinimumRoamMtbDays)
-				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), "SY_CA.MinimumRoamMtbDays".Translate());
-			GUI.color = OriColor;
-
-			// RoamMtbDays Settings
-			float? roamMtbDays;
-			var roamSelected = SettingRoamMtbDays.MinimumRoamMtbDays != null;
-			var checkboxSize = SettingsRowHeight - 8;
-			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref roamSelected, checkboxSize);
-			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipMinimumRoamMtbDaysChk".Translate());
-			// RoamMtbDays active = roamer (requires pen!)
-			var textFieldRect = new Rect(controlWidth + checkboxSize + 4, offsetY, controlWidth - checkboxSize - 4, SettingsRowHeight);
-			if (roamSelected)
-			{
-				var roamValue = SettingRoamMtbDays.MinimumRoamMtbDays ?? 2;
-				Widgets.TextFieldNumeric(textFieldRect.ContractedBy(0, 6), ref roamValue, ref MinValueBuffer, 1);
-				DrawTooltip(textFieldRect, "SY_CA.TooltipMinimumRoamMtbDays".Translate());
-				roamMtbDays = roamValue;
-			}
-			else
-			{
-				Text.Anchor = TextAnchor.MiddleCenter;
-				Widgets.Label(textFieldRect, "SY_CA.RoamMtbDaysDisabled".Translate());
-				Text.Anchor = TextAnchor.MiddleLeft;
-				roamMtbDays = null;
-			}
-
-			// Set global
-			SettingRoamMtbDays.UseMinimumRoamMtbDays = DrawUseGlobalCheckBox(offsetY, viewWidth, SettingRoamMtbDays.UseMinimumRoamMtbDays);
-			SettingRoamMtbDays.MinimumRoamMtbDays = roamMtbDays;
+			SettingRoamMtbDays.UseMinimumRoamMtbDays = use;
+			SettingRoamMtbDays.MinimumRoamMtbDays = value;
 
 			return SettingsRowHeight;
 		}

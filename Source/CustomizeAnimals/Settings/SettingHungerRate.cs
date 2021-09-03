@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingHungerRate : BaseSetting<float?>
+	internal class SettingHungerRate : NullableFloatSetting
 	{
 		#region PROPERTIES
 		public static bool UseHungerRateLimits { get; set; }

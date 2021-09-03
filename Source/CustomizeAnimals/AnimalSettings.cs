@@ -19,6 +19,7 @@ namespace CustomizeAnimals
 		public GlobalSettings()
 		{
 			Settings.Add("Trainability", new SettingTrainability(null, true));
+			Settings.Add("FilthRate", new SettingFilthRate(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
 			Settings.Add("Wildness", new SettingWildness(null, true));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
@@ -72,6 +73,7 @@ namespace CustomizeAnimals
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
 			Settings.Add("Trainability", new SettingTrainability(Animal));
+			Settings.Add("FilthRate", new SettingFilthRate(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
 			Settings.Add("Wildness", new SettingWildness(Animal));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));

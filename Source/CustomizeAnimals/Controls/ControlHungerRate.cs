@@ -10,15 +10,14 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlHungerRate: BaseControl
+	internal class ControlHungerRate : BaseControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float?>)animalSettings.Settings["HungerRate"];
+			var setting = (NullableFloatSetting)animalSettings.Settings["HungerRate"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
-				animalSettings,
 				"SY_CA.HungerRate".Translate(),
 				"SY_CA.TooltipHungerRate".Translate(),
 				setting.IsModified(),

@@ -7,11 +7,13 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingRoamMtbDays : BaseSetting<float?>
+	internal class SettingRoamMtbDays : NullableFloatSetting
 	{
 		#region PROPERTIES
 		public static bool UseMinimumRoamMtbDays { get; set; } 
 		public static float? MinimumRoamMtbDays { get; set; }
+
+		public const float DefaultMinimum = 120f;
 		#endregion
 
 		#region CONSTRUCTORS

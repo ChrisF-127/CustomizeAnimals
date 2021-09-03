@@ -14,12 +14,11 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float?>)animalSettings.Settings["MaxTemperature"];
+			var setting = (NullableFloatSetting)animalSettings.Settings["MaxTemperature"];
 			var tempMode = Prefs.TemperatureMode;
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
-				animalSettings,
 				"SY_CA.MaxTemperature".Translate(),
 				"SY_CA.TooltipMaxTemperature".Translate(),
 				setting.IsModified(),
@@ -67,11 +66,10 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float?>)animalSettings.Settings["MinTemperature"];
+			var setting = (NullableFloatSetting)animalSettings.Settings["MinTemperature"];
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
-				animalSettings,
 				"SY_CA.MinTemperature".Translate(),
 				"SY_CA.TooltipMinTemperature".Translate(),
 				setting.IsModified(),

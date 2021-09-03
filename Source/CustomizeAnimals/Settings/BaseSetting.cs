@@ -1,12 +1,27 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 
 namespace CustomizeAnimals.Settings
 {
+	public interface ISetting
+	{
+		void SetValue();
+		void Reset();
+		void ExposeData();
+
+		void ResetGlobal();
+		void ExposeGlobal();
+
+		bool IsModified();
+		bool IsGlobalUsed();
+	}
+
 	internal abstract class BaseSetting<T> : ISetting, IExposable
 	{
 		#region PROPERTIES
@@ -49,16 +64,64 @@ namespace CustomizeAnimals.Settings
 		#endregion
 	}
 
-	public interface ISetting
+	internal abstract class NullableFloatSetting : BaseSetting<float?>
 	{
-		void SetValue();
-		void Reset();
-		void ExposeData();
+		#region CONSTRUCTORS
+		public NullableFloatSetting(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		{ }
+		#endregion
 
-		void ResetGlobal();
-		void ExposeGlobal();
+		#region METHODS
+		protected virtual float? GetStat(StatDef stat, bool useDefaultValueIfNull)
+		{
+			var statBases = Animal?.statBases;
+			if (statBases != null)
+			{
+				var value = statBases.FirstOrDefault((s) => s.stat == stat)?.value;
+				if (useDefaultValueIfNull && value == null)
+					value = stat.defaultBaseValue;
+				return value;
+			}
 
-		bool IsModified();
-		bool IsGlobalUsed();
+			if (!IsGlobal)
+				Log.Warning($"{nameof(CustomizeAnimals)}.{GetType()}: {Animal?.defName} statBases is null, value cannot be set!");
+			return null;
+		}
+		protected virtual void SetStat(StatDef stat, bool useLimits = false, float min = 0f, float? max = 1e9f)
+		{
+			if (Animal == null || stat == null)
+			{
+				Log.Error($"{nameof(CustomizeAnimals)}.{GetType()}.{nameof(SetStat)}: invalid parameters: animal: {Animal} stat: {stat}");
+				return;
+			}
+
+			var statBases = Animal?.statBases;
+			if (statBases != null)
+			{
+				if (useLimits)
+				{
+					if (max == null)
+						Value = null;
+					else if (Value < min)
+						Value = min;
+					else if (Value > max)
+						Value = max;
+				}
+
+				var statModifier = statBases.FirstOrDefault((s) => s.stat == stat);
+				if (Value != null)
+				{
+					var value = (float)Value;
+
+					if (statModifier != null)
+						statModifier.value = value;
+					else
+						statBases.Add(new StatModifier { stat = stat, value = value });
+				}
+				else if (statModifier != null)
+					statBases.Remove(statModifier);
+			}
+		}
+		#endregion
 	}
 }
