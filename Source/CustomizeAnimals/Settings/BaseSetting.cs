@@ -98,25 +98,24 @@ namespace CustomizeAnimals.Settings
 			var statBases = Animal?.statBases;
 			if (statBases != null)
 			{
+				var local = Value;
 				if (useLimits)
 				{
 					if (max == null)
-						Value = null;
-					else if (Value < min)
-						Value = min;
-					else if (Value > max)
-						Value = max;
+						local = null;
+					else if (local < min)
+						local = min;
+					else if (local > max)
+						local = max;
 				}
 
 				var statModifier = statBases.FirstOrDefault((s) => s.stat == stat);
-				if (Value != null)
+				if (local is float statValue)
 				{
-					var value = (float)Value;
-
 					if (statModifier != null)
-						statModifier.value = value;
+						statModifier.value = statValue;
 					else
-						statBases.Add(new StatModifier { stat = stat, value = value });
+						statBases.Add(new StatModifier { stat = stat, value = statValue });
 				}
 				else if (statModifier != null)
 					statBases.Remove(statModifier);

@@ -37,10 +37,10 @@ namespace CustomizeAnimals.Controls
 			(var use, var value) = CreateNullableNumericGlobal(
 				offsetY,
 				viewWidth,
-				"SY_CA.MinimumFilthRate".Translate(),
+				"SY_CA.MaximumFilthRate".Translate(),
 				"SY_CA.FilthRateDisabled".Translate(),
-				"SY_CA.TooltipMinimumFilthRate".Translate(),
-				"SY_CA.TooltipMinimumFilthRateChk".Translate(),
+				"SY_CA.TooltipMaximumFilthRate".Translate(),
+				"SY_CA.TooltipMaximumFilthRateChk".Translate(),
 				SettingFilthRate.UseMaximumFilthRate,
 				SettingFilthRate.MaximumFilthRate,
 				SettingFilthRate.DefaultMaximum,
