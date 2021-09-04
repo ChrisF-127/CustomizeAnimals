@@ -10,23 +10,21 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlWildness : BaseSettingControl
+	internal class ControlBodySize : BaseSettingControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float>)animalSettings.Settings["Wildness"];
+			var setting = (BaseSetting<float>)animalSettings.Settings["BodySize"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
-				"SY_CA.Wildness".Translate(),
-				"SY_CA.TooltipWildness".Translate(),
+				"SY_CA.BodySize".Translate(),
+				"SY_CA.TooltipBodySize".Translate(),
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				max: 10f,
-				to: ToPercent,
-				back: FromPercent,
-				unit: "%");
+				min: 0.001f,
+				max: 1000f);
 
 			setting.Value = value;
 

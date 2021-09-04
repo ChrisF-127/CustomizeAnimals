@@ -26,26 +26,6 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
-		public override void ResetGlobal()
-		{
-			UseHungerRateLimits = false;
-			MinimumHungerRate = DefaultMinimum;
-			MaximumHungerRate = DefaultMaximum;
-		}
-
-		public override void ExposeGlobal()
-		{
-			var useGlobal = UseHungerRateLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseHungerRateLimits));
-			UseHungerRateLimits = useGlobal;
-
-			var minValue = MinimumHungerRate;
-			Scribe_Values.Look(ref minValue, nameof(MinimumHungerRate), DefaultMinimum);
-			MinimumHungerRate = minValue;
-			var maxValue = MaximumHungerRate;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumHungerRate), DefaultMaximum);
-			MaximumHungerRate = maxValue;
-		}
 		#endregion
 
 		#region INTERFACES
@@ -80,6 +60,27 @@ namespace CustomizeAnimals.Settings
 			var value = Value;
 			Scribe_Values.Look(ref value, "HungerRate", DefaultValue);
 			Value = value;
+		}
+
+		public override void ResetGlobal()
+		{
+			UseHungerRateLimits = false;
+			MinimumHungerRate = DefaultMinimum;
+			MaximumHungerRate = DefaultMaximum;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseHungerRateLimits;
+			Scribe_Values.Look(ref useGlobal, nameof(UseHungerRateLimits));
+			UseHungerRateLimits = useGlobal;
+
+			var minValue = MinimumHungerRate;
+			Scribe_Values.Look(ref minValue, nameof(MinimumHungerRate), DefaultMinimum);
+			MinimumHungerRate = minValue;
+			var maxValue = MaximumHungerRate;
+			Scribe_Values.Look(ref maxValue, nameof(MaximumHungerRate), DefaultMaximum);
+			MaximumHungerRate = maxValue;
 		}
 
 		public override bool IsGlobalUsed() =>

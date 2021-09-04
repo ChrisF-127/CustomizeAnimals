@@ -24,22 +24,6 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
-		public override void ResetGlobal()
-		{
-			UseMaximumFilthRate = false;
-			MaximumFilthRate = DefaultMaximum;
-		}
-
-		public override void ExposeGlobal()
-		{
-			var useGlobal = UseMaximumFilthRate;
-			Scribe_Values.Look(ref useGlobal, nameof(UseMaximumFilthRate));
-			UseMaximumFilthRate = useGlobal;
-			
-			var maxValue = MaximumFilthRate;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumFilthRate), DefaultMaximum);
-			MaximumFilthRate = maxValue;
-		}
 		#endregion
 
 		#region INTERFACES
@@ -53,6 +37,23 @@ namespace CustomizeAnimals.Settings
 			var value = Value;
 			Scribe_Values.Look(ref value, "FilthRate", DefaultValue);
 			Value = value;
+		}
+
+		public override void ResetGlobal()
+		{
+			UseMaximumFilthRate = false;
+			MaximumFilthRate = DefaultMaximum;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseMaximumFilthRate;
+			Scribe_Values.Look(ref useGlobal, nameof(UseMaximumFilthRate));
+			UseMaximumFilthRate = useGlobal;
+
+			var maxValue = MaximumFilthRate;
+			Scribe_Values.Look(ref maxValue, nameof(MaximumFilthRate), DefaultMaximum);
+			MaximumFilthRate = maxValue;
 		}
 
 		public override bool IsGlobalUsed() =>

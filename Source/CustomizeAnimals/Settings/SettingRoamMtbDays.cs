@@ -22,22 +22,6 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
-		public override void ResetGlobal()
-		{
-			UseMinimumRoamMtbDays = false;
-			MinimumRoamMtbDays = null;
-		}
-
-		public override void ExposeGlobal()
-		{
-			var useGlobal = UseMinimumRoamMtbDays;
-			Scribe_Values.Look(ref useGlobal, "UseMinimumRoamMtbDays");
-			UseMinimumRoamMtbDays = useGlobal;
-
-			var roamMtbDays = MinimumRoamMtbDays;
-			Scribe_Values.Look(ref roamMtbDays, "MinimumRoamMtbDays");
-			MinimumRoamMtbDays = roamMtbDays > 0 ? roamMtbDays : null;
-		}
 		#endregion
 
 		#region INTERFACES
@@ -56,6 +40,23 @@ namespace CustomizeAnimals.Settings
 			var roamMtbDays = Value;
 			Scribe_Values.Look(ref roamMtbDays, "RoamMtbDays", DefaultValue);
 			Value = roamMtbDays;
+		}
+
+		public override void ResetGlobal()
+		{
+			UseMinimumRoamMtbDays = false;
+			MinimumRoamMtbDays = null;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseMinimumRoamMtbDays;
+			Scribe_Values.Look(ref useGlobal, "UseMinimumRoamMtbDays");
+			UseMinimumRoamMtbDays = useGlobal;
+
+			var roamMtbDays = MinimumRoamMtbDays;
+			Scribe_Values.Look(ref roamMtbDays, "MinimumRoamMtbDays");
+			MinimumRoamMtbDays = roamMtbDays > 0 ? roamMtbDays : null;
 		}
 
 		public override bool IsGlobalUsed() =>

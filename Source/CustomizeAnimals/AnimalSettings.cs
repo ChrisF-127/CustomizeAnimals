@@ -19,10 +19,11 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public GlobalSettings()
 		{
+			//Settings.Add("BodySize", new SettingBodySize(null, true)); // no global settings
 			Settings.Add("Trainability", new SettingTrainability(null, true));
 			Settings.Add("FilthRate", new SettingFilthRate(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
-			Settings.Add("Wildness", new SettingWildness(null, true));
+			//Settings.Add("Wildness", new SettingWildness(null, true)); // no global settings
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			Settings.Add("HungerRate", new SettingHungerRate(null, true));
@@ -78,6 +79,7 @@ namespace CustomizeAnimals
 		{
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
+			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("Trainability", new SettingTrainability(Animal));
 			Settings.Add("FilthRate", new SettingFilthRate(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
