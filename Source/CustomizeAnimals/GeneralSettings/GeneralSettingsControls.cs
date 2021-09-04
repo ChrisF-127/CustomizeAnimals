@@ -43,9 +43,9 @@ namespace CustomizeAnimals.Controls
 			// Rescue: BodySize Limit
 			var selected = Settings.DisableHaulSizeLimit;
 			Widgets.Checkbox(offsetX, offsetY + checkboxOffset, ref selected, checkboxSize);
-			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth, SettingsRowHeight), "SY_CA.TooltipRescueLimit".Translate());
+			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth - 12, SettingsRowHeight), "SY_CA.TooltipRescueLimit".Translate());
 			offsetX += checkboxSize + 2;
-			var rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize, SettingsRowHeight);
+			var rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight);
 			Widgets.Label(rect, "SY_CA.RescueLimit".Translate());
 			Settings.DisableHaulSizeLimit = selected ^ Widgets.ButtonInvisible(rect);
 
@@ -54,9 +54,9 @@ namespace CustomizeAnimals.Controls
 			// Haul: BodySize Limit
 			selected = Settings.DisableRescueSizeLimit;
 			Widgets.Checkbox(offsetX, offsetY + checkboxOffset, ref selected, checkboxSize);
-			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth, SettingsRowHeight), "SY_CA.TooltipHaulLimit".Translate());
+			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth - 12, SettingsRowHeight), "SY_CA.TooltipHaulLimit".Translate());
 			offsetX += checkboxSize + 2;
-			rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize, SettingsRowHeight);
+			rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight);
 			Widgets.Label(rect, "SY_CA.HaulLimit".Translate());
 			Settings.DisableRescueSizeLimit = selected ^ Widgets.ButtonInvisible(rect);
 

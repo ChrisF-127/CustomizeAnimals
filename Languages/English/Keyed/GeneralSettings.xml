@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.TrainableLimits>Trainability: disable body size limits</SY_CA.TrainableLimits>
+	<SY_CA.RescueLimit>Rescue</SY_CA.RescueLimit>
+	<SY_CA.TooltipRescueLimit>Allow all 'Advanced' trainable animals to 'Rescue' irrespective of their body size</SY_CA.TooltipRescueLimit>
+	<SY_CA.HaulLimit>Haul</SY_CA.HaulLimit>
+	<SY_CA.TooltipHaulLimit>Allow all 'Advanced' trainable animals to 'Haul' irrespective of their body size</SY_CA.TooltipHaulLimit>
+</LanguageData>
