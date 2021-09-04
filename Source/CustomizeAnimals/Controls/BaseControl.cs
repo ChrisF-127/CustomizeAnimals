@@ -109,6 +109,7 @@ namespace CustomizeAnimals.Controls
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
+			string defaultValueLabel;
 
 			// Label
 			// Switch color if modified
@@ -123,7 +124,10 @@ namespace CustomizeAnimals.Controls
 				value = to(value);
 				min = to(min);
 				max = to(max);
+				defaultValueLabel = to(defaultValue).ToString();
 			}
+			else
+				defaultValueLabel = defaultValue.ToString();
 
 			// Settings
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
@@ -140,7 +144,7 @@ namespace CustomizeAnimals.Controls
 			DrawTextFieldUnit(textFieldRect, unit);
 
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
 			{
 				value = defaultValue;
 				ValueBuffer = null;
@@ -165,6 +169,7 @@ namespace CustomizeAnimals.Controls
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
+			string defaultValueLabel = "null";
 
 			// Label
 			// Switch color if modified
@@ -180,7 +185,11 @@ namespace CustomizeAnimals.Controls
 					value = to(v);
 				min = to(min);
 				max = to(max);
+				if (defaultValue is float dv)
+					defaultValueLabel = to(dv).ToString();
 			}
+			else if (defaultValue != null)
+				defaultValueLabel = defaultValue.ToString();
 
 			// Settings
 			var selected = value != null;
@@ -224,7 +233,7 @@ namespace CustomizeAnimals.Controls
 			}
 
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, (defaultValue ?? 0).ToString()))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
 			{
 				value = defaultValue;
 				ValueBuffer = null;

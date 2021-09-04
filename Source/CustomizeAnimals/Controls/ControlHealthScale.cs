@@ -12,6 +12,10 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlHealthScale : BaseSettingControl
 	{
+		private const float HitPointFactor = 30f;
+		private const float Minimum = 1e0f / HitPointFactor;
+		private const float Maximum = 1e6f / HitPointFactor;
+
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (BaseSetting<float>)animalSettings.Settings["HealthScale"];
@@ -23,7 +27,10 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				min: 0.001f);
+				min: Minimum,
+				max: Maximum,
+				to: ToHitPoints,
+				back: ToHealthScale);
 
 			setting.Value = value;
 
@@ -31,5 +38,11 @@ namespace CustomizeAnimals.Controls
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+
+
+		private float ToHitPoints(float value) =>
+			(float)Math.Round(value * HitPointFactor, 5);
+		private float ToHealthScale(float value) =>
+			(float)Math.Round(value / HitPointFactor, 5);
 	}
 }
