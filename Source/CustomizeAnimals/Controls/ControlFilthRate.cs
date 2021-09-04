@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlFilthRate : BaseControl
+	internal class ControlFilthRate : BaseSettingControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{

@@ -113,7 +113,7 @@ namespace CustomizeAnimals.Controls
 	}
 
 
-	internal abstract class TemperatureBaseControl : BaseControl
+	internal abstract class TemperatureBaseControl : BaseSettingControl
 	{
 		public static float ToCelsius(float temp)
 		{

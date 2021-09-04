@@ -10,6 +10,9 @@
 	<SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
 	<SY_CA.DialogGlobalSettingsResetAll>All settings for 'Customize Animals' will be reset</SY_CA.DialogGlobalSettingsResetAll>
 	
+	<SY_CA.SeparatorGeneralSettings>General settings</SY_CA.SeparatorGeneralSettings>
+	<SY_CA.SeparatorAnimalSettings>Animal settings</SY_CA.SeparatorAnimalSettings>
+	
 	<SY_CA.TooltipSettingsReset>Reset all changes for '{0}'</SY_CA.TooltipSettingsReset>
 	<SY_CA.DialogSettingsReset>Settings for '{0}' will be reset</SY_CA.DialogSettingsReset>
 	<SY_CA.DialogConfirm>Are you sure?</SY_CA.DialogConfirm>

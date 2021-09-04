@@ -25,23 +25,7 @@ namespace CustomizeAnimals.Controls
 		protected static Color ModifiedColor => CustomizeAnimals.ModifiedColor;
 		#endregion
 
-		#region FIELDS
-		protected string ValueBuffer = null;
-		protected string MinValueBuffer = null;
-		protected string MaxValueBuffer = null;
-		#endregion
-
 		#region METHODS
-		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
-		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
-
-		public virtual void ResetTextBuffers()
-		{
-			ValueBuffer = null;
-			MinValueBuffer = null;
-			MaxValueBuffer = null;
-		}
-
 		public static bool DrawResetButton(float offsetY, float viewWidth, string tooltip)
 		{
 			var buttonRect = new Rect(viewWidth + 2 - (SettingsRowHeight * 2), offsetY + 2, SettingsRowHeight * 2 - 2, SettingsRowHeight - 4);
@@ -78,12 +62,36 @@ namespace CustomizeAnimals.Controls
 		public static float GetControlWidth(float viewWidth) =>
 			viewWidth / 2 - SettingsRowHeight - 4;
 
-		public static float ToPercent(float value) => 
+		public static float ToPercent(float value) =>
 			(float)Math.Round(value * 100f, 5);
-		public static float FromPercent(float value) => 
+		public static float FromPercent(float value) =>
 			(float)Math.Round(value /= 100f, 5);
 		#endregion
+	}
 
+	internal abstract class BaseSettingControl : BaseControl
+	{
+		#region PROPERTIES
+		#endregion
+
+		#region FIELDS
+		protected string ValueBuffer = null;
+		protected string MinValueBuffer = null;
+		protected string MaxValueBuffer = null;
+		#endregion
+
+		#region METHODS
+		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
+		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
+
+		public virtual void ResetTextBuffers()
+		{
+			ValueBuffer = null;
+			MinValueBuffer = null;
+			MaxValueBuffer = null;
+		}
+		#endregion
+		
 		#region STANDARD CONTROLS
 		#region ANIMAL SETTING
 		protected float CreateNumeric(
@@ -99,7 +107,7 @@ namespace CustomizeAnimals.Controls
 			ConvertDelegate to = null,
 			ConvertDelegate back = null,
 			string unit = null)
-		{			
+		{
 			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
@@ -137,7 +145,7 @@ namespace CustomizeAnimals.Controls
 				value = defaultValue;
 				ValueBuffer = null;
 			}
-			
+
 			return value;
 		}
 		protected float? CreateNullableNumeric(

@@ -19,7 +19,8 @@ namespace CustomizeAnimals
 		public static CustomizeAnimals_ModSettings Settings { get; private set; } = null;
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
-		private List<BaseControl> SettingsList { get; } = new List<BaseControl>
+		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
+		private List<BaseSettingControl> SettingsList { get; } = new List<BaseSettingControl>
 		{
 			new ControlTrainability(),
 			new ControlFilthRate(),
@@ -64,6 +65,8 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public void Initialize()
 		{
+			GlobalSettings.GeneralSettings.Intialize();
+
 			Animals = new List<AnimalSettings>();
 			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
 			{
@@ -294,6 +297,11 @@ namespace CustomizeAnimals
 			float totalHeight = SettingsOffsetY;
 			if (animal != null)
 			{
+				// Separator
+				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorAnimalSettings".Translate());
+				totalHeight += 2;
+				Text.Anchor = TextAnchor.MiddleLeft;
+
 				// Draw animal settings
 				foreach (var setting in SettingsList)
 				{
@@ -308,7 +316,21 @@ namespace CustomizeAnimals
 			// No animal selected
 			else
 			{
-				// Draw global settings
+				// General settings separator
+				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorGeneralSettings".Translate());
+				totalHeight += 2;
+				Text.Anchor = TextAnchor.MiddleLeft;
+
+				// General settings
+				totalHeight += GeneralSettings.DrawTrainabilityLimitsControls(totalHeight, viewWidth);
+
+
+				// Global animal settings separator
+				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorAnimalSettings".Translate());
+				totalHeight += 2;
+				Text.Anchor = TextAnchor.MiddleLeft;
+
+				// Global animal settings
 				foreach (var setting in SettingsList)
 				{
 					if (isDifferentAnimal)

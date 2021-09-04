@@ -12,6 +12,7 @@ namespace CustomizeAnimals
 	public class GlobalSettings : IExposable
 	{
 		#region PROPERTIES
+		public static GeneralSettings GeneralSettings { get; } = new GeneralSettings();
 		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
 		#endregion
 
@@ -31,17 +32,21 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public void ApplySettings()
 		{
+			GeneralSettings.ApplySettings();
 			foreach (var animal in CustomizeAnimals.Animals)
 				animal.ApplySettings();
 		}
 		public void Reset()
 		{
+			GeneralSettings.Reset();
 			foreach (var item in Settings.Values)
 				item.ResetGlobal();
 		}
 
 		public bool IsGlobalUsed()
 		{
+			if (GeneralSettings.IsModified())
+				return true;
 			foreach (var item in Settings.Values)
 				if (item.IsGlobalUsed())
 					return true;
@@ -52,6 +57,7 @@ namespace CustomizeAnimals
 		#region INTERFACES
 		public void ExposeData()
 		{
+			GeneralSettings.ExposeData();
 			foreach (var item in Settings.Values)
 				item.ExposeGlobal();
 
