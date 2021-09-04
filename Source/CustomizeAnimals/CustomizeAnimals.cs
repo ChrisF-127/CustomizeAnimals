@@ -23,6 +23,7 @@ namespace CustomizeAnimals
 		private List<BaseSettingControl> SettingsList { get; } = new List<BaseSettingControl>
 		{
 			new ControlBodySize(),
+			new ControlHealthScale(),
 			new ControlTrainability(),
 			new ControlFilthRate(),
 			new ControlRoamMtbDays(),

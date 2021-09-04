@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.HealthScale>Health scale (hit points)</SY_CA.HealthScale>
+	<SY_CA.TooltipHealthScale>Sets the health scale which affects the hit points of this animal
+Be careful when reducing this value as animals with many wounds or scars can lose body parts or instantly die!</SY_CA.TooltipHealthScale>
+</LanguageData>
