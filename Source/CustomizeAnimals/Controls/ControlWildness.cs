@@ -23,7 +23,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				max: 10f,
+				min: SettingWildness.DefaultMinimum,
+				max: SettingWildness.DefaultMaximum,
 				to: ToPercent,
 				back: FromPercent,
 				unit: "%");

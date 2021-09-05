@@ -25,7 +25,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				min: 1f,
+				min: SettingRoamMtbDays.DefaultMinimum,
+				max: SettingRoamMtbDays.DefaultMaximum,
 				unit: "d");
 
 			setting.Value = value;
@@ -44,8 +45,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipMinimumRoamMtbDaysChk".Translate(),
 				SettingRoamMtbDays.UseMinimumRoamMtbDays,
 				SettingRoamMtbDays.MinimumRoamMtbDays,
-				SettingRoamMtbDays.DefaultMinimum,
-				min: 1f,
+				SettingRoamMtbDays.DefaultMinimumGlobal,
+				min: SettingRoamMtbDays.DefaultMinimum,
+				max: SettingRoamMtbDays.DefaultMaximum,
 				unit: "d");
 
 			SettingRoamMtbDays.UseMinimumRoamMtbDays = use;

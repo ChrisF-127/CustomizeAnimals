@@ -29,6 +29,7 @@ namespace CustomizeAnimals
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			Settings.Add("HungerRate", new SettingHungerRate(null, true));
+			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
 		}
 		#endregion
 
@@ -91,6 +92,7 @@ namespace CustomizeAnimals
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 			Settings.Add("HungerRate", new SettingHungerRate(Animal));
+			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
 
 			ApplySettings();
 		}

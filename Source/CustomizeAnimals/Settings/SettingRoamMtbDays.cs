@@ -13,7 +13,10 @@ namespace CustomizeAnimals.Settings
 		public static bool UseMinimumRoamMtbDays { get; set; } 
 		public static float? MinimumRoamMtbDays { get; set; }
 
-		public const float DefaultMinimum = 120f;
+		public const float DefaultMinimum = 1f;
+		public const float DefaultMaximum = 120f;
+
+		public const float DefaultMinimumGlobal = DefaultMaximum;
 		#endregion
 
 		#region CONSTRUCTORS

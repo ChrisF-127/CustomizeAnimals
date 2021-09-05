@@ -16,8 +16,8 @@ namespace CustomizeAnimals.Settings
 		public static float MinimumHungerRate { get; set; }
 		public static float MaximumHungerRate { get; set; }
 
-		public const float DefaultMinimum = 0f;
-		public const float DefaultMaximum = 25f;
+		public const float DefaultMinimumGlobal = 0f;
+		public const float DefaultMaximumGlobal = 25f;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -65,8 +65,8 @@ namespace CustomizeAnimals.Settings
 		public override void ResetGlobal()
 		{
 			UseHungerRateLimits = false;
-			MinimumHungerRate = DefaultMinimum;
-			MaximumHungerRate = DefaultMaximum;
+			MinimumHungerRate = DefaultMinimumGlobal;
+			MaximumHungerRate = DefaultMaximumGlobal;
 		}
 
 		public override void ExposeGlobal()
@@ -76,10 +76,10 @@ namespace CustomizeAnimals.Settings
 			UseHungerRateLimits = useGlobal;
 
 			var minValue = MinimumHungerRate;
-			Scribe_Values.Look(ref minValue, nameof(MinimumHungerRate), DefaultMinimum);
+			Scribe_Values.Look(ref minValue, nameof(MinimumHungerRate), DefaultMinimumGlobal);
 			MinimumHungerRate = minValue;
 			var maxValue = MaximumHungerRate;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumHungerRate), DefaultMaximum);
+			Scribe_Values.Look(ref maxValue, nameof(MaximumHungerRate), DefaultMaximumGlobal);
 			MaximumHungerRate = maxValue;
 		}
 
