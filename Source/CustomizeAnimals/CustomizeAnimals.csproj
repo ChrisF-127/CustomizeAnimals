@@ -75,6 +75,7 @@
     <Compile Include="Controls\ControlFilthRate.cs" />
     <Compile Include="Controls\ControlHungerRate.cs" />
     <Compile Include="Controls\ControlBodySize.cs" />
+    <Compile Include="Controls\ControlMoveSpeed.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Settings\SettingFilthRate.cs" />
     <Compile Include="Settings\SettingHungerRate.cs" />
     <Compile Include="Settings\SettingBodySize.cs" />
+    <Compile Include="Settings\SettingMoveSpeed.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />

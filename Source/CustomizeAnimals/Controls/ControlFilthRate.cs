@@ -25,7 +25,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				min: 1f);
+				min: StatDefOf.FilthRate.minValue,
+				max: StatDefOf.FilthRate.maxValue);
 
 			setting.Value = value;
 
@@ -44,7 +45,8 @@ namespace CustomizeAnimals.Controls
 				SettingFilthRate.UseMaximumFilthRate,
 				SettingFilthRate.MaximumFilthRate,
 				SettingFilthRate.DefaultMaximum,
-				min: 1f);
+				min: StatDefOf.FilthRate.minValue,
+				max: StatDefOf.FilthRate.maxValue);
 
 			SettingFilthRate.UseMaximumFilthRate = use;
 			SettingFilthRate.MaximumFilthRate = value;

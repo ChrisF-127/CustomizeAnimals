@@ -21,6 +21,7 @@ namespace CustomizeAnimals
 		{
 			//Settings.Add("BodySize", new SettingBodySize(null, true)); // no global settings
 			//Settings.Add("HealthScale", new SettingHealthScale(null, true)); // no global settings
+			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); // no global settings
 			Settings.Add("Trainability", new SettingTrainability(null, true));
 			Settings.Add("FilthRate", new SettingFilthRate(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
@@ -82,6 +83,7 @@ namespace CustomizeAnimals
 
 			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("HealthScale", new SettingHealthScale(Animal));
+			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
 			Settings.Add("Trainability", new SettingTrainability(Animal));
 			Settings.Add("FilthRate", new SettingFilthRate(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));

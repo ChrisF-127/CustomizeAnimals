@@ -24,6 +24,7 @@ namespace CustomizeAnimals
 		{
 			new ControlBodySize(),
 			new ControlHealthScale(),
+			new ControlMoveSpeed(),
 			new ControlTrainability(),
 			new ControlFilthRate(),
 			new ControlRoamMtbDays(),
