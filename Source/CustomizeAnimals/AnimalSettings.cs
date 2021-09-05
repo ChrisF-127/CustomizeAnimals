@@ -19,16 +19,18 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public GlobalSettings()
 		{
-			//Settings.Add("BodySize", new SettingBodySize(null, true)); // no global settings
-			//Settings.Add("HealthScale", new SettingHealthScale(null, true)); // no global settings
-			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); // no global settings
+			//Settings.Add("BodySize", new SettingBodySize(null, true));
+			//Settings.Add("HealthScale", new SettingHealthScale(null, true));
+			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
 			Settings.Add("Trainability", new SettingTrainability(null, true));
 			Settings.Add("FilthRate", new SettingFilthRate(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
-			//Settings.Add("Wildness", new SettingWildness(null, true)); // no global settings
+			//Settings.Add("Wildness", new SettingWildness(null, true)); 
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			Settings.Add("HungerRate", new SettingHungerRate(null, true));
+			//Settings.Add("Predator", new SettingPredator(null, true));
+			//Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
 			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
 		}
 		#endregion
@@ -92,6 +94,8 @@ namespace CustomizeAnimals
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 			Settings.Add("HungerRate", new SettingHungerRate(Animal));
+			Settings.Add("Predator", new SettingPredator(Animal));
+			Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
 			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
 
 			ApplySettings();

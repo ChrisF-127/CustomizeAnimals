@@ -23,8 +23,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value,
 				setting.DefaultValue,
-				min: 0.001f,
-				max: 1000f);
+				min: SettingBodySize.DefaultMinimum,
+				max: SettingBodySize.DefaultMaximum);
 
 			setting.Value = value;
 

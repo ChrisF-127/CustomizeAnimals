@@ -93,6 +93,23 @@ namespace CustomizeAnimals.Controls
 		#endregion
 		
 		#region STANDARD CONTROLS
+		protected void CreateText(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string text)
+		{
+			var controlWidth = GetControlWidth(viewWidth);
+
+			// Label
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+
+			// Not applicable
+			Text.Anchor = TextAnchor.MiddleCenter;
+			Widgets.Label(new Rect(controlWidth + 2, offsetY, controlWidth - 4, SettingsRowHeight), text);
+			Text.Anchor = TextAnchor.MiddleLeft;
+		}
+
 		#region ANIMAL SETTING
 		protected float CreateNumeric(
 			float offsetY,
@@ -152,6 +169,94 @@ namespace CustomizeAnimals.Controls
 
 			return value;
 		}
+
+		protected (bool, float) CreateNumericWithCheckbox(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool isModified,
+			float value,
+			float defaultValue,
+			bool checkboxValue,
+			bool defaultCheckboxValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate to = null,
+			ConvertDelegate back = null,
+			string unit = null)
+		{
+			var controlWidth = GetControlWidth(viewWidth);
+			string defaultValueLabel;
+
+			// Label
+			// Switch color if modified
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Convert
+			if (to != null)
+			{
+				value = to(value);
+				min = to(min);
+				max = to(max);
+				defaultValueLabel = defaultCheckboxValue + "/" + to(defaultValue).ToString();
+			}
+			else
+				defaultValueLabel = defaultCheckboxValue + "/" + defaultValue.ToString();
+
+			// Settings
+			var checkboxSize = SettingsRowHeight - 8;
+			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref checkboxValue, checkboxSize);
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), tooltipCheckbox);
+
+			// Value
+			float offsetX = controlWidth + checkboxSize + 4;
+			float width = controlWidth - checkboxSize - 6;
+			if (checkboxValue)
+			{
+				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
+				float val = value;
+				Widgets.TextFieldNumeric(textFieldRect, ref val, ref ValueBuffer, min, max);
+				DrawTooltip(textFieldRect, tooltip);
+
+				// Unit
+				DrawTextFieldUnit(textFieldRect, unit);
+
+				value = val;
+			}
+			else
+			{
+				// Label when disabled
+				if (labelDisabled != null)
+				{
+					Text.Anchor = TextAnchor.MiddleCenter;
+					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), labelDisabled);
+					Text.Anchor = TextAnchor.MiddleLeft;
+				}
+			}
+
+			// Convert back
+			if (back != null)
+			{
+				value = back(value);
+			}
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
+			{
+				value = defaultValue;
+				checkboxValue = defaultCheckboxValue;
+				ValueBuffer = null;
+			}
+
+			return (checkboxValue, value);
+		}
+
 		protected float? CreateNullableNumeric(
 			float offsetY,
 			float viewWidth,
@@ -289,6 +394,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref MinValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMin);
 
+			// Unit
 			DrawTextFieldUnit(textFieldRect, unit);
 
 			offsetX += textFieldWidth + 4;
@@ -316,6 +422,7 @@ namespace CustomizeAnimals.Controls
 			// Output
 			return (use, minValue, maxValue);
 		}
+
 		protected (bool, float?) CreateNullableNumericGlobal(
 			float offsetY,
 			float viewWidth,

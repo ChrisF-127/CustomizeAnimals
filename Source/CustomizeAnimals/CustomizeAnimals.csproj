@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlPredator.cs" />
     <Compile Include="Controls\ControlHealthScale.cs" />
     <Compile Include="Controls\ControlFilthRate.cs" />
     <Compile Include="Controls\ControlHungerRate.cs" />
@@ -93,8 +94,10 @@
     <Compile Include="Settings\SettingFilthRate.cs" />
     <Compile Include="Settings\SettingHungerRate.cs" />
     <Compile Include="Settings\SettingBodySize.cs" />
+    <Compile Include="Settings\SettingPredator.cs" />
     <Compile Include="Settings\SettingMoveSpeed.cs" />
     <Compile Include="Settings\SettingNuzzleMtbHours.cs" />
+    <Compile Include="Settings\SettingMaxPreyBodySize.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />

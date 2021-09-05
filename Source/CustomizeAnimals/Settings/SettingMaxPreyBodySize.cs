@@ -9,15 +9,17 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingBodySize : BaseSetting<float>
+	internal class SettingMaxPreyBodySize : BaseSetting<float>
 	{
 		#region PROPERTIES
 		public const float DefaultMinimum = 1e-3f;
 		public const float DefaultMaximum = 99999f;
+
+		public bool IsPredator => Animal?.race?.predator ?? false;
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingBodySize(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingMaxPreyBodySize(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -29,23 +31,23 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.baseBodySize;
+				return race.maxPreyBodySize;
 
 			if (!IsGlobal)
-				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingBodySize)}: {Animal?.defName} race is null, value cannot be set!");
-			return 1f;
+				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingMaxPreyBodySize)}: {Animal?.defName} race is null, value cannot be set!");
+			return 0f;
 		}
 		public override void SetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.baseBodySize = Value;
+				race.maxPreyBodySize = Value;
 		}
 
 		public override void ExposeData()
 		{
 			var value = Value;
-			Scribe_Values.Look(ref value, "BodySize", DefaultValue);
+			Scribe_Values.Look(ref value, "MaxPreyBodySize", DefaultValue);
 			Value = value;
 		}
 		#endregion

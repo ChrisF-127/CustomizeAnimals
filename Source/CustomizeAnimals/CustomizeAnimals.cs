@@ -32,6 +32,7 @@ namespace CustomizeAnimals
 			new ControlMaxTemperature(),
 			new ControlMinTemperature(),
 			new ControlHungerRate(),
+			new ControlPredator(), // Predator & MaxPreyBodySize
 			new ControlNuzzleMtbHours(),
 		};
 		#endregion
