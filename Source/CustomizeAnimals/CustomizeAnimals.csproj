@@ -78,6 +78,7 @@
     <Compile Include="Controls\ControlBodySize.cs" />
     <Compile Include="Controls\ControlMoveSpeed.cs" />
     <Compile Include="Controls\ControlNuzzleMtbHours.cs" />
+    <Compile Include="Controls\ControlMarketValue.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Settings\SettingMoveSpeed.cs" />
     <Compile Include="Settings\SettingNuzzleMtbHours.cs" />
     <Compile Include="Settings\SettingMaxPreyBodySize.cs" />
+    <Compile Include="Settings\SettingMarketValue.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />

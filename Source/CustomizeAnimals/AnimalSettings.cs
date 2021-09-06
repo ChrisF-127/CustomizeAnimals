@@ -19,6 +19,7 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public GlobalSettings()
 		{
+			//Settings.Add("MarketValue", new SettingMarketValue(null, true));
 			//Settings.Add("BodySize", new SettingBodySize(null, true));
 			//Settings.Add("HealthScale", new SettingHealthScale(null, true));
 			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
@@ -84,6 +85,7 @@ namespace CustomizeAnimals
 		{
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
+			Settings.Add("MarketValue", new SettingMarketValue(Animal));
 			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("HealthScale", new SettingHealthScale(Animal));
 			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));

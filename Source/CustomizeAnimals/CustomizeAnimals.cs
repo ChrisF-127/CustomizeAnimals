@@ -22,6 +22,7 @@ namespace CustomizeAnimals
 		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
 		private List<BaseSettingControl> SettingsList { get; } = new List<BaseSettingControl>
 		{
+			new ControlMarketValue(),
 			new ControlBodySize(),
 			new ControlHealthScale(),
 			new ControlMoveSpeed(),
