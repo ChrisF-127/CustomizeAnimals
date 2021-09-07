@@ -16,6 +16,7 @@ namespace CustomizeAnimals.Controls
 		#region PROPERTIES
 		protected static float SettingsViewHeight => CustomizeAnimals.SettingsViewHeight;
 		protected static float SettingsRowHeight => CustomizeAnimals.SettingsRowHeight;
+		protected static float SettingsDoubleRowHeight => CustomizeAnimals.SettingsDoubleRowHeight;
 		protected static float SettingsIconSize => CustomizeAnimals.SettingsIconSize;
 		protected static float SettingsOffsetY => CustomizeAnimals.SettingsOffsetY;
 
@@ -32,12 +33,12 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(buttonRect, "SY_CA.TooltipDefaultValue".Translate() + " " + tooltip);
 			return Widgets.ButtonText(buttonRect, "SY_CA.Reset".Translate());
 		}
-		public static bool DrawUseGlobalCheckBox(float offsetY, float viewWidth, bool useGlobal)
+		public static bool DrawUseGlobalCheckBox(float offsetY, float viewWidth, bool useGlobal, float height)
 		{
 			var checkboxSize = SettingsRowHeight - 8;
 			var offsetX = viewWidth + 1 - (SettingsRowHeight + checkboxSize / 2);
 
-			Widgets.Checkbox(offsetX, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref useGlobal, checkboxSize);
+			Widgets.Checkbox(offsetX, offsetY + (height - checkboxSize) / 2, ref useGlobal, checkboxSize);
 			DrawTooltip(new Rect(offsetX, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipUseGlobal".Translate());
 
 			return useGlobal;
@@ -50,12 +51,10 @@ namespace CustomizeAnimals.Controls
 				activeTip.DrawTooltip(GenUI.GetMouseAttachedWindowPos(activeTip.TipRect.width, activeTip.TipRect.height) + (UI.MousePositionOnUIInverted - Event.current.mousePosition));
 			}
 		}
-		public static void DrawTextFieldUnit(Rect rect, string unit)
+		public static void DrawTextFieldUnit(Rect rect, float? value, string unit)
 		{
-			if (unit == null)
-				return;
 			Text.Anchor = TextAnchor.MiddleRight;
-			Widgets.Label(new Rect(rect.x + 4, rect.y + 1, rect.width - 8, rect.height), unit);
+			Widgets.Label(new Rect(rect.x + 4, rect.y + 1, rect.width - 8, rect.height), $"{value?.ToString() ?? ""} {unit ?? ""}");
 			Text.Anchor = TextAnchor.MiddleLeft;
 		}
 
@@ -63,9 +62,12 @@ namespace CustomizeAnimals.Controls
 			viewWidth / 2 - SettingsRowHeight - 4;
 
 		public static float ToPercent(float value) =>
-			(float)Math.Round(value * 100f, 5);
+			value * 100f;
 		public static float FromPercent(float value) =>
-			(float)Math.Round(value /= 100f, 5);
+			value / 100f;
+
+		protected float? Convert(ConvertDelegate convert, float? value) =>
+			convert != null && value != null ? (float?)convert((float)value) : null;
 		#endregion
 	}
 
@@ -121,47 +123,27 @@ namespace CustomizeAnimals.Controls
 			float defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate to = null,
-			ConvertDelegate back = null,
+			ConvertDelegate convert = null,
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
-			string defaultValueLabel;
 
 			// Label
-			// Switch color if modified
 			if (isModified)
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
-
-			// Convert
-			if (to != null)
-			{
-				value = to(value);
-				min = to(min);
-				max = to(max);
-				defaultValueLabel = to(defaultValue).ToString();
-			}
-			else
-				defaultValueLabel = defaultValue.ToString();
 
 			// Settings
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
 
-			// Convert back
-			if (back != null)
-			{
-				value = back(value);
-			}
-
 			// Unit
-			DrawTextFieldUnit(textFieldRect, unit);
+			DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
 
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
 			{
 				value = defaultValue;
 				ValueBuffer = null;
@@ -184,30 +166,16 @@ namespace CustomizeAnimals.Controls
 			bool defaultCheckboxValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate to = null,
-			ConvertDelegate back = null,
+			ConvertDelegate convert = null,
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
-			string defaultValueLabel;
 
 			// Label
-			// Switch color if modified
 			if (isModified)
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
-
-			// Convert
-			if (to != null)
-			{
-				value = to(value);
-				min = to(min);
-				max = to(max);
-				defaultValueLabel = defaultCheckboxValue + "/" + to(defaultValue).ToString();
-			}
-			else
-				defaultValueLabel = defaultCheckboxValue + "/" + defaultValue.ToString();
 
 			// Settings
 			var checkboxSize = SettingsRowHeight - 8;
@@ -220,14 +188,11 @@ namespace CustomizeAnimals.Controls
 			if (checkboxValue)
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
-				float val = value;
-				Widgets.TextFieldNumeric(textFieldRect, ref val, ref ValueBuffer, min, max);
+				Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, unit);
-
-				value = val;
+				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
 			}
 			else
 			{
@@ -240,14 +205,8 @@ namespace CustomizeAnimals.Controls
 				}
 			}
 
-			// Convert back
-			if (back != null)
-			{
-				value = back(value);
-			}
-
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultCheckboxValue + "/" + defaultValue.ToString()))
 			{
 				value = defaultValue;
 				checkboxValue = defaultCheckboxValue;
@@ -269,32 +228,16 @@ namespace CustomizeAnimals.Controls
 			float? defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate to = null,
-			ConvertDelegate back = null,
+			ConvertDelegate convert = null,
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
-			string defaultValueLabel = "null";
 
 			// Label
-			// Switch color if modified
 			if (isModified)
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
-
-			// Convert
-			if (to != null)
-			{
-				if (value is float v)
-					value = to(v);
-				min = to(min);
-				max = to(max);
-				if (defaultValue is float dv)
-					defaultValueLabel = to(dv).ToString();
-			}
-			else if (defaultValue != null)
-				defaultValueLabel = defaultValue.ToString();
 
 			// Settings
 			var selected = value != null;
@@ -311,11 +254,10 @@ namespace CustomizeAnimals.Controls
 				float val = value ?? defaultValue ?? min;
 				Widgets.TextFieldNumeric(textFieldRect, ref val, ref ValueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
+				value = val;
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, unit);
-
-				value = val;
+				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
 			}
 			else
 			{
@@ -330,15 +272,8 @@ namespace CustomizeAnimals.Controls
 				value = null;
 			}
 
-			// Convert back
-			if (back != null)
-			{
-				if (value is float v)
-					value = back(v);
-			}
-
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValueLabel))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue?.ToString() ?? "null"))
 			{
 				value = defaultValue;
 				ValueBuffer = null;
@@ -361,63 +296,49 @@ namespace CustomizeAnimals.Controls
 			float maxValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate to = null,
-			ConvertDelegate back = null,
+			ConvertDelegate convert = null,
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
+			var oriOffsetY = offsetY;
 
 			// Label
-			// Switch color if modified
 			if (use)
 				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsDoubleRowHeight), label);
 			GUI.color = OriColor;
 
 			var textFieldLabelWidth = 28;
-			var textFieldWidth = controlWidth / 2 - textFieldLabelWidth - 2;
+			var textFieldWidth = controlWidth - textFieldLabelWidth - 2;
 			var offsetX = controlWidth;
-
-			// Convert
-			if (to != null)
-			{
-				minValue = to(minValue);
-				maxValue = to(maxValue);
-				min = to(min);
-				max = to(max);
-			}
+			offsetY += 6;
+			var height = SettingsRowHeight - 12;
 
 			// Minimum setting
-			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "min");
+			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, height), "min");
 			offsetX += textFieldLabelWidth;
-			var textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
+			var textFieldRect = new Rect(offsetX + 2, offsetY, textFieldWidth - 4, height);
 			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref MinValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMin);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, unit);
-
-			offsetX += textFieldWidth + 4;
+			DrawTextFieldUnit(textFieldRect, Convert(convert, minValue), unit);
+			
+			offsetX = controlWidth;
+			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
 
 			// Maximum setting
-			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, SettingsRowHeight), "max");
+			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, height), "max");
 			offsetX += textFieldLabelWidth;
-			textFieldRect = new Rect(offsetX + 2, offsetY + 6, textFieldWidth - 4, SettingsRowHeight - 12);
+			textFieldRect = new Rect(offsetX + 2, offsetY, textFieldWidth - 4, height);
 			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref MaxValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMax);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, unit);
-
-			// Convert back
-			if (back != null)
-			{
-				minValue = back(minValue);
-				maxValue = back(maxValue);
-			}
+			DrawTextFieldUnit(textFieldRect, Convert(convert, maxValue), unit);
 
 			// "Apply" checkbox
-			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use);
+			use = DrawUseGlobalCheckBox(oriOffsetY, viewWidth, use, SettingsDoubleRowHeight);
 
 			// Output
 			return (use, minValue, maxValue);
@@ -435,8 +356,7 @@ namespace CustomizeAnimals.Controls
 			float defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate to = null,
-			ConvertDelegate back = null,
+			ConvertDelegate convert = null,
 			string unit = null)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
@@ -447,15 +367,6 @@ namespace CustomizeAnimals.Controls
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
-
-			// Convert
-			if (to != null)
-			{
-				if (value is float v)
-					value = to(v);
-				min = to(min);
-				max = to(max);
-			}
 
 			// Settings
 			var selected = value != null;
@@ -474,7 +385,7 @@ namespace CustomizeAnimals.Controls
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, unit);
+				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
 
 				value = val;
 			}
@@ -491,15 +402,8 @@ namespace CustomizeAnimals.Controls
 				value = null;
 			}
 
-			// Convert back
-			if (back != null)
-			{
-				if (value is float v)
-					value = back(v);
-			}
-
 			// "Apply" checkbox
-			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use);
+			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use, SettingsRowHeight);
 
 			// Output
 			return (use, value);

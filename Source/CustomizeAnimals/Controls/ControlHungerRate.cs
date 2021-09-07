@@ -23,8 +23,7 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value ?? 1f,
 				setting.DefaultValue ?? 1f,
-				to: ToHungerRate,
-				back: FromHungerRate);
+				convert: ToHungerRate);
 
 			setting.Value = value;
 
@@ -42,19 +41,16 @@ namespace CustomizeAnimals.Controls
 				SettingHungerRate.UseHungerRateLimits,
 				SettingHungerRate.MinimumHungerRate,
 				SettingHungerRate.MaximumHungerRate,
-				to: ToHungerRate,
-				back: FromHungerRate);
+				convert: ToHungerRate);
 
 			SettingHungerRate.UseHungerRateLimits = use;
 			SettingHungerRate.MinimumHungerRate = min;
 			SettingHungerRate.MaximumHungerRate = max;
 
-			return SettingsRowHeight;
+			return SettingsDoubleRowHeight;
 		}
 
-		public static float ToHungerRate(float value) =>
-			(float)Math.Round(value * 1.6f, 5);
-		public static float FromHungerRate(float value) =>
-			(float)Math.Round(value / 1.6f, 5);
+		private static float ToHungerRate(float value) =>
+			(float)Math.Round(value * 1.6f, 3);
 	}
 }

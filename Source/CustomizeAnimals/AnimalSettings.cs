@@ -13,13 +13,20 @@ namespace CustomizeAnimals
 	{
 		#region PROPERTIES
 		public static GeneralSettings GeneralSettings { get; } = new GeneralSettings();
-		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
+		public static Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
 		#endregion
 
 		#region CONSTRUCTORS
-		public GlobalSettings()
+		#endregion
+
+		#region PUBLIC METHODS
+		public static void Initialize()
 		{
+			GeneralSettings.Intialize();
+
 			//Settings.Add("MarketValue", new SettingMarketValue(null, true));
+			//Settings.Add("MeatAmount", new SettingMeatAmount(null, true));
+			//Settings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
 			//Settings.Add("BodySize", new SettingBodySize(null, true));
 			//Settings.Add("HealthScale", new SettingHealthScale(null, true));
 			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
@@ -34,9 +41,7 @@ namespace CustomizeAnimals
 			//Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
 			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
 		}
-		#endregion
 
-		#region PUBLIC METHODS
 		public void ApplySettings()
 		{
 			GeneralSettings.ApplySettings();
@@ -85,7 +90,23 @@ namespace CustomizeAnimals
 		{
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
+			Initialize();
+		}
+		public AnimalSettings(AnimalSettings animalSettings)
+		{
+			Animal = animalSettings.Animal;
+
+			foreach (var item in animalSettings.Settings)
+				Settings.Add(item.Key, item.Value);
+		}
+		#endregion
+
+		#region PUBLIC METHODS
+		public void Initialize()
+		{
 			Settings.Add("MarketValue", new SettingMarketValue(Animal));
+			Settings.Add("MeatAmount", new SettingMeatAmount(Animal));
+			Settings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
 			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("HealthScale", new SettingHealthScale(Animal));
 			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
@@ -102,16 +123,7 @@ namespace CustomizeAnimals
 
 			ApplySettings();
 		}
-		public AnimalSettings(AnimalSettings animalSettings)
-		{
-			Animal = animalSettings.Animal;
 
-			foreach (var item in animalSettings.Settings)
-				Settings.Add(item.Key, item.Value);
-		}
-		#endregion
-
-		#region PUBLIC METHODS
 		public void ApplySettings()
 		{
 			foreach (var item in Settings.Values)

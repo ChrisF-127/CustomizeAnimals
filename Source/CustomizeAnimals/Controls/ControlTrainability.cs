@@ -109,7 +109,7 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(new Rect(trainabilityOffsetX, offsetY, trainabilityOptionWidth, SettingsRowHeight), "SY_CA.TooltipTrainabilityAdvanced".Translate());
 
 			// Set global
-			SettingTrainability.UseMinimumTrainability = DrawUseGlobalCheckBox(offsetY, viewWidth, SettingTrainability.UseMinimumTrainability);
+			SettingTrainability.UseMinimumTrainability = DrawUseGlobalCheckBox(offsetY, viewWidth, SettingTrainability.UseMinimumTrainability, SettingsRowHeight);
 			SettingTrainability.MinimumTrainability = trainability;
 			
 			return SettingsRowHeight;

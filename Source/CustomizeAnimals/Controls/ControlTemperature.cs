@@ -15,7 +15,6 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (NullableFloatSetting)animalSettings.Settings["MaxTemperature"];
-			var tempMode = Prefs.TemperatureMode;
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -26,8 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // DefaultValue should never be null at this point
 				StatDefOf.ComfyTemperatureMax.minValue,
 				StatDefOf.ComfyTemperatureMax.maxValue,
-				to: FromCelsius,
-				back: ToCelsius,
+				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
 			setting.Value = temp;
@@ -37,7 +35,6 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			var tempMode = Prefs.TemperatureMode;
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -49,15 +46,14 @@ namespace CustomizeAnimals.Controls
 				SettingMaxTemperature.MaximumMaxTemp,
 				StatDefOf.ComfyTemperatureMax.minValue,
 				StatDefOf.ComfyTemperatureMax.maxValue,
-				to: FromCelsius,
-				back: ToCelsius,
+				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
 			SettingMaxTemperature.UseMaxTempLimits = use;
 			SettingMaxTemperature.MinimumMaxTemp = min;
 			SettingMaxTemperature.MaximumMaxTemp = max;
 
-			return SettingsRowHeight;
+			return SettingsDoubleRowHeight;
 		}
 	}
 
@@ -77,8 +73,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // DefaultValue should never be null at this point
 				StatDefOf.ComfyTemperatureMin.minValue,
 				StatDefOf.ComfyTemperatureMin.maxValue,
-				to: FromCelsius,
-				back: ToCelsius,
+				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
 			setting.Value = temp;
@@ -88,7 +83,6 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			var tempMode = Prefs.TemperatureMode;
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
@@ -100,40 +94,20 @@ namespace CustomizeAnimals.Controls
 				SettingMinTemperature.MaximumMinTemp,
 				StatDefOf.ComfyTemperatureMin.minValue,
 				StatDefOf.ComfyTemperatureMin.maxValue,
-				to: FromCelsius,
-				back: ToCelsius,
+				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
 			SettingMinTemperature.UseMinTempLimits = use;
 			SettingMinTemperature.MinimumMinTemp = min;
 			SettingMinTemperature.MaximumMinTemp = max;
 
-			return SettingsRowHeight;
+			return SettingsDoubleRowHeight;
 		}
 	}
 
 
 	internal abstract class TemperatureBaseControl : BaseSettingControl
 	{
-		public static float ToCelsius(float temp)
-		{
-			double output;
-			switch (Prefs.TemperatureMode)
-			{
-				case TemperatureDisplayMode.Celsius:
-					output = temp;
-					break;
-				case TemperatureDisplayMode.Fahrenheit:
-					output = (temp - 32.0) / 1.8;
-					break;
-				case TemperatureDisplayMode.Kelvin:
-					output = temp - 273.15;
-					break;
-				default:
-					throw new InvalidOperationException();
-			};
-			return (float)Math.Round(output, 5);
-		}
 		public static float FromCelsius(float temp)
 		{
 			double output;
@@ -151,7 +125,26 @@ namespace CustomizeAnimals.Controls
 				default:
 					throw new InvalidOperationException();
 			};
-			return (float)Math.Round(output, 5);
+			return (float)Math.Round(output, 2);
+		}
+		public static float ToCelsius(float temp)
+		{
+			double output;
+			switch (Prefs.TemperatureMode)
+			{
+				case TemperatureDisplayMode.Celsius:
+					output = temp;
+					break;
+				case TemperatureDisplayMode.Fahrenheit:
+					output = (temp - 32.0) / 1.8;
+					break;
+				case TemperatureDisplayMode.Kelvin:
+					output = temp - 273.15;
+					break;
+				default:
+					throw new InvalidOperationException();
+			};
+			return (float)Math.Round(output, 2);
 		}
 		public static string GetTemperatureUnit()
 		{

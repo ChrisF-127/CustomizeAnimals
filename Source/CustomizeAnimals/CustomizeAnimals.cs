@@ -23,6 +23,8 @@ namespace CustomizeAnimals
 		private List<BaseSettingControl> SettingsList { get; } = new List<BaseSettingControl>
 		{
 			new ControlMarketValue(),
+			new ControlMeatAmount(),
+			new ControlLeatherAmount(),
 			new ControlBodySize(),
 			new ControlHealthScale(),
 			new ControlMoveSpeed(),
@@ -52,6 +54,7 @@ namespace CustomizeAnimals
 
 		public static float SettingsViewHeight = 0;
 		public const float SettingsRowHeight = 32;
+		public const float SettingsDoubleRowHeight = 56;
 		public const float SettingsIconSize = 64;
 		public const float SettingsOffsetY = 64;
 
@@ -71,7 +74,7 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public void Initialize()
 		{
-			GlobalSettings.GeneralSettings.Intialize();
+			GlobalSettings.Initialize();
 
 			Animals = new List<AnimalSettings>();
 			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)

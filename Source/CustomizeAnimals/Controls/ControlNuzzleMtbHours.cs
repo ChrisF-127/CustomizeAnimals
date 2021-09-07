@@ -51,7 +51,7 @@ namespace CustomizeAnimals.Controls
 			SettingNuzzleMtbHours.MinimumNuzzleMtbHours = min;
 			SettingNuzzleMtbHours.MaximumNuzzleMtbHours = max;
 
-			return SettingsRowHeight;
+			return SettingsDoubleRowHeight;
 		}
 	}
 }
