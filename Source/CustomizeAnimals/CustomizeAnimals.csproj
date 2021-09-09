@@ -82,6 +82,7 @@
     <Compile Include="Controls\ControlMoveSpeed.cs" />
     <Compile Include="Controls\ControlNuzzleMtbHours.cs" />
     <Compile Include="Controls\ControlMarketValue.cs" />
+    <Compile Include="Controls\ControlManhunter.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
@@ -95,6 +96,7 @@
     <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
     <Compile Include="Settings\SettingArmorRating.cs" />
+    <Compile Include="Settings\SettingManhunter.cs" />
     <Compile Include="Settings\SettingHealthScale.cs" />
     <Compile Include="Settings\SettingFilthRate.cs" />
     <Compile Include="Settings\SettingHungerRate.cs" />

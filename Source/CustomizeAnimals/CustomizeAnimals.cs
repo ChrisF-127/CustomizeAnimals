@@ -35,6 +35,8 @@ namespace CustomizeAnimals
 			new ControlMaxTemperature(),
 			new ControlMinTemperature(),
 			new ControlHungerRate(),
+			new ControlManhunterOnTameFail(),
+			new ControlManhunterOnDamage(),
 			new ControlPredator(), // Predator & MaxPreyBodySize
 			new ControlNuzzleMtbHours(),
 
