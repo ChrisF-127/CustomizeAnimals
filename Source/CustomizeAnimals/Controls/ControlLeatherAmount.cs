@@ -14,24 +14,35 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["LeatherAmount"];
+			var setting = (SettingLeatherAmount)animalSettings.Settings["LeatherAmount"];
 
-			var bodySize = animalSettings?.Animal?.race?.baseBodySize ?? 1f;
-			float convert(float val) => Mathf.Round(StatDefOf.LeatherAmount.postProcessCurve.Evaluate(val * bodySize));
+			if (setting.HasLeatherDef())
+			{
+				var bodySize = animalSettings?.Animal?.race?.baseBodySize ?? 1f;
+				float convert(float val) => Mathf.Round(StatDefOf.LeatherAmount.postProcessCurve.Evaluate(val * bodySize));
 
-			var value = CreateNumeric(
-				offsetY,
-				viewWidth,
-				"SY_CA.LeatherAmount".Translate(),
-				"SY_CA.TooltipLeatherAmount".Translate(),
-				setting.IsModified(),
-				setting.Value ?? StatDefOf.LeatherAmount.defaultBaseValue, // Value should never be null at this point
-				setting.DefaultValue ?? StatDefOf.LeatherAmount.defaultBaseValue, // DefaultValue should never be null at this point
-				min: StatDefOf.LeatherAmount.minValue,
-				max: StatDefOf.LeatherAmount.maxValue,
-				convert: convert);
+				var value = CreateNumeric(
+					offsetY,
+					viewWidth,
+					"SY_CA.LeatherAmount".Translate(),
+					"SY_CA.TooltipLeatherAmount".Translate(),
+					setting.IsModified(),
+					setting.Value ?? StatDefOf.LeatherAmount.defaultBaseValue, // Value should never be null at this point
+					setting.DefaultValue ?? StatDefOf.LeatherAmount.defaultBaseValue, // DefaultValue should never be null at this point
+					min: StatDefOf.LeatherAmount.minValue,
+					max: StatDefOf.LeatherAmount.maxValue,
+					convert: convert);
 
-			setting.Value = value;
+				setting.Value = value;
+			}
+			else
+			{
+				CreateText(
+					offsetY,
+					viewWidth,
+					"SY_CA.LeatherAmount".Translate(),
+					$"({"SY_CA.LeatherAmountNoDef".Translate()})");
+			}
 
 			return SettingsRowHeight;
 		}

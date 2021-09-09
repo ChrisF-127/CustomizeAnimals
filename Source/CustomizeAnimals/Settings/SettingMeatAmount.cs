@@ -20,6 +20,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
+		public bool HasMeatDef() => Animal?.race?.meatDef != null;
 		#endregion
 
 		#region INTERFACES

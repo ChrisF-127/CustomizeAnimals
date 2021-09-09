@@ -356,7 +356,7 @@ namespace CustomizeAnimals
 			Widgets.EndScrollView();
 
 			// Remember settings view height for potential scrolling
-			SettingsViewHeight = totalHeight;
+			SettingsViewHeight = totalHeight - SettingsOffsetY;
 
 			// End
 			GUI.EndGroup();

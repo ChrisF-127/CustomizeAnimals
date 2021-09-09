@@ -20,6 +20,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
+		public bool HasLeatherDef() => Animal?.race?.leatherDef != null;
 		#endregion
 
 		#region INTERFACES

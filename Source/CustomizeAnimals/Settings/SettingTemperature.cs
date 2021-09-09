@@ -41,8 +41,8 @@ namespace CustomizeAnimals.Settings
 		public override void ResetGlobal()
 		{
 			UseMaxTempLimits = false;
-			MinimumMaxTemp = StatDefOf.ComfyTemperatureMax.minValue;
-			MaximumMaxTemp = StatDefOf.ComfyTemperatureMax.maxValue;
+			MinimumMaxTemp = TemperatureTuning.MinimumTemperature;
+			MaximumMaxTemp = TemperatureTuning.MaximumTemperature;
 		}
 
 		public override void ExposeGlobal()
@@ -52,10 +52,10 @@ namespace CustomizeAnimals.Settings
 			UseMaxTempLimits = useGlobal;
 
 			var minMaxTemp = MinimumMaxTemp;
-			Scribe_Values.Look(ref minMaxTemp, nameof(MinimumMaxTemp), StatDefOf.ComfyTemperatureMax.minValue);
+			Scribe_Values.Look(ref minMaxTemp, nameof(MinimumMaxTemp), TemperatureTuning.MinimumTemperature);
 			MinimumMaxTemp = minMaxTemp;
 			var maxMaxTemp = MaximumMaxTemp;
-			Scribe_Values.Look(ref maxMaxTemp, nameof(MaximumMaxTemp), StatDefOf.ComfyTemperatureMax.maxValue);
+			Scribe_Values.Look(ref maxMaxTemp, nameof(MaximumMaxTemp), TemperatureTuning.MaximumTemperature);
 			MaximumMaxTemp = maxMaxTemp;
 		}
 
@@ -82,8 +82,8 @@ namespace CustomizeAnimals.Settings
 		public override void ResetGlobal()
 		{
 			UseMinTempLimits = false;
-			MinimumMinTemp = StatDefOf.ComfyTemperatureMin.minValue;
-			MaximumMinTemp = StatDefOf.ComfyTemperatureMin.maxValue;
+			MinimumMinTemp = TemperatureTuning.MinimumTemperature;
+			MaximumMinTemp = TemperatureTuning.MaximumTemperature;
 		}
 
 		public override void ExposeGlobal()
@@ -93,10 +93,10 @@ namespace CustomizeAnimals.Settings
 			UseMinTempLimits = useGlobal;
 
 			var minMinTemp = MinimumMinTemp;
-			Scribe_Values.Look(ref minMinTemp, nameof(MinimumMinTemp), StatDefOf.ComfyTemperatureMin.minValue);
+			Scribe_Values.Look(ref minMinTemp, nameof(MinimumMinTemp), TemperatureTuning.MinimumTemperature);
 			MinimumMinTemp = minMinTemp;
 			var maxMinTemp = MaximumMinTemp;
-			Scribe_Values.Look(ref maxMinTemp, nameof(MaximumMinTemp), StatDefOf.ComfyTemperatureMin.maxValue);
+			Scribe_Values.Look(ref maxMinTemp, nameof(MaximumMinTemp), TemperatureTuning.MaximumTemperature);
 			MaximumMinTemp = maxMinTemp;
 		}
 		#endregion

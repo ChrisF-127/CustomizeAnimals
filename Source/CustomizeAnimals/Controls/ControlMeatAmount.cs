@@ -14,24 +14,35 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["MeatAmount"];
+			var setting = (SettingMeatAmount)animalSettings.Settings["MeatAmount"];
 
-			var bodySize = animalSettings?.Animal?.race?.baseBodySize ?? 1f;
-			float convert(float val) => Mathf.Round(StatDefOf.MeatAmount.postProcessCurve.Evaluate(val * bodySize));
+			if (setting.HasMeatDef())
+			{
+				var bodySize = animalSettings?.Animal?.race?.baseBodySize ?? 1f;
+				float convert(float val) => Mathf.Round(StatDefOf.MeatAmount.postProcessCurve.Evaluate(val * bodySize));
 
-			var value = CreateNumeric(
-				offsetY,
-				viewWidth,
-				"SY_CA.MeatAmount".Translate(),
-				"SY_CA.TooltipMeatAmount".Translate(),
-				setting.IsModified(),
-				setting.Value ?? StatDefOf.MeatAmount.defaultBaseValue, // Value should never be null at this point
-				setting.DefaultValue ?? StatDefOf.MeatAmount.defaultBaseValue, // DefaultValue should never be null at this point
-				min: StatDefOf.MeatAmount.minValue,
-				max: StatDefOf.MeatAmount.maxValue,
-				convert: convert);
+				var value = CreateNumeric(
+					offsetY,
+					viewWidth,
+					"SY_CA.MeatAmount".Translate(),
+					"SY_CA.TooltipMeatAmount".Translate(),
+					setting.IsModified(),
+					setting.Value ?? StatDefOf.MeatAmount.defaultBaseValue, // Value should never be null at this point
+					setting.DefaultValue ?? StatDefOf.MeatAmount.defaultBaseValue, // DefaultValue should never be null at this point
+					min: StatDefOf.MeatAmount.minValue,
+					max: StatDefOf.MeatAmount.maxValue,
+					convert: convert);
 
-			setting.Value = value;
+				setting.Value = value;
+			}
+			else
+			{
+				CreateText(
+					offsetY,
+					viewWidth,
+					"SY_CA.MeatAmount".Translate(),
+					$"({"SY_CA.MeatAmountNoDef".Translate()})");
+			}
 
 			return SettingsRowHeight;
 		}

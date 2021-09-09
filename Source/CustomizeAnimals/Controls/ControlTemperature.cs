@@ -23,8 +23,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // Value should never be null at this point
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // DefaultValue should never be null at this point
-				StatDefOf.ComfyTemperatureMax.minValue,
-				StatDefOf.ComfyTemperatureMax.maxValue,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
 				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
@@ -44,8 +44,8 @@ namespace CustomizeAnimals.Controls
 				SettingMaxTemperature.UseMaxTempLimits,
 				SettingMaxTemperature.MinimumMaxTemp,
 				SettingMaxTemperature.MaximumMaxTemp,
-				StatDefOf.ComfyTemperatureMax.minValue,
-				StatDefOf.ComfyTemperatureMax.maxValue,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
 				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
@@ -71,8 +71,8 @@ namespace CustomizeAnimals.Controls
 				setting.IsModified(),
 				setting.Value ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // Value should never be null at this point
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // DefaultValue should never be null at this point
-				StatDefOf.ComfyTemperatureMin.minValue,
-				StatDefOf.ComfyTemperatureMin.maxValue,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
 				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
@@ -92,8 +92,8 @@ namespace CustomizeAnimals.Controls
 				SettingMinTemperature.UseMinTempLimits,
 				SettingMinTemperature.MinimumMinTemp,
 				SettingMinTemperature.MaximumMinTemp,
-				StatDefOf.ComfyTemperatureMin.minValue,
-				StatDefOf.ComfyTemperatureMin.maxValue,
+				TemperatureTuning.MinimumTemperature,
+				TemperatureTuning.MaximumTemperature,
 				convert: FromCelsius,
 				unit: GetTemperatureUnit());
 
