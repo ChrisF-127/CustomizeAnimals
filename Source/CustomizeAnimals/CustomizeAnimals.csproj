@@ -71,6 +71,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\ControlArmorRating.cs" />
     <Compile Include="Controls\ControlLeatherAmount.cs" />
     <Compile Include="Controls\ControlMeatAmount.cs" />
     <Compile Include="Controls\ControlPredator.cs" />
@@ -93,6 +94,7 @@
     <Compile Include="Controls\ControlRoamMtbDays.cs" />
     <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
+    <Compile Include="Settings\SettingArmorRating.cs" />
     <Compile Include="Settings\SettingHealthScale.cs" />
     <Compile Include="Settings\SettingFilthRate.cs" />
     <Compile Include="Settings\SettingHungerRate.cs" />

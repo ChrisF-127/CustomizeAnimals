@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.ArmorRating_Sharp>Armor Rating - Sharp</SY_CA.ArmorRating_Sharp>
+	<SY_CA.TooltipArmorRating_Sharp>Set the armor rating against sharp damage
+Even though more can be typed in, 200% is the upper limit</SY_CA.TooltipArmorRating_Sharp>
+
+	<SY_CA.ArmorRating_Blunt>Armor Rating - Blunt</SY_CA.ArmorRating_Blunt>
+	<SY_CA.TooltipArmorRating_Blunt>Set the armor rating against blunt damage
+Even though more can be typed in, 200% is the upper limit</SY_CA.TooltipArmorRating_Blunt>
+
+	<SY_CA.ArmorRating_Heat>Armor Rating - Heat</SY_CA.ArmorRating_Heat>
+	<SY_CA.TooltipArmorRating_Heat>Set the armor rating against heat damage
+Even though more can be typed in, 200% is the upper limit</SY_CA.TooltipArmorRating_Heat>
+</LanguageData>

@@ -40,6 +40,10 @@ namespace CustomizeAnimals
 			//Settings.Add("Predator", new SettingPredator(null, true));
 			//Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
 			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
+
+			//Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(null, true));
+			//Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(null, true));
+			//Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(null, true));
 		}
 
 		public void ApplySettings()
@@ -120,6 +124,10 @@ namespace CustomizeAnimals
 			Settings.Add("Predator", new SettingPredator(Animal));
 			Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
 			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
+
+			Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(Animal));
+			Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
+			Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(Animal));
 
 			ApplySettings();
 		}
