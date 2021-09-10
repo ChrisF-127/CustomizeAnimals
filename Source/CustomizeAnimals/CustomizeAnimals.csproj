@@ -33,6 +33,10 @@
     <LangVersion>7.3</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="0Harmony, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Lib.Harmony.2.1.1\lib\net472\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>..\..\..\..\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
@@ -90,6 +94,7 @@
     <Compile Include="CustomizeAnimals.cs" />
     <Compile Include="CustomizeAnimals_ModSettings.cs" />
     <Compile Include="GeneralSettings\GeneralSettings.cs" />
+    <Compile Include="HarmonyPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\BaseControl.cs" />
     <Compile Include="Controls\ControlRoamMtbDays.cs" />
@@ -113,6 +118,8 @@
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -30,6 +30,35 @@ namespace CustomizeAnimals.Controls
 
 			float startOffsetY = offsetY;
 			float offsetX = 0;
+			float value = 0f;
+
+
+			// Training Decay Limits Label
+			if (Settings.IsTrainingDecayFactorModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(offsetX, offsetY, controlWidth, SettingsRowHeight), "SY_CA.TrainingDecay".Translate());
+			GUI.color = OriColor;
+
+			offsetX += controlWidth;
+
+			// Settings
+			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
+			value = Settings.TrainingDecayFactor;
+			Widgets.TextFieldNumeric(textFieldRect, ref value, ref Settings.TrainingDecayFactorBuffer, 0f, 1e3f);
+			DrawTooltip(textFieldRect, "SY_CA.TooltipTrainingDecay".Translate());
+
+			// Reset button
+			if (Settings.IsTrainingDecayFactorModified && DrawResetButton(offsetY, viewWidth, Settings.DefaultTrainingDecayFactor.ToString()))
+			{
+				value = Settings.DefaultTrainingDecayFactor;
+				Settings.TrainingDecayFactorBuffer = null;
+			}
+			Settings.TrainingDecayFactor = value;
+
+
+			// Next row
+			offsetX = 0;
+			offsetY += SettingsRowHeight;
 
 
 			// Trainable Limits Label

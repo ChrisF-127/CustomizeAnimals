@@ -15,19 +15,24 @@ namespace CustomizeAnimals.Settings
 	{
 		#region PROPERTIES
 		private TrainableDef RescueDef { get; set; }
-		private float DefaultRescueMinBodySize { get; set; } = 0f;
+		public float DefaultRescueMinBodySize { get; private set; } = 0f;
 		public bool DisableRescueSizeLimit { get; set; }
 
 		private TrainableDef HaulDef { get; set; }
-		private float DefaultHaulMinBodySize { get; set; } = 0f;
+		public float DefaultHaulMinBodySize { get; private set; } = 0f;
 		public bool DisableHaulSizeLimit { get; set; }
+
+		public bool IsTrainingDecayFactorModified => TrainingDecayFactor != DefaultTrainingDecayFactor;
+		public float DefaultTrainingDecayFactor { get; private set; } = 1f;
+		public float TrainingDecayFactor { get; set; } = 1f;
 		#endregion
 
 		#region FIELDS
+		public string TrainingDecayFactorBuffer = null;
 		#endregion
 
 		#region PUBLIC METHODS
-		public void Intialize()
+		public void Initialize()
 		{
 			RescueDef = DefDatabase<TrainableDef>.AllDefs.First((d) => d.defName == "Rescue");
 			if (RescueDef != null)
@@ -60,6 +65,8 @@ namespace CustomizeAnimals.Settings
 				return true;
 			if (DisableHaulSizeLimit)
 				return true;
+			if (IsTrainingDecayFactorModified)
+				return true;
 			return false;
 		}
 		#endregion
@@ -74,6 +81,11 @@ namespace CustomizeAnimals.Settings
 			boolValue = DisableHaulSizeLimit;
 			Scribe_Values.Look(ref boolValue, "DisableHaulSizeLimit", false);
 			DisableRescueSizeLimit = boolValue;
+
+
+			var floatValue = TrainingDecayFactor;
+			Scribe_Values.Look(ref floatValue, "TrainingDecayFactor", DefaultTrainingDecayFactor);
+			TrainingDecayFactor = floatValue;
 		}
 		#endregion
 	}

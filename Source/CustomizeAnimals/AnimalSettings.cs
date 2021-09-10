@@ -22,7 +22,7 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public static void Initialize()
 		{
-			GeneralSettings.Intialize();
+			GeneralSettings.Initialize();
 
 			//Settings.Add("MarketValue", new SettingMarketValue(null, true));
 			//Settings.Add("MeatAmount", new SettingMeatAmount(null, true));
