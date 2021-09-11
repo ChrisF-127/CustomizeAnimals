@@ -33,6 +33,7 @@ namespace CustomizeAnimals
 			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
 			Settings.Add("Trainability", new SettingTrainability(null, true));
 			Settings.Add("FilthRate", new SettingFilthRate(null, true));
+			//Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
 			//Settings.Add("Wildness", new SettingWildness(null, true)); 
@@ -121,6 +122,7 @@ namespace CustomizeAnimals
 			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
 			Settings.Add("Trainability", new SettingTrainability(Animal));
 			Settings.Add("FilthRate", new SettingFilthRate(Animal));
+			Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
 			Settings.Add("Wildness", new SettingWildness(Animal));
