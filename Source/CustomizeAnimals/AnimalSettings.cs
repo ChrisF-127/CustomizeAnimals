@@ -37,6 +37,7 @@ namespace CustomizeAnimals
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
 			//Settings.Add("Wildness", new SettingWildness(null, true)); 
+			//Settings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			Settings.Add("HungerRate", new SettingHungerRate(null, true));
@@ -126,6 +127,7 @@ namespace CustomizeAnimals
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
 			Settings.Add("Wildness", new SettingWildness(Animal));
+			Settings.Add("LifeExpectancy", new SettingLifeExpectancy(Animal));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 			Settings.Add("HungerRate", new SettingHungerRate(Animal));

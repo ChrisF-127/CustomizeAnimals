@@ -35,6 +35,7 @@ namespace CustomizeAnimals
 			new ControlCarryingCapacity(),
 			new ControlRoamMtbDays(),
 			new ControlWildness(),
+			new ControlLifeExpectancy(),
 			new ControlMaxTemperature(),
 			new ControlMinTemperature(),
 			new ControlHungerRate(),

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.LifeExpectancy>Life expectancy</SY_CA.LifeExpectancy>
+	<SY_CA.TooltipLifeExpectancy>Set the life of expectancy of this animal
+No idea why you would ever need or want to change this, but hey ... you can. 
+Really does not have as much effect as one would expect it to have</SY_CA.TooltipLifeExpectancy>
+</LanguageData>
