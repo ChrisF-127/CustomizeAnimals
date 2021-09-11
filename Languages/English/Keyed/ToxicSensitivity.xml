@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.ToxicSensitivity>Toxic sensitivity</SY_CA.ToxicSensitivity>
+	<SY_CA.TooltipToxicSensitivity>Set the toxic sensitivity for this animal
+Toxic sensitivity adjusts how strongly a creature is affected by toxic buildup, a value of 0 results in immunity</SY_CA.TooltipToxicSensitivity>
+	
+	<SY_CA.ToxicSensitivityRange>Toxic sensitivity range</SY_CA.ToxicSensitivityRange>
+	<SY_CA.TooltipMinToxicSensitivity>Set a minimum toxic sensitivity for all animals</SY_CA.TooltipMinToxicSensitivity>
+	<SY_CA.TooltipMaxToxicSensitivity>Set a maximum toxic sensitivity for all animals</SY_CA.TooltipMaxToxicSensitivity>
+</LanguageData>

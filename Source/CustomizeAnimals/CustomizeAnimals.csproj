@@ -87,6 +87,7 @@
     <Compile Include="Controls\ControlNuzzleMtbHours.cs" />
     <Compile Include="Controls\ControlMarketValue.cs" />
     <Compile Include="Controls\ControlManhunter.cs" />
+    <Compile Include="Controls\ControlCarryingCapacity.cs" />
     <Compile Include="Controls\ControlToxicSensitivity.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
@@ -114,6 +115,7 @@
     <Compile Include="Settings\SettingNuzzleMtbHours.cs" />
     <Compile Include="Settings\SettingMaxPreyBodySize.cs" />
     <Compile Include="Settings\SettingMarketValue.cs" />
+    <Compile Include="Settings\SettingCarryingCapacity.cs" />
     <Compile Include="Settings\SettingToxicSensitivity.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />

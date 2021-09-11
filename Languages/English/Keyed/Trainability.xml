@@ -10,4 +10,15 @@
 	<SY_CA.TooltipTrainabilityAdvanced>Guard, Attack, Rescue and Haul</SY_CA.TooltipTrainabilityAdvanced>
 
 	<SY_CA.MinimumTrainability>Minimum trainability</SY_CA.MinimumTrainability>
+
+	
+	<SY_CA.TrainingDecay>Training decay speed</SY_CA.TrainingDecay>
+	<SY_CA.TooltipTrainingDecay>Adjust the rate at which training degrades
+A value of 1 is base speed, less decreases the rate, greater increases the rate</SY_CA.TooltipTrainingDecay>
+	
+	<SY_CA.TrainableLimits>Trainability: disable body size limits</SY_CA.TrainableLimits>
+	<SY_CA.RescueLimit>rescue</SY_CA.RescueLimit>
+	<SY_CA.TooltipRescueLimit>Allow all 'Advanced' trainable animals to 'Rescue' irrespective of their body size</SY_CA.TooltipRescueLimit>
+	<SY_CA.HaulLimit>haul</SY_CA.HaulLimit>
+	<SY_CA.TooltipHaulLimit>Allow all 'Advanced' trainable animals to 'Haul' irrespective of their body size</SY_CA.TooltipHaulLimit>
 </LanguageData>

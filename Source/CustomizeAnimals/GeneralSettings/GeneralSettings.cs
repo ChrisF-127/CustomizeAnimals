@@ -25,6 +25,8 @@ namespace CustomizeAnimals.Settings
 		public bool IsTrainingDecayFactorModified => TrainingDecayFactor != DefaultTrainingDecayFactor;
 		public float DefaultTrainingDecayFactor { get; private set; } = 1f;
 		public float TrainingDecayFactor { get; set; } = 1f;
+
+		public bool CarryingCapacityAffectsMassCapacity { get; set; } = false;
 		#endregion
 
 		#region FIELDS

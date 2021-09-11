@@ -15,7 +15,7 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (NullableFloatSetting)animalSettings.Settings["MaxTemperature"];
-			var temp = CreateNumeric(
+			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
 				"SY_CA.MaxTemperature".Translate(),
@@ -28,7 +28,7 @@ namespace CustomizeAnimals.Controls
 				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
-			setting.Value = temp;
+			setting.Value = value;
 
 			return SettingsRowHeight;
 		}
@@ -63,7 +63,7 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (NullableFloatSetting)animalSettings.Settings["MinTemperature"];
-			var temp = CreateNumeric(
+			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
 				"SY_CA.MinTemperature".Translate(),
@@ -76,7 +76,7 @@ namespace CustomizeAnimals.Controls
 				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
-			setting.Value = temp;
+			setting.Value = value;
 
 			return SettingsRowHeight;
 		}

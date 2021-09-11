@@ -31,6 +31,7 @@ namespace CustomizeAnimals
 			new ControlMoveSpeed(),
 			new ControlTrainability(),
 			new ControlFilthRate(),
+			new ControlCarryingCapacity(),
 			new ControlRoamMtbDays(),
 			new ControlWildness(),
 			new ControlMaxTemperature(),

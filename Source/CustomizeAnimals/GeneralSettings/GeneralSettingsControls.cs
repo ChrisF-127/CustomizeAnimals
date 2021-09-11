@@ -74,9 +74,8 @@ namespace CustomizeAnimals.Controls
 			Widgets.Checkbox(offsetX, offsetY + checkboxOffset, ref selected, checkboxSize);
 			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth - 12, SettingsRowHeight), "SY_CA.TooltipRescueLimit".Translate());
 			offsetX += checkboxSize + 2;
-			var rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight);
-			Widgets.Label(rect, "SY_CA.RescueLimit".Translate());
-			Settings.DisableHaulSizeLimit = selected ^ Widgets.ButtonInvisible(rect);
+			Widgets.Label(new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight), "SY_CA.RescueLimit".Translate());
+			Settings.DisableHaulSizeLimit = selected;
 
 			offsetX = controlWidth + quarterWidth + 2;
 
@@ -85,9 +84,30 @@ namespace CustomizeAnimals.Controls
 			Widgets.Checkbox(offsetX, offsetY + checkboxOffset, ref selected, checkboxSize);
 			DrawTooltip(new Rect(offsetX, offsetY, quarterWidth - 12, SettingsRowHeight), "SY_CA.TooltipHaulLimit".Translate());
 			offsetX += checkboxSize + 2;
-			rect = new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight);
-			Widgets.Label(rect, "SY_CA.HaulLimit".Translate());
-			Settings.DisableRescueSizeLimit = selected ^ Widgets.ButtonInvisible(rect);
+			Widgets.Label(new Rect(offsetX, offsetY, quarterWidth - checkboxSize - 12, SettingsRowHeight), "SY_CA.HaulLimit".Translate());
+			Settings.DisableRescueSizeLimit = selected;
+
+
+			// Next row
+			offsetX = 0;
+			offsetY += SettingsRowHeight;
+
+
+			// Trainable Limits Label
+			if (Settings.CarryingCapacityAffectsMassCapacity)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(offsetX, offsetY, controlWidth, SettingsRowHeight), "SY_CA.CarryingCapacity".Translate());
+			GUI.color = OriColor;
+
+			offsetX += controlWidth;
+
+			// Carrying Capacity affects Mass Capacity
+			selected = Settings.CarryingCapacityAffectsMassCapacity;
+			Widgets.Checkbox(offsetX, offsetY + checkboxOffset, ref selected, checkboxSize);
+			DrawTooltip(new Rect(offsetX, offsetY, controlWidth, SettingsRowHeight), "SY_CA.TooltipAffectsMassCapacity".Translate());
+			offsetX += checkboxSize + 2;
+			Widgets.Label(new Rect(offsetX, offsetY, controlWidth, SettingsRowHeight), "SY_CA.AffectsMassCapacity".Translate());
+			Settings.CarryingCapacityAffectsMassCapacity = selected;
 
 
 			// Next row
