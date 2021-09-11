@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMax.defaultBaseValue, // DefaultValue should never be null at this point
 				TemperatureTuning.MinimumTemperature,
 				TemperatureTuning.MaximumTemperature,
-				convert: FromCelsius,
+				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
 			setting.Value = temp;
@@ -46,7 +46,7 @@ namespace CustomizeAnimals.Controls
 				SettingMaxTemperature.MaximumMaxTemp,
 				TemperatureTuning.MinimumTemperature,
 				TemperatureTuning.MaximumTemperature,
-				convert: FromCelsius,
+				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
 			SettingMaxTemperature.UseMaxTempLimits = use;
@@ -73,7 +73,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ComfyTemperatureMin.defaultBaseValue, // DefaultValue should never be null at this point
 				TemperatureTuning.MinimumTemperature,
 				TemperatureTuning.MaximumTemperature,
-				convert: FromCelsius,
+				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
 			setting.Value = temp;
@@ -94,7 +94,7 @@ namespace CustomizeAnimals.Controls
 				SettingMinTemperature.MaximumMinTemp,
 				TemperatureTuning.MinimumTemperature,
 				TemperatureTuning.MaximumTemperature,
-				convert: FromCelsius,
+				convert: ConvertFromCelsius,
 				unit: GetTemperatureUnit());
 
 			SettingMinTemperature.UseMinTempLimits = use;
@@ -108,7 +108,7 @@ namespace CustomizeAnimals.Controls
 
 	internal abstract class TemperatureBaseControl : BaseSettingControl
 	{
-		public static float FromCelsius(float temp)
+		public static float ConvertFromCelsius(float temp)
 		{
 			double output;
 			switch (Prefs.TemperatureMode)
@@ -127,7 +127,7 @@ namespace CustomizeAnimals.Controls
 			};
 			return (float)Math.Round(output, 2);
 		}
-		public static float ToCelsius(float temp)
+		public static float ConvertToCelsius(float temp)
 		{
 			double output;
 			switch (Prefs.TemperatureMode)

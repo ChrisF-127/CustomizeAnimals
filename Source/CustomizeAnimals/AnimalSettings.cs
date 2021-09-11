@@ -27,6 +27,7 @@ namespace CustomizeAnimals
 			//Settings.Add("MarketValue", new SettingMarketValue(null, true));
 			//Settings.Add("MeatAmount", new SettingMeatAmount(null, true));
 			//Settings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
+			Settings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
 			//Settings.Add("BodySize", new SettingBodySize(null, true));
 			//Settings.Add("HealthScale", new SettingHealthScale(null, true));
 			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
@@ -113,6 +114,7 @@ namespace CustomizeAnimals
 			Settings.Add("MarketValue", new SettingMarketValue(Animal));
 			Settings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			Settings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
+			Settings.Add("ToxicSensitivity", new SettingToxicSensitivity(Animal));
 			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("HealthScale", new SettingHealthScale(Animal));
 			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));

@@ -29,7 +29,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue,
 				min: Minimum,
 				max: Maximum,
-				convert: ToHitPoints);
+				convert: ConvertToHitPoints);
 
 			setting.Value = value;
 
@@ -38,7 +38,7 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
 
-		private float ToHitPoints(float value) =>
+		private float ConvertToHitPoints(float value) =>
 			value * HitPointFactor;
 	}
 }

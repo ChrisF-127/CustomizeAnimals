@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ArmorRating_Sharp.defaultBaseValue, // DefaultValue should never be null at this point
 				min: SettingArmorRating.DefaultMinimum,
 				max: SettingArmorRating.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = value;
@@ -51,7 +51,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ArmorRating_Blunt.defaultBaseValue, // DefaultValue should never be null at this point
 				min: SettingArmorRating.DefaultMinimum,
 				max: SettingArmorRating.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = value;
@@ -77,7 +77,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue ?? StatDefOf.ArmorRating_Heat.defaultBaseValue, // DefaultValue should never be null at this point
 				min: SettingArmorRating.DefaultMinimum,
 				max: SettingArmorRating.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = value;

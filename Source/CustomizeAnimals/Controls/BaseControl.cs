@@ -61,7 +61,7 @@ namespace CustomizeAnimals.Controls
 		public static float GetControlWidth(float viewWidth) =>
 			viewWidth / 2 - SettingsRowHeight - 4;
 
-		public static float ToPercent(float value) =>
+		public static float ConvertToPercent(float value) =>
 			value * 100f;
 		public static float FromPercent(float value) =>
 			value / 100f;

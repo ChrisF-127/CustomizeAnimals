@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue,
 				SettingManhunter.DefaultMinimum,
 				SettingManhunter.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = temp;
@@ -46,7 +46,7 @@ namespace CustomizeAnimals.Controls
 				SettingManhunterOnTameFail.Maximum,
 				SettingManhunter.DefaultMinimum,
 				SettingManhunter.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			SettingManhunterOnTameFail.UseLimits = use;
@@ -71,7 +71,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue,
 				SettingManhunter.DefaultMinimum,
 				SettingManhunter.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = temp;
@@ -92,7 +92,7 @@ namespace CustomizeAnimals.Controls
 				SettingManhunterOnDamage.Maximum,
 				SettingManhunter.DefaultMinimum,
 				SettingManhunter.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			SettingManhunterOnDamage.UseLimits = use;

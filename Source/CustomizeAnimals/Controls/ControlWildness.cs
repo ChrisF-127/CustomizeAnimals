@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue,
 				min: SettingWildness.DefaultMinimum,
 				max: SettingWildness.DefaultMaximum,
-				convert: ToPercent,
+				convert: ConvertToPercent,
 				unit: "%");
 
 			setting.Value = value;
