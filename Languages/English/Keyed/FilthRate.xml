@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 	<SY_CA.FilthRate>Filth rate</SY_CA.FilthRate>
-	<SY_CA.FilthRateDisabled>(filth disabled)</SY_CA.FilthRateDisabled>
+	<SY_CA.FilthRateDisabled>filth disabled</SY_CA.FilthRateDisabled>
 	<SY_CA.TooltipFilthRate>Set amount of filth produced by this animal</SY_CA.TooltipFilthRate>
 	<SY_CA.TooltipFilthRateChk>Disable filth for this animal</SY_CA.TooltipFilthRateChk>
 	

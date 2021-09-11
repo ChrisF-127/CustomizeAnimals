@@ -24,6 +24,10 @@ namespace CustomizeAnimals
 			harmony.Patch(
 				AccessTools.Method(typeof(MassUtility), nameof(MassUtility.Capacity)),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.MassUtility_Capacity_PostFix)));
+
+			harmony.Patch(
+				AccessTools.Method(typeof(ContentFinder<Texture2D>), nameof(ContentFinder<Texture2D>.Get)),
+				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.ContentFinder_Texture2D_Get_PostFix)));
 		}
 
 		public static void TrainableUtility_DegradationPeriodTicks_PostFix(ref int __result)
@@ -36,6 +40,16 @@ namespace CustomizeAnimals
 		{
 			if (GlobalSettings.GeneralSettings.CarryingCapacityAffectsMassCapacity && AnimalSettings.IsValidAnimal(p.def))
 				__result *= p.def.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
+		}
+
+		public static void ContentFinder_Texture2D_Get_PostFix(string itemPath, ref Texture2D __result)
+		{
+			const string dummy = "CA_pack_dummy";
+			if (__result == null && itemPath.EndsWith("Pack"))
+			{
+				__result = CustomizeAnimals.Instance.Content.GetContentHolder<Texture2D>().Get(dummy);
+				Log.Warning($"{nameof(CustomizeAnimals)}: Pack animal texture not found: {itemPath} - replacing with dummy: {dummy} - success: {__result != null}");
+			}
 		}
 	}
 }

@@ -35,6 +35,7 @@ namespace CustomizeAnimals
 			Settings.Add("FilthRate", new SettingFilthRate(null, true));
 			//Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
+			//Settings.Add("PackAnimal", new SettingPackAnimal(null, true));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
 			//Settings.Add("Wildness", new SettingWildness(null, true)); 
 			//Settings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
@@ -125,6 +126,7 @@ namespace CustomizeAnimals
 			Settings.Add("FilthRate", new SettingFilthRate(Animal));
 			Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
+			Settings.Add("PackAnimal", new SettingPackAnimal(Animal));
 			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
 			Settings.Add("Wildness", new SettingWildness(Animal));
 			Settings.Add("LifeExpectancy", new SettingLifeExpectancy(Animal));

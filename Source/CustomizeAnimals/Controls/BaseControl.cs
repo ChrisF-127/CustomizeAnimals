@@ -111,8 +111,47 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(controlWidth + 2, offsetY, controlWidth - 4, SettingsRowHeight), text);
 			Text.Anchor = TextAnchor.MiddleLeft;
 		}
+		
 
-		#region ANIMAL SETTING
+		protected bool CreateCheckbox(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltip,
+			bool value,
+			bool defaultValue,
+			string text = null)
+		{
+			var controlWidth = GetControlWidth(viewWidth);
+			var isModified = value != defaultValue;
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Setting
+			var checkboxSize = SettingsRowHeight - 8;
+			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref value, checkboxSize);
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), tooltip);
+
+			// Text
+			if (text != null)
+			{
+				Text.Anchor = TextAnchor.MiddleCenter;
+				Widgets.Label(new Rect(controlWidth + checkboxSize + 4, offsetY + 4, controlWidth - checkboxSize - 6, SettingsRowHeight - 8), $"({text})");
+				Text.Anchor = TextAnchor.MiddleLeft;
+			}
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
+				value = defaultValue;
+
+			return value;
+		}
+
+
 		protected float CreateNumeric(
 			float offsetY,
 			float viewWidth,
@@ -134,7 +173,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
-			// Settings
+			// Setting
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
@@ -177,7 +216,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
-			// Settings
+			// Setting
 			var checkboxSize = SettingsRowHeight - 8;
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref checkboxValue, checkboxSize);
 			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), tooltipCheckbox);
@@ -200,7 +239,7 @@ namespace CustomizeAnimals.Controls
 				if (labelDisabled != null)
 				{
 					Text.Anchor = TextAnchor.MiddleCenter;
-					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), labelDisabled);
+					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), $"({labelDisabled})");
 					Text.Anchor = TextAnchor.MiddleLeft;
 				}
 			}
@@ -239,7 +278,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
-			// Settings
+			// Setting
 			var selected = value != null;
 			var checkboxSize = SettingsRowHeight - 8;
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref selected, checkboxSize);
@@ -265,7 +304,7 @@ namespace CustomizeAnimals.Controls
 				if (labelDisabled != null)
 				{
 					Text.Anchor = TextAnchor.MiddleCenter;
-					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), labelDisabled);
+					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), $"({labelDisabled})");
 					Text.Anchor = TextAnchor.MiddleLeft;
 				}
 
@@ -282,9 +321,8 @@ namespace CustomizeAnimals.Controls
 			// Output
 			return value;
 		}
-		#endregion
 
-		#region GLOBAL SETTINGS
+
 		protected (bool, float, float) CreateNumericGlobalMinMax(
 			float offsetY,
 			float viewWidth,
@@ -368,7 +406,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
-			// Settings
+			// Setting
 			var selected = value != null;
 			var checkboxSize = SettingsRowHeight - 8;
 			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref selected, checkboxSize);
@@ -395,7 +433,7 @@ namespace CustomizeAnimals.Controls
 				if (labelDisabled != null)
 				{
 					Text.Anchor = TextAnchor.MiddleCenter;
-					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), labelDisabled);
+					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), $"{labelDisabled}");
 					Text.Anchor = TextAnchor.MiddleLeft;
 				}
 
@@ -408,7 +446,6 @@ namespace CustomizeAnimals.Controls
 			// Output
 			return (use, value);
 		}
-		#endregion
 		#endregion
 	}
 }

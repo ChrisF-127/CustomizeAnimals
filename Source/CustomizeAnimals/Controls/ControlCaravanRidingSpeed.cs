@@ -19,7 +19,7 @@ namespace CustomizeAnimals.Controls
 				offsetY,
 				viewWidth,
 				"SY_CA.CaravanRidingSpeed".Translate(),
-				$"({"SY_CA.CaravanRidingSpeedDisabled".Translate()})",
+				"SY_CA.CaravanRidingSpeedDisabled".Translate(),
 				"SY_CA.TooltipCaravanRidingSpeed".Translate(),
 				"SY_CA.TooltipCaravanRidingSpeedChk".Translate(),
 				setting.IsModified(),

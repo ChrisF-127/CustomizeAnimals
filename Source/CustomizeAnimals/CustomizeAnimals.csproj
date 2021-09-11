@@ -91,6 +91,7 @@
     <Compile Include="Controls\ControlCaravanRidingSpeed.cs" />
     <Compile Include="Controls\ControlToxicSensitivity.cs" />
     <Compile Include="Controls\ControlLifeExpectancy.cs" />
+    <Compile Include="Controls\ControlPackAnimal.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
@@ -121,6 +122,7 @@
     <Compile Include="Settings\SettingCaravanRidingSpeed.cs" />
     <Compile Include="Settings\SettingToxicSensitivity.cs" />
     <Compile Include="Settings\SettingLifeExpectancy.cs" />
+    <Compile Include="Settings\SettingPackAnimal.cs" />
     <Compile Include="Settings\SettingWildness.cs" />
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />

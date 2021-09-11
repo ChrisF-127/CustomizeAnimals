@@ -14,6 +14,8 @@ namespace CustomizeAnimals
 	public class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
+		public static CustomizeAnimals Instance { get; private set; } = null;
+
 		public static GlobalSettings Global { get; set; } = new GlobalSettings();
 		public static List<AnimalSettings> Animals { get; private set; } = null;
 		public static CustomizeAnimals_ModSettings Settings { get; private set; } = null;
@@ -33,6 +35,7 @@ namespace CustomizeAnimals
 			new ControlFilthRate(),
 			new ControlCaravanRidingSpeed(),
 			new ControlCarryingCapacity(),
+			new ControlPackAnimal(),
 			new ControlRoamMtbDays(),
 			new ControlWildness(),
 			new ControlLifeExpectancy(),
@@ -77,6 +80,7 @@ namespace CustomizeAnimals
 		#region CONSTRUCTORS
 		public CustomizeAnimals(ModContentPack content) : base(content)
 		{
+			Instance = this;
 			LongEventHandler.ExecuteWhenFinished(Initialize);
 		}
 		#endregion

@@ -21,7 +21,7 @@ namespace CustomizeAnimals.Controls
 				offsetY,
 				viewWidth,
 				"SY_CA.Predator".Translate(),
-				$"({"SY_CA.MaxPreyBodySizeNotPredator".Translate()})",
+				"SY_CA.MaxPreyBodySizeNotPredator".Translate(),
 				"SY_CA.TooltipMaxPreyBodySize".Translate(),
 				"SY_CA.TooltipPredator".Translate(),
 				predatorSetting.IsModified() || maxPreyBodySizeSetting.IsModified(),
