@@ -20,7 +20,8 @@ namespace CustomizeAnimals.Controls
 				viewWidth,
 				"SY_CA.FoodType".Translate(),
 				setting.Value.ToHumanString().CapitalizeFirst(),
-				setting);
+				setting,
+				(e) => e.ToHumanString().CapitalizeFirst());
 
 			return SettingsRowHeight;
 		}

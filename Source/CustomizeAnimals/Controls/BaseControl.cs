@@ -157,7 +157,8 @@ namespace CustomizeAnimals.Controls
 			float viewWidth,
 			string label,
 			string tooltip,
-			BaseSetting<T> setting) 
+			BaseSetting<T> setting,
+			Func<T, string> menuTooltipGenerator = null) 
 			where T : Enum
 		{
 			if (setting.Value == null || setting.DefaultValue == null)
@@ -173,7 +174,7 @@ namespace CustomizeAnimals.Controls
 				{
 					yield return new Widgets.DropdownMenuElement<T>
 					{
-						option = new FloatMenuOption(e.ToString(), () => target.Value = e),
+						option = new FloatMenuOption(e.ToString(), () => target.Value = e) { tooltip = menuTooltipGenerator != null ? new TipSignal(menuTooltipGenerator(e)) : null },
 						payload = e,
 					};
 				}
