@@ -20,6 +20,16 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
+		public float GetCaravanMassCapacity()
+		{
+			if (Animal?.race == null)
+				return -1f;
+			
+			var massCapacity = Animal.race.baseBodySize * 35f;
+			if (GlobalSettings.GeneralSettings.CarryingCapacityAffectsMassCapacity && Animal.statBases != null)
+				massCapacity *= Animal.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
+			return massCapacity;
+		}
 		#endregion
 
 		#region INTERFACES

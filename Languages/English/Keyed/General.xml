@@ -27,5 +27,5 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
 	<SY_CA.Reset>Reset</SY_CA.Reset>
 	<SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
 	
-	<SY_CA.NotApplicable>Not Applicable</SY_CA.NotApplicable>
+	<SY_CA.NotApplicable>not applicable</SY_CA.NotApplicable>
 </LanguageData>

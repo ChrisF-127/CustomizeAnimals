@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.PackAnimal>Pack animal</SY_CA.PackAnimal>
+	<SY_CA.TooltipPackAnimal>Set this animal as a pack animal
+All pack animals are required to have a pack texture, a dummy texture will be used if the animal has none
+Reloading is necessary for the pack texture to show up on animals carrying things</SY_CA.TooltipPackAnimal>
+	<SY_CA.PackAnimalMassCapacity>carry mass</SY_CA.PackAnimalMassCapacity>
+</LanguageData>

@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<bool>)animalSettings.Settings["PackAnimal"];
+			var setting = (SettingPackAnimal)animalSettings.Settings["PackAnimal"];
 			var value = CreateCheckbox(
 				offsetY,
 				viewWidth,
@@ -22,7 +22,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipPackAnimal".Translate(),
 				setting.Value,
 				setting.DefaultValue,
-				"Test");
+				$"{"SY_CA.PackAnimalMassCapacity".Translate()}: {setting.GetCaravanMassCapacity()} kg");
 
 			setting.Value = value;
 
