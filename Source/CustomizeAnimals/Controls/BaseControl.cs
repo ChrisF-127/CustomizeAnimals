@@ -151,6 +151,50 @@ namespace CustomizeAnimals.Controls
 			return value;
 		}
 
+		
+		protected void CreateDropDown<T>(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltip,
+			BaseSetting<T> setting) 
+			where T : Enum
+		{
+			if (setting.Value == null || setting.DefaultValue == null)
+				return;
+
+			var controlWidth = GetControlWidth(viewWidth);
+			var isModified = !setting.Value.Equals(setting.DefaultValue);
+
+			T getPayload(BaseSetting<T> target) => target.Value;
+			IEnumerable<Widgets.DropdownMenuElement<T>> menuGenerator(BaseSetting<T> target)
+			{
+				foreach (var e in Enum.GetValues(typeof(T)).Cast<T>())
+				{
+					yield return new Widgets.DropdownMenuElement<T>
+					{
+						option = new FloatMenuOption(e.ToString(), () => target.Value = e),
+						payload = e,
+					};
+				}
+			}
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Setting
+			var rect = new Rect(controlWidth + 2, offsetY + 2, controlWidth - 4, SettingsRowHeight - 4);
+			Widgets.Dropdown(rect, setting, getPayload, menuGenerator, setting.Value.ToString());
+			DrawTooltip(rect, tooltip);
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, setting.DefaultValue.ToString()))
+				setting.Value = setting.DefaultValue;
+		}
+
 
 		protected float CreateNumeric(
 			float offsetY,
