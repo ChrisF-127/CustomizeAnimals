@@ -35,7 +35,13 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue()
 		{
 			if (Animal?.race != null)
-				Animal.race.roamMtbDays = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? MinimumRoamMtbDays > Value ? MinimumRoamMtbDays : Value : null : Value > 0 ? Value : null; // don't ask.
+			{
+				var oldValue = Animal.race.roamMtbDays;
+				var newValue = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? MinimumRoamMtbDays > Value ? MinimumRoamMtbDays : Value : null : Value > 0 ? Value : null; // don't ask.
+				if (oldValue == null && newValue != null || oldValue != null && newValue == null)
+					AnimalPenUtility.ResetStaticData();
+				Animal.race.roamMtbDays = newValue;
+			}
 		}
 
 		public override void ExposeData()
