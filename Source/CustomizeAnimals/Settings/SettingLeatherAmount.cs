@@ -24,8 +24,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.LeatherAmount, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.LeatherAmount, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.LeatherAmount);
 

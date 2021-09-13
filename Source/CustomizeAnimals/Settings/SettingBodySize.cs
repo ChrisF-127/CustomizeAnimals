@@ -25,15 +25,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.baseBodySize;
-
-			if (!IsGlobal)
+				Value = race.baseBodySize;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingBodySize)}: {Animal?.defName} race is null, value cannot be set!");
-			return 1f;
 		}
 		public override void SetValue()
 		{

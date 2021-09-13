@@ -26,8 +26,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.ComfyTemperatureMax, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ComfyTemperatureMax, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ComfyTemperatureMax, UseMaxTempLimits, MinimumMaxTemp, MaximumMaxTemp);
 
@@ -102,8 +102,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.ComfyTemperatureMin, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ComfyTemperatureMin, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ComfyTemperatureMin, UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
 

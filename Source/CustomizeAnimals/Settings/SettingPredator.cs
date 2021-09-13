@@ -23,15 +23,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override bool GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.predator;
-
-			if (!IsGlobal)
+				Value = race.predator;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingPredator)}: {Animal?.defName} race is null, value cannot be set!");
-			return false;
 		}
 		public override void SetValue()
 		{

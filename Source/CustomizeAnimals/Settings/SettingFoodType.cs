@@ -23,15 +23,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override FoodTypeFlags GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.foodType;
-
-			if (!IsGlobal)
+				Value = race.foodType;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingFoodType)}: {Animal?.defName} race is null, value cannot be set!");
-			return FoodTypeFlags.None;
 		}
 		public override void SetValue()
 		{

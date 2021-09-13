@@ -26,8 +26,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.CarryingCapacity, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.CarryingCapacity, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.CarryingCapacity, UseLimits, Minimum, Maximum);
 

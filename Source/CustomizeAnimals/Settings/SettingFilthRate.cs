@@ -27,8 +27,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.FilthRate, false);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.FilthRate, false);
 		public override void SetValue() =>
 			SetStat(StatDefOf.FilthRate, UseMaximumFilthRate, 0f, MaximumFilthRate);
 

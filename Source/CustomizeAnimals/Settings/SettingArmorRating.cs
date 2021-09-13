@@ -23,8 +23,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.ArmorRating_Sharp, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ArmorRating_Sharp, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Sharp);
 
@@ -51,8 +51,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.ArmorRating_Blunt, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ArmorRating_Blunt, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Blunt);
 
@@ -79,8 +79,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.ArmorRating_Heat, true);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ArmorRating_Heat, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Heat);
 

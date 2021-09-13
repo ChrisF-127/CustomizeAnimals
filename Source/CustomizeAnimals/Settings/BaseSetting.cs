@@ -11,6 +11,7 @@ namespace CustomizeAnimals.Settings
 {
 	public interface ISetting
 	{
+		void GetValue();
 		void SetValue();
 		void Reset();
 		void ExposeData();
@@ -38,12 +39,14 @@ namespace CustomizeAnimals.Settings
 			IsGlobal = isGlobal;
 
 			Animal = animal;
-			Value = DefaultValue = GetValue();
+
+			GetValue();
+			DefaultValue = Value;
 		}
 		#endregion
 
 		#region METHODS
-		public abstract T GetValue();
+		public abstract void GetValue();
 		public abstract void SetValue();
 		public virtual void Reset() =>
 			Value = DefaultValue;

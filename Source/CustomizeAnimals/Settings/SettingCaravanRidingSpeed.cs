@@ -23,8 +23,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue() =>
-			GetStat(StatDefOf.CaravanRidingSpeedFactor, false);
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.CaravanRidingSpeedFactor, false);
 		public override void SetValue() =>
 			SetStat(StatDefOf.CaravanRidingSpeedFactor);
 

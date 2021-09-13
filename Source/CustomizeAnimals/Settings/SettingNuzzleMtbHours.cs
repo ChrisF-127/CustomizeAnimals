@@ -32,15 +32,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.nuzzleMtbHours;
-
-			if (!IsGlobal)
+				Value = race.nuzzleMtbHours;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingNuzzleMtbHours)}: {Animal?.defName} race is null, value cannot be set!");
-			return 0f;
 		}
 		public override void SetValue()
 		{

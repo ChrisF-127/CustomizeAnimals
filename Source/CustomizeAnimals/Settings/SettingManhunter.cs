@@ -26,15 +26,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.manhunterOnTameFailChance;
-
-			if (!IsGlobal)
+				Value = race.manhunterOnTameFailChance;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingManhunterOnDamage)}: {Animal?.defName} race is null, value cannot be set!");
-			return 0f;
 		}
 		public override void SetValue()
 		{
@@ -92,15 +90,13 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float GetValue()
+		public override void GetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
-				return race.manhunterOnDamageChance;
-
-			if (!IsGlobal)
+				Value = race.manhunterOnDamageChance;
+			else if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingManhunterOnDamage)}: {Animal?.defName} race is null, value cannot be set!");
-			return 0f;
 		}
 		public override void SetValue()
 		{

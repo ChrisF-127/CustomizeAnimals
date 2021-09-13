@@ -34,9 +34,9 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override TrainabilityDef GetValue()
+		public override void GetValue()
 		{
-			return Animal?.race?.trainability;
+			Value = Animal?.race?.trainability;
 		}
 		public override void SetValue()
 		{

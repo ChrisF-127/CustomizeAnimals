@@ -28,9 +28,9 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region INTERFACES
-		public override float? GetValue()
+		public override void GetValue()
 		{
-			return Animal?.race?.roamMtbDays;
+			Value = Animal?.race?.roamMtbDays;
 		}
 		public override void SetValue()
 		{
