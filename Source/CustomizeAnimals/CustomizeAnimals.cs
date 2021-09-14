@@ -43,6 +43,7 @@ namespace CustomizeAnimals
 			new ControlMinTemperature(),
 			new ControlHungerRate(),
 			new ControlFoodType(),
+			new ControlWillNeverEat(),
 			new ControlManhunterOnTameFail(),
 			new ControlManhunterOnDamage(),
 			new ControlPredator(), // Predator & MaxPreyBodySize

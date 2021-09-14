@@ -43,6 +43,7 @@ namespace CustomizeAnimals
 			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			Settings.Add("HungerRate", new SettingHungerRate(null, true));
 			//Settings.Add("FoodType", new SettingFoodType(null, true));
+			Settings.Add("WillNeverEat", new SettingWillNeverEat(null, true));
 			Settings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(null, true));
 			Settings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(null, true));
 			//Settings.Add("Predator", new SettingPredator(null, true));
@@ -135,6 +136,7 @@ namespace CustomizeAnimals
 			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
 			Settings.Add("HungerRate", new SettingHungerRate(Animal));
 			Settings.Add("FoodType", new SettingFoodType(Animal));
+			Settings.Add("WillNeverEat", new SettingWillNeverEat(Animal));
 			Settings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(Animal));
 			Settings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(Animal));
 			Settings.Add("Predator", new SettingPredator(Animal));
