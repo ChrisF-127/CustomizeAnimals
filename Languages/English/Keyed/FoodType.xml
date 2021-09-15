@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 	<SY_CA.FoodType>Food Type</SY_CA.FoodType>
+	<SY_CA.TooltipFoodTypeAdd>Click and select items on the dropdown menu to allow a food type for this animal</SY_CA.TooltipFoodTypeAdd>
+	<SY_CA.TooltipFoodTypeRemove>Click and select items on the dropdown menu to disallow a food type for this animal</SY_CA.TooltipFoodTypeRemove>
 </LanguageData>

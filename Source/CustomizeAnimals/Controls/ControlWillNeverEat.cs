@@ -86,8 +86,8 @@ namespace CustomizeAnimals.Controls
 				return;
 
 			var controlWidth = GetControlWidth(viewWidth);
-			var iconDisplayWidth = controlWidth * 0.667f;
-			var dropdownWidth = controlWidth * 0.333f / 2f;
+			var buttonDim = SettingsRowHeight - 4;
+			var iconDisplayWidth = controlWidth - buttonDim * 2 - 6;
 
 			// Label
 			if (isModified)
@@ -104,11 +104,11 @@ namespace CustomizeAnimals.Controls
 					var x = (iconDisplayWidth - dim) / (list.Count + 1) * (i + 1);
 					Widgets.DefIcon(new Rect(controlWidth + x, offsetY + 2, dim, dim), list[i]);
 				}
+				DrawTooltip(new Rect(controlWidth, offsetY + 2, iconDisplayWidth, SettingsRowHeight - 4), tooltipThings);
 			}
-			DrawTooltip(new Rect(controlWidth, offsetY + 2, iconDisplayWidth, SettingsRowHeight - 4), tooltipThings);
 
 			// Add
-			var rect = new Rect(controlWidth + iconDisplayWidth + 2, offsetY + 2, dropdownWidth - 2, SettingsRowHeight - 4);
+			var rect = new Rect(controlWidth + iconDisplayWidth + 2, offsetY + 2, buttonDim, buttonDim);
 			Widgets.Dropdown(
 				rect,
 				list,
@@ -120,7 +120,7 @@ namespace CustomizeAnimals.Controls
 			// Remove
 			if (list.Count > 0)
 			{
-				rect = new Rect(controlWidth + iconDisplayWidth + dropdownWidth, offsetY + 2, dropdownWidth - 2, SettingsRowHeight - 4);
+				rect = new Rect(controlWidth + iconDisplayWidth + 4 + buttonDim, offsetY + 2, buttonDim, buttonDim);
 				Widgets.Dropdown(
 					rect,
 					list,
