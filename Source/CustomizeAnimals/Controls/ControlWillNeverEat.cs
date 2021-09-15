@@ -24,11 +24,9 @@ namespace CustomizeAnimals.Controls
 				offsetY,
 				viewWidth,
 				"SY_CA.WillNeverEat".Translate(),
-				"SY_CA.WillNeverEatAdd".Translate(),
-				"SY_CA.WillNeverEatRemove".Translate(),
 				"SY_CA.TooltipWillNeverEatAdd".Translate(),
 				"SY_CA.TooltipWillNeverEatRemove".Translate(),
-				ListToString(setting.Value),
+				ListToString(list),
 				isModified,
 				list);
 
@@ -46,14 +44,30 @@ namespace CustomizeAnimals.Controls
 			}
 
 			// Set value
-			setting.Value = list.Count > 0 ? list : null;
+			setting.Aux2Value();
 
 			return SettingsRowHeight;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-#warning TODO global settings
+			var list = SettingWillNeverEat.GlobalList;
+			var use = SettingWillNeverEat.UseGlobalList;
+
+			// Selector control
+			CreateSpecialControl(
+				offsetY,
+				viewWidth,
+				"SY_CA.WillNeverEat".Translate(),
+				"SY_CA.TooltipWillNeverEatAdd".Translate(),
+				"SY_CA.TooltipWillNeverEatRemove".Translate(),
+				ListToString(list),
+				use,
+				list);
+
+			// "Apply" checkbox
+			SettingWillNeverEat.UseGlobalList = DrawUseGlobalCheckBox(offsetY, viewWidth, use, SettingsRowHeight);
+
 			return SettingsRowHeight;
 		}
 
@@ -62,8 +76,6 @@ namespace CustomizeAnimals.Controls
 			float offsetY,
 			float viewWidth,
 			string label,
-			string labelAdd,
-			string labelRemove,
 			string tooltipAdd,
 			string tooltipRemove,
 			string tooltipThings,
@@ -74,8 +86,8 @@ namespace CustomizeAnimals.Controls
 				return;
 
 			var controlWidth = GetControlWidth(viewWidth);
-			var halfWidth = controlWidth / 2;
-			var quaterWidth = halfWidth / 2;
+			var iconDisplayWidth = controlWidth * 0.667f;
+			var dropdownWidth = controlWidth * 0.333f / 2f;
 
 			// Label
 			if (isModified)
@@ -89,32 +101,32 @@ namespace CustomizeAnimals.Controls
 				var dim = SettingsRowHeight - 4;
 				for (int i = 0; i < list.Count; i++)
 				{
-					var x = (halfWidth - dim) / (list.Count + 1) * (i + 1);
+					var x = (iconDisplayWidth - dim) / (list.Count + 1) * (i + 1);
 					Widgets.DefIcon(new Rect(controlWidth + x, offsetY + 2, dim, dim), list[i]);
 				}
 			}
-			DrawTooltip(new Rect(controlWidth, offsetY + 2, halfWidth, SettingsRowHeight - 4), tooltipThings);
+			DrawTooltip(new Rect(controlWidth, offsetY + 2, iconDisplayWidth, SettingsRowHeight - 4), tooltipThings);
 
 			// Add
-			var rect = new Rect(controlWidth + 2 + halfWidth, offsetY + 2, quaterWidth - 4, SettingsRowHeight - 4);
+			var rect = new Rect(controlWidth + iconDisplayWidth + 2, offsetY + 2, dropdownWidth - 2, SettingsRowHeight - 4);
 			Widgets.Dropdown(
 				rect,
 				list,
 				null,
 				MenuGeneratorAdd,
-				labelAdd);
+				"+");
 			DrawTooltip(rect, tooltipAdd);
 
 			// Remove
 			if (list.Count > 0)
 			{
-				rect = new Rect(controlWidth + 2 + halfWidth + quaterWidth, offsetY + 2, quaterWidth - 4, SettingsRowHeight - 4);
+				rect = new Rect(controlWidth + iconDisplayWidth + dropdownWidth, offsetY + 2, dropdownWidth - 2, SettingsRowHeight - 4);
 				Widgets.Dropdown(
 					rect,
 					list,
 					null,
 					MenuGeneratorRemove,
-					labelRemove);
+					"-");
 				DrawTooltip(rect, tooltipRemove);
 			}
 

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.WillNeverEat>Will never eat</SY_CA.WillNeverEat>
+	<SY_CA.TooltipWillNeverEatAdd>Add a plant to prevent it being eaten
+Usually used to prevent animals from eaten special plants, for example the Anima tree
+The animal will always be limited by food type either way</SY_CA.TooltipWillNeverEatAdd>
+	<SY_CA.TooltipWillNeverEatRemove>Removing plants will allow the animal(s) to eat it</SY_CA.TooltipWillNeverEatRemove>
+</LanguageData>

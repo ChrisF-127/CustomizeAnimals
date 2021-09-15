@@ -34,6 +34,27 @@ namespace CustomizeAnimals.Settings
 						return true;
 			return false;
 		}
+
+		public void Value2Aux()
+		{
+			if (Value?.Count > 0)
+				foreach (var def in Value)
+					if (!AuxiliaryList.Contains(def))
+						AuxiliaryList.Add(def);
+		}
+		public void Aux2Value()
+		{
+			if (AuxiliaryList.Count > 0)
+			{
+				if (Value == null)
+					Value = new List<ThingDef>();
+				foreach (var def in AuxiliaryList)
+					if (!Value.Contains(def))
+						Value.Add(def);
+			}
+			else
+				Value = null;
+		}
 		#endregion
 
 		#region INTERFACES
@@ -51,7 +72,18 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.willNeverEat = Value?.Count > 0 ? Value : null;
+			{
+				var value = Value?.Count > 0 ? Value : null;
+				if (UseGlobalList && GlobalList.Count > 0)
+				{
+					if (value == null)
+						value = new List<ThingDef>();
+					foreach (var def in GlobalList)
+						if (!value.Contains(def))
+							value.Add(def);
+				}
+				race.willNeverEat = value;
+			}
 		}
 
 		public override void Reset()
@@ -87,13 +119,6 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PRIVATE METHODES
-		private void Value2Aux()
-		{
-			if (Value?.Count > 0)
-				foreach (var def in Value)
-					if (!AuxiliaryList.Contains(def))
-						AuxiliaryList.Add(def);
-		}
 		#endregion
 	}
 }

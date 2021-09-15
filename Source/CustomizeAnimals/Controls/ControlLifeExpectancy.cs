@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 				setting.DefaultValue,
 				min: SettingLifeExpectancy.DefaultMinimum,
 				max: SettingLifeExpectancy.DefaultMaximum,
-				unit: "years");
+				unit: "y");
 
 			setting.Value = value;
 
