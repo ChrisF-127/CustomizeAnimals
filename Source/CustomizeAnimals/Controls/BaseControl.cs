@@ -39,7 +39,7 @@ namespace CustomizeAnimals.Controls
 			var offsetX = viewWidth + 1 - (SettingsRowHeight + checkboxSize / 2);
 
 			Widgets.Checkbox(offsetX, offsetY + (height - checkboxSize) / 2, ref useGlobal, checkboxSize);
-			DrawTooltip(new Rect(offsetX, offsetY, checkboxSize, checkboxSize), "SY_CA.TooltipUseGlobal".Translate());
+			DrawTooltip(new Rect(offsetX, offsetY + (height - checkboxSize) / 2, checkboxSize, checkboxSize), "SY_CA.TooltipUseGlobal".Translate());
 
 			return useGlobal;
 		}
