@@ -20,6 +20,8 @@ namespace CustomizeAnimals.Controls
 				offsetY,
 				viewWidth,
 				"SY_CA.FoodType".Translate(),
+				"SY_CA.TooltipFoodTypeAdd".Translate(),
+				"SY_CA.TooltipFoodTypeRemove".Translate(),
 				setting);
 
 			return SettingsRowHeight;
@@ -32,6 +34,8 @@ namespace CustomizeAnimals.Controls
 			float offsetY,
 			float viewWidth,
 			string label,
+			string tooltipAdd,
+			string tooltipRemove,
 			BaseSetting<FoodTypeFlags> setting)
 		{
 			if (setting == null)
@@ -68,7 +72,7 @@ namespace CustomizeAnimals.Controls
 					null,
 					MenuGeneratorAdd,
 					"+");
-				DrawTooltip(rect, "SY_CA.TooltipFoodTypeAdd".Translate());
+				DrawTooltip(rect, tooltipAdd);
 			}
 
 			// Remove
@@ -81,7 +85,7 @@ namespace CustomizeAnimals.Controls
 					null,
 					MenuGeneratorRemove,
 					"-");
-				DrawTooltip(rect, "SY_CA.TooltipFoodTypeRemove".Translate());
+				DrawTooltip(rect, tooltipRemove);
 			}
 
 			// Reset button
@@ -126,8 +130,10 @@ namespace CustomizeAnimals.Controls
 						() => 
 						{
 							target.Value &= ~e;
+
+							// Fungus uses the "4096"-flag-bit which has no Enum-Value of its own, so we need to disable it when "VegetableOrFruit" is disabled
 							if (!target.Value.HasFlag(FoodTypeFlags.VegetableOrFruit))
-								target.Value &= ~FoodTypeFlags.Fungus; // Fungus uses the "4096"-bit which has no Enum-flag of its own
+								target.Value &= ~FoodTypeFlags.Fungus; 
 						})
 						{
 							tooltip = new TipSignal(e.ToHumanString().CapitalizeFirst())
