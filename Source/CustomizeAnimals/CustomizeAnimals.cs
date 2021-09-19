@@ -11,7 +11,12 @@ using Verse;
 
 namespace CustomizeAnimals
 {
-	public class CustomizeAnimals : Mod
+	public enum SettingsSubMenuEnum
+	{
+		General,
+	}
+
+	internal class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
 		public static CustomizeAnimals Instance { get; private set; } = null;
@@ -22,7 +27,7 @@ namespace CustomizeAnimals
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
 		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
-		private List<BaseSettingControl> SettingsList { get; } = new List<BaseSettingControl>
+		private List<BaseSettingControl> ControlsList { get; } = new List<BaseSettingControl>
 		{
 			new ControlMarketValue(),
 			new ControlMeatAmount(),
@@ -53,6 +58,9 @@ namespace CustomizeAnimals
 			new ControlArmorRating_Blunt(),
 			new ControlArmorRating_Heat(),
 		};
+		private Dictionary<string, BaseSpecialSettingControl> SpecialControlsList { get; } = new Dictionary<string, BaseSpecialSettingControl>
+		{
+		};
 		#endregion
 
 		#region FIELDS
@@ -77,6 +85,9 @@ namespace CustomizeAnimals
 		public static TextAnchor OriTextAnchor;
 		public static Color OriColor;
 		public static Color ModifiedColor = Color.cyan;
+		public static Color SelectionColor = Color.green;
+
+		public static SettingsSubMenuEnum SelectedSettingsSubMenu = SettingsSubMenuEnum.General;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -103,13 +114,20 @@ namespace CustomizeAnimals
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
 		
+		public void ResetControls(AnimalSettings animal)
+		{
+			foreach (var control in ControlsList)
+				control.Reset();
+			foreach (var control in SpecialControlsList.Values)
+				control.Reset();
+		}
+
 		public void Reset(AnimalSettings animal)
 		{
 			if (animal == null)
 				return;
 			animal.Reset();
-			foreach (var setting in SettingsList)
-				setting.ResetTextBuffers();
+			ResetControls(animal);
 			Log.Message($"{nameof(CustomizeAnimals)}: '{animal.Animal?.label?.CapitalizeFirst()}' settings have been reset!");
 		}
 		public void ResetAll()
@@ -117,8 +135,7 @@ namespace CustomizeAnimals
 			Global.Reset();
 			foreach (var animal in Animals)
 				animal.Reset();
-			foreach (var setting in SettingsList)
-				setting.ResetTextBuffers();
+			ResetControls(null);
 			Log.Message($"{nameof(CustomizeAnimals)}: All settings have been reset!");
 		}
 		#endregion
@@ -200,8 +217,9 @@ namespace CustomizeAnimals
 					continue;
 				if (searchLower != "")
 				{
+#warning TODO filter
 					// Apply filter
-					if (searchLower != "*")
+					if (searchLower != "*") 
 					{
 						if (!animal.label.ToLower().Contains(searchLower))
 							continue;
@@ -251,10 +269,13 @@ namespace CustomizeAnimals
 			// Selected animal for easier access
 			var animal = SelectedAnimalSettings?.Animal;
 			var isGlobal = animal == null;
-			var isDifferentAnimal = false;
+			var viewWidth = width - 16;
+			float topRow = SettingsOffsetY;
+
+			// Reset settings text buffers if the animal changes
 			if (_previousAnimal != animal)
 			{
-				isDifferentAnimal = true;
+				ResetControls(SelectedAnimalSettings);
 				_previousAnimal = animal;
 			}
 
@@ -282,6 +303,15 @@ namespace CustomizeAnimals
 						"SY_CA.DialogSettingsReset".Translate(animal?.label?.CapitalizeFirst()) + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
 						() => Reset(SelectedAnimalSettings)));
 				BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal?.label?.CapitalizeFirst()));
+
+
+				// Sub menu buttons
+				float buttonWidth = viewWidth / 2f;
+				float buttonHeight = SettingsRowHeight / 1.5f;
+				float subMenButtonOffsetX = 8;
+				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
+				subMenButtonOffsetX += buttonWidth;
+				topRow += buttonHeight;
 			}
 			else
 			{
@@ -312,33 +342,26 @@ namespace CustomizeAnimals
 
 
 			// Begin
-			var viewWidth = width - 16;
 			Widgets.BeginScrollView(
-				new Rect(0, SettingsOffsetY, width, height - SettingsOffsetY),
+				new Rect(0, topRow, width, height - SettingsOffsetY),
 				ref _settingsScrollPosition,
-				new Rect(0, SettingsOffsetY, viewWidth, SettingsViewHeight));
+				new Rect(0, topRow, viewWidth, SettingsViewHeight));
 
 			// Animal settings
-			float totalHeight = SettingsOffsetY;
+			float totalHeight = topRow;
 			if (animal != null)
 			{
-				// Separator
-				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorAnimalSettings".Translate());
-				totalHeight += 2;
-				Text.Anchor = TextAnchor.MiddleLeft;
-
-				// Draw animal settings
-				foreach (var setting in SettingsList)
+				switch (SelectedSettingsSubMenu)
 				{
-					if (isDifferentAnimal)
-						setting.ResetTextBuffers();
-					totalHeight += setting.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+					case SettingsSubMenuEnum.General:
+						CreateSubMenuGeneral(ref totalHeight, viewWidth);
+						break;
 				}
 
 				// Apply animal settings
 				SelectedAnimalSettings.ApplySettings();
 			}
-			// No animal selected
+			// Global settings
 			else
 			{
 				// General settings separator
@@ -356,12 +379,8 @@ namespace CustomizeAnimals
 				Text.Anchor = TextAnchor.MiddleLeft;
 
 				// Global animal settings
-				foreach (var setting in SettingsList)
-				{
-					if (isDifferentAnimal)
-						setting.ResetTextBuffers();
-					totalHeight += setting.CreateSettingGlobal(totalHeight, viewWidth);
-				}
+				foreach (var control in ControlsList)
+					totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
 
 				// Apply global settings
 				foreach (var animalSetting in Animals)
@@ -372,7 +391,7 @@ namespace CustomizeAnimals
 			Widgets.EndScrollView();
 
 			// Remember settings view height for potential scrolling
-			SettingsViewHeight = totalHeight - SettingsOffsetY;
+			SettingsViewHeight = totalHeight - topRow;
 
 			// End
 			GUI.EndGroup();
@@ -380,6 +399,30 @@ namespace CustomizeAnimals
 			// Reset text settings
 			Text.Font = OriTextFont;
 			Text.Anchor = OriTextAnchor;
+		}
+
+		public void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value)
+		{
+			// Colorize if selected
+			if (SelectedSettingsSubMenu == value)
+				GUI.color = SelectionColor;
+			// Draw button
+			if (Widgets.ButtonText(rect, label))
+				SelectedSettingsSubMenu = value;
+			// Reset color
+			GUI.color = Color.white;
+		}
+
+		public void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
+		{
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorAnimalSettings".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Draw animal settings - general
+			foreach (var control in ControlsList)
+				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		#endregion
 

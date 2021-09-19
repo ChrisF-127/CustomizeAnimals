@@ -126,4 +126,20 @@ namespace CustomizeAnimals.Settings
 		}
 		#endregion
 	}
+
+	internal abstract class BaseSpecialSetting : IExposable
+	{
+		public ThingDef Animal { get; }
+
+		public BaseSpecialSetting(ThingDef animal)
+		{
+			Animal = animal;
+		}
+
+		public abstract void GetValue();
+		public abstract void SetValue();
+		public abstract void Reset();
+		public abstract bool IsModified();
+		public abstract void ExposeData();
+	}
 }

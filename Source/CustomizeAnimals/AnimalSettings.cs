@@ -91,11 +91,12 @@ namespace CustomizeAnimals
 		#endregion
 	}
 
-	public class AnimalSettings : IExposable
+	internal class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
 		public ThingDef Animal { get; }
 		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
+		public Dictionary<string, BaseSpecialSetting> SpecialSettings { get; } = new Dictionary<string, BaseSpecialSetting>();
 		#endregion
 
 		#region CONSTRUCTORS
@@ -111,6 +112,8 @@ namespace CustomizeAnimals
 
 			foreach (var item in animalSettings.Settings)
 				Settings.Add(item.Key, item.Value);
+			foreach (var item in animalSettings.SpecialSettings)
+				SpecialSettings.Add(item.Key, item.Value);
 		}
 		#endregion
 
@@ -154,19 +157,25 @@ namespace CustomizeAnimals
 		{
 			foreach (var item in Settings.Values)
 				item.SetValue();
+			foreach (var item in SpecialSettings.Values)
+				item.SetValue();
 		}
 		public void Reset()
 		{
 			foreach (var item in Settings.Values)
 				item.Reset();
+			foreach (var item in SpecialSettings.Values)
+				item.Reset();
 		}
 
 		public bool IsModified()
 		{
-			if (Animal != null)
-				foreach (var item in Settings.Values)
-					if (item.IsModified())
-						return true;
+			foreach (var item in Settings.Values)
+				if (item.IsModified())
+					return true;
+			foreach (var item in SpecialSettings.Values)
+				if (item.IsModified())
+					return true;
 			return false;
 		}
 
@@ -179,8 +188,10 @@ namespace CustomizeAnimals
 		#region INTERFACES
 		public void ExposeData()
 		{
-			foreach (var item in Settings)
-				item.Value.ExposeData();
+			foreach (var item in Settings.Values)
+				item.ExposeData();
+			foreach (var item in SpecialSettings.Values)
+				item.ExposeData();
 
 			ApplySettings();
 		}

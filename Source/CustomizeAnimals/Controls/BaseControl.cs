@@ -58,44 +58,8 @@ namespace CustomizeAnimals.Controls
 			Text.Anchor = TextAnchor.MiddleLeft;
 		}
 
-		public static float GetControlWidth(float viewWidth) =>
-			viewWidth / 2 - SettingsRowHeight - 4;
 
-		public static float ConvertToPercent(float value) =>
-			value * 100f;
-		public static float FromPercent(float value) =>
-			value / 100f;
-
-		protected float? Convert(ConvertDelegate convert, float? value) =>
-			convert != null && value != null ? (float?)convert((float)value) : null;
-		#endregion
-	}
-
-	internal abstract class BaseSettingControl : BaseControl
-	{
-		#region PROPERTIES
-		#endregion
-
-		#region FIELDS
-		protected string ValueBuffer = null;
-		protected string MinValueBuffer = null;
-		protected string MaxValueBuffer = null;
-		#endregion
-
-		#region METHODS
-		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
-		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
-
-		public virtual void ResetTextBuffers()
-		{
-			ValueBuffer = null;
-			MinValueBuffer = null;
-			MaxValueBuffer = null;
-		}
-		#endregion
-		
-		#region STANDARD CONTROLS
-		protected void CreateText(
+		protected static void CreateText(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -111,9 +75,8 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(controlWidth + 2, offsetY, controlWidth - 4, SettingsRowHeight), text);
 			Text.Anchor = TextAnchor.MiddleLeft;
 		}
-		
 
-		protected bool CreateCheckbox(
+		protected static bool CreateCheckbox(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -151,14 +114,13 @@ namespace CustomizeAnimals.Controls
 			return value;
 		}
 
-		
-		protected void CreateDropDown<T>(
+		protected static void CreateDropDown<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltip,
 			BaseSetting<T> setting,
-			Func<T, string> menuTooltipGenerator = null) 
+			Func<T, string> menuTooltipGenerator = null)
 			where T : Enum
 		{
 			if (setting.Value == null || setting.DefaultValue == null)
@@ -196,7 +158,6 @@ namespace CustomizeAnimals.Controls
 				setting.Value = setting.DefaultValue;
 		}
 
-
 		protected float CreateNumeric(
 			float offsetY,
 			float viewWidth,
@@ -205,6 +166,7 @@ namespace CustomizeAnimals.Controls
 			bool isModified,
 			float value,
 			float defaultValue,
+			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
 			ConvertDelegate convert = null,
@@ -220,7 +182,7 @@ namespace CustomizeAnimals.Controls
 
 			// Setting
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
-			Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
+			Widgets.TextFieldNumeric(textFieldRect, ref value, ref valueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltip);
 
 			// Unit
@@ -230,7 +192,7 @@ namespace CustomizeAnimals.Controls
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
 			{
 				value = defaultValue;
-				ValueBuffer = null;
+				valueBuffer = null;
 			}
 
 			return value;
@@ -248,6 +210,7 @@ namespace CustomizeAnimals.Controls
 			float defaultValue,
 			bool checkboxValue,
 			bool defaultCheckboxValue,
+			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
 			ConvertDelegate convert = null,
@@ -272,7 +235,7 @@ namespace CustomizeAnimals.Controls
 			if (checkboxValue)
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
-				Widgets.TextFieldNumeric(textFieldRect, ref value, ref ValueBuffer, min, max);
+				Widgets.TextFieldNumeric(textFieldRect, ref value, ref valueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
@@ -294,7 +257,7 @@ namespace CustomizeAnimals.Controls
 			{
 				value = defaultValue;
 				checkboxValue = defaultCheckboxValue;
-				ValueBuffer = null;
+				valueBuffer = null;
 			}
 
 			return (checkboxValue, value);
@@ -310,6 +273,7 @@ namespace CustomizeAnimals.Controls
 			bool isModified,
 			float? value,
 			float? defaultValue,
+			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
 			ConvertDelegate convert = null,
@@ -336,7 +300,7 @@ namespace CustomizeAnimals.Controls
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
 				float val = value ?? defaultValue ?? min;
-				Widgets.TextFieldNumeric(textFieldRect, ref val, ref ValueBuffer, min, max);
+				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 				value = val;
 
@@ -360,7 +324,7 @@ namespace CustomizeAnimals.Controls
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue?.ToString() ?? "null"))
 			{
 				value = defaultValue;
-				ValueBuffer = null;
+				valueBuffer = null;
 			}
 
 			// Output
@@ -377,6 +341,8 @@ namespace CustomizeAnimals.Controls
 			bool use,
 			float minValue,
 			float maxValue,
+			ref string minValueBuffer,
+			ref string maxValueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
 			ConvertDelegate convert = null,
@@ -401,12 +367,12 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, height), "min");
 			offsetX += textFieldLabelWidth;
 			var textFieldRect = new Rect(offsetX + 2, offsetY, textFieldWidth - 4, height);
-			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref MinValueBuffer, min, max);
+			Widgets.TextFieldNumeric(textFieldRect, ref minValue, ref minValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMin);
 
 			// Unit
 			DrawTextFieldUnit(textFieldRect, Convert(convert, minValue), unit);
-			
+
 			offsetX = controlWidth;
 			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
 
@@ -414,7 +380,7 @@ namespace CustomizeAnimals.Controls
 			Widgets.Label(new Rect(offsetX, offsetY, textFieldLabelWidth, height), "max");
 			offsetX += textFieldLabelWidth;
 			textFieldRect = new Rect(offsetX + 2, offsetY, textFieldWidth - 4, height);
-			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref MaxValueBuffer, min, max);
+			Widgets.TextFieldNumeric(textFieldRect, ref maxValue, ref maxValueBuffer, min, max);
 			DrawTooltip(textFieldRect, tooltipMax);
 
 			// Unit
@@ -437,6 +403,7 @@ namespace CustomizeAnimals.Controls
 			bool use,
 			float? value,
 			float defaultValue,
+			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
 			ConvertDelegate convert = null,
@@ -445,7 +412,6 @@ namespace CustomizeAnimals.Controls
 			var controlWidth = GetControlWidth(viewWidth);
 
 			// Label
-			// Switch color if modified
 			if (use)
 				GUI.color = ModifiedColor;
 			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
@@ -464,7 +430,7 @@ namespace CustomizeAnimals.Controls
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
 				float val = value ?? defaultValue;
-				Widgets.TextFieldNumeric(textFieldRect, ref val, ref ValueBuffer, min, max);
+				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
@@ -491,6 +457,151 @@ namespace CustomizeAnimals.Controls
 			// Output
 			return (use, value);
 		}
+
+
+		public static float GetControlWidth(float viewWidth) =>
+			viewWidth / 2 - SettingsRowHeight - 4;
+
+		public static float ConvertToPercent(float value) =>
+			value * 100f;
+		public static float FromPercent(float value) =>
+			value / 100f;
+
+		public static string ListToString<T>(string seperator, IEnumerable<T> list, Func<T, string> converter)
+		{
+			string output = "";
+			for (int i = 0; i < list.Count(); i ++)
+			{
+				if (i > 0)
+					output += seperator;
+				output += converter(list.ElementAt(i));
+			}
+			return output;
+		}
+
+		protected static float? Convert(ConvertDelegate convert, float? value) =>
+			convert != null && value != null ? (float?)convert((float)value) : null;
+		#endregion
+	}
+
+	internal abstract class BaseSettingControl : BaseControl
+	{
+		#region FIELDS
+		protected string ValueBuffer = null;
+		protected string MinValueBuffer = null;
+		protected string MaxValueBuffer = null;
+		#endregion
+
+		#region METHODS
+		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
+		public abstract float CreateSettingGlobal(float offsetY, float viewWidth);
+
+		public virtual void Reset()
+		{
+			ValueBuffer = null;
+			MinValueBuffer = null;
+			MaxValueBuffer = null;
+		}
+
+
+		protected float CreateNumeric(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltip,
+			bool isModified,
+			float value,
+			float defaultValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate convert = null,
+			string unit = null) =>
+			CreateNumeric(
+				offsetY, viewWidth, label, tooltip, 
+				isModified, value, defaultValue, ref ValueBuffer, min, max, convert);
+
+		protected (bool, float) CreateNumericWithCheckbox(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool isModified,
+			float value,
+			float defaultValue,
+			bool checkboxValue,
+			bool defaultCheckboxValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate convert = null,
+			string unit = null) =>
+			CreateNumericWithCheckbox(
+				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox, 
+				isModified, value, defaultValue, checkboxValue, defaultCheckboxValue, ref ValueBuffer, min, max, convert, unit);
+
+
+		protected float? CreateNullableNumeric(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool isModified,
+			float? value,
+			float? defaultValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate convert = null,
+			string unit = null) =>
+			CreateNullableNumeric(
+				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
+				isModified, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
+
+		protected (bool, float, float) CreateNumericGlobalMinMax(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltipMin,
+			string tooltipMax,
+			bool use,
+			float minValue,
+			float maxValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate convert = null,
+			string unit = null) =>
+			CreateNumericGlobalMinMax(
+				offsetY, viewWidth, label, tooltipMin, tooltipMax,
+				use, minValue, maxValue, ref MinValueBuffer, ref MaxValueBuffer, min, max, convert, unit);
+
+		protected (bool, float?) CreateNullableNumericGlobal(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool use,
+			float? value,
+			float defaultValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate convert = null,
+			string unit = null) =>
+			CreateNullableNumericGlobal(
+				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
+				use, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
+		#endregion
+	}
+
+	internal abstract class BaseSpecialSettingControl : BaseControl
+	{
+		#region METHODS
+		public abstract float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings);
+
+		public abstract void Reset();
 		#endregion
 	}
 }
