@@ -14,6 +14,7 @@ namespace CustomizeAnimals
 	public enum SettingsSubMenuEnum
 	{
 		General,
+		Attacks,
 	}
 
 	internal class CustomizeAnimals : Mod
@@ -60,6 +61,7 @@ namespace CustomizeAnimals
 		};
 		private Dictionary<string, BaseSpecialSettingControl> SpecialControlsList { get; } = new Dictionary<string, BaseSpecialSettingControl>
 		{
+			{ "AttackTools", new SpecialControlAttackTools() },
 		};
 		#endregion
 
@@ -311,6 +313,7 @@ namespace CustomizeAnimals
 				float subMenButtonOffsetX = 8;
 				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
 				subMenButtonOffsetX += buttonWidth;
+				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuAttacks".Translate(), SettingsSubMenuEnum.Attacks);
 				topRow += buttonHeight;
 			}
 			else
@@ -355,6 +358,9 @@ namespace CustomizeAnimals
 				{
 					case SettingsSubMenuEnum.General:
 						CreateSubMenuGeneral(ref totalHeight, viewWidth);
+						break;
+					case SettingsSubMenuEnum.Attacks:
+						CreateSubMenuAttacks(ref totalHeight, viewWidth);
 						break;
 				}
 
@@ -423,6 +429,12 @@ namespace CustomizeAnimals
 			// Draw animal settings - general
 			foreach (var control in ControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+		}
+
+		public void CreateSubMenuAttacks(ref float totalHeight, float viewWidth)
+		{
+			// Draw animal settings - attacks
+			totalHeight += SpecialControlsList["AttackTools"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		#endregion
 

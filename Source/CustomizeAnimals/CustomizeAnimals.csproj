@@ -97,6 +97,7 @@
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
+    <Compile Include="Controls\SpecialControlAttacks.cs" />
     <Compile Include="GeneralSettings\GeneralSettingsControls.cs" />
     <Compile Include="CustomizeAnimals.cs" />
     <Compile Include="CustomizeAnimals_ModSettings.cs" />
@@ -131,6 +132,7 @@
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
+    <Compile Include="Settings\SpecialSettingTools.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

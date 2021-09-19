@@ -150,6 +150,8 @@ namespace CustomizeAnimals
 			Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
 			Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(Animal));
 
+			SpecialSettings.Add("AttackTools", new SpecialSettingAttackTools(Animal));
+
 			ApplySettings();
 		}
 
