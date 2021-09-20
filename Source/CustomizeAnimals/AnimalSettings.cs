@@ -53,6 +53,9 @@ namespace CustomizeAnimals
 			//Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(null, true));
 			//Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(null, true));
 			//Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(null, true));
+
+			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
+			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
 		}
 
 		public void ApplySettings()
@@ -149,6 +152,9 @@ namespace CustomizeAnimals
 			Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(Animal));
 			Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
 			Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(Animal));
+
+			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
+			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
 			ApplySettings();
 		}

@@ -27,7 +27,7 @@ namespace CustomizeAnimals
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
 		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
-		private List<BaseSettingControl> ControlsList { get; } = new List<BaseSettingControl>
+		private List<BaseControl> ControlsList { get; } = new List<BaseControl>
 		{
 			new ControlMarketValue(),
 			new ControlMeatAmount(),
@@ -55,11 +55,12 @@ namespace CustomizeAnimals
 			new ControlNuzzleMtbHours(),
 
 			new ControlArmorRating_Sharp(),
-			new ControlArmorRating_Blunt(),
-			new ControlArmorRating_Heat(),
+
+			new ControlAttackModifier()
 		};
 		private Dictionary<string, BaseSpecialSettingControl> SpecialControlsList { get; } = new Dictionary<string, BaseSpecialSettingControl>
 		{
+			// TODO add lifeStageAges, gestationPeriodDays (simple), litterSizeCurve, comps/li Class="CompProperties_EggLayer"
 		};
 		#endregion
 
@@ -77,7 +78,8 @@ namespace CustomizeAnimals
 
 		public static float SettingsViewHeight = 0;
 		public const float SettingsRowHeight = 32;
-		public const float SettingsDoubleRowHeight = 56;
+		public const float SettingsDoubleRowHeight = 58;
+		public const float SettingsTripleRowHeight = 84;
 		public const float SettingsIconSize = 64;
 		public const float SettingsOffsetY = 64;
 
@@ -307,11 +309,12 @@ namespace CustomizeAnimals
 
 				// Sub menu buttons
 				float buttonWidth = viewWidth / 2f;
-				float buttonHeight = SettingsRowHeight / 1.5f;
+				float buttonHeight = SettingsRowHeight / 4f * 3f;
 				float subMenButtonOffsetX = 8;
 				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
 				subMenButtonOffsetX += buttonWidth;
-				topRow += buttonHeight;
+
+				topRow += buttonHeight + 4;
 			}
 			else
 			{
@@ -343,7 +346,7 @@ namespace CustomizeAnimals
 
 			// Begin
 			Widgets.BeginScrollView(
-				new Rect(0, topRow, width, height - SettingsOffsetY),
+				new Rect(0, topRow, width, height - topRow),
 				ref _settingsScrollPosition,
 				new Rect(0, topRow, viewWidth, SettingsViewHeight));
 
@@ -412,7 +415,7 @@ namespace CustomizeAnimals
 			// Reset color
 			GUI.color = Color.white;
 		}
-
+		
 		public void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
 		{
 			// Separator

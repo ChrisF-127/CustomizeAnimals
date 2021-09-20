@@ -16,9 +16,6 @@ namespace CustomizeAnimals.Controls
 		private GeneralSettings Settings => GlobalSettings.GeneralSettings;
 		#endregion
 
-		#region FIELDS
-		#endregion
-
 		#region PUBLIC METHODS
 		public float DrawTrainabilityLimitsControls(float offsetY, float viewWidth)
 		{
