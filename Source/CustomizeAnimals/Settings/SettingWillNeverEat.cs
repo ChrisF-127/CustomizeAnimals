@@ -110,9 +110,12 @@ namespace CustomizeAnimals.Settings
 
 		public override void ExposeData()
 		{
-			var value = Value;
-			Scribe_Collections.Look(ref value, "WillNeverEat");
-			Value = value;
+			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
+			{
+				var value = Value;
+				Scribe_Collections.Look(ref value, "WillNeverEat");
+				Value = value;
+			}
 
 			Value2Aux();
 		}
