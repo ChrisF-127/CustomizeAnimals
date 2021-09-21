@@ -28,4 +28,7 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
 	<SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
 	
 	<SY_CA.NotApplicable>not applicable</SY_CA.NotApplicable>
+	
+	<SY_CA.SubMenuGeneral>General</SY_CA.SubMenuGeneral>
+	<SY_CA.SubMenuProductivity>Productivity</SY_CA.SubMenuProductivity>
 </LanguageData>

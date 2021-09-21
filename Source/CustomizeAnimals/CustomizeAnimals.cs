@@ -14,6 +14,7 @@ namespace CustomizeAnimals
 	public enum SettingsSubMenuEnum
 	{
 		General,
+		Productivity,
 	}
 
 	internal class CustomizeAnimals : Mod
@@ -60,7 +61,8 @@ namespace CustomizeAnimals
 		};
 		private Dictionary<string, BaseSpecialSettingControl> SpecialControlsList { get; } = new Dictionary<string, BaseSpecialSettingControl>
 		{
-			// TODO add lifeStageAges, gestationPeriodDays (simple), litterSizeCurve, comps/li Class="CompProperties_EggLayer"
+			// TODO add gestationPeriodDays (simple), litterSizeCurve, comps/li Class="CompProperties_EggLayer"
+			{ "LifeStageAges", new SpecialControlLifeStageAges() },
 		};
 		#endregion
 
@@ -235,10 +237,11 @@ namespace CustomizeAnimals
 				}
 
 				// Selection
-				float listOffsetY = offsetY + _listRowHeight * index;
-				if (Widgets.ButtonInvisible(new Rect(0, listOffsetY, viewWidth, _listRowHeight), true))
+				var listOffsetY = offsetY + _listRowHeight * index;
+				var rect = new Rect(0, listOffsetY, viewWidth, _listRowHeight);
+				if (Widgets.ButtonInvisible(rect, true))
 					SelectedAnimalSettings = animalSettings;
-				Widgets.DrawOptionBackground(new Rect(0, listOffsetY, viewWidth, _listRowHeight), SelectedAnimalSettings == animalSettings);
+				Widgets.DrawOptionBackground(rect, SelectedAnimalSettings == animalSettings);
 
 				// Icon
 				float listOffsetX = 2;
@@ -310,8 +313,10 @@ namespace CustomizeAnimals
 				// Sub menu buttons
 				float buttonWidth = viewWidth / 2f;
 				float buttonHeight = SettingsRowHeight / 4f * 3f;
-				float subMenButtonOffsetX = 8;
+				float subMenButtonOffsetX = 0;
 				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
+				subMenButtonOffsetX += buttonWidth;
+				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuProductivity".Translate(), SettingsSubMenuEnum.Productivity);
 				subMenButtonOffsetX += buttonWidth;
 
 				topRow += buttonHeight + 4;
@@ -358,6 +363,9 @@ namespace CustomizeAnimals
 				{
 					case SettingsSubMenuEnum.General:
 						CreateSubMenuGeneral(ref totalHeight, viewWidth);
+						break;
+					case SettingsSubMenuEnum.Productivity:
+						CreateSubMenuProductivity(ref totalHeight, viewWidth);
 						break;
 				}
 
@@ -426,6 +434,11 @@ namespace CustomizeAnimals
 			// Draw animal settings - general
 			foreach (var control in ControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+		}
+		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
+		{
+			// Life Stage Ages
+			totalHeight += SpecialControlsList["LifeStageAges"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		#endregion
 

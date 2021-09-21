@@ -156,6 +156,8 @@ namespace CustomizeAnimals
 			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
 			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
+			SpecialSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
+
 			ApplySettings();
 		}
 
