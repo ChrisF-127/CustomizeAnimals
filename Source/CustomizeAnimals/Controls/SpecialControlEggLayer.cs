@@ -123,30 +123,33 @@ namespace CustomizeAnimals.Controls
 			totalHeight += SettingsRowHeight;
 
 			// Progress Unfertilized Max
-			setting.ProgressUnfertilizedMax = CreateNumeric(
-				totalHeight,
-				viewWidth,
-				"SY_CA.EggLayerProgressUnfertilizedMax".Translate(),
-				"SY_CA.TooltipEggLayerProgressUnfertilizedMax".Translate(),
-				setting.ProgressUnfertilizedMax != setting.DefaultProgressUnfertilizedMax,
-				setting.ProgressUnfertilizedMax,
-				setting.DefaultProgressUnfertilizedMax,
-				ref ProgressUnfertilizedMaxBuffer,
-				max: 1f,
-				convert: ConvertToPercent,
-				unit: "%");
-			totalHeight += SettingsRowHeight;
+			//setting.ProgressUnfertilizedMax = CreateNumeric(
+			//	totalHeight,
+			//	viewWidth,
+			//	"SY_CA.EggLayerProgressUnfertilizedMax".Translate(),
+			//	"SY_CA.TooltipEggLayerProgressUnfertilizedMax".Translate(),
+			//	setting.ProgressUnfertilizedMax != setting.DefaultProgressUnfertilizedMax,
+			//	setting.ProgressUnfertilizedMax,
+			//	setting.DefaultProgressUnfertilizedMax,
+			//	ref ProgressUnfertilizedMaxBuffer,
+			//	max: 1f,
+			//	convert: ConvertToPercent,
+			//	unit: "%");
+			//totalHeight += SettingsRowHeight;
 
-			// Female Only
-			setting.FemaleOnly = CreateCheckbox(
-				totalHeight,
-				viewWidth,
-				"SY_CA.EggLayerFemaleOnly".Translate(),
-				"SY_CA.TooltipEggLayerFemaleOnly".Translate(),
-				setting.FemaleOnly,
-				setting.DefaultFemaleOnly,
-				"SY_CA.EggLayerFemaleOnlyText".Translate());
-			totalHeight += SettingsRowHeight;
+			if (setting.ProgressUnfertilizedMax == 1f && setting.UnfertilizedDef != null)
+			{
+				// Female Only
+				setting.FemaleOnly = CreateCheckbox(
+					totalHeight,
+					viewWidth,
+					"SY_CA.EggLayerFemaleOnly".Translate(),
+					"SY_CA.TooltipEggLayerFemaleOnly".Translate(),
+					setting.FemaleOnly,
+					setting.DefaultFemaleOnly,
+					"SY_CA.EggLayerFemaleOnlyText".Translate());
+				totalHeight += SettingsRowHeight;
+			}
 
 			return totalHeight - offsetY;
 		}

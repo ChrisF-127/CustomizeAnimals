@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 using Verse;
 
 namespace CustomizeAnimals.Settings
@@ -16,7 +17,6 @@ namespace CustomizeAnimals.Settings
 
 		public ThingDef FertilizedDef => EggLayer?.eggFertilizedDef;
 		public ThingDef UnfertilizedDef => EggLayer?.eggUnfertilizedDef;
-		public bool IsDefaultUnfertilizedDefNull { get; private set; }
 
 		public bool DefaultFemaleOnly { get; private set; }
 		public bool FemaleOnly { get; set; }
@@ -66,8 +66,6 @@ namespace CustomizeAnimals.Settings
 				FertilizationCountMax = EggLayer.eggFertilizationCountMax;
 				ProgressUnfertilizedMax = EggLayer.eggProgressUnfertilizedMax;
 
-				IsDefaultUnfertilizedDefNull = UnfertilizedDef == null;
-
 				Hatcher = FertilizedDef?.comps?.Find((comp) => comp is CompProperties_Hatcher) as CompProperties_Hatcher;
 				if (Hatcher != null) // should never be null
 					DaysToHatch = Hatcher.hatcherDaystoHatch;
@@ -84,17 +82,6 @@ namespace CustomizeAnimals.Settings
 			EggLayer.eggCountRange.max = CountRangeMax;
 			EggLayer.eggFertilizationCountMax = FertilizationCountMax;
 			EggLayer.eggProgressUnfertilizedMax = ProgressUnfertilizedMax;
-
-			if (ProgressUnfertilizedMax >= 1f)
-			{
-				if (EggLayer.eggUnfertilizedDef == null) // unfertilized def must not be null if the animal can lay unfertilized eggs; just use chicken eggs as all eggs are equal anyway
-					EggLayer.eggUnfertilizedDef = DefDatabase<ThingDef>.AllDefs.FirstOrDefault((def) => def.defName == "EggChickenUnfertilized"); 
-			}
-			else if (ProgressUnfertilizedMax < 1f)
-			{
-				if (IsDefaultUnfertilizedDefNull && EggLayer.eggUnfertilizedDef != null)
-					EggLayer.eggUnfertilizedDef = null;
-			}
 
 			if (Hatcher != null)
 				Hatcher.hatcherDaystoHatch = DaysToHatch;
