@@ -100,14 +100,16 @@ namespace CustomizeAnimals
 	internal class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
+		public bool IsHuman { get; }
 		public ThingDef Animal { get; }
 		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
 		public Dictionary<string, BaseSpecialSetting> SpecialSettings { get; } = new Dictionary<string, BaseSpecialSetting>();
 		#endregion
 
 		#region CONSTRUCTORS
-		public AnimalSettings(ThingDef animal)
+		public AnimalSettings(ThingDef animal, bool isHuman = false)
 		{
+			IsHuman = isHuman;
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
 			Initialize();
@@ -133,12 +135,12 @@ namespace CustomizeAnimals
 			Settings.Add("BodySize", new SettingBodySize(Animal));
 			Settings.Add("HealthScale", new SettingHealthScale(Animal));
 			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
-			Settings.Add("Trainability", new SettingTrainability(Animal));
-			Settings.Add("FilthRate", new SettingFilthRate(Animal));
-			Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
+			if (!IsHuman) Settings.Add("Trainability", new SettingTrainability(Animal));
+			if (!IsHuman) Settings.Add("FilthRate", new SettingFilthRate(Animal));
+			if (!IsHuman) Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
-			Settings.Add("PackAnimal", new SettingPackAnimal(Animal));
-			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
+			if (!IsHuman) Settings.Add("PackAnimal", new SettingPackAnimal(Animal));
+			if (!IsHuman) Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
 			Settings.Add("Wildness", new SettingWildness(Animal));
 			Settings.Add("LifeExpectancy", new SettingLifeExpectancy(Animal));
 			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
@@ -150,7 +152,7 @@ namespace CustomizeAnimals
 			Settings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(Animal));
 			Settings.Add("Predator", new SettingPredator(Animal));
 			Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
-			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
+			if (!IsHuman) Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
 
 			Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(Animal));
 			Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
@@ -159,10 +161,10 @@ namespace CustomizeAnimals
 			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
 			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
-			Settings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
+			if (!IsHuman) Settings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
 			Settings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
 
-			SpecialSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
+			if (!IsHuman) SpecialSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
 			SpecialSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
 
 			ApplySettings();

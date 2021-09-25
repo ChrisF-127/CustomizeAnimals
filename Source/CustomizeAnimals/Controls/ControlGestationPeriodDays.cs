@@ -14,9 +14,12 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var eggLayer = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
-			if (eggLayer.IsEggLayer)
-				return 0f;
+			if (!animalSettings.IsHuman)
+			{
+				var eggLayer = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
+				if (eggLayer.IsEggLayer)
+					return 0f;
+			}
 
 			var setting = (BaseSetting<float>)animalSettings.Settings["GestationPeriodDays"];
 			var value = CreateNumeric(

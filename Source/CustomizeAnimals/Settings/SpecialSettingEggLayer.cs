@@ -69,7 +69,7 @@ namespace CustomizeAnimals.Settings
 				IsDefaultUnfertilizedDefNull = UnfertilizedDef == null;
 
 				Hatcher = FertilizedDef?.comps?.Find((comp) => comp is CompProperties_Hatcher) as CompProperties_Hatcher;
-				if (Hatcher != null) // really should never be null unless a modder fucked up the hatching part of a fertilized egg
+				if (Hatcher != null) // should never be null
 					DaysToHatch = Hatcher.hatcherDaystoHatch;
 			}
 		}

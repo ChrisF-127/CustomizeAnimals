@@ -36,7 +36,7 @@ namespace CustomizeAnimals.Controls
 				offsetY += height;
 				totalHeight += height;
 			}
-			return totalHeight;
+			return totalHeight - offsetY;
 		}
 
 		public override void Reset()

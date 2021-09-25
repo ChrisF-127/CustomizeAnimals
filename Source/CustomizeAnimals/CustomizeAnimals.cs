@@ -118,6 +118,8 @@ namespace CustomizeAnimals
 			}
 			Animals.SortBy((a) => a.Animal.label);
 
+			Animals.Insert(0, new AnimalSettings(ThingDefOf.Human, true));
+
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
 		

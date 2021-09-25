@@ -26,6 +26,9 @@ namespace CustomizeAnimals.Controls
 		#region METHODS
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (animalSettings.IsHuman)
+				return 0f;
+
 			var setting = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
 			if (!setting.IsEggLayer)
 				return 0f;
@@ -42,7 +45,7 @@ namespace CustomizeAnimals.Controls
 				totalHeight,
 				viewWidth,
 				"SY_CA.EggLayerFertilizedDef".Translate(),
-				setting?.EggLayer?.eggFertilizedDef?.label?.CapitalizeFirst() ?? "SY_CA.N/A".Translate());
+				setting?.EggLayer?.eggFertilizedDef?.label?.CapitalizeFirst() ?? "SY_CA.EggLayerNoDef".Translate());
 			totalHeight += SettingsRowHeight;
 
 			// Unfertilized Def
@@ -50,7 +53,7 @@ namespace CustomizeAnimals.Controls
 				totalHeight,
 				viewWidth,
 				"SY_CA.EggLayerUnfertilizedDef".Translate(),
-				setting?.EggLayer?.eggUnfertilizedDef?.label?.CapitalizeFirst() ?? "SY_CA.N/A".Translate());
+				setting?.EggLayer?.eggUnfertilizedDef?.label?.CapitalizeFirst() ?? "SY_CA.EggLayerNoDef".Translate());
 			totalHeight += SettingsRowHeight;
 
 			// Interval Days
@@ -88,7 +91,8 @@ namespace CustomizeAnimals.Controls
 				setting.CountRangeMin != setting.DefaultCountRangeMin,
 				setting.CountRangeMin,
 				setting.DefaultCountRangeMin,
-				ref CountRangeMinBuffer);
+				ref CountRangeMinBuffer,
+				max: 75);
 			totalHeight += SettingsRowHeight;
 
 			// Count Range Max
@@ -101,7 +105,8 @@ namespace CustomizeAnimals.Controls
 				setting.CountRangeMax,
 				setting.DefaultCountRangeMax,
 				ref CountRangeMaxBuffer,
-				min: setting.CountRangeMin);
+				min: setting.CountRangeMin,
+				max: 75);
 			totalHeight += SettingsRowHeight;
 
 			// Fertilization Count Max
