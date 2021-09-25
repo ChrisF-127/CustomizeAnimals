@@ -59,9 +59,12 @@ namespace CustomizeAnimals
 
 			new ControlAttackModifier()
 		};
-		private Dictionary<string, BaseSpecialSettingControl> SpecialControlsList { get; } = new Dictionary<string, BaseSpecialSettingControl>
+		private Dictionary<string, BaseControl> SpecialControlsList { get; } = new Dictionary<string, BaseControl>
 		{
-			// TODO add gestationPeriodDays (simple), litterSizeCurve, comps/li Class="CompProperties_EggLayer"
+#warning TODO add litterSizeCurve
+			{ "MateMtbHours", new ControlMateMtbHours() },
+			{ "GestationPeriodDays", new ControlGestationPeriodDays() },
+			{ "EggLayer", new SpecialControlEggLayer() },
 			{ "LifeStageAges", new SpecialControlLifeStageAges() },
 		};
 		#endregion
@@ -437,6 +440,18 @@ namespace CustomizeAnimals
 		}
 		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
 		{
+			// Reproduction settings
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Reproduction".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Mate Mtb Hours
+			totalHeight += SpecialControlsList["MateMtbHours"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+			// Gestation Period Days
+			totalHeight += SpecialControlsList["GestationPeriodDays"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+			// Egg Layer
+			totalHeight += SpecialControlsList["EggLayer"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+
 			// Life Stage Ages
 			totalHeight += SpecialControlsList["LifeStageAges"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}

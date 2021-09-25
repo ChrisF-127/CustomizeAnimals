@@ -120,8 +120,5 @@ namespace CustomizeAnimals.Settings
 			Value2Aux();
 		}
 		#endregion
-
-		#region PRIVATE METHODES
-		#endregion
 	}
 }

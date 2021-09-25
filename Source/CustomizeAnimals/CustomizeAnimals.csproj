@@ -77,6 +77,8 @@
   <ItemGroup>
     <Compile Include="Controls\ControlArmorRating.cs" />
     <Compile Include="Controls\ControlAttackModifiers.cs" />
+    <Compile Include="Controls\ControlMateMtbHours.cs" />
+    <Compile Include="Controls\ControlGestationPeriodDays.cs" />
     <Compile Include="Controls\ControlWillNeverEat.cs" />
     <Compile Include="Controls\ControlLeatherAmount.cs" />
     <Compile Include="Controls\ControlMeatAmount.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
+    <Compile Include="Controls\SpecialControlEggLayer.cs" />
     <Compile Include="Controls\SpecialControlLifeStageAges.cs" />
     <Compile Include="GeneralSettings\GeneralSettingsControls.cs" />
     <Compile Include="CustomizeAnimals.cs" />
@@ -111,6 +114,8 @@
     <Compile Include="Settings\BaseSetting.cs" />
     <Compile Include="Settings\SettingArmorRating.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
+    <Compile Include="Settings\SettingMateMtbHours.cs" />
+    <Compile Include="Settings\SettingGestationPeriodDays.cs" />
     <Compile Include="Settings\SettingWillNeverEat.cs" />
     <Compile Include="Settings\SettingManhunter.cs" />
     <Compile Include="Settings\SettingHealthScale.cs" />
@@ -134,6 +139,7 @@
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
+    <Compile Include="Settings\SpecialSettingEggLayer.cs" />
     <Compile Include="Settings\SpecialSettingLifeStageAges.cs" />
   </ItemGroup>
   <ItemGroup>

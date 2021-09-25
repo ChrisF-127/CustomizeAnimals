@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal delegate float ConvertDelegate(float value);
+	internal delegate T ConvertDelegate<T>(T value);
 
 	internal abstract class BaseControl
 	{
@@ -40,10 +40,10 @@ namespace CustomizeAnimals.Controls
 		public static float GetControlWidth(float viewWidth) =>
 			viewWidth / 2 - SettingsRowHeight - 4;
 
+		public static float? ConvertToPercent(float? value) =>
+			value * 100f;
 		public static float ConvertToPercent(float value) =>
 			value * 100f;
-		public static float FromPercent(float value) =>
-			value / 100f;
 
 		public static string ListToString<T>(string seperator, IEnumerable<T> list, Func<T, string> converter)
 		{
@@ -56,9 +56,6 @@ namespace CustomizeAnimals.Controls
 			}
 			return output;
 		}
-
-		protected static float? Convert(ConvertDelegate convert, float? value) =>
-			convert != null && value != null ? (float?)convert((float)value) : null;
 		#endregion
 
 		#region CONTROLS METHODS
@@ -86,7 +83,7 @@ namespace CustomizeAnimals.Controls
 				activeTip.DrawTooltip(GenUI.GetMouseAttachedWindowPos(activeTip.TipRect.width, activeTip.TipRect.height) + (UI.MousePositionOnUIInverted - Event.current.mousePosition));
 			}
 		}
-		public static void DrawTextFieldUnit(Rect rect, float? value, string unit)
+		public static void DrawTextFieldUnit<T>(Rect rect, T value, string unit)
 		{
 			Text.Anchor = TextAnchor.MiddleRight;
 			Widgets.Label(new Rect(rect.x + 4, rect.y + 1, rect.width - 8, rect.height), $"{value?.ToString() ?? ""} {unit ?? ""}");
@@ -199,19 +196,20 @@ namespace CustomizeAnimals.Controls
 				setting.Value = setting.DefaultValue;
 		}
 
-		protected float CreateNumeric(
+		protected T CreateNumeric<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltip,
 			bool isModified,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null)
+			ConvertDelegate<T> convert = null,
+			string unit = null) 
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 
@@ -227,7 +225,7 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(textFieldRect, tooltip);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
+			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
@@ -239,7 +237,7 @@ namespace CustomizeAnimals.Controls
 			return value;
 		}
 
-		protected (bool, float) CreateNumericWithCheckbox(
+		protected (bool, T) CreateNumericWithCheckbox<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -247,15 +245,16 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool isModified,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			bool checkboxValue,
 			bool defaultCheckboxValue,
 			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
+			ConvertDelegate<T> convert = null,
 			string unit = null)
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 
@@ -280,7 +279,7 @@ namespace CustomizeAnimals.Controls
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
+				DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
 			}
 			else
 			{
@@ -304,7 +303,7 @@ namespace CustomizeAnimals.Controls
 			return (checkboxValue, value);
 		}
 
-		protected float? CreateNullableNumeric(
+		protected T? CreateNullableNumeric<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -312,13 +311,14 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool isModified,
-			float? value,
-			float? defaultValue,
+			T? value,
+			T? defaultValue,
 			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
+			ConvertDelegate<T?> convert = null,
 			string unit = null)
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 
@@ -340,13 +340,13 @@ namespace CustomizeAnimals.Controls
 			if (selected)
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
-				float val = value ?? defaultValue ?? min;
+				var val = value ?? defaultValue ?? default;
 				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 				value = val;
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
+				DrawTextFieldUnit(textFieldRect, convert != null && value != null ? convert(value) : null, unit);
 			}
 			else
 			{
@@ -373,19 +373,20 @@ namespace CustomizeAnimals.Controls
 		}
 
 
-		protected (bool, float) CreateNumericGlobal(
+		protected (bool, T) CreateNumericGlobal<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltip,
 			bool use,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
+			ConvertDelegate<T> convert = null,
 			string unit = null)
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 
@@ -401,7 +402,7 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(textFieldRect, tooltip);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
+			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
 
 			// "Apply" checkbox
 			use = DrawUseGlobalCheckBox(offsetY, viewWidth, use, SettingsRowHeight);
@@ -410,7 +411,7 @@ namespace CustomizeAnimals.Controls
 			return (use, value);
 		}
 
-		protected (bool, float?) CreateNullableNumericGlobal(
+		protected (bool, T?) CreateNullableNumericGlobal<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -418,13 +419,14 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool use,
-			float? value,
-			float defaultValue,
+			T? value,
+			T defaultValue,
 			ref string valueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
+			ConvertDelegate<T?> convert = null,
 			string unit = null)
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 
@@ -446,12 +448,12 @@ namespace CustomizeAnimals.Controls
 			if (selected)
 			{
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
-				float val = value ?? defaultValue;
+				var val = value ?? defaultValue;
 				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, Convert(convert, value), unit);
+				DrawTextFieldUnit(textFieldRect, convert != null && value != null ? convert(value) : null, unit);
 
 				value = val;
 			}
@@ -475,21 +477,22 @@ namespace CustomizeAnimals.Controls
 			return (use, value);
 		}
 
-		protected (bool, float, float) CreateNumericGlobalMinMax(
+		protected (bool, T, T) CreateNumericGlobalMinMax<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltipMin,
 			string tooltipMax,
 			bool use,
-			float minValue,
-			float maxValue,
+			T minValue,
+			T maxValue,
 			ref string minValueBuffer,
 			ref string maxValueBuffer,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
+			ConvertDelegate<T> convert = null,
 			string unit = null)
+			where T : struct
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 			var oriOffsetY = offsetY;
@@ -514,7 +517,7 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(textFieldRect, tooltipMin);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, Convert(convert, minValue), unit);
+			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(minValue) : null, unit);
 
 			offsetX = controlWidth;
 			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
@@ -527,7 +530,7 @@ namespace CustomizeAnimals.Controls
 			DrawTooltip(textFieldRect, tooltipMax);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, Convert(convert, maxValue), unit);
+			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(maxValue) : null, unit);
 
 			// "Apply" checkbox
 			use = DrawUseGlobalCheckBox(oriOffsetY, viewWidth, use, SettingsDoubleRowHeight);
@@ -556,23 +559,24 @@ namespace CustomizeAnimals.Controls
 		}
 
 
-		protected float CreateNumeric(
+		protected T CreateNumeric<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltip,
 			bool isModified,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNumeric(
 				offsetY, viewWidth, label, tooltip, 
-				isModified, value, defaultValue, ref ValueBuffer, min, max, convert);
+				isModified, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
 
-		protected (bool, float) CreateNumericWithCheckbox(
+		protected (bool, T) CreateNumericWithCheckbox<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -580,19 +584,20 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool isModified,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			bool checkboxValue,
 			bool defaultCheckboxValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNumericWithCheckbox(
 				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox, 
 				isModified, value, defaultValue, checkboxValue, defaultCheckboxValue, ref ValueBuffer, min, max, convert, unit);
 
-		protected float? CreateNullableNumeric(
+		protected T? CreateNullableNumeric<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -600,34 +605,36 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool isModified,
-			float? value,
-			float? defaultValue,
+			T? value,
+			T? defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T?> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNullableNumeric(
 				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
 				isModified, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
 
 
-		protected (bool, float) CreateNumericGlobal(
+		protected (bool, T) CreateNumericGlobal<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltip,
 			bool use,
-			float value,
-			float defaultValue,
+			T value,
+			T defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNumericGlobal(
 				offsetY, viewWidth, label, tooltip, 
 				use, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
 
-		protected (bool, float?) CreateNullableNumericGlobal(
+		protected (bool, T?) CreateNullableNumericGlobal<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -635,29 +642,31 @@ namespace CustomizeAnimals.Controls
 			string tooltip,
 			string tooltipCheckbox,
 			bool use,
-			float? value,
-			float defaultValue,
+			T? value,
+			T defaultValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T?> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNullableNumericGlobal(
 				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
 				use, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
 
-		protected (bool, float, float) CreateNumericGlobalMinMax(
+		protected (bool, T, T) CreateNumericGlobalMinMax<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
 			string tooltipMin,
 			string tooltipMax,
 			bool use,
-			float minValue,
-			float maxValue,
+			T minValue,
+			T maxValue,
 			float min = 0f,
 			float max = 1e+9f,
-			ConvertDelegate convert = null,
-			string unit = null) =>
+			ConvertDelegate<T> convert = null,
+			string unit = null)
+			where T : struct =>
 			CreateNumericGlobalMinMax(
 				offsetY, viewWidth, label, tooltipMin, tooltipMax,
 				use, minValue, maxValue, ref MinValueBuffer, ref MaxValueBuffer, min, max, convert, unit);

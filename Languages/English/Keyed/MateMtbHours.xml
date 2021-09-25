@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.MateMtbHours>Mate interval</SY_CA.MateMtbHours>
+	<SY_CA.TooltipMateMtbHours>Adjust the mean time before an animal will mate
+A value of 0 disables mating</SY_CA.TooltipMateMtbHours>
+</LanguageData>

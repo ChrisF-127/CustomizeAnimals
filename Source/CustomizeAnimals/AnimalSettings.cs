@@ -56,6 +56,9 @@ namespace CustomizeAnimals
 
 			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
 			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
+
+			//Settings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
+			//Settings.Add("GestationPeriodDays", new SettingGestationPeriodDays(null, true));
 		}
 
 		public void ApplySettings()
@@ -156,6 +159,10 @@ namespace CustomizeAnimals
 			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
 			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
+			Settings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
+			Settings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
+
+			SpecialSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
 			SpecialSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
 
 			ApplySettings();
