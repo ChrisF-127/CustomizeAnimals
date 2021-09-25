@@ -4,6 +4,7 @@ using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -111,7 +112,7 @@ namespace CustomizeAnimals
 			GlobalSettings.Initialize();
 
 			Animals = new List<AnimalSettings>();
-			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
+			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs.ToArray())
 			{
 				if (AnimalSettings.IsValidAnimal(thingDef))
 					Animals.Add(new AnimalSettings(thingDef));

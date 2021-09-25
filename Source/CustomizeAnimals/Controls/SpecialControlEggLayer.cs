@@ -30,8 +30,6 @@ namespace CustomizeAnimals.Controls
 				return 0f;
 
 			var setting = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
-			if (!setting.IsEggLayer)
-				return 0f;
 
 			var totalHeight = offsetY;
 
@@ -39,6 +37,20 @@ namespace CustomizeAnimals.Controls
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.EggLayer".Translate());
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Is EggLayer
+			setting.IsEggLayer = CreateCheckbox(
+				totalHeight,
+				viewWidth,
+				"SY_CA.EggLayerIsEggLayer".Translate(),
+				"SY_CA.TooltipEggLayerIsEggLayer".Translate(),
+				setting.IsEggLayer,
+				setting.DefaultIsEggLayer,
+				"SY_CA.EggLayerIsEggLayerText".Translate());
+			totalHeight += SettingsRowHeight;
+
+			if (!setting.IsEggLayer)
+				return totalHeight - offsetY;
 
 			// Fertilized Def
 			CreateText(

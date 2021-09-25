@@ -107,6 +107,7 @@
     <Compile Include="CustomizeAnimals_ModSettings.cs" />
     <Compile Include="GeneralSettings\GeneralSettings.cs" />
     <Compile Include="HarmonyPatches.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controls\BaseControl.cs" />
     <Compile Include="Controls\ControlRoamMtbDays.cs" />
