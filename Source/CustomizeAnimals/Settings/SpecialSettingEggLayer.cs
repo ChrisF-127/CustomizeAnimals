@@ -12,11 +12,17 @@ namespace CustomizeAnimals.Settings
 	internal class SpecialSettingEggLayer : BaseSpecialSetting
 	{
 		#region PROPERTIES
+		private GeneralSettings GeneralSettings => GlobalSettings.GeneralSettings;
+
 		public CompProperties_EggLayer EggLayer { get; private set; }
 		public bool IsEggLayer => EggLayer != null;
 
 		public ThingDef FertilizedDef => EggLayer?.eggFertilizedDef;
+		public float DefaultFertilizedEggMass { get; private set; }
+		public float DefaultFertilizedEggNutrition { get; private set; }
 		public ThingDef UnfertilizedDef => EggLayer?.eggUnfertilizedDef;
+		public float DefaultUnfertilizedEggMass { get; private set; }
+		public float DefaultUnfertilizedEggNutrition { get; private set; }
 
 		public bool DefaultFemaleOnly { get; private set; }
 		public bool FemaleOnly { get; set; }
@@ -57,19 +63,24 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue()
 		{
 			EggLayer = Animal?.comps?.Find((comp) => comp is CompProperties_EggLayer) as CompProperties_EggLayer;
-			if (IsEggLayer)
-			{
-				FemaleOnly = EggLayer.eggLayFemaleOnly;
-				IntervalDays = EggLayer.eggLayIntervalDays;
-				CountRangeMin = EggLayer.eggCountRange.min;
-				CountRangeMax = EggLayer.eggCountRange.max;
-				FertilizationCountMax = EggLayer.eggFertilizationCountMax;
-				ProgressUnfertilizedMax = EggLayer.eggProgressUnfertilizedMax;
+			if (!IsEggLayer)
+				return;
+			
+			FemaleOnly = EggLayer.eggLayFemaleOnly;
+			IntervalDays = EggLayer.eggLayIntervalDays;
+			CountRangeMin = EggLayer.eggCountRange.min;
+			CountRangeMax = EggLayer.eggCountRange.max;
+			FertilizationCountMax = EggLayer.eggFertilizationCountMax;
+			ProgressUnfertilizedMax = EggLayer.eggProgressUnfertilizedMax;
 
-				Hatcher = FertilizedDef?.comps?.Find((comp) => comp is CompProperties_Hatcher) as CompProperties_Hatcher;
-				if (Hatcher != null) // should never be null
-					DaysToHatch = Hatcher.hatcherDaystoHatch;
-			}
+			Hatcher = FertilizedDef?.comps?.Find((comp) => comp is CompProperties_Hatcher) as CompProperties_Hatcher;
+			if (Hatcher != null) 
+				DaysToHatch = Hatcher.hatcherDaystoHatch;
+
+			DefaultFertilizedEggMass = FertilizedDef?.GetStatValueAbstract(StatDefOf.Mass) ?? 0f;
+			DefaultFertilizedEggNutrition = FertilizedDef?.GetStatValueAbstract(StatDefOf.Nutrition) ?? 0f;
+			DefaultUnfertilizedEggMass = UnfertilizedDef?.GetStatValueAbstract(StatDefOf.Mass) ?? 0f;
+			DefaultUnfertilizedEggNutrition = UnfertilizedDef?.GetStatValueAbstract(StatDefOf.Nutrition) ?? 0f;
 		}
 		public override void SetValue()
 		{
@@ -83,8 +94,35 @@ namespace CustomizeAnimals.Settings
 			EggLayer.eggFertilizationCountMax = FertilizationCountMax;
 			EggLayer.eggProgressUnfertilizedMax = ProgressUnfertilizedMax;
 
-			if (Hatcher != null)
+			if (Hatcher != null) 
 				Hatcher.hatcherDaystoHatch = DaysToHatch;
+
+
+			var bodySize = Animal?.race?.baseBodySize ?? 1f;
+			// Egg Mass
+			if (GeneralSettings.EggMassDependOnBodySize)
+			{
+				var mass = bodySize * GeneralSettings.EggMassFactor;
+				FertilizedDef?.SetStatBaseValue(StatDefOf.Mass, mass);
+				UnfertilizedDef?.SetStatBaseValue(StatDefOf.Mass, mass);
+			}
+			else
+			{
+				FertilizedDef?.SetStatBaseValue(StatDefOf.Mass, DefaultFertilizedEggMass);
+				UnfertilizedDef?.SetStatBaseValue(StatDefOf.Mass, DefaultUnfertilizedEggMass);
+			}
+			// Egg Nutrition
+			if (GeneralSettings.EggNutritionDependOnBodySize)
+			{
+				var nutrition = bodySize * GeneralSettings.EggNutritionFactor;
+				FertilizedDef?.SetStatBaseValue(StatDefOf.Nutrition, nutrition);
+				UnfertilizedDef?.SetStatBaseValue(StatDefOf.Nutrition, nutrition);
+			}
+			else
+			{
+				FertilizedDef?.SetStatBaseValue(StatDefOf.Nutrition, DefaultFertilizedEggNutrition);
+				UnfertilizedDef?.SetStatBaseValue(StatDefOf.Nutrition, DefaultUnfertilizedEggNutrition);
+			}
 		}
 
 		public override void Reset()

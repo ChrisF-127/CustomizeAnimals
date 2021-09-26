@@ -76,7 +76,7 @@ namespace CustomizeAnimals.Controls
 				Setting.MinAge = CreateNumeric(
 					offsetY,
 					viewWidth,
-					name + " - " + "SY_CA.LifeStageAgeMinAge".Translate(),
+					name,
 					"SY_CA.TooltipLifeStageAgeMinAge".Translate(),
 					Setting.IsModified(),
 					Setting.MinAge,

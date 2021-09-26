@@ -16,8 +16,14 @@ namespace CustomizeAnimals.Controls
 		private GeneralSettings Settings => GlobalSettings.GeneralSettings;
 		#endregion
 
+		#region FIELDS
+		private string TrainingDecayFactorBuffer;
+		private string EggMassFactorBuffer;
+		private string EggNutritionFactorBuffer;
+		#endregion
+
 		#region PUBLIC METHODS
-		public float DrawTrainabilityLimitsControls(float offsetY, float viewWidth)
+		public float CreateTrainabilityLimitsControls(float offsetY, float viewWidth)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
 			var halfWidth = viewWidth / 2;
@@ -41,14 +47,14 @@ namespace CustomizeAnimals.Controls
 			// Settings
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
 			value = Settings.TrainingDecayFactor;
-			Widgets.TextFieldNumeric(textFieldRect, ref value, ref Settings.TrainingDecayFactorBuffer, 0f, 1e3f);
+			Widgets.TextFieldNumeric(textFieldRect, ref value, ref TrainingDecayFactorBuffer, 0f, 1e3f);
 			DrawTooltip(textFieldRect, "SY_CA.TooltipTrainingDecay".Translate());
 
 			// Reset button
 			if (Settings.IsTrainingDecayFactorModified && DrawResetButton(offsetY, viewWidth, Settings.DefaultTrainingDecayFactor.ToString()))
 			{
 				value = Settings.DefaultTrainingDecayFactor;
-				Settings.TrainingDecayFactorBuffer = null;
+				TrainingDecayFactorBuffer = null;
 			}
 			Settings.TrainingDecayFactor = value;
 
@@ -112,6 +118,44 @@ namespace CustomizeAnimals.Controls
 			offsetY += SettingsRowHeight;
 
 			return offsetY - startOffsetY;
+		}
+
+		public float CreateEggSettings(float offsetY, float viewWidth)
+		{
+			float totalHeight = offsetY;
+
+			// Egg mass affected by body size
+			(var useMass, var valueMass) = CreateNumericGlobal(
+				totalHeight,
+				viewWidth,
+				"SY_CA.EggBodySizeMass".Translate(),
+				"SY_CA.TooltipEggBodySizeMass".Translate(),
+				Settings.EggMassDependOnBodySize,
+				Settings.EggMassFactor,
+				Settings.DefaultEggMassFactor,
+				ref EggMassFactorBuffer,
+				min: 1e-2f,
+				max: 1e2f);
+			Settings.EggMassDependOnBodySize = useMass;
+			Settings.EggMassFactor = valueMass;
+			totalHeight += SettingsDoubleRowHeight - SettingsRowHeight;
+
+			// Egg nutrition affected by body size
+			(var useNutrition, var valueNutrition) = CreateNumericGlobal(
+				totalHeight,
+				viewWidth,
+				"SY_CA.EggBodySizeNutrition".Translate(),
+				"SY_CA.TooltipEggBodySizeNutrition".Translate(),
+				Settings.EggNutritionDependOnBodySize,
+				Settings.EggNutritionFactor,
+				Settings.DefaultEggNutritionFactor,
+				ref EggNutritionFactorBuffer,
+				min: 1e-2f,
+				max: 1e2f);
+			Settings.EggNutritionDependOnBodySize = useNutrition;
+			Settings.EggNutritionFactor = valueNutrition;
+
+			return SettingsDoubleRowHeight;
 		}
 		#endregion
 	}

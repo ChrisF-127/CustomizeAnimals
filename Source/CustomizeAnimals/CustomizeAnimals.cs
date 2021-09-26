@@ -386,7 +386,8 @@ namespace CustomizeAnimals
 				Text.Anchor = TextAnchor.MiddleLeft;
 
 				// General settings
-				totalHeight += GeneralSettings.DrawTrainabilityLimitsControls(totalHeight, viewWidth);
+				totalHeight += GeneralSettings.CreateTrainabilityLimitsControls(totalHeight, viewWidth);
+				totalHeight += GeneralSettings.CreateEggSettings(totalHeight, viewWidth);
 
 
 				// Global animal settings separator

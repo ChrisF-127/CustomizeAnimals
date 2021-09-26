@@ -27,10 +27,14 @@ namespace CustomizeAnimals.Settings
 		public float TrainingDecayFactor { get; set; } = 1f;
 
 		public bool CarryingCapacityAffectsMassCapacity { get; set; } = false;
-		#endregion
 
-		#region FIELDS
-		public string TrainingDecayFactorBuffer = null;
+		public float DefaultEggMassFactor => 1f / 2f; // Chicken: egg nutrition (0.15) / body size (0.3)
+		public float EggMassFactor { get; set; }
+		public bool EggMassDependOnBodySize { get; set; }
+
+		public float DefaultEggNutritionFactor => 5f / 6f; // Chicken: egg mass (0.25) / body size (0.3)
+		public float EggNutritionFactor { get; set; }
+		public bool EggNutritionDependOnBodySize { get; set; }
 		#endregion
 
 		#region PUBLIC METHODS
@@ -61,16 +65,12 @@ namespace CustomizeAnimals.Settings
 			DisableHaulSizeLimit = false;
 		}
 
-		public bool IsModified()
-		{
-			if (DisableRescueSizeLimit)
-				return true;
-			if (DisableHaulSizeLimit)
-				return true;
-			if (IsTrainingDecayFactorModified)
-				return true;
-			return false;
-		}
+		public bool IsModified() =>
+			IsTrainingDecayFactorModified
+			|| DisableRescueSizeLimit 
+			|| DisableHaulSizeLimit
+			|| EggMassDependOnBodySize
+			|| EggNutritionDependOnBodySize;
 		#endregion
 
 		#region INTERFACES
@@ -88,6 +88,23 @@ namespace CustomizeAnimals.Settings
 			var floatValue = TrainingDecayFactor;
 			Scribe_Values.Look(ref floatValue, "TrainingDecayFactor", DefaultTrainingDecayFactor);
 			TrainingDecayFactor = floatValue;
+
+
+			floatValue = EggMassFactor;
+			Scribe_Values.Look(ref floatValue, "EggMassFactor", DefaultEggMassFactor);
+			EggMassFactor = floatValue;
+
+			boolValue = EggMassDependOnBodySize;
+			Scribe_Values.Look(ref boolValue, "EggMassDependOnBodySize", false);
+			EggMassDependOnBodySize = boolValue;
+
+			floatValue = EggNutritionFactor;
+			Scribe_Values.Look(ref floatValue, "EggNutritionFactor", DefaultEggNutritionFactor);
+			EggNutritionFactor = floatValue;
+
+			boolValue = EggNutritionDependOnBodySize;
+			Scribe_Values.Look(ref boolValue, "EggNutritionDependOnBodySize", false);
+			EggNutritionDependOnBodySize = boolValue;
 		}
 		#endregion
 	}

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
 	<SY_CA.LifeStageAges>Life stage ages</SY_CA.LifeStageAges>
-	<SY_CA.LifeStageAgeMinAge>age</SY_CA.LifeStageAgeMinAge>
 	<SY_CA.TooltipLifeStageAgeMinAge>The age at which this animal will reach the respective life stage
 For most game mechanics, the "Adult" life stage is the only important factor</SY_CA.TooltipLifeStageAgeMinAge>
 </LanguageData>
