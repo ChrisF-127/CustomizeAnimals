@@ -14,13 +14,14 @@ namespace CustomizeAnimals.Settings
 		#region PROPERTIES
 		public static bool UseGlobalList { get; set; } = false;
 		public static List<ThingDef> GlobalList { get; } = new List<ThingDef>();
-
-		public List<ThingDef> AuxiliaryList { get; } = new List<ThingDef>();
 		#endregion
 
 		#region CONSTRUCTORS
 		public SettingWillNeverEat(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
-		{ }
+		{
+			if (!isGlobal)
+				DefaultValue = new List<ThingDef>(Value);
+		}
 		#endregion
 
 		#region PUBLIC METHODS
@@ -34,76 +35,38 @@ namespace CustomizeAnimals.Settings
 						return true;
 			return false;
 		}
-
-		public void Value2Aux()
-		{
-			if (Value?.Count > 0)
-				foreach (var def in Value)
-					if (!AuxiliaryList.Contains(def))
-						AuxiliaryList.Add(def);
-		}
-		public void Aux2Value()
-		{
-			if (AuxiliaryList.Count > 0)
-			{
-				if (Value == null)
-					Value = new List<ThingDef>();
-				foreach (var def in AuxiliaryList)
-					if (!Value.Contains(def))
-						Value.Add(def);
-			}
-			else
-				Value = null;
-		}
 		#endregion
 
-		#region INTERFACES
+		#region OVERRIDES
 		public override void GetValue()
 		{
-			var race = Animal?.race;
-			if (race != null)
-				Value = race.willNeverEat;
-			else if (!IsGlobal)
-				Log.Warning($"{nameof(CustomizeAnimals)}.{nameof(SettingWillNeverEat)}: {Animal?.defName} race is null, value cannot be set!");
-
-			Value2Aux();
+			if (!IsGlobal)
+				Value = Animal.race?.willNeverEat ?? new List<ThingDef>();
 		}
 		public override void SetValue()
 		{
 			var race = Animal?.race;
 			if (race != null)
 			{
-				var value = Value?.Count > 0 ? Value : null;
+				var output = new List<ThingDef>();
+				if (Value.Count > 0)
+					foreach (var value in Value)
+						output.Add(value);
 				if (UseGlobalList && GlobalList.Count > 0)
-				{
-					if (value == null)
-						value = new List<ThingDef>();
-					foreach (var def in GlobalList)
-						if (!value.Contains(def))
-							value.Add(def);
-				}
-				race.willNeverEat = value;
+					foreach (var global in GlobalList)
+						if (!output.Contains(global))
+							output.Add(global);
+
+				race.willNeverEat = output.Count > 0 ? output : null;
 			}
 		}
 
 		public override void Reset()
 		{
-			if (DefaultValue == null)
-				Value = null;
-			else
-			{
-				if (Value == null)
-					Value = new List<ThingDef>(DefaultValue);
-				else
-				{
-					Value.Clear();
-					foreach (var def in DefaultValue)
-						Value.Add(def);
-				}
-			}
-
-			AuxiliaryList.Clear();
-			Value2Aux();
+			Value.Clear();
+			if (DefaultValue.Count > 0)
+				foreach (var def in DefaultValue)
+					Value.Add(def);
 		}
 		public override bool IsModified() =>
 			IsModified(Value, DefaultValue);
@@ -114,10 +77,8 @@ namespace CustomizeAnimals.Settings
 			{
 				var value = Value;
 				Scribe_Collections.Look(ref value, "WillNeverEat");
-				Value = value;
+				Value = value ?? new List<ThingDef>();
 			}
-
-			Value2Aux();
 		}
 		#endregion
 	}

@@ -79,6 +79,7 @@
     <Compile Include="Controls\ControlAttackModifiers.cs" />
     <Compile Include="Controls\ControlMateMtbHours.cs" />
     <Compile Include="Controls\ControlGestationPeriodDays.cs" />
+    <Compile Include="Controls\ControlLitterSizeCurve.cs" />
     <Compile Include="Controls\ControlWillNeverEat.cs" />
     <Compile Include="Controls\ControlLeatherAmount.cs" />
     <Compile Include="Controls\ControlMeatAmount.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
     <Compile Include="Settings\SpecialSettingEggLayer.cs" />
+    <Compile Include="Settings\SpecialSettingLitterSizeCurve.cs" />
     <Compile Include="Settings\SpecialSettingLifeStageAges.cs" />
   </ItemGroup>
   <ItemGroup>

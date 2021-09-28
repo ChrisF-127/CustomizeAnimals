@@ -61,9 +61,9 @@ namespace CustomizeAnimals
 		};
 		private Dictionary<string, BaseControl> SpecialControlsList { get; } = new Dictionary<string, BaseControl>
 		{
-#warning TODO add litterSizeCurve
 			{ "MateMtbHours", new ControlMateMtbHours() },
 			{ "GestationPeriodDays", new ControlGestationPeriodDays() },
+			{ "LitterSizeCurve", new ControlLitterSizeCurve() },
 			{ "EggLayer", new SpecialControlEggLayer() },
 			{ "LifeStageAges", new SpecialControlLifeStageAges() },
 		};
@@ -276,146 +276,169 @@ namespace CustomizeAnimals
 
 		private void CreateSettings(float x, float y, float width, float height)
 		{
-			// Selected animal for easier access
-			var animal = SelectedAnimalSettings?.Animal;
-			var isGlobal = animal == null;
-			var viewWidth = width - 16;
-			float topRow = SettingsOffsetY;
-
-			// Reset settings text buffers if the animal changes
-			if (_previousAnimal != animal)
+			try
 			{
-				ResetControls(SelectedAnimalSettings);
-				_previousAnimal = animal;
-			}
+				// Selected animal for easier access
+				var animal = SelectedAnimalSettings?.Animal;
+				var isGlobal = animal == null;
+				var viewWidth = width - 16;
+				float topRow = SettingsOffsetY;
 
-			// Begin
-			GUI.BeginGroup(new Rect(x, y, width, height));
-			Text.Anchor = TextAnchor.MiddleLeft;
-
-			// Header
-			var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
-			var subLabelRect = new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight);
-			string title, subtitle;
-			if (!isGlobal)
-			{
-				// Animal icon
-				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), animal);
-
-				// Title
-				title = animal.label.CapitalizeFirst();
-				subtitle = $"({animal.modContentPack.Name})";
-
-				// Reset button
-				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
-				if (Widgets.ButtonText(resetAllRect, "SY_CA.Reset".Translate()))
-					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
-						"SY_CA.DialogSettingsReset".Translate(animal?.label?.CapitalizeFirst()) + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
-						() => Reset(SelectedAnimalSettings)));
-				BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal?.label?.CapitalizeFirst()));
-
-
-				// Sub menu buttons
-				float buttonWidth = viewWidth / 2f;
-				float buttonHeight = SettingsRowHeight / 4f * 3f;
-				float subMenButtonOffsetX = 0;
-				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
-				subMenButtonOffsetX += buttonWidth;
-				CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuProductivity".Translate(), SettingsSubMenuEnum.Productivity);
-				subMenButtonOffsetX += buttonWidth;
-
-				topRow += buttonHeight + 4;
-			}
-			else
-			{
-				// Icon
-				Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), DefDatabase<ThingDef>.AllDefs.First((t) => t.defName == "Plant_Grass"));
-
-				// Title
-				title = "SY_CA.GlobalSettings".Translate();
-				subtitle = $"({"SY_CA.GlobalSettingsSubtitle".Translate()})";
-
-				// Reset all button
-				var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
-				if (Widgets.ButtonText(resetAllRect, "SY_CA.GlobalSettingsResetAll".Translate()))
-					Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
-						"SY_CA.DialogGlobalSettingsResetAll".Translate() + "\n\n" + "SY_CA.DialogConfirm".Translate(), 
-						() => ResetAll()));
-				BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
-			}
-
-			// Title
-			Text.Font = GameFont.Medium;
-			Widgets.Label(labelRect, title);
-			Text.Font = GameFont.Small;
-			// Subtitle
-			Text.Anchor = TextAnchor.UpperLeft;
-			Widgets.Label(subLabelRect, subtitle);
-			Text.Anchor = TextAnchor.MiddleLeft;
-
-
-			// Begin
-			Widgets.BeginScrollView(
-				new Rect(0, topRow, width, height - topRow),
-				ref _settingsScrollPosition,
-				new Rect(0, topRow, viewWidth, SettingsViewHeight));
-
-			// Animal settings
-			float totalHeight = topRow;
-			if (animal != null)
-			{
-				switch (SelectedSettingsSubMenu)
+				// Reset settings text buffers if the animal changes
+				if (_previousAnimal != animal)
 				{
-					case SettingsSubMenuEnum.General:
-						CreateSubMenuGeneral(ref totalHeight, viewWidth);
-						break;
-					case SettingsSubMenuEnum.Productivity:
-						CreateSubMenuProductivity(ref totalHeight, viewWidth);
-						break;
+					ResetControls(SelectedAnimalSettings);
+					_previousAnimal = animal;
 				}
 
-				// Apply animal settings
-				SelectedAnimalSettings.ApplySettings();
+				try
+				{
+					// Begin
+					GUI.BeginGroup(new Rect(x, y, width, height));
+					Text.Anchor = TextAnchor.MiddleLeft;
+
+					// Header
+					var labelRect = new Rect(SettingsIconSize + 32, 0, width - SettingsIconSize + 32, _listRowHeight);
+					var subLabelRect = new Rect(SettingsIconSize + 32, _listRowHeight, width - SettingsIconSize + 32, SettingsIconSize - _listRowHeight);
+					string title, subtitle;
+					if (!isGlobal)
+					{
+						// Animal icon
+						Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), animal);
+
+						// Title
+						title = animal.label?.CapitalizeFirst();
+						subtitle = $"({animal.modContentPack?.Name ?? "[null]"})";
+
+						// Reset button
+						var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
+						if (Widgets.ButtonText(resetAllRect, "SY_CA.Reset".Translate()))
+							Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+								"SY_CA.DialogSettingsReset".Translate(animal.label?.CapitalizeFirst()) + "\n\n" + "SY_CA.DialogConfirm".Translate(),
+								() => Reset(SelectedAnimalSettings)));
+						BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipSettingsReset".Translate(animal.label?.CapitalizeFirst()));
+
+
+						// Sub menu buttons
+						float buttonWidth = viewWidth / 2f;
+						float buttonHeight = SettingsRowHeight / 4f * 3f;
+						float subMenButtonOffsetX = 0;
+						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
+						subMenButtonOffsetX += buttonWidth;
+						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuProductivity".Translate(), SettingsSubMenuEnum.Productivity);
+						subMenButtonOffsetX += buttonWidth;
+
+						topRow += buttonHeight + 4;
+					}
+					else
+					{
+						// Icon
+						Widgets.DefIcon(new Rect(8, 0, SettingsIconSize, SettingsIconSize), DefDatabase<ThingDef>.AllDefs.First((t) => t.defName == "Plant_Grass"));
+
+						// Title
+						title = "SY_CA.GlobalSettings".Translate();
+						subtitle = $"({"SY_CA.GlobalSettingsSubtitle".Translate()})";
+
+						// Reset all button
+						var resetAllRect = new Rect(width - 78, 0, 76, _listRowHeight);
+						if (Widgets.ButtonText(resetAllRect, "SY_CA.GlobalSettingsResetAll".Translate()))
+							Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+								"SY_CA.DialogGlobalSettingsResetAll".Translate() + "\n\n" + "SY_CA.DialogConfirm".Translate(),
+								() => ResetAll()));
+						BaseControl.DrawTooltip(resetAllRect, "SY_CA.TooltipGlobalSettingsResetAll".Translate());
+					}
+
+					// Title
+					Text.Font = GameFont.Medium;
+					Widgets.Label(labelRect, title);
+					Text.Font = GameFont.Small;
+					// Subtitle
+					Text.Anchor = TextAnchor.UpperLeft;
+					Widgets.Label(subLabelRect, subtitle);
+					Text.Anchor = TextAnchor.MiddleLeft;
+
+					try
+					{
+						// Begin
+						Widgets.BeginScrollView(
+							new Rect(0, topRow, width, height - topRow),
+							ref _settingsScrollPosition,
+							new Rect(0, topRow, viewWidth, SettingsViewHeight));
+
+						// Animal settings
+						float totalHeight = topRow;
+						if (!isGlobal)
+						{
+							switch (SelectedSettingsSubMenu)
+							{
+								case SettingsSubMenuEnum.General:
+									CreateSubMenuGeneral(ref totalHeight, viewWidth);
+									break;
+								case SettingsSubMenuEnum.Productivity:
+									CreateSubMenuProductivity(ref totalHeight, viewWidth);
+									break;
+							}
+
+							// Apply animal settings
+							SelectedAnimalSettings.ApplySettings();
+						}
+						// Global settings
+						else
+						{
+							// General settings separator
+							Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorGeneralSettings".Translate());
+							totalHeight += 2;
+							Text.Anchor = TextAnchor.MiddleLeft;
+
+							// General settings
+							totalHeight += GeneralSettings.CreateTrainabilityLimitsControls(totalHeight, viewWidth);
+							totalHeight += GeneralSettings.CreateEggSettings(totalHeight, viewWidth);
+
+
+							// Global animal settings separator
+							Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorAnimalSettings".Translate());
+							totalHeight += 2;
+							Text.Anchor = TextAnchor.MiddleLeft;
+
+							// Global animal settings
+							foreach (var control in ControlsList)
+								totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
+
+							// Apply global settings
+							foreach (var animalSetting in Animals)
+								animalSetting.ApplySettings();
+						}
+
+						// Remember settings view height for potential scrolling
+						SettingsViewHeight = totalHeight - topRow;
+					}
+					finally
+					{
+						// End
+						Widgets.EndScrollView();
+					}
+				}
+				finally
+				{
+					// End
+					GUI.EndGroup();
+				}
 			}
-			// Global settings
-			else
+			catch (Exception exc)
 			{
-				// General settings separator
-				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorGeneralSettings".Translate());
-				totalHeight += 2;
-				Text.Anchor = TextAnchor.MiddleLeft;
+				// Show error
+				Log.Error(exc.ToString());
+				Log.TryOpenLogWindow();
 
-				// General settings
-				totalHeight += GeneralSettings.CreateTrainabilityLimitsControls(totalHeight, viewWidth);
-				totalHeight += GeneralSettings.CreateEggSettings(totalHeight, viewWidth);
-
-
-				// Global animal settings separator
-				Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorAnimalSettings".Translate());
-				totalHeight += 2;
-				Text.Anchor = TextAnchor.MiddleLeft;
-
-				// Global animal settings
-				foreach (var control in ControlsList)
-					totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
-
-				// Apply global settings
-				foreach (var animalSetting in Animals)
-					animalSetting.ApplySettings();
+				// Unselect the animal which caused the exception
+				SelectedAnimalSettings = null;
 			}
-
-			// End
-			Widgets.EndScrollView();
-
-			// Remember settings view height for potential scrolling
-			SettingsViewHeight = totalHeight - topRow;
-
-			// End
-			GUI.EndGroup();
-
-			// Reset text settings
-			Text.Font = OriTextFont;
-			Text.Anchor = OriTextAnchor;
+			finally
+			{
+				// Reset text settings
+				Text.Font = OriTextFont;
+				Text.Anchor = OriTextAnchor;
+			}
 		}
 
 		public void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value)
@@ -452,6 +475,9 @@ namespace CustomizeAnimals
 			totalHeight += SpecialControlsList["MateMtbHours"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 			// Gestation Period Days
 			totalHeight += SpecialControlsList["GestationPeriodDays"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+			// Litter Size
+			totalHeight += SpecialControlsList["LitterSizeCurve"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+
 			// Egg Layer
 			totalHeight += SpecialControlsList["EggLayer"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 

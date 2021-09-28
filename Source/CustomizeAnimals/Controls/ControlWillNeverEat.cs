@@ -15,8 +15,8 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			var setting = (SettingWillNeverEat)animalSettings.Settings["WillNeverEat"];
-
-			var list = setting.AuxiliaryList;
+			
+			var value = setting.Value;
 			var isModified = setting.IsModified();
 
 			// Selector control
@@ -26,32 +26,20 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.WillNeverEat".Translate(),
 				"SY_CA.TooltipWillNeverEatAdd".Translate(),
 				"SY_CA.TooltipWillNeverEatRemove".Translate(),
-				ListToString(list),
+				ListToString(value),
 				isModified,
-				list);
+				value);
 
 			// Reset button
-			if (isModified)
-			{
-				var defaultValue = setting.DefaultValue;
-				if (DrawResetButton(offsetY, viewWidth, "\n" + ListToString(defaultValue)))
-				{
-					list.Clear();
-					if (defaultValue != null)
-						foreach (var def in defaultValue)
-							list.Add(def);
-				}
-			}
-
-			// Set value
-			setting.Aux2Value();
+			if (isModified && DrawResetButton(offsetY, viewWidth, "\n" + ListToString(setting.DefaultValue)))
+				setting.Reset();
 
 			return SettingsRowHeight;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
-			var list = SettingWillNeverEat.GlobalList;
+			var global = SettingWillNeverEat.GlobalList;
 			var use = SettingWillNeverEat.UseGlobalList;
 
 			// Selector control
@@ -61,9 +49,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.WillNeverEat".Translate(),
 				"SY_CA.TooltipWillNeverEatAdd".Translate(),
 				"SY_CA.TooltipWillNeverEatRemove".Translate(),
-				ListToString(list),
+				ListToString(global),
 				use,
-				list);
+				global);
 
 			// "Apply" checkbox
 			SettingWillNeverEat.UseGlobalList = DrawUseGlobalCheckBox(offsetY, viewWidth, use, SettingsRowHeight);
@@ -80,11 +68,8 @@ namespace CustomizeAnimals.Controls
 			string tooltipRemove,
 			string tooltipThings,
 			bool isModified,
-			List<ThingDef> list)
+			List<ThingDef> value)
 		{
-			if (list == null)
-				return;
-
 			var controlWidth = GetControlWidth(viewWidth);
 			var buttonDim = SettingsRowHeight - 4;
 			var iconDisplayWidth = controlWidth - buttonDim * 2 - 6;
@@ -96,13 +81,13 @@ namespace CustomizeAnimals.Controls
 			GUI.color = OriColor;
 
 			// Icons
-			if (list.Count > 0)
+			if (value.Count > 0)
 			{
 				var dim = SettingsRowHeight - 4;
-				for (int i = 0; i < list.Count; i++)
+				for (int i = 0; i < value.Count; i++)
 				{
-					var x = (iconDisplayWidth - dim) / (list.Count + 1) * (i + 1);
-					Widgets.DefIcon(new Rect(controlWidth + x, offsetY + 2, dim, dim), list[i]);
+					var x = (iconDisplayWidth - dim) / (value.Count + 1) * (i + 1);
+					Widgets.DefIcon(new Rect(controlWidth + x, offsetY + 2, dim, dim), value[i]);
 				}
 				DrawTooltip(new Rect(controlWidth, offsetY + 2, iconDisplayWidth, SettingsRowHeight - 4), tooltipThings);
 			}
@@ -111,19 +96,19 @@ namespace CustomizeAnimals.Controls
 			var rect = new Rect(controlWidth + iconDisplayWidth + 2, offsetY + 2, buttonDim, buttonDim);
 			Widgets.Dropdown(
 				rect,
-				list,
+				value,
 				null,
 				MenuGeneratorAdd,
 				"+");
 			DrawTooltip(rect, tooltipAdd);
 
 			// Remove
-			if (list.Count > 0)
+			if (value.Count > 0)
 			{
 				rect = new Rect(controlWidth + iconDisplayWidth + 4 + buttonDim, offsetY + 2, buttonDim, buttonDim);
 				Widgets.Dropdown(
 					rect,
-					list,
+					value,
 					null,
 					MenuGeneratorRemove,
 					"-");
@@ -131,7 +116,7 @@ namespace CustomizeAnimals.Controls
 			}
 
 			// Sort
-			list.SortBy((def) => def.label);
+			value.SortBy((def) => def.label);
 		}
 
 		private string ListToString(List<ThingDef> list)
