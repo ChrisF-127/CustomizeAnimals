@@ -18,6 +18,13 @@ namespace CustomizeAnimals.Controls
 		#region OVERRIDES
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (!animalSettings.IsHuman)
+			{
+				var eggLayer = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
+				if (eggLayer.IsEggLayer)
+					return 0f;
+			}
+
 			var setting = (SettingLitterSizeCurve)animalSettings.Settings["LitterSizeCurve"];
 
 			var controlWidth = GetControlWidth(viewWidth);
