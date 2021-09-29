@@ -50,7 +50,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.litterSizeCurve = Value.PointsCount > 0 ? new SimpleCurve(Value.Points) : null;
+				race.litterSizeCurve = Value.PointsCount >= 3 && Value.First().y == 0f && Value.Last().y == 0f ? new SimpleCurve(Value.Points) : null;
 		}
 
 		public override void Reset()

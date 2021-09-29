@@ -121,7 +121,7 @@ namespace CustomizeAnimals.Controls
 
 		private string ListToString(List<ThingDef> list)
 		{
-			if (list != null)
+			if (list?.Count > 0)
 			{
 				string output = "";
 				for (int i = 0; i < list.Count; i++)

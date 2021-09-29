@@ -26,27 +26,50 @@ namespace CustomizeAnimals.Controls
 			var totalHeight = offsetY;
 
 			var value = setting.Value;
+			var validCurve = true;
+			var noPoints = value.PointsCount == 0;
 			var isModified = setting.IsModified();
 
-			
 			// Label
-			if (isModified)
-				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, totalHeight, controlWidth, PointControlRowHeight + 3), "SY_CA.LitterSizeCurve".Translate());
-			GUI.color = OriColor;
+			var rect = new Rect(0, totalHeight, controlWidth, PointControlRowHeight + 3);
+			if (!noPoints && value.PointsCount < 3)
+			{
+				validCurve = false;
+				DrawTooltip(rect, "SY_CA.TooltipLitterSizeCurveInvalidCount".Translate());
+				GUI.color = Color.red;
+			}
+			else if (!noPoints && (value.First().y != 0f || value.Last().y != 0f))
+			{
+				validCurve = false;
+				DrawTooltip(rect, "SY_CA.TooltipLitterSizeCurveInvalidStartOrEnd".Translate());
+				GUI.color = Color.red;
+			}
+			else
+			{
+				DrawTooltip(rect, "SY_CA.TooltipLitterSizeCurve".Translate());
+				if (isModified)
+					GUI.color = ModifiedColor;
+			}
+			Widgets.Label(rect, "SY_CA.LitterSizeCurve".Translate());
+
+
+			// Average & Range
+			var avg = noPoints || !validCurve ? 1f : Rand.ByCurveAverage(value);
+			if (float.IsNaN(avg))
+				noPoints = true;
+			int min = noPoints || !validCurve ? 1 : Mathf.Max(Mathf.RoundToInt(value.First().x), 1);
+			int max = noPoints || !validCurve ? 1 : Mathf.Max(Mathf.RoundToInt(value.Last().x), 1);
 
 			// Range
-			var rect = new Rect(controlWidth + 4, totalHeight, halfWidth - 5, PointControlRowHeight + 3);
-			int min = value.PointsCount > 0 ? Mathf.Max(Mathf.RoundToInt(value.First().x), 1) : 1;
-			int max = value.PointsCount > 0 ? Mathf.Max(Mathf.RoundToInt(value.Last().x), 1) : 1;
+			rect = new Rect(controlWidth + 4, totalHeight, halfWidth - 5, PointControlRowHeight + 3);
 			Widgets.Label(rect, min + "~" + max);
 			DrawTooltip(rect, "SY_CA.TooltipLitterSizeCurveRange".Translate());
 
 			// Average
 			rect = new Rect(controlWidth + 5 + halfWidth, totalHeight, halfWidth - 5, PointControlRowHeight + 3);
-			var avg = value.PointsCount > 1 ? Rand.ByCurveAverage(value) : value.PointsCount == 1 ? value[0].x : 1f;
-			Widgets.Label(rect, (!float.IsNaN(avg) ? avg : 1f).ToString("0.000"));
+			Widgets.Label(rect, (float.IsNaN(avg) ? 1f : avg).ToString("0.000"));
 			DrawTooltip(rect, "SY_CA.TooltipLitterSizeCurveAverage".Translate());
+			GUI.color = OriColor;
 
 			// Reset button
 			if (isModified && DrawResetButton(totalHeight, viewWidth, "\n" + CurveToString(setting.DefaultValue)))
@@ -154,7 +177,7 @@ namespace CustomizeAnimals.Controls
 
 		private string CurveToString(SimpleCurve curve)
 		{
-			if (curve != null)
+			if (curve?.PointsCount > 0)
 			{
 				string output = "";
 				for (int i = 0; i < curve.PointsCount; i++)
