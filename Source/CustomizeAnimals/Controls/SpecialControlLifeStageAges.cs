@@ -20,22 +20,13 @@ namespace CustomizeAnimals.Controls
 		{
 			var setting = (SpecialSettingLifeStageAges)animalSettings.SpecialSettings["LifeStageAges"];
 
-			// Separator
-			Widgets.ListSeparator(ref offsetY, viewWidth - 16, "SY_CA.LifeStageAges".Translate());
-			offsetY += 2;
-			Text.Anchor = TextAnchor.MiddleLeft;
-
 			if (LifeStageAgeControls.Count == 0)
 				foreach (var lifeStageAge in setting.LifeStageAges)
 					LifeStageAgeControls.Add(new ControlLifeStageAge(lifeStageAge));
 
 			var totalHeight = offsetY;
 			foreach (var control in LifeStageAgeControls)
-			{
-				var height = control.CreateSetting(offsetY, viewWidth);
-				offsetY += height;
-				totalHeight += height;
-			}
+				totalHeight += control.CreateSetting(totalHeight, viewWidth);
 			return totalHeight - offsetY;
 		}
 

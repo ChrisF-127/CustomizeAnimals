@@ -101,6 +101,7 @@
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
     <Compile Include="AnimalSettings.cs" />
+    <Compile Include="Controls\SpecialControlMilkable.cs" />
     <Compile Include="Controls\SpecialControlEggLayer.cs" />
     <Compile Include="Controls\SpecialControlLifeStageAges.cs" />
     <Compile Include="GeneralSettings\GeneralSettingsControls.cs" />
@@ -140,6 +141,7 @@
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
+    <Compile Include="Settings\SpecialSettingMilkable.cs" />
     <Compile Include="Settings\SpecialSettingEggLayer.cs" />
     <Compile Include="Settings\SpecialSettingLitterSizeCurve.cs" />
     <Compile Include="Settings\SpecialSettingLifeStageAges.cs" />

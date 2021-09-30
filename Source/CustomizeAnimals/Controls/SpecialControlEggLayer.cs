@@ -35,11 +35,6 @@ namespace CustomizeAnimals.Controls
 
 			var totalHeight = offsetY;
 
-			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.EggLayer".Translate());
-			totalHeight += 2;
-			Text.Anchor = TextAnchor.MiddleLeft;
-
 			// Fertilized Def
 			CreateText(
 				totalHeight,

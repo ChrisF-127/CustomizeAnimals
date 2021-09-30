@@ -165,6 +165,9 @@ namespace CustomizeAnimals
 			if (!IsHuman) SpecialSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
 			SpecialSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
 
+			SpecialSettings.Add("Milkable", new SpecialSettingMilkable(Animal));
+			//if (!IsHuman) SpecialSettings.Add("Shearable", new SpecialSettingShearable(Animal));
+
 			ApplySettings();
 		}
 

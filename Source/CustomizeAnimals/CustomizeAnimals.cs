@@ -14,6 +14,7 @@ namespace CustomizeAnimals
 	public enum SettingsSubMenuEnum
 	{
 		General,
+		Reproduction,
 		Productivity,
 	}
 
@@ -66,6 +67,8 @@ namespace CustomizeAnimals
 			{ "LitterSizeCurve", new ControlLitterSizeCurve() },
 			{ "EggLayer", new SpecialControlEggLayer() },
 			{ "LifeStageAges", new SpecialControlLifeStageAges() },
+			{ "Milkable", new SpecialControlMilkable() },
+			//{ "Shearable", new SpecialControlShearable() },
 		};
 		#endregion
 
@@ -320,10 +323,12 @@ namespace CustomizeAnimals
 
 
 						// Sub menu buttons
-						float buttonWidth = viewWidth / 2f;
+						float buttonWidth = viewWidth / 3f;
 						float buttonHeight = SettingsRowHeight / 4f * 3f;
 						float subMenButtonOffsetX = 0;
 						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
+						subMenButtonOffsetX += buttonWidth;
+						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuReproduction".Translate(), SettingsSubMenuEnum.Reproduction);
 						subMenButtonOffsetX += buttonWidth;
 						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuProductivity".Translate(), SettingsSubMenuEnum.Productivity);
 						subMenButtonOffsetX += buttonWidth;
@@ -373,6 +378,9 @@ namespace CustomizeAnimals
 							{
 								case SettingsSubMenuEnum.General:
 									CreateSubMenuGeneral(ref totalHeight, viewWidth);
+									break;
+								case SettingsSubMenuEnum.Reproduction:
+									CreateSubMenuReproduction(ref totalHeight, viewWidth);
 									break;
 								case SettingsSubMenuEnum.Productivity:
 									CreateSubMenuProductivity(ref totalHeight, viewWidth);
@@ -464,7 +472,7 @@ namespace CustomizeAnimals
 			foreach (var control in ControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
-		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
+		public void CreateSubMenuReproduction(ref float totalHeight, float viewWidth)
 		{
 			// Reproduction settings
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Reproduction".Translate());
@@ -478,11 +486,36 @@ namespace CustomizeAnimals
 			// Litter Size
 			totalHeight += SpecialControlsList["LitterSizeCurve"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.EggLayer".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
 			// Egg Layer
 			totalHeight += SpecialControlsList["EggLayer"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.LifeStageAges".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
 			// Life Stage Ages
 			totalHeight += SpecialControlsList["LifeStageAges"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+		}
+		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
+		{
+			// Productivity settings
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Productivity".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Milkable
+			totalHeight += SpecialControlsList["Milkable"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+
+			// Shearable
+			//totalHeight += SpecialControlsList["Shearable"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		#endregion
 
