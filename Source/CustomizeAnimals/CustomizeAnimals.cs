@@ -71,7 +71,7 @@ namespace CustomizeAnimals
 		private List<BaseControl> ProductivityControlsList { get; } = new List<BaseControl>
 		{
 			new SpecialControlMilkable(),
-			//new SpecialControlShearable(),
+			new SpecialControlShearable(),
 		};
 		#endregion
 
@@ -135,6 +135,8 @@ namespace CustomizeAnimals
 			foreach (var control in GeneralControlsList)
 				control.Reset();
 			foreach (var control in ReproductionControlsList)
+				control.Reset();
+			foreach (var control in ProductivityControlsList)
 				control.Reset();
 		}
 

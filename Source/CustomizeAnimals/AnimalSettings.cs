@@ -179,7 +179,7 @@ namespace CustomizeAnimals
 			if (!IsHuman)
 			{
 				ProductivitySettings.Add("Milkable", new SpecialSettingMilkable(Animal));
-				//ProductivitySettings.Add("Shearable", new SpecialSettingShearable(Animal));
+				ProductivitySettings.Add("Shearable", new SpecialSettingShearable(Animal));
 			}
 
 			ApplySettings();

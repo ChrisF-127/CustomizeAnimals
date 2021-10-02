@@ -19,7 +19,7 @@ namespace CustomizeAnimals.Settings
 		public bool IsMilkable { get; set; }
 
 		public ThingDef DefaultMilkDef { get; private set; }
-		public ThingDef MilkDef { get; set; } = null;
+		public ThingDef MilkDef { get; set; }
 		public int DefaultIntervalDays { get; private set; }
 		public int IntervalDays { get; set; }
 		public int DefaultAmount { get; private set; }
@@ -63,7 +63,7 @@ namespace CustomizeAnimals.Settings
 			}
 			else
 			{
-				MilkDef = StandardMilkDef ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(SpecialSettingMilkable)}: StandardMilk should not be null");
+				MilkDef = StandardMilkDef ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(SpecialSettingMilkable)}: Standard milk should not be null");
 				IntervalDays = 2;
 				Amount = 10;
 				FemaleOnly = true;
