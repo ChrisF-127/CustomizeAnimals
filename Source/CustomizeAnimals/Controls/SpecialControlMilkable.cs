@@ -25,7 +25,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (SpecialSettingMilkable)animalSettings.SpecialSettings["Milkable"];
+			var setting = (SpecialSettingMilkable)animalSettings.ProductivitySettings["Milkable"];
 
 			var totalHeight = offsetY;
 

@@ -17,7 +17,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (SettingPackAnimal)animalSettings.Settings["PackAnimal"];
+			var setting = (SettingPackAnimal)animalSettings.GeneralSettings["PackAnimal"];
 			var value = CreateCheckbox(
 				offsetY,
 				viewWidth,

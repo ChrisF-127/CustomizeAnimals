@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float>)animalSettings.Settings["LifeExpectancy"];
+			var setting = (BaseSetting<float>)animalSettings.GeneralSettings["LifeExpectancy"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

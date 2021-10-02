@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["MarketValue"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["MarketValue"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

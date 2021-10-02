@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["HungerRate"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["HungerRate"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

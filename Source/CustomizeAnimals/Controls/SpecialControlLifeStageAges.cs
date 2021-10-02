@@ -18,13 +18,19 @@ namespace CustomizeAnimals.Controls
 		#region METHODS
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SpecialSettingLifeStageAges)animalSettings.SpecialSettings["LifeStageAges"];
+			var setting = (SpecialSettingLifeStageAges)animalSettings.ReproductionSettings["LifeStageAges"];
+
+			var totalHeight = offsetY;
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.LifeStageAges".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
 
 			if (LifeStageAgeControls.Count == 0)
 				foreach (var lifeStageAge in setting.LifeStageAges)
 					LifeStageAgeControls.Add(new ControlLifeStageAge(lifeStageAge));
 
-			var totalHeight = offsetY;
 			foreach (var control in LifeStageAgeControls)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth);
 			return totalHeight - offsetY;

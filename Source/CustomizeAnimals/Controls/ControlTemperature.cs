@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["MaxTemperature"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["MaxTemperature"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -62,7 +62,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["MinTemperature"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["MinTemperature"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

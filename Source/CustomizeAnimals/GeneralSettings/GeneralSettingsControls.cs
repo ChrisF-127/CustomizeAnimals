@@ -13,7 +13,7 @@ namespace CustomizeAnimals.Controls
 	internal class GeneralSettingsControls : BaseControl
 	{
 		#region PROPERTIES
-		private GeneralSettings Settings => GlobalSettings.GeneralSettings;
+		private GeneralSettings Settings => GlobalSettings.GlobalGeneralSettings;
 		#endregion
 
 		#region FIELDS

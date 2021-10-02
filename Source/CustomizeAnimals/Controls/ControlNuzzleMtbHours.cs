@@ -17,7 +17,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (BaseSetting<float>)animalSettings.Settings["NuzzleMtbHours"];
+			var setting = (BaseSetting<float>)animalSettings.GeneralSettings["NuzzleMtbHours"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

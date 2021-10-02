@@ -17,7 +17,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (NullableFloatSetting)animalSettings.Settings["RoamMtbDays"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["RoamMtbDays"];
 			var value = CreateNullableNumeric(
 				offsetY,
 				viewWidth,

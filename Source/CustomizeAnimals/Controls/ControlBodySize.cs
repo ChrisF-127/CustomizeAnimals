@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<float>)animalSettings.Settings["BodySize"];
+			var setting = (BaseSetting<float>)animalSettings.GeneralSettings["BodySize"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

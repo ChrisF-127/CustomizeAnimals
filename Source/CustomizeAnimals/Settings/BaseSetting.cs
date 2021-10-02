@@ -15,15 +15,17 @@ namespace CustomizeAnimals.Settings
 		void SetValue();
 		void Reset();
 		void ExposeData();
+		bool IsModified();
+	}
 
+	public interface ISettingWithGlobal : ISetting
+	{
 		void ResetGlobal();
 		void ExposeGlobal();
-
-		bool IsModified();
 		bool IsGlobalUsed();
 	}
 
-	internal abstract class BaseSetting<T> : ISetting, IExposable
+	internal abstract class BaseSetting<T> : ISettingWithGlobal, IExposable
 	{
 		#region PROPERTIES
 		public ThingDef Animal { get; }
@@ -127,7 +129,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 	}
 
-	internal abstract class BaseSpecialSetting : IExposable
+	internal abstract class BaseSpecialSetting : ISetting, IExposable
 	{
 		public ThingDef Animal { get; }
 

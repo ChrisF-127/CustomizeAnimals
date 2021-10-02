@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["CarryingCapacity"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["CarryingCapacity"];
 
 			var bodySize = animalSettings?.Animal?.race?.baseBodySize ?? 1f;
 			float convert(float val) => Mathf.Round(val * bodySize);

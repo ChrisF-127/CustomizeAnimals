@@ -28,7 +28,7 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var settingSharp = (NullableFloatSetting)animalSettings.Settings["ArmorRating_Sharp"];
+			var settingSharp = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Sharp"];
 			settingSharp.Value = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -45,7 +45,7 @@ namespace CustomizeAnimals.Controls
 
 			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
 
-			var settingBlunt = (NullableFloatSetting)animalSettings.Settings["ArmorRating_Blunt"];
+			var settingBlunt = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Blunt"];
 			settingBlunt.Value = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -62,7 +62,7 @@ namespace CustomizeAnimals.Controls
 
 			offsetY += SettingsTripleRowHeight - SettingsDoubleRowHeight;
 
-			var settingHeat = (NullableFloatSetting)animalSettings.Settings["ArmorRating_Heat"];
+			var settingHeat = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Heat"];
 			settingHeat.Value = CreateNumeric(
 				offsetY,
 				viewWidth,

@@ -32,13 +32,13 @@ namespace CustomizeAnimals
 
 		public static void TrainableUtility_DegradationPeriodTicks_PostFix(ref int __result)
 		{
-			if (GlobalSettings.GeneralSettings.TrainingDecayFactor != 1f)
-				__result = Mathf.RoundToInt(Mathf.Clamp(__result / GlobalSettings.GeneralSettings.TrainingDecayFactor, 1f, 1e9f));
+			if (GlobalSettings.GlobalGeneralSettings.TrainingDecayFactor != 1f)
+				__result = Mathf.RoundToInt(Mathf.Clamp(__result / GlobalSettings.GlobalGeneralSettings.TrainingDecayFactor, 1f, 1e9f));
 		}
 
 		public static void MassUtility_Capacity_PostFix(Pawn p, ref float __result)
 		{
-			if (GlobalSettings.GeneralSettings.CarryingCapacityAffectsMassCapacity && AnimalSettings.IsValidAnimal(p.def))
+			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && AnimalSettings.IsValidAnimal(p.def))
 				__result *= p.def.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
 		}
 

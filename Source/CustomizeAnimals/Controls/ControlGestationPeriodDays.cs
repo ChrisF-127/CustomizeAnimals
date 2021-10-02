@@ -16,12 +16,12 @@ namespace CustomizeAnimals.Controls
 		{
 			if (!animalSettings.IsHuman)
 			{
-				var eggLayer = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
+				var eggLayer = (SpecialSettingEggLayer)animalSettings.ReproductionSettings["EggLayer"];
 				if (eggLayer.IsEggLayer)
 					return 0f;
 			}
 
-			var setting = (BaseSetting<float>)animalSettings.Settings["GestationPeriodDays"];
+			var setting = (BaseSetting<float>)animalSettings.ReproductionSettings["GestationPeriodDays"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

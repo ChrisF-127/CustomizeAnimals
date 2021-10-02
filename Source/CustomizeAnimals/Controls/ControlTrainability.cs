@@ -18,8 +18,8 @@ namespace CustomizeAnimals.Controls
 				return 0f;
 
 			var controlWidth = GetControlWidth(viewWidth);
-			var trainabilitySetting = (SettingTrainability)animalSettings.Settings["Trainability"];
-			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.Settings["RoamMtbDays"];
+			var trainabilitySetting = (SettingTrainability)animalSettings.GeneralSettings["Trainability"];
+			var roamMtbDaysSetting = (SettingRoamMtbDays)animalSettings.GeneralSettings["RoamMtbDays"];
 
 			// Switch color if modified
 			var labelRect = new Rect(0, offsetY, controlWidth, SettingsRowHeight);

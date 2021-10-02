@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SettingManhunter)animalSettings.Settings["ManhunterOnTameFail"];
+			var setting = (SettingManhunter)animalSettings.GeneralSettings["ManhunterOnTameFail"];
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -60,7 +60,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SettingManhunter)animalSettings.Settings["ManhunterOnDamage"];
+			var setting = (SettingManhunter)animalSettings.GeneralSettings["ManhunterOnDamage"];
 			var temp = CreateNumeric(
 				offsetY,
 				viewWidth,

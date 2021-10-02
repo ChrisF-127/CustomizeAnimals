@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.Settings["ToxicSensitivity"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["ToxicSensitivity"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

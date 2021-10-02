@@ -26,7 +26,7 @@ namespace CustomizeAnimals.Settings
 				return -1f;
 			
 			var massCapacity = Animal.race.baseBodySize * 35f;
-			if (GlobalSettings.GeneralSettings.CarryingCapacityAffectsMassCapacity && Animal.statBases != null)
+			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && Animal.statBases != null)
 				massCapacity *= Animal.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
 			return massCapacity;
 		}

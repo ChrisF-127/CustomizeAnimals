@@ -12,7 +12,7 @@ namespace CustomizeAnimals.Settings
 	internal class SpecialSettingEggLayer : BaseSpecialSetting
 	{
 		#region PROPERTIES
-		private GeneralSettings GeneralSettings => GlobalSettings.GeneralSettings;
+		private GeneralSettings GeneralSettings => GlobalSettings.GlobalGeneralSettings;
 
 		public CompProperties_EggLayer EggLayer { get; private set; }
 		public bool IsEggLayer => EggLayer != null;

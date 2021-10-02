@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (BaseSetting<FoodTypeFlags>)animalSettings.Settings["FoodType"];
+			var setting = (BaseSetting<FoodTypeFlags>)animalSettings.GeneralSettings["FoodType"];
 
 			CreateSpecialControl(
 				offsetY,

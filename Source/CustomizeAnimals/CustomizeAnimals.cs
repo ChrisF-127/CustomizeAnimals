@@ -29,7 +29,7 @@ namespace CustomizeAnimals
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
 		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
-		private List<BaseControl> ControlsList { get; } = new List<BaseControl>
+		private List<BaseControl> GeneralControlsList { get; } = new List<BaseControl>
 		{
 			new ControlMarketValue(),
 			new ControlMeatAmount(),
@@ -60,15 +60,18 @@ namespace CustomizeAnimals
 
 			new ControlAttackModifier()
 		};
-		private Dictionary<string, BaseControl> SpecialControlsList { get; } = new Dictionary<string, BaseControl>
+		private List<BaseControl> ReproductionControlsList { get; } = new List<BaseControl>
 		{
-			{ "MateMtbHours", new ControlMateMtbHours() },
-			{ "GestationPeriodDays", new ControlGestationPeriodDays() },
-			{ "LitterSizeCurve", new ControlLitterSizeCurve() },
-			{ "EggLayer", new SpecialControlEggLayer() },
-			{ "LifeStageAges", new SpecialControlLifeStageAges() },
-			{ "Milkable", new SpecialControlMilkable() },
-			//{ "Shearable", new SpecialControlShearable() },
+			new ControlMateMtbHours(),
+			new ControlGestationPeriodDays(),
+			new ControlLitterSizeCurve(),
+			new SpecialControlEggLayer(),
+			new SpecialControlLifeStageAges(),
+		};
+		private List<BaseControl> ProductivityControlsList { get; } = new List<BaseControl>
+		{
+			new SpecialControlMilkable(),
+			//new SpecialControlShearable(),
 		};
 		#endregion
 
@@ -128,9 +131,9 @@ namespace CustomizeAnimals
 		
 		public void ResetControls(AnimalSettings animal)
 		{
-			foreach (var control in ControlsList)
+			foreach (var control in GeneralControlsList)
 				control.Reset();
-			foreach (var control in SpecialControlsList.Values)
+			foreach (var control in ReproductionControlsList)
 				control.Reset();
 		}
 
@@ -326,11 +329,26 @@ namespace CustomizeAnimals
 						float buttonWidth = viewWidth / 3f;
 						float buttonHeight = SettingsRowHeight / 4f * 3f;
 						float subMenButtonOffsetX = 0;
-						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuGeneral".Translate(), SettingsSubMenuEnum.General);
+						// General
+						CreateSubMenuSelector(
+							new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), 
+							"SY_CA.SubMenuGeneral".Translate(), 
+							SettingsSubMenuEnum.General,
+							SettingsListIsModified(SelectedAnimalSettings.GeneralSettings.Values));
 						subMenButtonOffsetX += buttonWidth;
-						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuReproduction".Translate(), SettingsSubMenuEnum.Reproduction);
+						// Reproduction
+						CreateSubMenuSelector(
+							new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), 
+							"SY_CA.SubMenuReproduction".Translate(), 
+							SettingsSubMenuEnum.Reproduction,
+							SettingsListIsModified(SelectedAnimalSettings.ReproductionSettings.Values));
 						subMenButtonOffsetX += buttonWidth;
-						CreateSubMenuSelector(new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), "SY_CA.SubMenuProductivity".Translate(), SettingsSubMenuEnum.Productivity);
+						// Productivity
+						CreateSubMenuSelector(
+							new Rect(subMenButtonOffsetX + 2, topRow, buttonWidth - 4, buttonHeight), 
+							"SY_CA.SubMenuProductivity".Translate(), 
+							SettingsSubMenuEnum.Productivity,
+							SettingsListIsModified(SelectedAnimalSettings.ProductivitySettings.Values));
 						subMenButtonOffsetX += buttonWidth;
 
 						topRow += buttonHeight + 4;
@@ -409,7 +427,7 @@ namespace CustomizeAnimals
 							Text.Anchor = TextAnchor.MiddleLeft;
 
 							// Global animal settings
-							foreach (var control in ControlsList)
+							foreach (var control in GeneralControlsList)
 								totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
 
 							// Apply global settings
@@ -449,16 +467,27 @@ namespace CustomizeAnimals
 			}
 		}
 
-		public void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value)
+		public void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value, bool isModified)
 		{
 			// Colorize if selected
 			if (SelectedSettingsSubMenu == value)
 				GUI.color = SelectionColor;
+			// Colorize if modified
+			else if (isModified)
+				GUI.color = ModifiedColor;
 			// Draw button
 			if (Widgets.ButtonText(rect, label))
 				SelectedSettingsSubMenu = value;
 			// Reset color
 			GUI.color = Color.white;
+		}
+
+		public bool SettingsListIsModified(IEnumerable<ISetting> list)
+		{
+			foreach (var item in list)
+				if (item.IsModified())
+					return true;
+			return false;
 		}
 		
 		public void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
@@ -468,39 +497,29 @@ namespace CustomizeAnimals
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
 
-			// Draw animal settings - general
-			foreach (var control in ControlsList)
+			// Draw controls
+			foreach (var control in GeneralControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		public void CreateSubMenuReproduction(ref float totalHeight, float viewWidth)
 		{
-			// Reproduction settings
+			// Separator
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Reproduction".Translate());
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
 
-			// Mate Mtb Hours
-			totalHeight += SpecialControlsList["MateMtbHours"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-			// Gestation Period Days
-			totalHeight += SpecialControlsList["GestationPeriodDays"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-			// Litter Size
-			totalHeight += SpecialControlsList["LitterSizeCurve"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-
-
-			// Egg Layer
-			totalHeight += SpecialControlsList["EggLayer"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-
-
-			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.LifeStageAges".Translate());
-			totalHeight += 2;
-			Text.Anchor = TextAnchor.MiddleLeft;
-
-			// Life Stage Ages
-			totalHeight += SpecialControlsList["LifeStageAges"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+			// Draw controls
+			foreach (var control in ReproductionControlsList)
+				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
 		{
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Productivity".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Settings are only applicable for non-human animals
 			if (SelectedAnimalSettings?.IsHuman == true)
 			{
 				Text.Anchor = TextAnchor.MiddleCenter;
@@ -510,16 +529,9 @@ namespace CustomizeAnimals
 				return;
 			}
 
-			// Productivity settings
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Productivity".Translate());
-			totalHeight += 2;
-			Text.Anchor = TextAnchor.MiddleLeft;
-
-			// Milkable
-			totalHeight += SpecialControlsList["Milkable"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
-
-			// Shearable
-			//totalHeight += SpecialControlsList["Shearable"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+			// Draw controls
+			foreach (var control in ProductivityControlsList)
+				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
 		#endregion
 

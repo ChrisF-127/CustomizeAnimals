@@ -20,12 +20,12 @@ namespace CustomizeAnimals.Controls
 		{
 			if (!animalSettings.IsHuman)
 			{
-				var eggLayer = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
+				var eggLayer = (SpecialSettingEggLayer)animalSettings.ReproductionSettings["EggLayer"];
 				if (eggLayer.IsEggLayer)
 					return 0f;
 			}
 
-			var setting = (SettingLitterSizeCurve)animalSettings.Settings["LitterSizeCurve"];
+			var setting = (SettingLitterSizeCurve)animalSettings.ReproductionSettings["LitterSizeCurve"];
 
 			var controlWidth = GetControlWidth(viewWidth);
 			var halfWidth = controlWidth / 2;

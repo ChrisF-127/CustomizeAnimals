@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SettingLeatherAmount)animalSettings.Settings["LeatherAmount"];
+			var setting = (SettingLeatherAmount)animalSettings.GeneralSettings["LeatherAmount"];
 
 			if (setting.HasLeatherDef())
 			{

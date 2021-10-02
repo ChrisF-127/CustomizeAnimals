@@ -130,7 +130,7 @@ namespace CustomizeAnimals.Controls
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			// Power
-			var settingPower = (SettingAttackPowerModifier)animalSettings.Settings["AttackPowerModifier"];
+			var settingPower = (SettingAttackPowerModifier)animalSettings.GeneralSettings["AttackPowerModifier"];
 			settingPower.Value = CreateNumeric(
 				offsetY,
 				viewWidth,
@@ -147,7 +147,7 @@ namespace CustomizeAnimals.Controls
 			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
 
 			// Cooldown
-			var settingCooldown = (SettingAttackCooldownModifier)animalSettings.Settings["AttackCooldownModifier"];
+			var settingCooldown = (SettingAttackCooldownModifier)animalSettings.GeneralSettings["AttackCooldownModifier"];
 			settingCooldown.Value = CreateNumeric(
 				offsetY,
 				viewWidth,

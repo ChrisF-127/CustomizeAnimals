@@ -17,7 +17,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (BaseSetting<float>)animalSettings.Settings["MateMtbHours"];
+			var setting = (BaseSetting<float>)animalSettings.ReproductionSettings["MateMtbHours"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,

@@ -12,8 +12,8 @@ namespace CustomizeAnimals
 	public class GlobalSettings : IExposable
 	{
 		#region PROPERTIES
-		public static GeneralSettings GeneralSettings { get; } = new GeneralSettings();
-		public static Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
+		public static GeneralSettings GlobalGeneralSettings { get; } = new GeneralSettings();
+		public static Dictionary<string, ISettingWithGlobal> GeneralSettings { get; } = new Dictionary<string, ISettingWithGlobal>();
 		#endregion
 
 		#region CONSTRUCTORS
@@ -22,60 +22,60 @@ namespace CustomizeAnimals
 		#region PUBLIC METHODS
 		public static void Initialize()
 		{
-			GeneralSettings.Initialize();
+			GlobalGeneralSettings.Initialize();
 
-			//Settings.Add("MarketValue", new SettingMarketValue(null, true));
-			//Settings.Add("MeatAmount", new SettingMeatAmount(null, true));
-			//Settings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
-			Settings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
-			//Settings.Add("BodySize", new SettingBodySize(null, true));
-			//Settings.Add("HealthScale", new SettingHealthScale(null, true));
-			//Settings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
-			Settings.Add("Trainability", new SettingTrainability(null, true));
-			Settings.Add("FilthRate", new SettingFilthRate(null, true));
-			//Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
-			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
-			//Settings.Add("PackAnimal", new SettingPackAnimal(null, true));
-			Settings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
-			//Settings.Add("Wildness", new SettingWildness(null, true)); 
-			//Settings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
-			Settings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
-			Settings.Add("MinTemperature", new SettingMinTemperature(null, true));
-			Settings.Add("HungerRate", new SettingHungerRate(null, true));
-			//Settings.Add("FoodType", new SettingFoodType(null, true));
-			Settings.Add("WillNeverEat", new SettingWillNeverEat(null, true));
-			Settings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(null, true));
-			Settings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(null, true));
-			//Settings.Add("Predator", new SettingPredator(null, true));
-			//Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
-			Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
+			//GeneralSettings.Add("MarketValue", new SettingMarketValue(null, true));
+			//GeneralSettings.Add("MeatAmount", new SettingMeatAmount(null, true));
+			//GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
+			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
+			//GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
+			//GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
+			//GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
+			GeneralSettings.Add("Trainability", new SettingTrainability(null, true));
+			GeneralSettings.Add("FilthRate", new SettingFilthRate(null, true));
+			//GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
+			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
+			//GeneralSettings.Add("PackAnimal", new SettingPackAnimal(null, true));
+			GeneralSettings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
+			//GeneralSettings.Add("Wildness", new SettingWildness(null, true)); 
+			//GeneralSettings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
+			GeneralSettings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
+			GeneralSettings.Add("MinTemperature", new SettingMinTemperature(null, true));
+			GeneralSettings.Add("HungerRate", new SettingHungerRate(null, true));
+			//GeneralSettings.Add("FoodType", new SettingFoodType(null, true));
+			GeneralSettings.Add("WillNeverEat", new SettingWillNeverEat(null, true));
+			GeneralSettings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(null, true));
+			GeneralSettings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(null, true));
+			//GeneralSettings.Add("Predator", new SettingPredator(null, true));
+			//GeneralSettings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
+			GeneralSettings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
 
-			//Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(null, true));
-			//Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(null, true));
-			//Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(null, true));
+			//GeneralSettings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(null, true));
+			//GeneralSettings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(null, true));
+			//GeneralSettings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(null, true));
 
-			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
-			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
+			GeneralSettings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
+			GeneralSettings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
 		}
 
 		public void ApplySettings()
 		{
-			GeneralSettings.ApplySettings();
+			GlobalGeneralSettings.ApplySettings();
 			foreach (var animal in CustomizeAnimals.Animals)
 				animal.ApplySettings();
 		}
 		public void Reset()
 		{
-			GeneralSettings.Reset();
-			foreach (var item in Settings.Values)
+			GlobalGeneralSettings.Reset();
+			foreach (var item in GeneralSettings.Values)
 				item.ResetGlobal();
 		}
 
 		public bool IsGlobalUsed()
 		{
-			if (GeneralSettings.IsModified())
+			if (GlobalGeneralSettings.IsModified())
 				return true;
-			foreach (var item in Settings.Values)
+			foreach (var item in GeneralSettings.Values)
 				if (item.IsGlobalUsed())
 					return true;
 			return false;
@@ -85,8 +85,8 @@ namespace CustomizeAnimals
 		#region INTERFACES
 		public void ExposeData()
 		{
-			GeneralSettings.ExposeData();
-			foreach (var item in Settings.Values)
+			GlobalGeneralSettings.ExposeData();
+			foreach (var item in GeneralSettings.Values)
 				item.ExposeGlobal();
 
 			ApplySettings();
@@ -99,8 +99,9 @@ namespace CustomizeAnimals
 		#region PROPERTIES
 		public bool IsHuman => Animal == ThingDefOf.Human;
 		public ThingDef Animal { get; }
-		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
-		public Dictionary<string, BaseSpecialSetting> SpecialSettings { get; } = new Dictionary<string, BaseSpecialSetting>();
+		public Dictionary<string, ISettingWithGlobal> GeneralSettings { get; } = new Dictionary<string, ISettingWithGlobal>();
+		public Dictionary<string, ISetting> ReproductionSettings { get; } = new Dictionary<string, ISetting>();
+		public Dictionary<string, ISetting> ProductivitySettings { get; } = new Dictionary<string, ISetting>();
 		#endregion
 
 		#region CONSTRUCTORS
@@ -114,83 +115,104 @@ namespace CustomizeAnimals
 		{
 			Animal = animalSettings.Animal;
 
-			foreach (var item in animalSettings.Settings)
-				Settings.Add(item.Key, item.Value);
-			foreach (var item in animalSettings.SpecialSettings)
-				SpecialSettings.Add(item.Key, item.Value);
+			foreach (var item in animalSettings.GeneralSettings)
+				GeneralSettings.Add(item.Key, item.Value);
+			foreach (var item in animalSettings.ReproductionSettings)
+				ReproductionSettings.Add(item.Key, item.Value);
+			foreach (var item in animalSettings.ProductivitySettings)
+				ProductivitySettings.Add(item.Key, item.Value);
 		}
 		#endregion
 
 		#region PUBLIC METHODS
 		public void Initialize()
 		{
-			Settings.Add("MarketValue", new SettingMarketValue(Animal));
-			Settings.Add("MeatAmount", new SettingMeatAmount(Animal));
-			Settings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
-			Settings.Add("ToxicSensitivity", new SettingToxicSensitivity(Animal));
-			Settings.Add("BodySize", new SettingBodySize(Animal));
-			Settings.Add("HealthScale", new SettingHealthScale(Animal));
-			Settings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
-			if (!IsHuman) Settings.Add("Trainability", new SettingTrainability(Animal));
-			if (!IsHuman) Settings.Add("FilthRate", new SettingFilthRate(Animal));
-			if (!IsHuman) Settings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
-			Settings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
-			if (!IsHuman) Settings.Add("PackAnimal", new SettingPackAnimal(Animal));
-			if (!IsHuman) Settings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
-			Settings.Add("Wildness", new SettingWildness(Animal));
-			Settings.Add("LifeExpectancy", new SettingLifeExpectancy(Animal));
-			Settings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
-			Settings.Add("MinTemperature", new SettingMinTemperature(Animal));
-			Settings.Add("HungerRate", new SettingHungerRate(Animal));
-			Settings.Add("FoodType", new SettingFoodType(Animal));
-			Settings.Add("WillNeverEat", new SettingWillNeverEat(Animal));
-			Settings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(Animal));
-			Settings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(Animal));
-			Settings.Add("Predator", new SettingPredator(Animal));
-			Settings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
-			if (!IsHuman) Settings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
+			// General
+			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
+			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
+			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
+			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(Animal));
+			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
+			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
+			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
+			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
+			GeneralSettings.Add("Wildness", new SettingWildness(Animal));
+			GeneralSettings.Add("LifeExpectancy", new SettingLifeExpectancy(Animal));
+			GeneralSettings.Add("MaxTemperature", new SettingMaxTemperature(Animal));
+			GeneralSettings.Add("MinTemperature", new SettingMinTemperature(Animal));
+			GeneralSettings.Add("HungerRate", new SettingHungerRate(Animal));
+			GeneralSettings.Add("FoodType", new SettingFoodType(Animal));
+			GeneralSettings.Add("WillNeverEat", new SettingWillNeverEat(Animal));
+			GeneralSettings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(Animal));
+			GeneralSettings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(Animal));
+			GeneralSettings.Add("Predator", new SettingPredator(Animal));
+			GeneralSettings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
 
-			Settings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(Animal));
-			Settings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
-			Settings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(Animal));
+			GeneralSettings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(Animal));
+			GeneralSettings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(Animal));
+			GeneralSettings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(Animal));
 
-			Settings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
-			Settings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
+			GeneralSettings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
+			GeneralSettings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
-			if (!IsHuman) Settings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
-			Settings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
-			Settings.Add("LitterSizeCurve", new SettingLitterSizeCurve(Animal));
+			if (!IsHuman)
+			{
+				GeneralSettings.Add("Trainability", new SettingTrainability(Animal));
+				GeneralSettings.Add("FilthRate", new SettingFilthRate(Animal));
+				GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
+				GeneralSettings.Add("PackAnimal", new SettingPackAnimal(Animal));
+				GeneralSettings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
+				GeneralSettings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
+			}
 
-			if (!IsHuman) SpecialSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
-			SpecialSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
+			// Reproduction
+			ReproductionSettings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
+			ReproductionSettings.Add("LitterSizeCurve", new SettingLitterSizeCurve(Animal));
+			ReproductionSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
+			if (!IsHuman)
+			{
+				ReproductionSettings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
+				ReproductionSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
+			}
 
-			SpecialSettings.Add("Milkable", new SpecialSettingMilkable(Animal));
-			//if (!IsHuman) SpecialSettings.Add("Shearable", new SpecialSettingShearable(Animal));
+			// Productivity
+			if (!IsHuman)
+			{
+				ProductivitySettings.Add("Milkable", new SpecialSettingMilkable(Animal));
+				//ProductivitySettings.Add("Shearable", new SpecialSettingShearable(Animal));
+			}
 
 			ApplySettings();
 		}
 
 		public void ApplySettings()
 		{
-			foreach (var item in Settings.Values)
+			foreach (var item in GeneralSettings.Values)
 				item.SetValue();
-			foreach (var item in SpecialSettings.Values)
+			foreach (var item in ReproductionSettings.Values)
+				item.SetValue();
+			foreach (var item in ProductivitySettings.Values)
 				item.SetValue();
 		}
 		public void Reset()
 		{
-			foreach (var item in Settings.Values)
+			foreach (var item in GeneralSettings.Values)
 				item.Reset();
-			foreach (var item in SpecialSettings.Values)
+			foreach (var item in ReproductionSettings.Values)
+				item.Reset();
+			foreach (var item in ProductivitySettings.Values)
 				item.Reset();
 		}
 
 		public bool IsModified()
 		{
-			foreach (var item in Settings.Values)
+			foreach (var item in GeneralSettings.Values)
 				if (item.IsModified())
 					return true;
-			foreach (var item in SpecialSettings.Values)
+			foreach (var item in ReproductionSettings.Values)
+				if (item.IsModified())
+					return true;
+			foreach (var item in ProductivitySettings.Values)
 				if (item.IsModified())
 					return true;
 			return false;
@@ -205,9 +227,11 @@ namespace CustomizeAnimals
 		#region INTERFACES
 		public void ExposeData()
 		{
-			foreach (var item in Settings.Values)
+			foreach (var item in GeneralSettings.Values)
 				item.ExposeData();
-			foreach (var item in SpecialSettings.Values)
+			foreach (var item in ReproductionSettings.Values)
+				item.ExposeData();
+			foreach (var item in ProductivitySettings.Values)
 				item.ExposeData();
 
 			ApplySettings();

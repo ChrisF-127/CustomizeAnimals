@@ -17,7 +17,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (NullableFloatSetting)animalSettings.Settings["CaravanRidingSpeed"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["CaravanRidingSpeed"];
 			var value = CreateNullableNumeric(
 				offsetY,
 				viewWidth,

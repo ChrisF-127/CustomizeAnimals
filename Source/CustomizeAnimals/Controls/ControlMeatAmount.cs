@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SettingMeatAmount)animalSettings.Settings["MeatAmount"];
+			var setting = (SettingMeatAmount)animalSettings.GeneralSettings["MeatAmount"];
 
 			if (setting.HasMeatDef())
 			{

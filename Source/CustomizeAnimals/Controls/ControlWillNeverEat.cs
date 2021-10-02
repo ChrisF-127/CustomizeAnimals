@@ -14,7 +14,7 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (SettingWillNeverEat)animalSettings.Settings["WillNeverEat"];
+			var setting = (SettingWillNeverEat)animalSettings.GeneralSettings["WillNeverEat"];
 			
 			var value = setting.Value;
 			var isModified = setting.IsModified();

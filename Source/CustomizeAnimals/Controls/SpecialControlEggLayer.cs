@@ -29,7 +29,7 @@ namespace CustomizeAnimals.Controls
 			if (animalSettings.IsHuman)
 				return 0f;
 
-			var setting = (SpecialSettingEggLayer)animalSettings.SpecialSettings["EggLayer"];
+			var setting = (SpecialSettingEggLayer)animalSettings.ReproductionSettings["EggLayer"];
 			if (!setting.IsEggLayer)
 				return 0f;
 

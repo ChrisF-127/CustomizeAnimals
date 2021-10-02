@@ -14,8 +14,8 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var predatorSetting = (BaseSetting<bool>)animalSettings.Settings["Predator"];
-			var maxPreyBodySizeSetting = (SettingMaxPreyBodySize)animalSettings.Settings["MaxPreyBodySize"];
+			var predatorSetting = (BaseSetting<bool>)animalSettings.GeneralSettings["Predator"];
+			var maxPreyBodySizeSetting = (SettingMaxPreyBodySize)animalSettings.GeneralSettings["MaxPreyBodySize"];
 
 			(var use, var value) = CreateNumericWithCheckbox(
 				offsetY,
