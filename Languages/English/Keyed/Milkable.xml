@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.SeparatorMilkable>Milkable</SY_CA.SeparatorMilkable>
+	
+	<SY_CA.MilkableIsMilkable>Is milkable</SY_CA.MilkableIsMilkable>
+	<SY_CA.TooltipMilkableIsMilkable>Set the milkability for this animal
+Changing this setting requires reloading to apply the settings!</SY_CA.TooltipMilkableIsMilkable>
+	<SY_CA.MilkableIsMilkableText>requires reloading!</SY_CA.MilkableIsMilkableText>
+	
+	<SY_CA.MilkableDef>Milk type</SY_CA.MilkableDef>
+	<SY_CA.TooltipMilkableDef>Set the item produced by milking this animal
+(Not restricted to liquids)</SY_CA.TooltipMilkableDef>
+	<SY_CA.MilkableNoDef>milk def not set</SY_CA.MilkableNoDef>
+	
+	<SY_CA.MilkableIntervalDays>Milking interval</SY_CA.MilkableIntervalDays>
+	<SY_CA.TooltipMilkableIntervalDays>Set the interval between milkings in days</SY_CA.TooltipMilkableIntervalDays>
+	
+	<SY_CA.MilkableAmount>Milk amount</SY_CA.MilkableAmount>
+	<SY_CA.TooltipMilkableAmount>Set the amount of milk produced per milking</SY_CA.TooltipMilkableAmount>
+	
+	<SY_CA.MilkableFemaleOnly>Female only</SY_CA.MilkableFemaleOnly>
+	<SY_CA.TooltipMilkableFemaleOnly>Allow milking males</SY_CA.TooltipMilkableFemaleOnly>
+	<SY_CA.MilkableFemaleOnlyText>set to make males milkable</SY_CA.MilkableFemaleOnlyText>
+</LanguageData>

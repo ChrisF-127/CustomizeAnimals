@@ -20,6 +20,115 @@ namespace CustomizeAnimals.Controls
 		private float TotalCooldown = float.NaN;
 		#endregion
 
+		#region OVERRIDES
+		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
+		{
+			var totalHeight = offsetY;
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorAttackModifiers".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Power
+			var settingPower = (SettingAttackPowerModifier)animalSettings.GeneralSettings["AttackPowerModifier"];
+			settingPower.Value = CreateNumeric(
+				totalHeight,
+				viewWidth,
+				"SY_CA.AttackPowerModifier".Translate(),
+				"SY_CA.TooltipAttackPowerModifier".Translate(),
+				settingPower.IsModified(),
+				settingPower.Value,
+				settingPower.DefaultValue,
+				ref PowerBuffer,
+				min: SettingAttackPowerModifier.Minimum,
+				max: SettingAttackPowerModifier.Maximum,
+				unit: TotalDamage.ToString("0.00"));
+
+			totalHeight += SettingsThinRowHeight;
+
+			// Cooldown
+			var settingCooldown = (SettingAttackCooldownModifier)animalSettings.GeneralSettings["AttackCooldownModifier"];
+			settingCooldown.Value = CreateNumeric(
+				totalHeight,
+				viewWidth,
+				"SY_CA.AttackCooldownModifier".Translate(),
+				"SY_CA.TooltipAttackCooldownModifier".Translate(),
+				settingCooldown.IsModified(),
+				settingCooldown.Value,
+				settingCooldown.DefaultValue,
+				ref CooldownBuffer,
+				min: SettingAttackCooldownModifier.Minimum,
+				max: SettingAttackCooldownModifier.Maximum,
+				unit: TotalCooldown.ToString("0.00"));
+
+			totalHeight += SettingsThinRowHeight;
+
+			// DPS Calculation
+			(var dps, var dpsTooltip) = CalculateDPS(animalSettings.Animal);
+			CreateText(totalHeight, viewWidth, "SY_CA.AttackModifierDPS".Translate(), dps.ToString("0.00"), dpsTooltip);
+
+			totalHeight += SettingsThinRowHeight;
+
+			return totalHeight - offsetY;
+		}
+
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			var totalHeight = offsetY;
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorAttackModifiers".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
+			// Power
+			(var usePower, var valuePower) = CreateNumericGlobal(
+				totalHeight,
+				viewWidth,
+				"SY_CA.AttackPowerModifierGlobal".Translate(),
+				"SY_CA.TooltipAttackPowerModifierGlobal".Translate(),
+				SettingAttackPowerModifier.UseGlobal,
+				SettingAttackPowerModifier.Global,
+				SettingAttackPowerModifier.GlobalDefault,
+				ref PowerBuffer,
+				min: SettingAttackPowerModifier.Minimum,
+				max: SettingAttackPowerModifier.Maximum);
+			SettingAttackPowerModifier.UseGlobal = usePower;
+			SettingAttackPowerModifier.Global = valuePower;
+
+			totalHeight += SettingsThinRowHeight;
+
+			// Cooldown
+			(var useCooldown, var valueCooldown) = CreateNumericGlobal(
+				totalHeight,
+				viewWidth,
+				"SY_CA.AttackCooldownModifierGlobal".Translate(),
+				"SY_CA.TooltipAttackCooldownModifierGlobal".Translate(),
+				SettingAttackCooldownModifier.UseGlobal,
+				SettingAttackCooldownModifier.Global,
+				SettingAttackCooldownModifier.GlobalDefault,
+				ref CooldownBuffer,
+				min: SettingAttackCooldownModifier.Minimum,
+				max: SettingAttackCooldownModifier.Maximum);
+			SettingAttackCooldownModifier.UseGlobal = useCooldown;
+			SettingAttackCooldownModifier.Global = valueCooldown;
+
+			totalHeight += SettingsThinRowHeight + 3;
+
+			return totalHeight - offsetY;
+		}
+
+		public override void Reset()
+		{
+			PowerBuffer = null;
+			CooldownBuffer = null;
+
+			TotalDamage = float.NaN;
+			TotalCooldown = float.NaN;
+		}
+		#endregion
+
 		#region PRIVATE METHODS
 		private (float, string) CalculateDPS(ThingDef animal)
 		{
@@ -114,97 +223,6 @@ namespace CustomizeAnimals.Controls
 			var output = totalDamage / totalCooldown * StatDefOf.MeleeHitChance.postProcessCurve.Evaluate(
 				4f + (manipulation ? 0f : -12f)); // animal melee skill is always +4, animals without "manipulation" body parts have a malus of -12 for DPS calculation
 			return (output, manipulation ? null : "SY_CA.TooltipAttackModifierDPSNoManipulation".Translate());
-		}
-		#endregion
-
-		#region OVERRIDES
-		public override void Reset()
-		{
-			PowerBuffer = null;
-			CooldownBuffer = null;
-			
-			TotalDamage = float.NaN;
-			TotalCooldown = float.NaN;
-		}
-
-		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
-		{
-			// Power
-			var settingPower = (SettingAttackPowerModifier)animalSettings.GeneralSettings["AttackPowerModifier"];
-			settingPower.Value = CreateNumeric(
-				offsetY,
-				viewWidth,
-				"SY_CA.AttackPowerModifier".Translate(),
-				"SY_CA.TooltipAttackPowerModifier".Translate(),
-				settingPower.IsModified(),
-				settingPower.Value,
-				settingPower.DefaultValue,
-				ref PowerBuffer,
-				min: SettingAttackPowerModifier.Minimum,
-				max: SettingAttackPowerModifier.Maximum,
-				unit: TotalDamage.ToString("0.00"));
-
-			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
-
-			// Cooldown
-			var settingCooldown = (SettingAttackCooldownModifier)animalSettings.GeneralSettings["AttackCooldownModifier"];
-			settingCooldown.Value = CreateNumeric(
-				offsetY,
-				viewWidth,
-				"SY_CA.AttackCooldownModifier".Translate(),
-				"SY_CA.TooltipAttackCooldownModifier".Translate(),
-				settingCooldown.IsModified(),
-				settingCooldown.Value,
-				settingCooldown.DefaultValue,
-				ref CooldownBuffer,
-				min: SettingAttackCooldownModifier.Minimum,
-				max: SettingAttackCooldownModifier.Maximum,
-				unit: TotalCooldown.ToString("0.00"));
-
-			offsetY += SettingsTripleRowHeight - SettingsDoubleRowHeight;
-
-			// DPS Calculation
-			(var dps, var dpsTooltip) = CalculateDPS(animalSettings.Animal);
-			CreateText(offsetY, viewWidth, "SY_CA.AttackModifierDPS".Translate(), dps.ToString("0.00"), dpsTooltip);
-
-			return SettingsTripleRowHeight;
-		}
-
-		public override float CreateSettingGlobal(float offsetY, float viewWidth)
-		{
-			// Power
-			(var usePower, var valuePower) = CreateNumericGlobal(
-				offsetY,
-				viewWidth,
-				"SY_CA.AttackPowerModifierGlobal".Translate(),
-				"SY_CA.TooltipAttackPowerModifierGlobal".Translate(),
-				SettingAttackPowerModifier.UseGlobal,
-				SettingAttackPowerModifier.Global,
-				SettingAttackPowerModifier.GlobalDefault,
-				ref PowerBuffer,
-				min: SettingAttackPowerModifier.Minimum,
-				max: SettingAttackPowerModifier.Maximum);
-			SettingAttackPowerModifier.UseGlobal = usePower;
-			SettingAttackPowerModifier.Global = valuePower;
-
-			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
-
-			// Cooldown
-			(var useCooldown, var valueCooldown) = CreateNumericGlobal(
-				offsetY,
-				viewWidth,
-				"SY_CA.AttackCooldownModifierGlobal".Translate(),
-				"SY_CA.TooltipAttackCooldownModifierGlobal".Translate(),
-				SettingAttackCooldownModifier.UseGlobal,
-				SettingAttackCooldownModifier.Global,
-				SettingAttackCooldownModifier.GlobalDefault,
-				ref CooldownBuffer,
-				min: SettingAttackCooldownModifier.Minimum,
-				max: SettingAttackCooldownModifier.Maximum);
-			SettingAttackCooldownModifier.UseGlobal = useCooldown;
-			SettingAttackCooldownModifier.Global = valueCooldown;
-
-			return SettingsDoubleRowHeight;
 		}
 		#endregion
 

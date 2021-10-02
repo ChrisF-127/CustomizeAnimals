@@ -89,6 +89,7 @@ namespace CustomizeAnimals
 
 		public static float SettingsViewHeight = 0;
 		public const float SettingsRowHeight = 32;
+		public const float SettingsThinRowHeight = 26;
 		public const float SettingsDoubleRowHeight = 58;
 		public const float SettingsTripleRowHeight = 84;
 		public const float SettingsIconSize = 64;
@@ -493,7 +494,7 @@ namespace CustomizeAnimals
 		public void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
 		{
 			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorAnimalSettings".Translate());
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorGeneralSettings".Translate());
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
 
@@ -504,7 +505,7 @@ namespace CustomizeAnimals
 		public void CreateSubMenuReproduction(ref float totalHeight, float viewWidth)
 		{
 			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Reproduction".Translate());
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorReproduction".Translate());
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
 
@@ -515,7 +516,7 @@ namespace CustomizeAnimals
 		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
 		{
 			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Productivity".Translate());
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorProductivity".Translate());
 			totalHeight += 2;
 			Text.Anchor = TextAnchor.MiddleLeft;
 

@@ -16,6 +16,7 @@ namespace CustomizeAnimals.Controls
 		#region PROPERTIES
 		protected static float SettingsViewHeight => CustomizeAnimals.SettingsViewHeight;
 		protected static float SettingsRowHeight => CustomizeAnimals.SettingsRowHeight;
+		protected static float SettingsThinRowHeight => CustomizeAnimals.SettingsThinRowHeight;
 		protected static float SettingsDoubleRowHeight => CustomizeAnimals.SettingsDoubleRowHeight;
 		protected static float SettingsTripleRowHeight => CustomizeAnimals.SettingsTripleRowHeight;
 		protected static float SettingsIconSize => CustomizeAnimals.SettingsIconSize;
@@ -152,7 +153,7 @@ namespace CustomizeAnimals.Controls
 			return value;
 		}
 
-		protected static void CreateDropDown<T>(
+		protected static void CreateDropDownEnum<T>(
 			float offsetY,
 			float viewWidth,
 			string label,
@@ -194,6 +195,53 @@ namespace CustomizeAnimals.Controls
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, setting.DefaultValue.ToString()))
 				setting.Value = setting.DefaultValue;
+		}
+
+		protected void CreateDropdownSelectorControl<T>(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltip,
+			bool isModified,
+			TargetWrapper<T> valueWrapper,
+			T DefaultValue,
+			IEnumerable<T> list,
+			Func<T, string> itemToString)
+		{
+			var controlWidth = GetControlWidth(viewWidth);
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Menu Generator
+			IEnumerable<Widgets.DropdownMenuElement<T>> menuGenerator(TargetWrapper<T> target)
+			{
+				foreach (var item in list)
+				{
+					yield return new Widgets.DropdownMenuElement<T>
+					{
+						option = new FloatMenuOption(itemToString(item), () => target.Item = item),
+						payload = item,
+					};
+				}
+			}
+
+			// Dropdown
+			var rect = new Rect(controlWidth + 2, offsetY + 2, controlWidth - 4, SettingsRowHeight - 4);
+			Widgets.Dropdown(
+				rect,
+				valueWrapper,
+				null,
+				menuGenerator,
+				itemToString(valueWrapper.Item));
+			DrawTooltip(rect, tooltip);
+
+			// Reset
+			if (isModified && DrawResetButton(offsetY, viewWidth, itemToString(DefaultValue)))
+				valueWrapper.Item = DefaultValue;
 		}
 
 		protected T CreateNumeric<T>(
@@ -675,5 +723,15 @@ namespace CustomizeAnimals.Controls
 
 	internal abstract class BaseSpecialSettingControl : BaseControl
 	{
+	}
+
+	internal class TargetWrapper<T>
+	{
+		public T Item { get; set; }
+
+		public TargetWrapper(T item)
+		{
+			Item = item;
+		}
 	}
 }

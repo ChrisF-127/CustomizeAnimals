@@ -19,18 +19,18 @@ namespace CustomizeAnimals.Controls
 		#endregion
 
 		#region OVERRIDES
-		public override void Reset()
-		{
-			SharpBuffer = null;
-			BluntBuffer = null;
-			HeatBuffer = null;
-		}
-
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			var totalHeight = offsetY;
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorArmorRating".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
+
 			var settingSharp = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Sharp"];
 			settingSharp.Value = CreateNumeric(
-				offsetY,
+				totalHeight,
 				viewWidth,
 				"SY_CA.ArmorRating_Sharp".Translate(),
 				"SY_CA.TooltipArmorRating_Sharp".Translate(),
@@ -43,11 +43,11 @@ namespace CustomizeAnimals.Controls
 				convert: ConvertToPercent,
 				unit: "%");
 
-			offsetY += SettingsDoubleRowHeight - SettingsRowHeight;
+			totalHeight += SettingsThinRowHeight;
 
 			var settingBlunt = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Blunt"];
 			settingBlunt.Value = CreateNumeric(
-				offsetY,
+				totalHeight,
 				viewWidth,
 				"SY_CA.ArmorRating_Blunt".Translate(),
 				"SY_CA.TooltipArmorRating_Blunt".Translate(),
@@ -60,11 +60,11 @@ namespace CustomizeAnimals.Controls
 				convert: ConvertToPercent,
 				unit: "%");
 
-			offsetY += SettingsTripleRowHeight - SettingsDoubleRowHeight;
+			totalHeight += SettingsThinRowHeight;
 
 			var settingHeat = (NullableFloatSetting)animalSettings.GeneralSettings["ArmorRating_Heat"];
 			settingHeat.Value = CreateNumeric(
-				offsetY,
+				totalHeight,
 				viewWidth,
 				"SY_CA.ArmorRating_Heat".Translate(),
 				"SY_CA.TooltipArmorRating_Heat".Translate(),
@@ -77,10 +77,19 @@ namespace CustomizeAnimals.Controls
 				convert: ConvertToPercent,
 				unit: "%");
 
-			return SettingsTripleRowHeight;
+			totalHeight += SettingsThinRowHeight + 3;
+
+			return totalHeight - offsetY;
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+
+		public override void Reset()
+		{
+			SharpBuffer = null;
+			BluntBuffer = null;
+			HeatBuffer = null;
+		}
 		#endregion
 	}
 }

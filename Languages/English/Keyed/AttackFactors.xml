@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
+	<SY_CA.SeparatorAttackModifiers>Attack modifiers</SY_CA.SeparatorAttackModifiers>
+	
 	<SY_CA.AttackPowerModifier>Attack power modifier</SY_CA.AttackPowerModifier>
 	<SY_CA.TooltipAttackPowerModifier>Modify the damage dealt by this animal's attacks
 Values greater than 1 increase damage and damager per second

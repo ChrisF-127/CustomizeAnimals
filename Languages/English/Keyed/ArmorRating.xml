@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
+	<SY_CA.SeparatorArmorRating>Armor rating</SY_CA.SeparatorArmorRating>
+	
 	<SY_CA.ArmorRating_Sharp>Armor rating - Sharp</SY_CA.ArmorRating_Sharp>
 	<SY_CA.TooltipArmorRating_Sharp>Set the armor rating against sharp damage
 Even though more can be typed in, 200% is the upper limit</SY_CA.TooltipArmorRating_Sharp>

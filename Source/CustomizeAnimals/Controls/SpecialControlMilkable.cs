@@ -11,12 +11,11 @@ namespace CustomizeAnimals.Controls
 {
 	internal class SpecialControlMilkable : BaseSpecialSettingControl
 	{
-		#region PROPERTIES
-		#endregion
-
 		#region FIELDS
 		public string IntervalDaysBuffer;
 		public string AmountBuffer;
+
+		public TargetWrapper<ThingDef> ValueWrapper;
 		#endregion
 
 		#region METHODS
@@ -26,8 +25,15 @@ namespace CustomizeAnimals.Controls
 				return 0f;
 
 			var setting = (SpecialSettingMilkable)animalSettings.ProductivitySettings["Milkable"];
+			if (ValueWrapper == null)
+				ValueWrapper = new TargetWrapper<ThingDef>(setting.MilkDef);
 
 			var totalHeight = offsetY;
+
+			// Separator
+			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorMilkable".Translate());
+			totalHeight += 2;
+			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Is Milkable
 			setting.IsMilkable = CreateCheckbox(
@@ -43,13 +49,18 @@ namespace CustomizeAnimals.Controls
 			if (!setting.IsMilkable)
 				return totalHeight - offsetY;
 
-#warning TODO selectable milk def
 			// Milk Def
-			CreateText(
+			CreateDropdownSelectorControl(
 				totalHeight,
 				viewWidth,
 				"SY_CA.MilkableDef".Translate(),
-				setting?.MilkDef?.label?.CapitalizeFirst() ?? "SY_CA.MilkableNoDef".Translate());
+				"SY_CA.TooltipMilkableDef".Translate(),
+				setting.MilkDef != setting.DefaultMilkDef,
+				ValueWrapper,
+				setting.DefaultMilkDef,
+				GetAllowedMilkDefs(setting.MilkDef),
+				(def) => def?.label?.CapitalizeFirst() ?? "SY_CA.MilkableNoDef".Translate());
+			setting.MilkDef = ValueWrapper.Item;
 			totalHeight += SettingsRowHeight;
 
 			// Interval Days
@@ -95,6 +106,22 @@ namespace CustomizeAnimals.Controls
 		{
 			IntervalDaysBuffer = null;
 			AmountBuffer = null;
+
+			ValueWrapper = null;
+		}
+		#endregion
+
+		#region PRIVATE METHODS
+		private IEnumerable<ThingDef> GetAllowedMilkDefs(params ThingDef[] excludes)
+		{
+			var list = DefDatabase<ThingDef>.AllDefs.Where(
+				(def) => 
+				def.category == ThingCategory.Item
+				&& def.CountAsResource == true
+				&& def.MadeFromStuff == false
+				).ToList();
+			list.SortBy((def) => def.label ?? "");
+			return list;
 		}
 		#endregion
 	}
