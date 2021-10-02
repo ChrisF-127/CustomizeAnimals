@@ -97,16 +97,15 @@ namespace CustomizeAnimals
 	internal class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
-		public bool IsHuman { get; }
+		public bool IsHuman => Animal == ThingDefOf.Human;
 		public ThingDef Animal { get; }
 		public Dictionary<string, ISetting> Settings { get; } = new Dictionary<string, ISetting>();
 		public Dictionary<string, BaseSpecialSetting> SpecialSettings { get; } = new Dictionary<string, BaseSpecialSetting>();
 		#endregion
 
 		#region CONSTRUCTORS
-		public AnimalSettings(ThingDef animal, bool isHuman = false)
+		public AnimalSettings(ThingDef animal)
 		{
-			IsHuman = isHuman;
 			Animal = animal ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(AnimalSettings)}: 'Animal' should not be null!");
 
 			Initialize();

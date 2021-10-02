@@ -12,11 +12,14 @@ namespace CustomizeAnimals.Settings
 	internal class SpecialSettingMilkable : BaseSpecialSetting
 	{
 		#region PROPERTIES
+		public CompProperties_Milkable DefaultMilkable { get; private set; }
 		public CompProperties_Milkable Milkable { get; private set; }
-		public bool IsMilkable => Milkable != null;
 
-		public ThingDef DefaultDef { get; private set; }
-		public ThingDef Def { get; set; }
+		public bool DefaultIsMilkable { get; private set; }
+		public bool IsMilkable { get; set; }
+
+		public ThingDef DefaultMilkDef { get; private set; }
+		public ThingDef MilkDef { get; set; } = null;
 		public int DefaultIntervalDays { get; private set; }
 		public int IntervalDays { get; set; }
 		public int DefaultAmount { get; private set; }
@@ -24,9 +27,7 @@ namespace CustomizeAnimals.Settings
 		public bool DefaultFemaleOnly { get; private set; }
 		public bool FemaleOnly { get; set; }
 
-		public ThingDef MilkDef => Milkable?.milkDef;
-
-		public static ThingDef StandardMilkDef { get; }
+		public static ThingDef StandardMilkDef { get; private set; } = null;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -34,7 +35,10 @@ namespace CustomizeAnimals.Settings
 		{
 			GetValue();
 
-			DefaultDef = Def;
+			DefaultMilkable = Milkable;
+			DefaultIsMilkable = IsMilkable;
+
+			DefaultMilkDef = MilkDef;
 			DefaultIntervalDays = IntervalDays;
 			DefaultAmount = Amount;
 			DefaultFemaleOnly = FemaleOnly;
@@ -44,56 +48,111 @@ namespace CustomizeAnimals.Settings
 		#region OVERRIDES
 		public override void GetValue()
 		{
-			Milkable = Animal?.comps?.Find((comp) => comp is CompProperties_Milkable) as CompProperties_Milkable;
-			if (!IsMilkable)
-				return;
+			Milkable = Animal.comps?.Find((comp) => comp is CompProperties_Milkable) as CompProperties_Milkable;
+			IsMilkable = Milkable != null;
 
-			Def = Milkable.milkDef;
-			IntervalDays = Milkable.milkIntervalDays;
-			Amount = Milkable.milkAmount;
-			FemaleOnly = Milkable.milkFemaleOnly;
+			if (StandardMilkDef == null)
+				StandardMilkDef = DefDatabase<ThingDef>.GetNamed("Milk");
+
+			if (IsMilkable)
+			{
+				MilkDef = Milkable.milkDef;
+				IntervalDays = Milkable.milkIntervalDays;
+				Amount = Milkable.milkAmount;
+				FemaleOnly = Milkable.milkFemaleOnly;
+			}
+			else
+			{
+				MilkDef = StandardMilkDef ?? throw new Exception($"{nameof(CustomizeAnimals)}.{nameof(SpecialSettingMilkable)}: StandardMilk should not be null");
+				IntervalDays = 2;
+				Amount = 10;
+				FemaleOnly = true;
+			}
 		}
 		public override void SetValue()
 		{
-			if (!IsMilkable)
-				return;
+			if (IsMilkable)
+			{
+				if (Milkable == null)
+				{
+					Milkable = DefaultMilkable ?? new CompProperties_Milkable();
 
-			Milkable.milkDef = Def;
-			Milkable.milkIntervalDays = IntervalDays;
-			Milkable.milkAmount = Amount;
-			Milkable.milkFemaleOnly = FemaleOnly;
+					var comps = Animal.comps;
+					if (comps == null)
+						Animal.comps = new List<CompProperties>();
+					if (!comps.Contains(Milkable))
+						comps.Add(Milkable);
+				}
+
+				Milkable.milkDef = MilkDef ?? DefaultMilkDef;
+				Milkable.milkIntervalDays = IntervalDays;
+				Milkable.milkAmount = Amount;
+				Milkable.milkFemaleOnly = FemaleOnly;
+			}
+			else
+			{
+				if (Milkable != null)
+				{
+					Animal.comps?.Remove(Milkable);
+					Milkable = null;
+				}
+			}
 		}
 
 		public override void Reset()
 		{
-			Def = DefaultDef;
+			Milkable = DefaultMilkable;
+			IsMilkable = DefaultIsMilkable;
+
+			MilkDef = DefaultMilkDef;
 			IntervalDays = DefaultIntervalDays;
 			Amount = DefaultAmount;
 			FemaleOnly = DefaultFemaleOnly;
 		}
 		public override bool IsModified()
 		{
-			if (Def != DefaultDef
-				|| IntervalDays != DefaultIntervalDays
-				|| Amount != DefaultAmount
-				|| FemaleOnly != DefaultFemaleOnly)
+			if (Milkable != DefaultMilkable 
+				|| IsMilkable != DefaultIsMilkable 
+				|| IsMilkable && (MilkDef != DefaultMilkDef || IntervalDays != DefaultIntervalDays || Amount != DefaultAmount || FemaleOnly != DefaultFemaleOnly))
 				return true;
 			return false;
 		}
 
 		public override void ExposeData()
 		{
-			bool boolValue = FemaleOnly;
-			Scribe_Values.Look(ref boolValue, nameof(FemaleOnly), DefaultFemaleOnly);
-			FemaleOnly = boolValue;
+			if (Scribe.mode != LoadSaveMode.Saving || IsMilkable || IsMilkable != DefaultIsMilkable)
+			{
+				if (Scribe.EnterNode(nameof(Milkable)))
+				{
+					bool boolValue = IsMilkable;
+					Scribe_Values.Look(ref boolValue, nameof(IsMilkable), DefaultIsMilkable);
+					IsMilkable = boolValue;
 
-			int intValue = IntervalDays;
-			Scribe_Values.Look(ref intValue, nameof(IntervalDays), DefaultIntervalDays);
-			IntervalDays = intValue;
+					if (IsMilkable)
+					{
+						if (Scribe.mode != LoadSaveMode.Saving || MilkDef != DefaultMilkDef)
+						{
+							ThingDef defValue = MilkDef;
+							Scribe_Defs.Look(ref defValue, nameof(MilkDef));
+							MilkDef = defValue ?? DefaultMilkDef ?? StandardMilkDef;
+						}
 
-			intValue = Amount;
-			Scribe_Values.Look(ref intValue, nameof(Amount), DefaultAmount);
-			Amount = intValue;
+						int intValue = IntervalDays;
+						Scribe_Values.Look(ref intValue, nameof(IntervalDays), DefaultIntervalDays);
+						IntervalDays = intValue;
+
+						intValue = Amount;
+						Scribe_Values.Look(ref intValue, nameof(Amount), DefaultAmount);
+						Amount = intValue;
+
+						boolValue = FemaleOnly;
+						Scribe_Values.Look(ref boolValue, nameof(FemaleOnly), DefaultFemaleOnly);
+						FemaleOnly = boolValue;
+					}
+
+					Scribe.ExitNode();
+				}
+			}
 		}
 		#endregion
 	}

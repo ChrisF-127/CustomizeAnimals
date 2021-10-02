@@ -56,8 +56,7 @@ namespace CustomizeAnimals.Settings
 					foreach (var global in GlobalList)
 						if (!output.Contains(global))
 							output.Add(global);
-
-				race.willNeverEat = output.Count > 0 ? output : null;
+				race.willNeverEat = output;
 			}
 		}
 
@@ -77,7 +76,7 @@ namespace CustomizeAnimals.Settings
 			{
 				var value = Value;
 				Scribe_Collections.Look(ref value, "WillNeverEat");
-				Value = value ?? new List<ThingDef>();
+				Value = value ?? new List<ThingDef>(DefaultValue);
 			}
 		}
 		#endregion

@@ -22,17 +22,28 @@ namespace CustomizeAnimals.Controls
 		#region METHODS
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			//if (animalSettings.IsHuman)
-			//	return 0f;
+			if (animalSettings.IsHuman)
+				return 0f;
 
 			var setting = (SpecialSettingMilkable)animalSettings.SpecialSettings["Milkable"];
-			if (!setting.IsMilkable)
-				return 0f;
 
 			var totalHeight = offsetY;
 
-#warning TODO Enable/Disable Milkable
+			// Is Milkable
+			setting.IsMilkable = CreateCheckbox(
+				totalHeight,
+				viewWidth,
+				"SY_CA.MilkableIsMilkable".Translate(),
+				"SY_CA.TooltipMilkableIsMilkable".Translate(),
+				setting.IsMilkable,
+				setting.DefaultIsMilkable,
+				"SY_CA.MilkableIsMilkableText".Translate());
+			totalHeight += SettingsRowHeight;
 
+			if (!setting.IsMilkable)
+				return totalHeight - offsetY;
+
+#warning TODO selectable milk def
 			// Milk Def
 			CreateText(
 				totalHeight,

@@ -57,10 +57,12 @@ namespace CustomizeAnimals.Settings
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
-				Scribe.EnterNode(nameof(LifeStageAges));
-				foreach (var lifeStageAge in LifeStageAges)
-					lifeStageAge.ExposeData();
-				Scribe.ExitNode();
+				if (Scribe.EnterNode(nameof(LifeStageAges)))
+				{
+					foreach (var lifeStageAge in LifeStageAges)
+						lifeStageAge.ExposeData();
+					Scribe.ExitNode();
+				}
 			}
 		}
 	}
@@ -107,13 +109,14 @@ namespace CustomizeAnimals.Settings
 			
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
-				Scribe.EnterNode(LifeStageAge.def.defName);
+				if (Scribe.EnterNode(LifeStageAge.def.defName))
+				{
+					var value = MinAge;
+					Scribe_Values.Look(ref value, nameof(MinAge), DefaultMinAge);
+					MinAge = value;
 
-				var value = MinAge;
-				Scribe_Values.Look(ref value, nameof(MinAge), DefaultMinAge);
-				MinAge = value;
-
-				Scribe.ExitNode();
+					Scribe.ExitNode();
+				}
 			}
 		}
 		#endregion

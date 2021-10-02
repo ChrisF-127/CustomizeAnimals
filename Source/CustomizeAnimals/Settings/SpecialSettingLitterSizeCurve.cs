@@ -71,7 +71,7 @@ namespace CustomizeAnimals.Settings
 				Scribe_Collections.Look(ref points, "LitterSizeCurve");
 
 				if (points == null)
-					Value.Points.Clear();
+					Value = new SimpleCurve(DefaultValue);
 				else if (points != Value.Points)
 					Value.SetPoints(points);
 			}

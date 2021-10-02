@@ -121,7 +121,7 @@ namespace CustomizeAnimals
 			}
 			Animals.SortBy((a) => a.Animal.label);
 
-			Animals.Insert(0, new AnimalSettings(ThingDefOf.Human, true));
+			Animals.Insert(0, new AnimalSettings(ThingDefOf.Human));
 
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
@@ -487,11 +487,6 @@ namespace CustomizeAnimals
 			totalHeight += SpecialControlsList["LitterSizeCurve"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 
 
-			// Separator
-			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.EggLayer".Translate());
-			totalHeight += 2;
-			Text.Anchor = TextAnchor.MiddleLeft;
-
 			// Egg Layer
 			totalHeight += SpecialControlsList["EggLayer"].CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 
@@ -506,6 +501,15 @@ namespace CustomizeAnimals
 		}
 		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
 		{
+			if (SelectedAnimalSettings?.IsHuman == true)
+			{
+				Text.Anchor = TextAnchor.MiddleCenter;
+				Widgets.Label(new Rect(2, totalHeight + 2, viewWidth - 4, SettingsRowHeight - 4), "SY_CA.ProductivityNoHuman".Translate());
+				Text.Anchor = TextAnchor.MiddleLeft;
+				totalHeight += SettingsRowHeight;
+				return;
+			}
+
 			// Productivity settings
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.Productivity".Translate());
 			totalHeight += 2;
