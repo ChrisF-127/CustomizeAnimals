@@ -524,7 +524,7 @@ namespace CustomizeAnimals
 			if (SelectedAnimalSettings?.IsHuman == true)
 			{
 				Text.Anchor = TextAnchor.MiddleCenter;
-				Widgets.Label(new Rect(2, totalHeight + 2, viewWidth - 4, SettingsRowHeight - 4), "SY_CA.ProductivityNoHuman".Translate());
+				Widgets.Label(new Rect(2, totalHeight + 2, viewWidth - 4, SettingsRowHeight - 4), $"({"SY_CA.NotApplicable".Translate()})");
 				Text.Anchor = TextAnchor.MiddleLeft;
 				totalHeight += SettingsRowHeight;
 				return;

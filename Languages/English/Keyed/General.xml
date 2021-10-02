@@ -33,4 +33,6 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
 	<SY_CA.SeparatorGeneralSettings>General settings</SY_CA.SeparatorGeneralSettings>
 	<SY_CA.SeparatorReproduction>Reproduction</SY_CA.SeparatorReproduction>
 	<SY_CA.SeparatorProductivity>Productivity</SY_CA.SeparatorProductivity>
+	
+	<SY_CA.ProductivityNoHuaman></SY_CA.ProductivityNoHuaman>
 </LanguageData>
