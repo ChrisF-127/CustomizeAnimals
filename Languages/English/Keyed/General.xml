@@ -31,6 +31,7 @@ Use * to filter for modified entries</SY_CA.TooltipFilter>
 	<SY_CA.SubMenuProductivity>Productivity</SY_CA.SubMenuProductivity>
 	
 	<SY_CA.SeparatorGeneralSettings>General settings</SY_CA.SeparatorGeneralSettings>
+	<SY_CA.SeparatorAnimalSettings>Animal settings</SY_CA.SeparatorAnimalSettings>
 	<SY_CA.SeparatorReproduction>Reproduction</SY_CA.SeparatorReproduction>
 	<SY_CA.SeparatorProductivity>Productivity</SY_CA.SeparatorProductivity>
 </LanguageData>
