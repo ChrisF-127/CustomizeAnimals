@@ -77,7 +77,7 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region METHODS
-		protected virtual float? GetStat(StatDef stat, bool useDefaultValueIfNull)
+		protected virtual float? GetStat(StatDef stat, bool useDefaultValueIfNull, float modifier = 1f)
 		{
 			var statBases = Animal?.statBases;
 			if (statBases != null)
@@ -85,14 +85,14 @@ namespace CustomizeAnimals.Settings
 				var value = statBases.FirstOrDefault((s) => s.stat == stat)?.value;
 				if (useDefaultValueIfNull && value == null)
 					value = stat.defaultBaseValue;
-				return value;
+				return value / modifier;
 			}
 
 			if (!IsGlobal)
 				Log.Warning($"{nameof(CustomizeAnimals)}.{GetType()}: {Animal?.defName} statBases is null, value cannot be set!");
 			return null;
 		}
-		protected virtual void SetStat(StatDef stat, bool useLimits = false, float min = 0f, float? max = 1e9f)
+		protected virtual void SetStat(StatDef stat, bool useLimits = false, float min = 0f, float? max = 1e9f, float modifier = 1f)
 		{
 			if (Animal == null || stat == null)
 			{
@@ -103,7 +103,7 @@ namespace CustomizeAnimals.Settings
 			var statBases = Animal?.statBases;
 			if (statBases != null)
 			{
-				var local = Value;
+				var local = Value * modifier;
 				if (useLimits)
 				{
 					if (max == null)

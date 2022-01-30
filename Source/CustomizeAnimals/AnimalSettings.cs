@@ -30,7 +30,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
 			//GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
 			//GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
-			//GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
+			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
 			GeneralSettings.Add("Trainability", new SettingTrainability(null, true));
 			GeneralSettings.Add("FilthRate", new SettingFilthRate(null, true));
 			//GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));

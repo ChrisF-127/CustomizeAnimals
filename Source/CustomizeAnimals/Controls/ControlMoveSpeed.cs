@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlMoveSpeed : TemperatureBaseControl
+	internal class ControlMoveSpeed : BaseSettingControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
@@ -32,6 +32,23 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			(var use, var value) = CreateNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.MoveSpeed".Translate(),
+				"SY_CA.TooltipMoveSpeed".Translate(),
+				SettingMoveSpeed.UseGlobal,
+				SettingMoveSpeed.GlobalModifier,
+				SettingMoveSpeed.GlobalDefault,
+				SettingMoveSpeed.GlobalMinimum,
+				SettingMoveSpeed.GlobalMaximum);
+
+			SettingMoveSpeed.UseGlobal = use;
+			SettingMoveSpeed.GlobalModifier = value;
+
+			return SettingsRowHeight;
+		}
 	}
 }

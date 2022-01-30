@@ -2,4 +2,8 @@
 <LanguageData>
 	<SY_CA.MoveSpeed>Move speed</SY_CA.MoveSpeed>
 	<SY_CA.TooltipMoveSpeed>Set the move speed of this animal</SY_CA.TooltipMoveSpeed>
+	
+	<SY_CA.MoveSpeedModifierGlobal>Move speed</SY_CA.MoveSpeedModifierGlobal>
+	<SY_CA.TooltipMoveSpeedModifierGlobal>Set a movement speed modifier for all animals
+(Keep in mind that movement speed will still be limited to a minimum / maximum, so no crazy light speed movement)</SY_CA.TooltipMoveSpeedModifierGlobal>
 </LanguageData>

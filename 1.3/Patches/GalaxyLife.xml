@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+    <Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Galaxy Life</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+			
+				<!-- Patch operation to add missing "Animals"-thingCategory to Galaxy Life's animals -->
+				<li Class="PatchOperationConditional">
+					<xpath>/Defs/ThingDef[@Name="AnimalThingBaseGalaxy"]/thingCategories</xpath>
+					<nomatch Class="PatchOperationAdd">
+						<xpath>/Defs/ThingDef[@Name="AnimalThingBaseGalaxy"]</xpath>
+						<value>      
+							<thingCategories>
+								<li>Animals</li>
+							</thingCategories>
+						</value>
+					</nomatch>
+					<match Class="PatchOperationConditional">
+						<xpath>/Defs/ThingDef[@Name="AnimalThingBaseGalaxy"]/thingCategories[li="Animals"]</xpath>
+						<nomatch Class="PatchOperationAdd">
+							<xpath>/Defs/ThingDef[@Name="AnimalThingBaseGalaxy"]/thingCategories</xpath>
+							<value>      
+								<li>Animals</li>
+							</value>
+						</nomatch>
+					</match>
+				</li>
+				
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>
