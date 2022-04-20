@@ -70,14 +70,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseHungerRateLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseHungerRateLimits));
+			Scribe_Values.Look(ref useGlobal, "UseHungerRateLimits");
 			UseHungerRateLimits = useGlobal;
 
 			var minValue = MinimumHungerRate;
-			Scribe_Values.Look(ref minValue, nameof(MinimumHungerRate), DefaultMinimumGlobal);
+			Scribe_Values.Look(ref minValue, "MinimumHungerRate", DefaultMinimumGlobal);
 			MinimumHungerRate = minValue;
 			var maxValue = MaximumHungerRate;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumHungerRate), DefaultMaximumGlobal);
+			Scribe_Values.Look(ref maxValue, "MaximumHungerRate", DefaultMaximumGlobal);
 			MaximumHungerRate = maxValue;
 		}
 

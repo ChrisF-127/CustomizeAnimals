@@ -122,10 +122,10 @@ namespace CustomizeAnimals.Settings
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsMilkable || IsMilkable != DefaultIsMilkable)
 			{
-				if (Scribe.EnterNode(nameof(Milkable)))
+				if (Scribe.EnterNode("Milkable"))
 				{
 					bool boolValue = IsMilkable;
-					Scribe_Values.Look(ref boolValue, nameof(IsMilkable), DefaultIsMilkable);
+					Scribe_Values.Look(ref boolValue, "IsMilkable", DefaultIsMilkable);
 					IsMilkable = boolValue;
 
 					if (IsMilkable)
@@ -133,20 +133,20 @@ namespace CustomizeAnimals.Settings
 						if (Scribe.mode != LoadSaveMode.Saving || MilkDef != DefaultMilkDef)
 						{
 							ThingDef defValue = MilkDef;
-							Scribe_Defs.Look(ref defValue, nameof(MilkDef));
+							Scribe_Defs.Look(ref defValue, "MilkDef");
 							MilkDef = defValue ?? DefaultMilkDef ?? StandardMilkDef;
 						}
 
 						int intValue = IntervalDays;
-						Scribe_Values.Look(ref intValue, nameof(IntervalDays), DefaultIntervalDays);
+						Scribe_Values.Look(ref intValue, "IntervalDays", DefaultIntervalDays);
 						IntervalDays = intValue;
 
 						intValue = Amount;
-						Scribe_Values.Look(ref intValue, nameof(Amount), DefaultAmount);
+						Scribe_Values.Look(ref intValue, "Amount", DefaultAmount);
 						Amount = intValue;
 
 						boolValue = FemaleOnly;
-						Scribe_Values.Look(ref boolValue, nameof(FemaleOnly), DefaultFemaleOnly);
+						Scribe_Values.Look(ref boolValue, "FemaleOnly", DefaultFemaleOnly);
 						FemaleOnly = boolValue;
 					}
 

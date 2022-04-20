@@ -152,31 +152,31 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeData()
 		{
 			bool boolValue = FemaleOnly;
-			Scribe_Values.Look(ref boolValue, nameof(FemaleOnly), DefaultFemaleOnly);
+			Scribe_Values.Look(ref boolValue, "FemaleOnly", DefaultFemaleOnly);
 			FemaleOnly = boolValue;
 
 			float floatValue = IntervalDays;
-			Scribe_Values.Look(ref floatValue, nameof(IntervalDays), DefaultIntervalDays);
+			Scribe_Values.Look(ref floatValue, "IntervalDays", DefaultIntervalDays);
 			IntervalDays = floatValue;
 
 			int intValue = CountRangeMin;
-			Scribe_Values.Look(ref intValue, nameof(CountRangeMin), DefaultCountRangeMin);
+			Scribe_Values.Look(ref intValue, "CountRangeMin", DefaultCountRangeMin);
 			CountRangeMin = intValue;
 
 			intValue = CountRangeMax;
-			Scribe_Values.Look(ref intValue, nameof(CountRangeMax), DefaultCountRangeMax);
+			Scribe_Values.Look(ref intValue, "CountRangeMax", DefaultCountRangeMax);
 			CountRangeMax = intValue;
 
 			intValue = FertilizationCountMax;
-			Scribe_Values.Look(ref intValue, nameof(FertilizationCountMax), DefaultFertilizationCountMax);
+			Scribe_Values.Look(ref intValue, "FertilizationCountMax", DefaultFertilizationCountMax);
 			FertilizationCountMax = intValue;
 
 			floatValue = ProgressUnfertilizedMax;
-			Scribe_Values.Look(ref floatValue, nameof(ProgressUnfertilizedMax), DefaultProgressUnfertilizedMax);
+			Scribe_Values.Look(ref floatValue, "ProgressUnfertilizedMax", DefaultProgressUnfertilizedMax);
 			ProgressUnfertilizedMax = floatValue;
 
 			floatValue = DaysToHatch;
-			Scribe_Values.Look(ref floatValue, nameof(DaysToHatch), DefaultDaysToHatch);
+			Scribe_Values.Look(ref floatValue, "DaysToHatch", DefaultDaysToHatch);
 			DaysToHatch = floatValue;
 		}
 		#endregion

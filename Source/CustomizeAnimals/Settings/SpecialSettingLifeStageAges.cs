@@ -57,7 +57,7 @@ namespace CustomizeAnimals.Settings
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
-				if (Scribe.EnterNode(nameof(LifeStageAges)))
+				if (Scribe.EnterNode("LifeStageAges"))
 				{
 					foreach (var lifeStageAge in LifeStageAges)
 						lifeStageAge.ExposeData();
@@ -112,7 +112,7 @@ namespace CustomizeAnimals.Settings
 				if (Scribe.EnterNode(LifeStageAge.def.defName))
 				{
 					var value = MinAge;
-					Scribe_Values.Look(ref value, nameof(MinAge), DefaultMinAge);
+					Scribe_Values.Look(ref value, "MinAge", DefaultMinAge);
 					MinAge = value;
 
 					Scribe.ExitNode();

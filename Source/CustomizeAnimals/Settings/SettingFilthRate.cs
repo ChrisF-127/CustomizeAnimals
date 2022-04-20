@@ -48,11 +48,11 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMaximumFilthRate;
-			Scribe_Values.Look(ref useGlobal, nameof(UseMaximumFilthRate));
+			Scribe_Values.Look(ref useGlobal, "UseMaximumFilthRate");
 			UseMaximumFilthRate = useGlobal;
 
 			var maxValue = MaximumFilthRate;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumFilthRate), DefaultMaximum);
+			Scribe_Values.Look(ref maxValue, "MaximumFilthRate", DefaultMaximum);
 			MaximumFilthRate = maxValue;
 		}
 

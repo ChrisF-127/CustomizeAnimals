@@ -48,14 +48,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMaxTempLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseMaxTempLimits));
+			Scribe_Values.Look(ref useGlobal, "UseMaxTempLimits");
 			UseMaxTempLimits = useGlobal;
 
 			var minMaxTemp = MinimumMaxTemp;
-			Scribe_Values.Look(ref minMaxTemp, nameof(MinimumMaxTemp), TemperatureTuning.MinimumTemperature);
+			Scribe_Values.Look(ref minMaxTemp, "MinimumMaxTemp", TemperatureTuning.MinimumTemperature);
 			MinimumMaxTemp = minMaxTemp;
 			var maxMaxTemp = MaximumMaxTemp;
-			Scribe_Values.Look(ref maxMaxTemp, nameof(MaximumMaxTemp), TemperatureTuning.MaximumTemperature);
+			Scribe_Values.Look(ref maxMaxTemp, "MaximumMaxTemp", TemperatureTuning.MaximumTemperature);
 			MaximumMaxTemp = maxMaxTemp;
 		}
 
@@ -89,14 +89,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMinTempLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseMinTempLimits));
+			Scribe_Values.Look(ref useGlobal, "UseMinTempLimits");
 			UseMinTempLimits = useGlobal;
 
 			var minMinTemp = MinimumMinTemp;
-			Scribe_Values.Look(ref minMinTemp, nameof(MinimumMinTemp), TemperatureTuning.MinimumTemperature);
+			Scribe_Values.Look(ref minMinTemp, "MinimumMinTemp", TemperatureTuning.MinimumTemperature);
 			MinimumMinTemp = minMinTemp;
 			var maxMinTemp = MaximumMinTemp;
-			Scribe_Values.Look(ref maxMinTemp, nameof(MaximumMinTemp), TemperatureTuning.MaximumTemperature);
+			Scribe_Values.Look(ref maxMinTemp, "MaximumMinTemp", TemperatureTuning.MaximumTemperature);
 			MaximumMinTemp = maxMinTemp;
 		}
 		#endregion

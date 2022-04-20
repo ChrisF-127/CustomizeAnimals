@@ -82,15 +82,15 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseNuzzleMtbHoursLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseNuzzleMtbHoursLimits));
+			Scribe_Values.Look(ref useGlobal, "UseNuzzleMtbHoursLimits");
 			UseNuzzleMtbHoursLimits = useGlobal;
 
 			var minValue = MinimumNuzzleMtbHours;
-			Scribe_Values.Look(ref minValue, nameof(MinimumNuzzleMtbHours), DefaultMinimumGlobal);
+			Scribe_Values.Look(ref minValue, "MinimumNuzzleMtbHours", DefaultMinimumGlobal);
 			MinimumNuzzleMtbHours = minValue;
 
 			var maxValue = MaximumNuzzleMtbHours;
-			Scribe_Values.Look(ref maxValue, nameof(MaximumNuzzleMtbHours), DefaultMaximumGlobal);
+			Scribe_Values.Look(ref maxValue, "MaximumNuzzleMtbHours", DefaultMaximumGlobal);
 			MaximumNuzzleMtbHours = maxValue;
 		}
 

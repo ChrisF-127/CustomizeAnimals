@@ -58,14 +58,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseLimits));
+			Scribe_Values.Look(ref useGlobal, "UseManhunterOnTameFailLimits");
 			UseLimits = useGlobal;
 
 			var minMaxTemp = Minimum;
-			Scribe_Values.Look(ref minMaxTemp, nameof(Minimum), DefaultMinimum);
+			Scribe_Values.Look(ref minMaxTemp, "MinimumManhunterOnTameFail", DefaultMinimum);
 			Minimum = minMaxTemp;
 			var maxMaxTemp = Maximum;
-			Scribe_Values.Look(ref maxMaxTemp, nameof(Maximum), DefaultMaximum);
+			Scribe_Values.Look(ref maxMaxTemp, "MaximumManhunterOnTameFail", DefaultMaximum);
 			Maximum = maxMaxTemp;
 		}
 
@@ -122,14 +122,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseLimits));
+			Scribe_Values.Look(ref useGlobal, "UseManhunterOnDamageLimits");
 			UseLimits = useGlobal;
 
 			var minMaxTemp = Minimum;
-			Scribe_Values.Look(ref minMaxTemp, nameof(Minimum), DefaultMinimum);
+			Scribe_Values.Look(ref minMaxTemp, "MinimumManhunterOnDamage", DefaultMinimum);
 			Minimum = minMaxTemp;
 			var maxMaxTemp = Maximum;
-			Scribe_Values.Look(ref maxMaxTemp, nameof(Maximum), DefaultMaximum);
+			Scribe_Values.Look(ref maxMaxTemp, "MaximumManhunterOnDamage", DefaultMaximum);
 			Maximum = maxMaxTemp;
 		}
 

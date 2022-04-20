@@ -115,10 +115,10 @@ namespace CustomizeAnimals.Settings
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsShearable || IsShearable != DefaultIsShearable)
 			{
-				if (Scribe.EnterNode(nameof(Shearable)))
+				if (Scribe.EnterNode("Shearable"))
 				{
 					bool boolValue = IsShearable;
-					Scribe_Values.Look(ref boolValue, nameof(IsShearable), DefaultIsShearable);
+					Scribe_Values.Look(ref boolValue, "IsShearable", DefaultIsShearable);
 					IsShearable = boolValue;
 
 					if (IsShearable)
@@ -126,16 +126,16 @@ namespace CustomizeAnimals.Settings
 						if (Scribe.mode != LoadSaveMode.Saving || WoolDef != DefaultWoolDef)
 						{
 							ThingDef defValue = WoolDef;
-							Scribe_Defs.Look(ref defValue, nameof(WoolDef));
+							Scribe_Defs.Look(ref defValue, "WoolDef");
 							WoolDef = defValue ?? DefaultWoolDef ?? StandardWoolDef;
 						}
 
 						int intValue = IntervalDays;
-						Scribe_Values.Look(ref intValue, nameof(IntervalDays), DefaultIntervalDays);
+						Scribe_Values.Look(ref intValue, "IntervalDays", DefaultIntervalDays);
 						IntervalDays = intValue;
 
 						intValue = Amount;
-						Scribe_Values.Look(ref intValue, nameof(Amount), DefaultAmount);
+						Scribe_Values.Look(ref intValue, "Amount", DefaultAmount);
 						Amount = intValue;
 					}
 

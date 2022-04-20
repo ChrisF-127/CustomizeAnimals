@@ -48,14 +48,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseLimits));
+			Scribe_Values.Look(ref useGlobal, "UseToxicSensitivityLimits");
 			UseLimits = useGlobal;
 
 			var minValue = Minimum;
-			Scribe_Values.Look(ref minValue, nameof(Minimum), StatDefOf.ToxicSensitivity.minValue);
+			Scribe_Values.Look(ref minValue, "MinimumToxicSensitivity", StatDefOf.ToxicSensitivity.minValue);
 			Minimum = minValue;
 			var maxValue = Maximum;
-			Scribe_Values.Look(ref maxValue, nameof(Maximum), StatDefOf.ToxicSensitivity.maxValue);
+			Scribe_Values.Look(ref maxValue, "MaximumToxicSensitivity", StatDefOf.ToxicSensitivity.maxValue);
 			Maximum = maxValue;
 		}
 

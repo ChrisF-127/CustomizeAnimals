@@ -48,14 +48,14 @@ namespace CustomizeAnimals.Settings
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
-			Scribe_Values.Look(ref useGlobal, nameof(UseLimits));
+			Scribe_Values.Look(ref useGlobal, "UseCarryingCapacityLimits");
 			UseLimits = useGlobal;
 
 			var minValue = Minimum;
-			Scribe_Values.Look(ref minValue, nameof(Minimum), StatDefOf.CarryingCapacity.minValue);
+			Scribe_Values.Look(ref minValue, "MinimumCarryingCapacity", StatDefOf.CarryingCapacity.minValue);
 			Minimum = minValue;
 			var maxValue = Maximum;
-			Scribe_Values.Look(ref maxValue, nameof(Maximum), StatDefOf.CarryingCapacity.maxValue);
+			Scribe_Values.Look(ref maxValue, "MaximumCarryingCapacity", StatDefOf.CarryingCapacity.maxValue);
 			Maximum = maxValue;
 		}
 
