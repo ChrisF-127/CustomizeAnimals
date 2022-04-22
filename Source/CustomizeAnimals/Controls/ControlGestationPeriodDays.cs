@@ -12,8 +12,6 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlGestationPeriodDays : BaseSettingControl
 	{
-		private string Buffer;
-
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			if (!animalSettings.IsHuman)
@@ -40,6 +38,7 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
+		private string Buffer;
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
 			(var use, var value) = CreateNumericGlobal(

@@ -12,6 +12,12 @@ namespace CustomizeAnimals.Settings
 	internal class SettingHealthScale : BaseSetting<float>
 	{
 		#region PROPERTIES
+		public static bool UseGlobal { get; set; }
+		public static float Global { get; set; }
+
+		public const float GlobalDefault = 1f;
+		public const float Minimum = 1e-3f;
+		public const float Maximum = 1e3f;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -35,7 +41,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.baseHealthScale = Value;
+				race.baseHealthScale = Value * (UseGlobal ? Global : 1f);
 		}
 
 		public override void ExposeData()
@@ -44,6 +50,26 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "HealthScale", DefaultValue);
 			Value = value;
 		}
+
+		public override void ResetGlobal()
+		{
+			UseGlobal = false;
+			Global = GlobalDefault;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseGlobal;
+			Scribe_Values.Look(ref useGlobal, "UseHealthScaleModifier");
+			UseGlobal = useGlobal;
+
+			var value = Global;
+			Scribe_Values.Look(ref value, "HealthScaleModifier", GlobalDefault);
+			Global = value;
+		}
+
+		public override bool IsGlobalUsed() =>
+			UseGlobal;
 		#endregion
 	}
 }

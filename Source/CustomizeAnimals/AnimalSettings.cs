@@ -29,7 +29,7 @@ namespace CustomizeAnimals
 			//GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
 			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
 			//GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
-			//GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
+			GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
 			GeneralSettings.Add("Trainability", new SettingTrainability(null, true));
 			GeneralSettings.Add("FilthRate", new SettingFilthRate(null, true));

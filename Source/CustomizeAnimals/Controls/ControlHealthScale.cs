@@ -36,7 +36,25 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		private string Buffer;
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			(var use, var value) = CreateNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.HealthScaleGlobal".Translate(),
+				"SY_CA.TooltipHealthScaleGlobal".Translate(),
+				SettingHealthScale.UseGlobal,
+				SettingHealthScale.Global,
+				SettingHealthScale.GlobalDefault,
+				ref Buffer,
+				min: SettingHealthScale.Minimum,
+				max: SettingHealthScale.Maximum);
+			SettingHealthScale.UseGlobal = use;
+			SettingHealthScale.Global = value;
+
+			return SettingsThinRowHeight;
+		}
 
 		private float ConvertToHitPoints(float value) =>
 			value * HitPointFactor;
