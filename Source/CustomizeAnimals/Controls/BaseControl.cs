@@ -27,14 +27,14 @@ namespace CustomizeAnimals.Controls
 		protected static Color OriColor => CustomizeAnimals.OriColor;
 		protected static Color ModifiedColor => CustomizeAnimals.ModifiedColor;
 		#endregion
-		
+
 		#region CLASS METHODS
 		public virtual float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings) =>
-			throw new NotImplementedException();
+			0f;
 		public virtual float CreateSettingGlobal(float offsetY, float viewWidth) =>
-			throw new NotImplementedException();
-		public virtual void Reset() =>
-			throw new NotImplementedException();
+			0f;
+		public virtual void Reset() 
+		{ }
 		#endregion
 
 		#region HELPER METHODS

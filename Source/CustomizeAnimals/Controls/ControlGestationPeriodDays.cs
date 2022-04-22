@@ -12,6 +12,8 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlGestationPeriodDays : BaseSettingControl
 	{
+		private string Buffer;
+
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			if (!animalSettings.IsHuman)
@@ -38,6 +40,23 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			(var use, var value) = CreateNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.GestationPeriodDaysGlobal".Translate(),
+				"SY_CA.TooltipGestationPeriodDaysGlobal".Translate(),
+				SettingGestationPeriodDays.UseGlobal,
+				SettingGestationPeriodDays.Global,
+				SettingGestationPeriodDays.GlobalDefault,
+				ref Buffer,
+				min: SettingGestationPeriodDays.Minimum,
+				max: SettingGestationPeriodDays.Maximum);
+			SettingGestationPeriodDays.UseGlobal = use;
+			SettingGestationPeriodDays.Global = value;
+
+			return SettingsThinRowHeight;
+		}
 	}
 }

@@ -56,6 +56,9 @@ namespace CustomizeAnimals
 
 			GeneralSettings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
 			GeneralSettings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
+
+
+			GeneralSettings.Add("GestationPeriodDays", new SettingGestationPeriodDays(null, true));
 		}
 
 		public void ApplySettings()

@@ -433,6 +433,22 @@ namespace CustomizeAnimals
 							foreach (var control in GeneralControlsList)
 								totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
 
+							// Separator
+							Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorReproduction".Translate());
+							totalHeight += 2;
+							Text.Anchor = TextAnchor.MiddleLeft;
+
+							foreach (var control in ReproductionControlsList)
+								totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
+
+							// Separator
+							//Widgets.ListSeparator(ref totalHeight, width, "SY_CA.SeparatorProductivity".Translate());
+							//totalHeight += 2;
+							//Text.Anchor = TextAnchor.MiddleLeft;
+
+							//foreach (var control in ProductivityControlsList)
+							//	totalHeight += control.CreateSettingGlobal(totalHeight, viewWidth);
+
 							// Apply global settings
 							foreach (var animalSetting in Animals)
 								animalSetting.ApplySettings();
