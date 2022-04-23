@@ -12,12 +12,12 @@ namespace CustomizeAnimals.Settings
 	internal class SettingHealthScale : BaseSetting<float>
 	{
 		#region PROPERTIES
-		public static bool UseGlobal { get; set; }
-		public static float Global { get; set; }
+		public static bool UseGlobalModifier { get; set; }
+		public static float GlobalModifier { get; set; }
 
-		public const float GlobalDefault = 1f;
-		public const float Minimum = 1e-3f;
-		public const float Maximum = 1e3f;
+		public const float GlobalModifierDefault = 1f;
+		public const float MinimumModifier = 1e-3f;
+		public const float MaximumModifier = 1e3f;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -41,7 +41,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.baseHealthScale = Value * (UseGlobal ? Global : 1f);
+				race.baseHealthScale = Value * (UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
 		public override void ExposeData()
@@ -53,23 +53,23 @@ namespace CustomizeAnimals.Settings
 
 		public override void ResetGlobal()
 		{
-			UseGlobal = false;
-			Global = GlobalDefault;
+			UseGlobalModifier = false;
+			GlobalModifier = GlobalModifierDefault;
 		}
 
 		public override void ExposeGlobal()
 		{
-			var useGlobal = UseGlobal;
+			var useGlobal = UseGlobalModifier;
 			Scribe_Values.Look(ref useGlobal, "UseHealthScaleModifier");
-			UseGlobal = useGlobal;
+			UseGlobalModifier = useGlobal;
 
-			var value = Global;
-			Scribe_Values.Look(ref value, "HealthScaleModifier", GlobalDefault);
-			Global = value;
+			var value = GlobalModifier;
+			Scribe_Values.Look(ref value, "HealthScaleModifier", GlobalModifierDefault);
+			GlobalModifier = value;
 		}
 
 		public override bool IsGlobalUsed() =>
-			UseGlobal;
+			UseGlobalModifier;
 		#endregion
 	}
 }

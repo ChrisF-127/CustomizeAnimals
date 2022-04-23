@@ -39,13 +39,13 @@ namespace CustomizeAnimals.Controls
 				viewWidth,
 				"SY_CA.MoveSpeed".Translate(),
 				"SY_CA.TooltipMoveSpeed".Translate(),
-				SettingMoveSpeed.UseGlobal,
+				SettingMoveSpeed.UseGlobalModifier,
 				SettingMoveSpeed.GlobalModifier,
-				SettingMoveSpeed.GlobalDefault,
-				SettingMoveSpeed.GlobalMinimum,
-				SettingMoveSpeed.GlobalMaximum);
+				SettingMoveSpeed.GlobalModifierDefault,
+				SettingMoveSpeed.MinimumModifier,
+				SettingMoveSpeed.MaximumModifier);
 
-			SettingMoveSpeed.UseGlobal = use;
+			SettingMoveSpeed.UseGlobalModifier = use;
 			SettingMoveSpeed.GlobalModifier = value;
 
 			return SettingsRowHeight;

@@ -24,21 +24,21 @@ namespace CustomizeAnimals
 		{
 			GlobalGeneralSettings.Initialize();
 
-			//GeneralSettings.Add("MarketValue", new SettingMarketValue(null, true));
-			//GeneralSettings.Add("MeatAmount", new SettingMeatAmount(null, true));
-			//GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
+			GeneralSettings.Add("MarketValue", new SettingMarketValue(null, true));
+			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(null, true));
+			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
 			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
-			//GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
+			GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
 			GeneralSettings.Add("Trainability", new SettingTrainability(null, true));
 			GeneralSettings.Add("FilthRate", new SettingFilthRate(null, true));
-			//GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
+			GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(null, true));
 			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
 			//GeneralSettings.Add("PackAnimal", new SettingPackAnimal(null, true));
 			GeneralSettings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
 			//GeneralSettings.Add("Wildness", new SettingWildness(null, true)); 
-			//GeneralSettings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
+			GeneralSettings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true)); 
 			GeneralSettings.Add("MaxTemperature", new SettingMaxTemperature(null, true));
 			GeneralSettings.Add("MinTemperature", new SettingMinTemperature(null, true));
 			GeneralSettings.Add("HungerRate", new SettingHungerRate(null, true));
@@ -50,14 +50,15 @@ namespace CustomizeAnimals
 			//GeneralSettings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(null, true));
 			GeneralSettings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(null, true));
 
+			// Combat
 			//GeneralSettings.Add("ArmorRating_Sharp", new SettingArmorRating_Sharp(null, true));
 			//GeneralSettings.Add("ArmorRating_Blunt", new SettingArmorRating_Blunt(null, true));
 			//GeneralSettings.Add("ArmorRating_Heat", new SettingArmorRating_Heat(null, true));
-
 			GeneralSettings.Add("AttackPowerModifier", new SettingAttackPowerModifier(null, true));
 			GeneralSettings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(null, true));
 
-
+			// Reproduction
+			GeneralSettings.Add("MateMtbHours", new SettingGestationPeriodDays(null, true));
 			GeneralSettings.Add("GestationPeriodDays", new SettingGestationPeriodDays(null, true));
 		}
 

@@ -12,12 +12,12 @@ namespace CustomizeAnimals.Settings
 	internal class SettingMoveSpeed : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseGlobal { get; set; }
+		public static bool UseGlobalModifier { get; set; }
 		public static float GlobalModifier { get; set; }
 
-		public const float GlobalDefault = 1f;
-		public const float GlobalMinimum = 1e-3f;
-		public const float GlobalMaximum = 1e3f;
+		public const float GlobalModifierDefault = 1f;
+		public const float MinimumModifier = 1e-3f;
+		public const float MaximumModifier = 1e3f;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -32,7 +32,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.MoveSpeed, true);
 		public override void SetValue() => 
-			SetStat(StatDefOf.MoveSpeed, modifier: UseGlobal ? GlobalModifier : 1f);
+			SetStat(StatDefOf.MoveSpeed, modifier: UseGlobalModifier ? GlobalModifier : 1f);
 
 		public override void ExposeData()
 		{
@@ -43,23 +43,23 @@ namespace CustomizeAnimals.Settings
 
 		public override void ResetGlobal()
 		{
-			UseGlobal = false;
-			GlobalModifier = GlobalDefault;
+			UseGlobalModifier = false;
+			GlobalModifier = GlobalModifierDefault;
 		}
 
 		public override void ExposeGlobal()
 		{
-			var useGlobal = UseGlobal;
+			var useGlobal = UseGlobalModifier;
 			Scribe_Values.Look(ref useGlobal, "UseGlobalMoveSpeedModifier");
-			UseGlobal = useGlobal;
+			UseGlobalModifier = useGlobal;
 
 			var value = GlobalModifier;
-			Scribe_Values.Look(ref value, "GlobalMoveSpeedModifier", GlobalDefault);
+			Scribe_Values.Look(ref value, "GlobalMoveSpeedModifier", GlobalModifierDefault);
 			GlobalModifier = value;
 		}
 
 		public override bool IsGlobalUsed() =>
-			UseGlobal;
+			UseGlobalModifier;
 		#endregion
 	}
 }

@@ -31,6 +31,24 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		private string GlobalModifierBuffer;
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			(var use, var value) = CreateNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.BodySizeGlobal".Translate(),
+				"SY_CA.TooltipBodySizeGlobal".Translate(),
+				SettingBodySize.UseGlobalModifier,
+				SettingBodySize.GlobalModifier,
+				SettingBodySize.GlobalModifierDefault,
+				ref GlobalModifierBuffer,
+				min: SettingBodySize.MinimumModifier,
+				max: SettingBodySize.MaximumModifier);
+			SettingBodySize.UseGlobalModifier = use;
+			SettingBodySize.GlobalModifier = value;
+
+			return SettingsThinRowHeight;
+		}
 	}
 }

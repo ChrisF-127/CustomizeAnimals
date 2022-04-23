@@ -33,6 +33,24 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		private string GlobalModifierBuffer;
+		public override float CreateSettingGlobal(float offsetY, float viewWidth)
+		{
+			(var use, var value) = CreateNumericGlobal(
+				offsetY,
+				viewWidth,
+				"SY_CA.MateMtbHoursGlobal".Translate(),
+				"SY_CA.TooltipMateMtbHoursGlobal".Translate(),
+				SettingMateMtbHours.UseGlobalModifier,
+				SettingMateMtbHours.GlobalModifier,
+				SettingMateMtbHours.GlobalModifierDefault,
+				ref GlobalModifierBuffer,
+				min: SettingMateMtbHours.MinimumModifier,
+				max: SettingMateMtbHours.MaximumModifier);
+			SettingMateMtbHours.UseGlobalModifier = use;
+			SettingMateMtbHours.GlobalModifier = value;
+
+			return SettingsThinRowHeight;
+		}
 	}
 }

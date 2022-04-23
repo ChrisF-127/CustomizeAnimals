@@ -38,7 +38,7 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		private string Buffer;
+		private string GlobalModifierBuffer;
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
 			(var use, var value) = CreateNumericGlobal(
@@ -46,14 +46,14 @@ namespace CustomizeAnimals.Controls
 				viewWidth,
 				"SY_CA.GestationPeriodDaysGlobal".Translate(),
 				"SY_CA.TooltipGestationPeriodDaysGlobal".Translate(),
-				SettingGestationPeriodDays.UseGlobal,
-				SettingGestationPeriodDays.Global,
-				SettingGestationPeriodDays.GlobalDefault,
-				ref Buffer,
-				min: SettingGestationPeriodDays.Minimum,
-				max: SettingGestationPeriodDays.Maximum);
-			SettingGestationPeriodDays.UseGlobal = use;
-			SettingGestationPeriodDays.Global = value;
+				SettingGestationPeriodDays.UseGlobalModifier,
+				SettingGestationPeriodDays.GlobalModifier,
+				SettingGestationPeriodDays.GlobalModifierDefault,
+				ref GlobalModifierBuffer,
+				min: SettingGestationPeriodDays.MinimumModifier,
+				max: SettingGestationPeriodDays.MaximumModifier);
+			SettingGestationPeriodDays.UseGlobalModifier = use;
+			SettingGestationPeriodDays.GlobalModifier = value;
 
 			return SettingsThinRowHeight;
 		}

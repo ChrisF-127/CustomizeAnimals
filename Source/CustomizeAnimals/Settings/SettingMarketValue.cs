@@ -12,6 +12,12 @@ namespace CustomizeAnimals.Settings
 	internal class SettingMarketValue : NullableFloatSetting
 	{
 		#region PROPERTIES
+		public static bool UseGlobalModifier { get; set; }
+		public static float GlobalModifier { get; set; }
+
+		public const float GlobalModifierDefault = 1f;
+		public const float MinimumModifier = 1e-3f;
+		public const float MaximumModifier = 1e3f;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -26,7 +32,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.MarketValue, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.MarketValue);
+			SetStat(StatDefOf.MarketValue, modifier: UseGlobalModifier ? GlobalModifier : 1f);
 
 		public override void ExposeData()
 		{
@@ -34,6 +40,26 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "MarketValue", DefaultValue);
 			Value = value;
 		}
+
+		public override void ResetGlobal()
+		{
+			UseGlobalModifier = false;
+			GlobalModifier = GlobalModifierDefault;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseGlobalModifier;
+			Scribe_Values.Look(ref useGlobal, "UseMarketValueModifier");
+			UseGlobalModifier = useGlobal;
+
+			var value = GlobalModifier;
+			Scribe_Values.Look(ref value, "MarketValueModifier", GlobalModifierDefault);
+			GlobalModifier = value;
+		}
+
+		public override bool IsGlobalUsed() =>
+			UseGlobalModifier;
 		#endregion
 	}
 }

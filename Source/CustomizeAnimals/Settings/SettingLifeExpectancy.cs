@@ -12,6 +12,13 @@ namespace CustomizeAnimals.Settings
 	internal class SettingLifeExpectancy : BaseSetting<float>
 	{
 		#region PROPERTIES
+		public static bool UseGlobalModifier { get; set; }
+		public static float GlobalModifier { get; set; }
+
+		public const float GlobalModifierDefault = 1f;
+		public const float MinimumModifier = 1e-3f;
+		public const float MaximumModifier = 1e3f;
+
 		public const float DefaultMinimum = 0f;
 		public const float DefaultMaximum = 1e9f;
 		#endregion
@@ -37,7 +44,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.lifeExpectancy = Value;
+				race.lifeExpectancy = Value * (UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
 		public override void ExposeData()
@@ -46,6 +53,26 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "LifeExpectancy", DefaultValue);
 			Value = value;
 		}
+
+		public override void ResetGlobal()
+		{
+			UseGlobalModifier = false;
+			GlobalModifier = GlobalModifierDefault;
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseGlobalModifier;
+			Scribe_Values.Look(ref useGlobal, "UseLifeExpectancyModifier");
+			UseGlobalModifier = useGlobal;
+
+			var value = GlobalModifier;
+			Scribe_Values.Look(ref value, "LifeExpectancyModifier", GlobalModifierDefault);
+			GlobalModifier = value;
+		}
+
+		public override bool IsGlobalUsed() =>
+			UseGlobalModifier;
 		#endregion
 	}
 }

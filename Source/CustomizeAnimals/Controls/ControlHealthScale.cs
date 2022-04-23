@@ -36,7 +36,7 @@ namespace CustomizeAnimals.Controls
 			return SettingsRowHeight;
 		}
 
-		private string Buffer;
+		private string GlobalModifierBuffer;
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
 			(var use, var value) = CreateNumericGlobal(
@@ -44,14 +44,14 @@ namespace CustomizeAnimals.Controls
 				viewWidth,
 				"SY_CA.HealthScaleGlobal".Translate(),
 				"SY_CA.TooltipHealthScaleGlobal".Translate(),
-				SettingHealthScale.UseGlobal,
-				SettingHealthScale.Global,
-				SettingHealthScale.GlobalDefault,
-				ref Buffer,
-				min: SettingHealthScale.Minimum,
-				max: SettingHealthScale.Maximum);
-			SettingHealthScale.UseGlobal = use;
-			SettingHealthScale.Global = value;
+				SettingHealthScale.UseGlobalModifier,
+				SettingHealthScale.GlobalModifier,
+				SettingHealthScale.GlobalModifierDefault,
+				ref GlobalModifierBuffer,
+				min: SettingHealthScale.MinimumModifier,
+				max: SettingHealthScale.MaximumModifier);
+			SettingHealthScale.UseGlobalModifier = use;
+			SettingHealthScale.GlobalModifier = value;
 
 			return SettingsThinRowHeight;
 		}
