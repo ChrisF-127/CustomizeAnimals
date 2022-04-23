@@ -3,4 +3,8 @@
 	<SY_CA.BodySize>Body size</SY_CA.BodySize>
 	<SY_CA.TooltipBodySize>Set the body size of this animal
 Body size affects the amount of meat and leather gained from slaughtering as well as carrying capacity, but not for example hitpoints or damage dealt!</SY_CA.TooltipBodySize>
+
+	<SY_CA.BodySizeGlobal>Body size</SY_CA.BodySizeGlobal>
+	<SY_CA.TooltipBodySizeGlobal>Set a body size modifier for all animals
+Body size affects the amount of meat and leather gained from slaughtering as well as carrying capacity, but not for example hitpoints or damage dealt!</SY_CA.TooltipBodySizeGlobal>
 </LanguageData>

@@ -4,4 +4,8 @@
 	<SY_CA.CaravanRidingSpeedDisabled>animal is not rideable</SY_CA.CaravanRidingSpeedDisabled>
 	<SY_CA.TooltipCaravanRidingSpeed>Set the caravan riding speed factor for this animal</SY_CA.TooltipCaravanRidingSpeed>
 	<SY_CA.TooltipCaravanRidingSpeedChk>Set the animal to be rideable for caravans</SY_CA.TooltipCaravanRidingSpeedChk>
+
+	<SY_CA.CaravanRidingSpeedGlobal>Caravan riding speed factor</SY_CA.CaravanRidingSpeedGlobal>
+	<SY_CA.TooltipCaravanRidingSpeedGlobal>Set a caravan riding speed modifier for all animals
+This will only affect animals which are rideable!</SY_CA.TooltipCaravanRidingSpeedGlobal>
 </LanguageData>

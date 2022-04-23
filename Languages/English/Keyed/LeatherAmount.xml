@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <LanguageData>
-	<SY_CA.LeatherAmount>Leather Amount</SY_CA.LeatherAmount>
+	<SY_CA.LeatherAmount>Leather amount</SY_CA.LeatherAmount>
 	<SY_CA.LeatherAmountNoDef>animal has no leather</SY_CA.LeatherAmountNoDef>
 	<SY_CA.TooltipLeatherAmount>Set the amount of leather on this animal
 You should not change this value if it is 0 by default</SY_CA.TooltipLeatherAmount>
+
+	<SY_CA.LeatherAmountGlobal>Leather amount</SY_CA.LeatherAmountGlobal>
+	<SY_CA.TooltipLeatherAmountGlobal>Set a leather amount modifier for all animals
+Increases or decreases the amount of leather on all animals by a factor</SY_CA.TooltipLeatherAmountGlobal>
 </LanguageData>

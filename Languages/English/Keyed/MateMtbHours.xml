@@ -3,4 +3,8 @@
 	<SY_CA.MateMtbHours>Mate interval</SY_CA.MateMtbHours>
 	<SY_CA.TooltipMateMtbHours>Adjust the mean time before an animal will mate
 A value of 0 disables mating</SY_CA.TooltipMateMtbHours>
+
+	<SY_CA.MateMtbHoursGlobal>Mate interval</SY_CA.MateMtbHoursGlobal>
+	<SY_CA.TooltipMateMtbHoursGlobal>Set a modifier for all animals to adjust the mean time before the animal will mate
+Very small modifiers can cause the time become 0, which disables mating</SY_CA.TooltipMateMtbHoursGlobal>
 </LanguageData>
