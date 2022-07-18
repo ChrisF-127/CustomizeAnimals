@@ -24,6 +24,7 @@ namespace CustomizeAnimals
 		{
 			GlobalGeneralSettings.Initialize();
 
+			GeneralSettings.Add("DrawSize", new SettingDrawSize(null, true));
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(null, true));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(null, true));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
@@ -132,6 +133,7 @@ namespace CustomizeAnimals
 		public void Initialize()
 		{
 			// General
+			GeneralSettings.Add("DrawSize", new SettingDrawSize(Animal));
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));

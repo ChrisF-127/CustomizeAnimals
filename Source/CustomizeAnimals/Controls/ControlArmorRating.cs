@@ -10,7 +10,7 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlArmorRating_Sharp : BaseControl
+	internal class ControlArmorRating : BaseControl
 	{
 		#region FIELDS
 		private string SharpBuffer;

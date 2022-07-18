@@ -31,6 +31,7 @@ namespace CustomizeAnimals
 		private GeneralSettingsControls GeneralSettings { get; } = new GeneralSettingsControls();
 		private List<BaseControl> GeneralControlsList { get; } = new List<BaseControl>
 		{
+			new ControlDrawSize(),
 			new ControlMarketValue(),
 			new ControlMeatAmount(),
 			new ControlLeatherAmount(),
@@ -56,7 +57,7 @@ namespace CustomizeAnimals
 			new ControlPredator(), // Predator & MaxPreyBodySize
 			new ControlNuzzleMtbHours(),
 
-			new ControlArmorRating_Sharp(),
+			new ControlArmorRating(),
 
 			new ControlAttackModifier()
 		};

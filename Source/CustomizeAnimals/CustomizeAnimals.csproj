@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ControlArmorRating.cs" />
+    <Compile Include="Controls\ControlDrawSize.cs" />
     <Compile Include="Controls\ControlAttackModifiers.cs" />
     <Compile Include="Controls\ControlMateMtbHours.cs" />
     <Compile Include="Controls\ControlGestationPeriodDays.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
     <Compile Include="Settings\SettingArmorRating.cs" />
+    <Compile Include="Settings\SettingDrawSize.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
     <Compile Include="Settings\SettingMateMtbHours.cs" />
     <Compile Include="Settings\SettingGestationPeriodDays.cs" />
