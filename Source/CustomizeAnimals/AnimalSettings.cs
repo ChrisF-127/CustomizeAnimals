@@ -28,7 +28,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(null, true));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(null, true));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(null, true));
-			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(null, true));
+			GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(null, true));
 			GeneralSettings.Add("BodySize", new SettingBodySize(null, true));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(null, true));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(null, true)); 
@@ -137,8 +137,11 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
-			GeneralSettings.Add("ToxicSensitivity", new SettingToxicSensitivity(Animal));
-			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
+			if (!IsHuman)
+			{
+				GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
+				GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
+			}
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
 			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));

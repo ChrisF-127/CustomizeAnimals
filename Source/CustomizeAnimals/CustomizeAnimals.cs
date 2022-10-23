@@ -35,7 +35,7 @@ namespace CustomizeAnimals
 			new ControlMarketValue(),
 			new ControlMeatAmount(),
 			new ControlLeatherAmount(),
-			new ControlToxicSensitivity(),
+			new ControlToxicResistance(),
 			new ControlBodySize(),
 			new ControlHealthScale(),
 			new ControlMoveSpeed(),

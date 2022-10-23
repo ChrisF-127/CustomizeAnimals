@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.EggLayer>Egg Layer</SY_CA.EggLayer>
+	<SY_CA.EggLayerFertilizedDef>Fertilized egg</SY_CA.EggLayerFertilizedDef>
+	<SY_CA.EggLayerUnfertilizedDef>Unfertilized egg</SY_CA.EggLayerUnfertilizedDef>
+	<SY_CA.EggLayerIntervalDays>Egg laying interval</SY_CA.EggLayerIntervalDays>
+	<SY_CA.TooltipEggLayerIntervalDays>Interval between each egg laying in days</SY_CA.TooltipEggLayerIntervalDays>
+	<SY_CA.EggLayerDaysToHatch>Days to hatch</SY_CA.EggLayerDaysToHatch>
+	<SY_CA.TooltipEggLayerDaysToHatch>Time until the eggs hatch in days</SY_CA.TooltipEggLayerDaysToHatch>
+	<SY_CA.EggLayerCountRangeMin>Minimum number of eggs</SY_CA.EggLayerCountRangeMin>
+	<SY_CA.TooltipEggLayerCountRangeMin>Minimum number of eggs per batch</SY_CA.TooltipEggLayerCountRangeMin>
+	<SY_CA.EggLayerCountRangeMax>Maximum number of eggs</SY_CA.EggLayerCountRangeMax>
+	<SY_CA.TooltipEggLayerCountRangeMax>Maximum number of eggs per batch</SY_CA.TooltipEggLayerCountRangeMax>
+	<SY_CA.EggLayerFertilizationCountMax>Maximum fertilizations</SY_CA.EggLayerFertilizationCountMax>
+	<SY_CA.TooltipEggLayerFertilizationCountMax>Number of fertilizations per egg laying
+Multiple fertilizations will lead to multiple eggs being laid, I think...</SY_CA.TooltipEggLayerFertilizationCountMax>
+	<SY_CA.EggLayerFemaleOnly>Female only</SY_CA.EggLayerFemaleOnly>
+	<SY_CA.EggLayerFemaleOnlyText>males only lay unfert. eggs</SY_CA.EggLayerFemaleOnlyText>
+	<SY_CA.TooltipEggLayerFemaleOnly>Allow males to lay eggs
+This setting only makes sense if the animal can lay unfertilized eggs, as males can never be fertilized</SY_CA.TooltipEggLayerFemaleOnly>
+
+	<SY_CA.EggLayerNoDef>---</SY_CA.EggLayerNoDef>
+
+	<SY_CA.EggBodySizeMass>Egg mass set via body size</SY_CA.EggBodySizeMass>
+	<SY_CA.TooltipEggBodySizeMass>Enabling this setting will set the mass of all eggs depending on the parent animal's body size:
+egg_mass = baseBodySize * mass_factor
+	
+Using chickens as default gives a factor of 0.5: 
+mass_factor = egg_mass (0.15) / baseBodySize (0.3)</SY_CA.TooltipEggBodySizeMass>
+	<SY_CA.EggBodySizeNutrition>Egg nutrition set via body size</SY_CA.EggBodySizeNutrition>
+	<SY_CA.TooltipEggBodySizeNutrition>Enabling this setting will set the nutrition of all eggs depending on the parent animal's body size:
+egg_nutrition = baseBodySize * nutrition_factor
+	
+Using chickens as default gives a factor of 0.8333333: 
+nutrition_factor = egg_nutrition (0.25) / baseBodySize (0.3)</SY_CA.TooltipEggBodySizeNutrition>
+</LanguageData>

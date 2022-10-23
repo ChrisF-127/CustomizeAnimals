@@ -10,21 +10,21 @@ using Verse;
 
 namespace CustomizeAnimals.Controls
 {
-	internal class ControlToxicSensitivity : BaseSettingControl
+	internal class ControlToxicResistance : BaseSettingControl
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["ToxicSensitivity"];
+			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["ToxicResistance"];
 			var value = CreateNumeric(
 				offsetY,
 				viewWidth,
-				"SY_CA.ToxicSensitivity".Translate(),
-				"SY_CA.TooltipToxicSensitivity".Translate(),
+				"SY_CA.ToxicResistance".Translate(),
+				"SY_CA.TooltipToxicResistance".Translate(),
 				setting.IsModified(),
-				setting.Value ?? StatDefOf.ToxicSensitivity.defaultBaseValue,
-				setting.DefaultValue ?? StatDefOf.ToxicSensitivity.defaultBaseValue, 
-				StatDefOf.ToxicSensitivity.minValue,
-				StatDefOf.ToxicSensitivity.maxValue,
+				setting.Value ?? StatDefOf.ToxicResistance.defaultBaseValue,
+				setting.DefaultValue ?? StatDefOf.ToxicResistance.defaultBaseValue, 
+				StatDefOf.ToxicResistance.minValue,
+				StatDefOf.ToxicResistance.maxValue,
 				convert: ConvertToPercent,
 				unit: "%");
 
@@ -38,20 +38,20 @@ namespace CustomizeAnimals.Controls
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
-				"SY_CA.ToxicSensitivityRange".Translate(),
-				"SY_CA.TooltipMinToxicSensitivity".Translate(),
-				"SY_CA.TooltipMaxToxicSensitivity".Translate(),
-				SettingToxicSensitivity.UseLimits,
-				SettingToxicSensitivity.Minimum,
-				SettingToxicSensitivity.Maximum,
-				StatDefOf.ToxicSensitivity.minValue,
-				StatDefOf.ToxicSensitivity.maxValue,
+				"SY_CA.ToxicResistanceRange".Translate(),
+				"SY_CA.TooltipMinToxicResistance".Translate(),
+				"SY_CA.TooltipMaxToxicResistance".Translate(),
+				SettingToxicResistance.UseLimits,
+				SettingToxicResistance.Minimum,
+				SettingToxicResistance.Maximum,
+				StatDefOf.ToxicResistance.minValue,
+				StatDefOf.ToxicResistance.maxValue,
 				convert: ConvertToPercent,
 				unit: "%");
 
-			SettingToxicSensitivity.UseLimits = use;
-			SettingToxicSensitivity.Minimum = min;
-			SettingToxicSensitivity.Maximum = max;
+			SettingToxicResistance.UseLimits = use;
+			SettingToxicResistance.Minimum = min;
+			SettingToxicResistance.Maximum = max;
 
 			return SettingsDoubleRowHeight;
 		}

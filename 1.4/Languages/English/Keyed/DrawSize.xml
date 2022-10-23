@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.DrawSize>Draw size</SY_CA.DrawSize>
+	<SY_CA.TooltipDrawSize>Changing the draw size requires restarting the game to take effect</SY_CA.TooltipDrawSize>
+	
+	<SY_CA.DrawSizeGlobal>Draw size</SY_CA.DrawSizeGlobal>
+	<SY_CA.TooltipHealthScaleGlobal>Changing the draw size requires restarting the game to take effect</SY_CA.TooltipHealthScaleGlobal>
+</LanguageData>

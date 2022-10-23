@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
+
+	<SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
+	<SY_CA.GlobalSettingsSubtitle>Modifies all animals</SY_CA.GlobalSettingsSubtitle>
+	<SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
+	<SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
+	<SY_CA.TooltipUseGlobal>Apply</SY_CA.TooltipUseGlobal>
+	<SY_CA.TooltipGlobalSettingsResetAll>Reset all changes</SY_CA.TooltipGlobalSettingsResetAll>
+	<SY_CA.DialogGlobalSettingsResetAll>All settings for 'Customize Animals' will be reset</SY_CA.DialogGlobalSettingsResetAll>
+	
+	<SY_CA.TooltipSettingsReset>Reset all changes for '{0}'</SY_CA.TooltipSettingsReset>
+	<SY_CA.DialogSettingsReset>Settings for '{0}' will be reset</SY_CA.DialogSettingsReset>
+	<SY_CA.DialogConfirm>Are you sure?</SY_CA.DialogConfirm>
+  
+	<SY_CA.Filter>filter</SY_CA.Filter>
+	<SY_CA.TooltipFilter>Apply a filter to the list
+Use * to filter for modified entries</SY_CA.TooltipFilter>
+  
+	<SY_CA.Clear>Clear</SY_CA.Clear>
+	<SY_CA.TooltipClearFilter>Clear the filter</SY_CA.TooltipClearFilter>
+
+	<SY_CA.Reset>Reset</SY_CA.Reset>
+	<SY_CA.TooltipDefaultValue>Default:</SY_CA.TooltipDefaultValue>
+	
+	<SY_CA.NotApplicable>not applicable</SY_CA.NotApplicable>
+	
+	<SY_CA.SubMenuGeneral>General</SY_CA.SubMenuGeneral>
+	<SY_CA.SubMenuReproduction>Reproduction</SY_CA.SubMenuReproduction>
+	<SY_CA.SubMenuProductivity>Productivity</SY_CA.SubMenuProductivity>
+	
+	<SY_CA.SeparatorGeneralSettings>General settings</SY_CA.SeparatorGeneralSettings>
+	<SY_CA.SeparatorAnimalSettings>Animal settings</SY_CA.SeparatorAnimalSettings>
+	<SY_CA.SeparatorReproduction>Reproduction</SY_CA.SeparatorReproduction>
+	<SY_CA.SeparatorProductivity>Productivity</SY_CA.SeparatorProductivity>
+</LanguageData>

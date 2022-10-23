@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.HealthScale>Hit points</SY_CA.HealthScale>
+	<SY_CA.TooltipHealthScale>Set the hit points of this animal, it also affects their body part hit points
+Be careful when reducing this value as animals with many wounds or scars can lose body parts or instantly die!</SY_CA.TooltipHealthScale>
+
+	<SY_CA.HealthScaleGlobal>Health scale</SY_CA.HealthScaleGlobal>
+	<SY_CA.TooltipHealthScaleGlobal>Set a health modifier for all animals
+Increases or decreases health for all animals by a factor</SY_CA.TooltipHealthScaleGlobal>
+</LanguageData>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.MarketValue>Market value</SY_CA.MarketValue>
+	<SY_CA.TooltipMarketValue>Set the market value of this animal</SY_CA.TooltipMarketValue>
+
+	<SY_CA.MarketValueGlobal>Market value</SY_CA.MarketValueGlobal>
+	<SY_CA.TooltipMarketValueGlobal>Set a market value modifier for all animals</SY_CA.TooltipMarketValueGlobal>
+</LanguageData>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.SeparatorAttackModifiers>Attack modifiers</SY_CA.SeparatorAttackModifiers>
+	
+	<SY_CA.AttackPowerModifier>Attack power modifier</SY_CA.AttackPowerModifier>
+	<SY_CA.TooltipAttackPowerModifier>Modify the damage dealt by this animal's attacks
+Values greater than 1 increase damage and damager per second
+Values less than 1 decrease damage and damage per second</SY_CA.TooltipAttackPowerModifier>
+
+	<SY_CA.AttackPowerModifierGlobal>Global attack power modifier</SY_CA.AttackPowerModifierGlobal>
+	<SY_CA.TooltipAttackPowerModifierGlobal>Modify the damage dealt by all animals
+Values greater than 1 increase damage and damager per second
+Values less than 1 decrease damage and damage per second</SY_CA.TooltipAttackPowerModifierGlobal>
+	
+	
+	<SY_CA.AttackCooldownModifier>Attack cooldown modifier</SY_CA.AttackCooldownModifier>
+	<SY_CA.TooltipAttackCooldownModifier>Modify the cooldown of this animal's attacks
+Values greater than 1 increase the cooldown, reducing the damager per second
+Values less than 1 decrease the cooldown, increasing the damage per second</SY_CA.TooltipAttackCooldownModifier>
+	
+	<SY_CA.AttackCooldownModifierGlobal>Global attack cooldown modifier</SY_CA.AttackCooldownModifierGlobal>
+	<SY_CA.TooltipAttackCooldownModifierGlobal>Modify the cooldown of all animal's attacks
+Values greater than 1 decrease attack speed and damager per second
+Values less than 1 increase attack speed and damage per second</SY_CA.TooltipAttackCooldownModifierGlobal>
+
+	
+	<SY_CA.AttackModifierDPS>Estimated damage per second</SY_CA.AttackModifierDPS>
+	<SY_CA.TooltipAttackModifierDPSNoManipulation>Animal lacks "Manipulation" body parts</SY_CA.TooltipAttackModifierDPSNoManipulation>
+</LanguageData>

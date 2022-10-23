@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.ToxicResistance>Toxic resistance</SY_CA.ToxicResistance>
+	<SY_CA.TooltipToxicResistance>Set the toxic resistance for this animal
+Toxic resistance adjusts how strongly a creature is affected by toxic buildup</SY_CA.TooltipToxicResistance>
+	
+	<SY_CA.ToxicResistanceRange>Toxic resistance range</SY_CA.ToxicResistanceRange>
+	<SY_CA.TooltipMinToxicResistance>Set a minimum toxic resistance for all animals</SY_CA.TooltipMinToxicResistance>
+	<SY_CA.TooltipMaxToxicResistance>Set a maximum toxic resistance for all animals</SY_CA.TooltipMaxToxicResistance>
+</LanguageData>
