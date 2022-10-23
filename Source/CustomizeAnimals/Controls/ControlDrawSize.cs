@@ -15,6 +15,9 @@ namespace CustomizeAnimals.Controls
 		#region OVERRIDES
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (animalSettings.IsHuman)
+				return 0f;
+
 			var setting = (BaseSetting<float>)animalSettings.GeneralSettings["DrawSize"];
 			var value = CreateNumeric(
 				offsetY,

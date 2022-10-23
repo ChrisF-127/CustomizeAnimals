@@ -133,15 +133,14 @@ namespace CustomizeAnimals
 		public void Initialize()
 		{
 			// General
-			GeneralSettings.Add("DrawSize", new SettingDrawSize(Animal));
+			if (!IsHuman)
+				GeneralSettings.Add("DrawSize", new SettingDrawSize(Animal));
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
 			if (!IsHuman)
-			{
 				GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
-				GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
-			}
+			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
 			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(Animal));
