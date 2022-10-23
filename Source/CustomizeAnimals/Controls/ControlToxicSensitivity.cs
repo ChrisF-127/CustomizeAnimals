@@ -14,6 +14,9 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (animalSettings.IsHuman)
+				return 0f;
+
 			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["ToxicResistance"];
 			var value = CreateNumeric(
 				offsetY,
