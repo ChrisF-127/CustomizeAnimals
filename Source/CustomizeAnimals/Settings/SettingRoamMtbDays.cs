@@ -10,8 +10,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingRoamMtbDays : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseMinimumRoamMtbDays { get; set; } 
-		public static float? MinimumRoamMtbDays { get; set; }
+		public static bool UseMinimumRoamMtbDays { get; set; } = false;
+		public static float? MinimumRoamMtbDays { get; set; } = null;
 
 		public const float DefaultMinimum = 1f;
 		public const float DefaultMaximum = 120f;

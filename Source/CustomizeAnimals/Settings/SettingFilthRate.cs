@@ -12,8 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingFilthRate : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseMaximumFilthRate { get; set; }
-		public static float? MaximumFilthRate { get; set; }
+		public static bool UseMaximumFilthRate { get; set; } = false;
+		public static float? MaximumFilthRate { get; set; } = DefaultMaximum;
 
 		public const float DefaultMaximum = 120f;
 		#endregion

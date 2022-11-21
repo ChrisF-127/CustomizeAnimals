@@ -12,8 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingDrawSize : BaseSetting<float>
 	{
 		#region PROPERTIES
-		public static bool UseGlobal { get; set; }
-		public static float Global { get; set; }
+		public static bool UseGlobal { get; set; } = false;
+		public static float Global { get; set; } = GlobalDefault;
 
 		public const float GlobalDefault = 1f;
 		public const float Minimum = 1e-3f;

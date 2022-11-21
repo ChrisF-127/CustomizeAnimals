@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingNuzzleMtbHours : BaseSetting<float>
 	{
 		#region PROPERTIES
-		public static bool UseNuzzleMtbHoursLimits { get; set; }
-		public static float MinimumNuzzleMtbHours { get; set; }
-		public static float MaximumNuzzleMtbHours { get; set; }
+		public static bool UseNuzzleMtbHoursLimits { get; set; } = false;
+		public static float MinimumNuzzleMtbHours { get; set; } = DefaultMinimumGlobal;
+		public static float MaximumNuzzleMtbHours { get; set; } = DefaultMaximumGlobal;
 
 		public const float DefaultMinimum = -1f; // -1 = disabled
 		public const float DefaultMaximum = 1440f; // 60d * 24h = 1 year

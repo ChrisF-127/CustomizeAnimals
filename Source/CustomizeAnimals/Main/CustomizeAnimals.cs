@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
+using Verse.Noise;
 
 namespace CustomizeAnimals
 {
@@ -181,7 +182,7 @@ namespace CustomizeAnimals
 			var globalSettingsSelectionRect = new Rect(0, offsetY, viewWidth, _listRowHeight);
 			if (Widgets.ButtonInvisible(globalSettingsSelectionRect, true))
 				SelectedAnimalSettings = null;
-			Widgets.DrawOptionBackground(globalSettingsSelectionRect, SelectedAnimalSettings == null);
+			DrawOptionRect(globalSettingsSelectionRect, SelectedAnimalSettings == null);
 			BaseControl.DrawTooltip(globalSettingsSelectionRect, "SY_CA.TooltipGlobalSettings".Translate());
 
 			// Icon
@@ -256,7 +257,7 @@ namespace CustomizeAnimals
 				var rect = new Rect(0, listOffsetY, viewWidth, _listRowHeight);
 				if (Widgets.ButtonInvisible(rect, true))
 					SelectedAnimalSettings = animalSettings;
-				Widgets.DrawOptionBackground(rect, SelectedAnimalSettings == animalSettings);
+				DrawOptionRect(rect, SelectedAnimalSettings == animalSettings);
 
 				// Icon
 				float listOffsetX = 2;
@@ -487,7 +488,7 @@ namespace CustomizeAnimals
 			}
 		}
 
-		public void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value, bool isModified)
+		private void CreateSubMenuSelector(Rect rect, string label, SettingsSubMenuEnum value, bool isModified)
 		{
 			// Colorize if selected
 			if (SelectedSettingsSubMenu == value)
@@ -502,15 +503,15 @@ namespace CustomizeAnimals
 			GUI.color = Color.white;
 		}
 
-		public bool SettingsListIsModified(IEnumerable<ISetting> list)
+		private bool SettingsListIsModified(IEnumerable<ISetting> list)
 		{
 			foreach (var item in list)
 				if (item.IsModified())
 					return true;
 			return false;
 		}
-		
-		public void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
+
+		private void CreateSubMenuGeneral(ref float totalHeight, float viewWidth)
 		{
 			// Separator
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorGeneralSettings".Translate());
@@ -521,7 +522,7 @@ namespace CustomizeAnimals
 			foreach (var control in GeneralControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
-		public void CreateSubMenuReproduction(ref float totalHeight, float viewWidth)
+		private void CreateSubMenuReproduction(ref float totalHeight, float viewWidth)
 		{
 			// Separator
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorReproduction".Translate());
@@ -532,7 +533,7 @@ namespace CustomizeAnimals
 			foreach (var control in ReproductionControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
 		}
-		public void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
+		private void CreateSubMenuProductivity(ref float totalHeight, float viewWidth)
 		{
 			// Separator
 			Widgets.ListSeparator(ref totalHeight, viewWidth - 16, "SY_CA.SeparatorProductivity".Translate());
@@ -552,6 +553,30 @@ namespace CustomizeAnimals
 			// Draw controls
 			foreach (var control in ProductivityControlsList)
 				totalHeight += control.CreateSetting(totalHeight, viewWidth, SelectedAnimalSettings);
+		}
+
+		/// <summary>
+		/// Recreates the old look of my options
+		/// </summary>
+		/// <param name="rect"></param>
+		/// <param name="highlight"></param>
+		private void DrawOptionRect(Rect rect, bool highlight)
+		{
+			if (highlight)
+			{
+				GUI.color = Widgets.OptionSelectedBGFillColor;
+				GUI.DrawTexture(rect, BaseContent.WhiteTex);
+				GUI.color = Widgets.OptionSelectedBGBorderColor;
+			}
+			else
+			{
+				GUI.color = Widgets.OptionUnselectedBGFillColor;
+				GUI.DrawTexture(rect, BaseContent.WhiteTex);
+				GUI.color = Widgets.OptionUnselectedBGBorderColor;
+			}
+			Widgets.DrawBox(rect);
+			GUI.color = Color.white;
+			Widgets.DrawHighlightIfMouseover(rect);
 		}
 		#endregion
 

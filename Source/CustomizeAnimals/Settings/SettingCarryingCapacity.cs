@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingCarryingCapacity : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseLimits { get; set; }
-		public static float Minimum { get; set; }
-		public static float Maximum { get; set; }
+		public static bool UseLimits { get; set; } = false;
+		public static float Minimum { get; set; } = StatDefOf.CarryingCapacity.minValue;
+		public static float Maximum { get; set; } = StatDefOf.CarryingCapacity.maxValue;
 		#endregion
 
 		#region CONSTRUCTORS

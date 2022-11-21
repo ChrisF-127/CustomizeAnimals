@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingMaxTemperature : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseMaxTempLimits { get; set; }
-		public static float MinimumMaxTemp { get; set; }
-		public static float MaximumMaxTemp { get; set; }
+		public static bool UseMaxTempLimits { get; set; } = false;
+		public static float MinimumMaxTemp { get; set; } = TemperatureTuning.MinimumTemperature;
+		public static float MaximumMaxTemp { get; set; } = TemperatureTuning.MaximumTemperature;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -68,9 +68,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingMinTemperature : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseMinTempLimits { get; set; }
-		public static float MinimumMinTemp { get; set; }
-		public static float MaximumMinTemp { get; set; }
+		public static bool UseMinTempLimits { get; set; } = false;
+		public static float MinimumMinTemp { get; set; } = TemperatureTuning.MinimumTemperature;
+		public static float MaximumMinTemp { get; set; } = TemperatureTuning.MaximumTemperature;
 		#endregion
 
 		#region CONSTRUCTORS

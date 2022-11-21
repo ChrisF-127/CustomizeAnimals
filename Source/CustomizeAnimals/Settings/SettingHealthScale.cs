@@ -12,8 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingHealthScale : BaseSetting<float>
 	{
 		#region PROPERTIES
-		public static bool UseGlobalModifier { get; set; }
-		public static float GlobalModifier { get; set; }
+		public static bool UseGlobalModifier { get; set; } = false;
+		public static float GlobalModifier { get; set; } = GlobalModifierDefault;
 
 		public const float GlobalModifierDefault = 1f;
 		public const float MinimumModifier = 1e-3f;

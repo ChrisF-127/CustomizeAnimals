@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingManhunterOnTameFail : SettingManhunter
 	{
 		#region PROPERTIES
-		public static bool UseLimits { get; set; }
-		public static float Minimum { get; set; }
-		public static float Maximum { get; set; }
+		public static bool UseLimits { get; set; } = false;
+		public static float Minimum { get; set; } = DefaultMinimum;
+		public static float Maximum { get; set; } = DefaultMaximum;
 		#endregion
 
 		#region CONSTRUCTORS
@@ -76,9 +76,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingManhunterOnDamage : SettingManhunter
 	{
 		#region PROPERTIES
-		public static bool UseLimits { get; set; }
-		public static float Minimum { get; set; }
-		public static float Maximum { get; set; }
+		public static bool UseLimits { get; set; } = false;
+		public static float Minimum { get; set; } = DefaultMinimum;
+		public static float Maximum { get; set; } = DefaultMaximum;
 		#endregion
 
 		#region CONSTRUCTORS

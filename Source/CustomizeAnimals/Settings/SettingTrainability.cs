@@ -11,8 +11,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingTrainability : BaseSetting<TrainabilityDef>
 	{
 		#region PROPERTIES
-		public static bool UseMinimumTrainability { get; set; }
-		public static TrainabilityDef MinimumTrainability { get; set; }
+		public static bool UseMinimumTrainability { get; set; } = false;
+		public static TrainabilityDef MinimumTrainability { get; set; } = TrainabilityDefOf.None;
 		#endregion
 
 		#region CONSTRUCTORS

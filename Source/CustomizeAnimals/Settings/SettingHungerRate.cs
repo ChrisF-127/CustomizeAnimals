@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingHungerRate : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseHungerRateLimits { get; set; }
-		public static float MinimumHungerRate { get; set; }
-		public static float MaximumHungerRate { get; set; }
+		public static bool UseHungerRateLimits { get; set; } = false;
+		public static float MinimumHungerRate { get; set; } = DefaultMinimumGlobal;
+		public static float MaximumHungerRate { get; set; } = DefaultMaximumGlobal;
 
 		public const float DefaultMinimumGlobal = 0f;
 		public const float DefaultMaximumGlobal = 25f;

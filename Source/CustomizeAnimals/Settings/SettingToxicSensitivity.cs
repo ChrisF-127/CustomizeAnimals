@@ -12,9 +12,9 @@ namespace CustomizeAnimals.Settings
 	internal class SettingToxicResistance : NullableFloatSetting
 	{
 		#region PROPERTIES
-		public static bool UseLimits { get; set; }
-		public static float Minimum { get; set; }
-		public static float Maximum { get; set; }
+		public static bool UseLimits { get; set; } = false;
+		public static float Minimum { get; set; } = StatDefOf.ToxicResistance.minValue;
+		public static float Maximum { get; set; } = StatDefOf.ToxicResistance.maxValue;
 		#endregion
 
 		#region CONSTRUCTORS

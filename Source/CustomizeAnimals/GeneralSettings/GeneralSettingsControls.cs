@@ -132,7 +132,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipEggBodySizeMass".Translate(),
 				Settings.EggMassDependOnBodySize,
 				Settings.EggMassFactor,
-				Settings.DefaultEggMassFactor,
+				GeneralSettings.DefaultEggMassFactor,
 				ref EggMassFactorBuffer,
 				min: 1e-2f,
 				max: 1e2f);
@@ -148,7 +148,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipEggBodySizeNutrition".Translate(),
 				Settings.EggNutritionDependOnBodySize,
 				Settings.EggNutritionFactor,
-				Settings.DefaultEggNutritionFactor,
+				GeneralSettings.DefaultEggNutritionFactor,
 				ref EggNutritionFactorBuffer,
 				min: 1e-2f,
 				max: 1e2f);

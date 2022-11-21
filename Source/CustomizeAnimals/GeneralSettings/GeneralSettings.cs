@@ -16,11 +16,11 @@ namespace CustomizeAnimals.Settings
 		#region PROPERTIES
 		private TrainableDef RescueDef { get; set; }
 		public float DefaultRescueMinBodySize { get; private set; } = 0f;
-		public bool DisableRescueSizeLimit { get; set; }
+		public bool DisableRescueSizeLimit { get; set; } = false;
 
 		private TrainableDef HaulDef { get; set; }
 		public float DefaultHaulMinBodySize { get; private set; } = 0f;
-		public bool DisableHaulSizeLimit { get; set; }
+		public bool DisableHaulSizeLimit { get; set; } = false;
 
 		public bool IsTrainingDecayFactorModified => TrainingDecayFactor != DefaultTrainingDecayFactor;
 		public float DefaultTrainingDecayFactor { get; private set; } = 1f;
@@ -28,13 +28,13 @@ namespace CustomizeAnimals.Settings
 
 		public bool CarryingCapacityAffectsMassCapacity { get; set; } = false;
 
-		public float DefaultEggMassFactor => 1f / 2f; // Chicken: egg nutrition (0.15) / body size (0.3)
-		public float EggMassFactor { get; set; }
-		public bool EggMassDependOnBodySize { get; set; }
+		public const float DefaultEggMassFactor = 1f / 2f; // Chicken: egg nutrition (0.15) / body size (0.3)
+		public float EggMassFactor { get; set; } = DefaultEggMassFactor;
+		public bool EggMassDependOnBodySize { get; set; } = false;
 
-		public float DefaultEggNutritionFactor => 5f / 6f; // Chicken: egg mass (0.25) / body size (0.3)
-		public float EggNutritionFactor { get; set; }
-		public bool EggNutritionDependOnBodySize { get; set; }
+		public const float DefaultEggNutritionFactor = 5f / 6f; // Chicken: egg mass (0.25) / body size (0.3)
+		public float EggNutritionFactor { get; set; } = DefaultEggNutritionFactor;
+		public bool EggNutritionDependOnBodySize { get; set; } = false;
 		#endregion
 
 		#region PUBLIC METHODS
