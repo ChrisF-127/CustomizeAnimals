@@ -13,7 +13,7 @@ namespace CustomizeAnimals.Settings
 	{
 		#region PROPERTIES
 		public static bool UseGlobalList { get; set; } = false;
-		public static List<ThingDef> GlobalList { get; } = new List<ThingDef>();
+		public static List<ThingDef> GlobalList { get; set; } = new List<ThingDef>();
 		#endregion
 
 		#region CONSTRUCTORS
@@ -67,6 +67,7 @@ namespace CustomizeAnimals.Settings
 				foreach (var def in DefaultValue)
 					Value.Add(def);
 		}
+
 		public override bool IsModified() =>
 			IsModified(Value, DefaultValue);
 
@@ -79,6 +80,26 @@ namespace CustomizeAnimals.Settings
 				Value = value ?? new List<ThingDef>(DefaultValue);
 			}
 		}
+
+		public override void ResetGlobal()
+		{
+			UseGlobalList = false;
+			GlobalList.Clear();
+		}
+
+		public override void ExposeGlobal()
+		{
+			var useGlobal = UseGlobalList;
+			Scribe_Values.Look(ref useGlobal, "UseWillNeverEatGlobalList");
+			UseGlobalList = useGlobal;
+
+			var globalList = GlobalList;
+			Scribe_Collections.Look(ref globalList, "WillNeverEatGlobalList");
+			GlobalList = globalList ?? new List<ThingDef>();
+		}
+
+		public override bool IsGlobalUsed() =>
+			UseGlobalList;
 		#endregion
 	}
 }
