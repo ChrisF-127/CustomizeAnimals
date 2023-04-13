@@ -117,6 +117,7 @@
     <Compile Include="Controls\ControlFoodType.cs" />
     <Compile Include="Controls\ControlWildness.cs" />
     <Compile Include="Controls\ControlTemperature.cs" />
+    <Compile Include="Controls\SpecialControlGrowthTier.cs" />
     <Compile Include="Main\AnimalSettings.cs" />
     <Compile Include="Controls\SpecialControlShearable.cs" />
     <Compile Include="Controls\SpecialControlMilkable.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Controls\SpecialControlLifeStageAges.cs" />
     <Compile Include="GeneralSettings\GeneralSettingsControls.cs" />
     <Compile Include="Main\CustomizeAnimals.cs" />
+    <Compile Include="Main\CustomizeAnimalsUtility.cs" />
     <Compile Include="Main\CustomizeAnimals_ModSettings.cs" />
     <Compile Include="GeneralSettings\GeneralSettings.cs" />
     <Compile Include="Main\GlobalSettings.cs" />
@@ -161,6 +163,7 @@
     <Compile Include="Settings\SettingTemperature.cs" />
     <Compile Include="Settings\SettingRoamMtbDays.cs" />
     <Compile Include="Settings\SettingTrainability.cs" />
+    <Compile Include="Settings\SpecialSettingGrowthTier.cs" />
     <Compile Include="Settings\SpecialSettingShearable.cs" />
     <Compile Include="Settings\SpecialSettingMilkable.cs" />
     <Compile Include="Settings\SpecialSettingEggLayer.cs" />

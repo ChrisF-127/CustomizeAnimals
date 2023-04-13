@@ -12,7 +12,7 @@ namespace CustomizeAnimals
 	internal class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
-		public bool IsHuman => Animal == ThingDefOf.Human;
+		public bool IsHumanLike => Animal.race.Humanlike;
 		public ThingDef Animal { get; }
 		public Dictionary<string, ISettingWithGlobal> GeneralSettings { get; } = new Dictionary<string, ISettingWithGlobal>();
 		public Dictionary<string, ISetting> ReproductionSettings { get; } = new Dictionary<string, ISetting>();
@@ -43,12 +43,12 @@ namespace CustomizeAnimals
 		public void Initialize()
 		{
 			// General
-			if (!IsHuman)
+			if (!IsHumanLike)
 				GeneralSettings.Add("DrawSize", new SettingDrawSize(Animal));
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
-			if (!IsHuman)
+			if (!IsHumanLike)
 				GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
 			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
@@ -73,7 +73,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("AttackPowerModifier", new SettingAttackPowerModifier(Animal));
 			GeneralSettings.Add("AttackCooldownModifier", new SettingAttackCooldownModifier(Animal));
 
-			if (!IsHuman)
+			if (!IsHumanLike)
 			{
 				GeneralSettings.Add("Trainability", new SettingTrainability(Animal));
 				GeneralSettings.Add("FilthRate", new SettingFilthRate(Animal));
@@ -98,10 +98,14 @@ namespace CustomizeAnimals
 			ReproductionSettings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
 			ReproductionSettings.Add("LitterSizeCurve", new SettingLitterSizeCurve(Animal));
 			ReproductionSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));
-			if (!IsHuman)
+			if (!IsHumanLike)
 			{
 				ReproductionSettings.Add("MateMtbHours", new SettingMateMtbHours(Animal));
 				ReproductionSettings.Add("EggLayer", new SpecialSettingEggLayer(Animal));
+			}
+			else
+			{
+				ReproductionSettings.Add("GrowthTier", new SpecialSettingGrowthTier(Animal));
 			}
 
 			// Check Reproduction
@@ -116,7 +120,7 @@ namespace CustomizeAnimals
 			}
 
 			// Productivity
-			if (!IsHuman)
+			if (!IsHumanLike)
 			{
 				ProductivitySettings.Add("Milkable", new SpecialSettingMilkable(Animal));
 				ProductivitySettings.Add("Shearable", new SpecialSettingShearable(Animal));

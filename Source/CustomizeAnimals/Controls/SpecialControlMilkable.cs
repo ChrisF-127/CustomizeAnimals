@@ -21,7 +21,7 @@ namespace CustomizeAnimals.Controls
 		#region METHODS
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			if (animalSettings.IsHuman)
+			if (animalSettings.IsHumanLike)
 				return 0f;
 
 			var setting = (SpecialSettingMilkable)animalSettings.ProductivitySettings["Milkable"];

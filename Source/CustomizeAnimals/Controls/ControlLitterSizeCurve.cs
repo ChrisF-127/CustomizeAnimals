@@ -18,7 +18,7 @@ namespace CustomizeAnimals.Controls
 		#region OVERRIDES
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
-			if (!animalSettings.IsHuman)
+			if (!animalSettings.IsHumanLike)
 			{
 				var eggLayer = (SpecialSettingEggLayer)animalSettings.ReproductionSettings["EggLayer"];
 				if (eggLayer.IsEggLayer)

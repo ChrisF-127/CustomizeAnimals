@@ -46,6 +46,9 @@ namespace CustomizeAnimals.Controls
 		public static float ConvertToPercent(float value) =>
 			value * 100f;
 
+		public static float ConvertYearToDays(float value) =>
+			value * 60f;
+
 		public static string ListToString<T>(string seperator, IEnumerable<T> list, Func<T, string> converter)
 		{
 			string output = "";
@@ -264,13 +267,14 @@ namespace CustomizeAnimals.Controls
 			// Label
 			if (isModified)
 				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			Widgets.Label(new Rect(0, offsetY, controlWidth - 8, SettingsRowHeight), label);
 			GUI.color = OriColor;
 
 			// Setting
 			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
 			Widgets.TextFieldNumeric(textFieldRect, ref value, ref valueBuffer, min, max);
-			DrawTooltip(textFieldRect, tooltip);
+			if (!string.IsNullOrWhiteSpace(tooltip))
+				DrawTooltip(textFieldRect, tooltip);
 
 			// Unit
 			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
@@ -418,6 +422,46 @@ namespace CustomizeAnimals.Controls
 
 			// Output
 			return value;
+		}
+
+		protected void CreateArraySetting<T>(
+			ref float totalHeight,
+			ref float viewWidth,
+			string label,
+			string tooltip,
+			T[] array,
+			T[] defaultArray,
+			ref string[] buffer,
+			int startingIndex = 0,
+			string[] sublabels = null,
+			ConvertDelegate<T> convert = null,
+			string unit = null)
+			where T : struct, IComparable
+		{
+			Widgets.Label(new Rect(16f, totalHeight, viewWidth, SettingsRowHeight), label);
+			totalHeight += SettingsRowHeight;
+
+			var length = Mathf.Min(array.Length, defaultArray.Length);
+			if (buffer == null)
+				buffer = new string[length];
+
+			for (int i = startingIndex; i < length; i++)
+			{
+				Text.Anchor = TextAnchor.MiddleRight;
+				array[i] = CreateNumeric(
+					totalHeight,
+					viewWidth,
+					i < sublabels?.Length ? sublabels[i] : i.ToString(),
+					tooltip,
+					!array[i].Equals(defaultArray[i]),
+					array[i],
+					defaultArray[i],
+					ref buffer[i],
+					convert: convert,
+					unit: unit);
+				totalHeight += SettingsRowHeight;
+			}
+			Text.Anchor = TextAnchor.MiddleLeft;
 		}
 
 

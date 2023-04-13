@@ -79,15 +79,12 @@ namespace CustomizeAnimals.Controls
 					Setting.MinAge,
 					Setting.DefaultMinAge,
 					ref MinAgeBuffer,
-					convert: Convert,
+					convert: ConvertYearToDays,
 					unit: "d");
 				offsetY += SettingsRowHeight;
 
 				return offsetY - oriOffsetY;
 			}
-
-			private float Convert(float value) =>
-				value * 60f;
 			#endregion
 		}
 		#endregion

@@ -10,6 +10,7 @@ using UnityEngine;
 using Mono.Cecil.Cil;
 using System.Reflection.Emit;
 using System.Reflection;
+using CustomizeAnimals.Settings;
 
 namespace CustomizeAnimals
 {
@@ -23,11 +24,12 @@ namespace CustomizeAnimals
 			harmony.Patch(
 				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks)),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.TrainableUtility_DegradationPeriodTicks_PostFix)));
-
 			harmony.Patch(
 				AccessTools.Method(typeof(MassUtility), nameof(MassUtility.Capacity)),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.MassUtility_Capacity_PostFix)));
-
+			harmony.Patch(
+				AccessTools.Method(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.BirthdayBiological)),
+				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.Pawn_AgeTracker_BirthdayBiological_Transpiler)));
 			harmony.Patch(
 				AccessTools.Method(typeof(Graphic_Multi), nameof(Graphic_Multi.Init)),
 				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.Graphic_Multi_Init_Transpiler)));
@@ -43,6 +45,45 @@ namespace CustomizeAnimals
 		{
 			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && AnimalSettings.IsValidAnimal(p.def))
 				__result *= p.def.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
+		}
+
+		public static IEnumerable<CodeInstruction> Pawn_AgeTracker_BirthdayBiological_Transpiler(IEnumerable<CodeInstruction> instructions)
+		{
+			var patched = false;
+			var list = instructions.ToList();
+			for (int i = 0; i < list.Count - 5; i++)
+			{
+				//  0 -- ldc.i4.1 NULL
+				//    ++ call static System.Int32[] CustomizeAnimals.Settings.SpecialSettingGrowthTier::get_TraitGainsPerTier()
+				//    ++ ldarg.0 NULL
+				//    ++ call System.Int32 Verse.Pawn_AgeTracker::get_GrowthTier()
+				//    ++ ldelem.i4 NULL
+				//  1    ldloca.s 15 (System.Nullable`1[Verse.PawnGenerationRequest])
+				//  2    initobj System.Nullable`1[Verse.PawnGenerationRequest]
+				//  3    ldloc.s 15 (System.Nullable`1[Verse.PawnGenerationRequest])
+				//  4    ldc.i4.1 NULL
+				//  5    call static System.Collections.Generic.List`1<RimWorld.Trait> Verse.PawnGenerator::GenerateTraitsFor(...)
+				if (   list[i + 0].opcode == OpCodes.Ldc_I4_1
+					&& list[i + 1].opcode == OpCodes.Ldloca_S 
+					&& list[i + 2].opcode == OpCodes.Initobj 
+					&& list[i + 3].opcode == OpCodes.Ldloc_S 
+					&& list[i + 4].opcode == OpCodes.Ldc_I4_1
+					&& list[i + 5].opcode == OpCodes.Call
+					&& list[i + 5].operand is MethodInfo methodInfo
+					&& methodInfo == AccessTools.Method(typeof(PawnGenerator), nameof(PawnGenerator.GenerateTraitsFor)))
+				{
+					list.Insert(i++, new CodeInstruction(OpCodes.Call, AccessTools.PropertyGetter(typeof(SpecialSettingGrowthTier), nameof(SpecialSettingGrowthTier.TraitGainsPerTier))));
+					list.Insert(i++, new CodeInstruction(OpCodes.Ldarg_0));
+					list.Insert(i++, new CodeInstruction(OpCodes.Call, AccessTools.PropertyGetter(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.GrowthTier))));
+					list[i].opcode = OpCodes.Ldelem_I4;
+					patched = true;
+					break;
+				}
+			}
+
+			if (!patched)
+				Log.Error($"{nameof(CustomizeAnimals)}: failed to apply '{nameof(Pawn_AgeTracker_BirthdayBiological_Transpiler)}'-patch");
+			return list;
 		}
 
 		public static IEnumerable<CodeInstruction> Graphic_Multi_Init_Transpiler(IEnumerable<CodeInstruction> instructions)
@@ -92,7 +133,6 @@ namespace CustomizeAnimals
 
 			if (!patched)
 				Log.Error($"{nameof(CustomizeAnimals)}: failed to apply '{nameof(Graphic_Multi_Init_Transpiler)}'-patch");
-
 			return list;
 		}
 

@@ -69,6 +69,7 @@ namespace CustomizeAnimals
 			new ControlLitterSizeCurve(),
 			new SpecialControlEggLayer(),
 			new SpecialControlLifeStageAges(),
+			new SpecialControlGrowthTier(),
 		};
 		private List<BaseControl> ProductivityControlsList { get; } = new List<BaseControl>
 		{
@@ -541,7 +542,7 @@ namespace CustomizeAnimals
 			Text.Anchor = TextAnchor.MiddleLeft;
 
 			// Settings are only applicable for non-human animals
-			if (SelectedAnimalSettings?.IsHuman == true)
+			if (SelectedAnimalSettings?.IsHumanLike == true)
 			{
 				Text.Anchor = TextAnchor.MiddleCenter;
 				Widgets.Label(new Rect(2, totalHeight + 2, viewWidth - 4, SettingsRowHeight - 4), $"({"SY_CA.NotApplicable".Translate()})");
