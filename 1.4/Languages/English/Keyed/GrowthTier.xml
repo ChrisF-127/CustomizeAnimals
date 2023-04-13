@@ -3,7 +3,7 @@
 	<SY_CA.GrowthTier>Growth Tier</SY_CA.GrowthTier>
 	
 	<SY_CA.GrowthTierPointsRequirements>Points required for Growth Tier</SY_CA.GrowthTierPointsRequirements>
-	<SY_CA.TooltipGrowthTierPointsRequirements>Amount of points required to reach this growth tier</SY_CA.TooltipGrowthTierPointsRequirements>
+	<SY_CA.TooltipGrowthTierPointsRequirements>Points required to reach this growth tier</SY_CA.TooltipGrowthTierPointsRequirements>
 	
 	<SY_CA.PassionGainsPerTier>Passions gained at Growth Tier</SY_CA.PassionGainsPerTier>
 	<SY_CA.TooltipPassionGainsPerTier>Passions gained at this growth tier</SY_CA.TooltipPassionGainsPerTier>

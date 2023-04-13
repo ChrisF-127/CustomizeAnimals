@@ -9,13 +9,13 @@ namespace CustomizeAnimals
 {
 	internal static class CustomizeAnimalsUtility
 	{
-		public static void SetFrom<T>(this T[] to, T[] from)
+		public static void SetFrom<T>(this T[] to, T[] from, int toOffset = 0, int fromOffset = 0)
 			where T : IComparable
 		{
 			if (from == null || to == null)
 				return;
-			for (int i = 0; i < from.Length && i < to.Length; i++)
-				to[i] = from[i];
+			for (int i = toOffset, j = fromOffset; i < to.Length && j < from.Length; i++, j++)
+				to[i] = from[j];
 		}
 
 		public static bool IsDifferent<T>(this T[] a, T[] b)

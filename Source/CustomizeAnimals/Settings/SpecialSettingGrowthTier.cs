@@ -33,8 +33,6 @@ namespace CustomizeAnimals.Settings
 		public static int[] TraitChoicesPerTier { get; set; }
 
 		// Applied indirectly via Pawn_AgeTracker.growthMomentAges instead of GrowthUtility.GrowthMomentAges!
-		public static int DefaultGrowthMomentAgesBaby { get; private set; }
-		public static int GrowthMomentAgesBaby { get; set; }
 		public static int[] DefaultGrowthMomentAges { get; private set; }
 		public static int[] GrowthMomentAges { get; set; }
 		#endregion
@@ -49,7 +47,6 @@ namespace CustomizeAnimals.Settings
 			DefaultPassionChoicesPerTier= PassionChoicesPerTier.ToArray();
 			DefaultTraitGainsPerTier = TraitGainsPerTier.ToArray();
 			DefaultTraitChoicesPerTier = TraitChoicesPerTier.ToArray();
-			DefaultGrowthMomentAgesBaby = GrowthMomentAgesBaby;
 			DefaultGrowthMomentAges = GrowthMomentAges.ToArray();
 		}
 		#endregion
@@ -65,20 +62,27 @@ namespace CustomizeAnimals.Settings
 			PassionChoicesPerTier = GrowthUtility.PassionChoicesPerTier.ToArray();
 			TraitGainsPerTier = GrowthUtility.TraitGainsPerTier.ToArray();
 			TraitChoicesPerTier = GrowthUtility.TraitChoicesPerTier.ToArray();
-			GrowthMomentAgesBaby = 3; // this value is hardcoded (Pawn_AgeTracker.TrySimulateGrowthPoints)
-			GrowthMomentAges = GrowthUtility.GrowthMomentAges.ToArray();
+
+			GrowthMomentAges = new int[GrowthUtility.GrowthMomentAges.Length + 1];
+			GrowthMomentAges[0] = 3; // this value is hardcoded (Pawn_AgeTracker.TrySimulateGrowthPoints)
+			GrowthMomentAges.SetFrom(GrowthUtility.GrowthMomentAges, toOffset: 1); // skip first (Baby)!
 		}
 		public override void SetValue()
 		{
 			if (!Animal.race.Humanlike)
 				return;
 
+			if (GrowthTierPointsRequirements[0] != 0) // always has to be 0
+			{
+				Log.Error($"{nameof(CustomizeAnimals)}: Unexpected value for {nameof(GrowthTierPointsRequirements)}[0]: '{GrowthTierPointsRequirements[0]}', should be 0; correcting to 0 now");
+				GrowthTierPointsRequirements[0] = 0;
+			}
 			GrowthUtility.GrowthTierPointsRequirements.SetFrom(GrowthTierPointsRequirements);
 			GrowthUtility.PassionGainsPerTier.SetFrom(PassionGainsPerTier);
 			GrowthUtility.PassionChoicesPerTier.SetFrom(PassionChoicesPerTier);
 			GrowthUtility.TraitGainsPerTier.SetFrom(TraitGainsPerTier);
 			GrowthUtility.TraitChoicesPerTier.SetFrom(TraitChoicesPerTier);
-			ApplyGrowthMomentAges(GrowthMomentAgesBaby, GrowthMomentAges);
+			ApplyGrowthMomentAges(GrowthMomentAges);
 		}
 
 		public override void Reset()
@@ -88,7 +92,7 @@ namespace CustomizeAnimals.Settings
 			PassionChoicesPerTier.SetFrom(DefaultPassionChoicesPerTier);
 			TraitGainsPerTier.SetFrom(DefaultTraitGainsPerTier);
 			TraitChoicesPerTier.SetFrom(DefaultTraitChoicesPerTier);
-			ApplyGrowthMomentAges(DefaultGrowthMomentAgesBaby, DefaultGrowthMomentAges);
+			ApplyGrowthMomentAges(DefaultGrowthMomentAges);
 		}
 		public override bool IsModified()
 		{
@@ -97,7 +101,6 @@ namespace CustomizeAnimals.Settings
 				|| PassionChoicesPerTier.IsDifferent(DefaultPassionChoicesPerTier)
 				|| TraitGainsPerTier.IsDifferent(DefaultTraitGainsPerTier)
 				|| TraitChoicesPerTier.IsDifferent(DefaultTraitChoicesPerTier)
-				|| GrowthMomentAgesBaby != DefaultGrowthMomentAgesBaby
 				|| GrowthMomentAges.IsDifferent(DefaultGrowthMomentAges))
 				return true;
 			return false;
@@ -135,15 +138,18 @@ namespace CustomizeAnimals.Settings
 				TraitChoicesPerTier,
 				DefaultTraitChoicesPerTier);
 
-			var intValue = GrowthMomentAgesBaby;
-			Scribe_Values.Look(ref intValue, "GrowthMomentAgesBaby", DefaultGrowthMomentAgesBaby);
-			GrowthMomentAgesBaby = intValue;
-
 			CustomizeAnimalsUtility.ExposeArray(
 				"GrowthMomentAges",
 				() => GrowthMomentAges.IsDifferent(DefaultGrowthMomentAges),
 				GrowthMomentAges,
-				DefaultGrowthMomentAges);
+				DefaultGrowthMomentAges,
+				new string[]
+				{
+					"Baby",
+					"Child",
+					"Teen",
+					"Adult",
+				});
 		}
 		#endregion
 
@@ -151,17 +157,18 @@ namespace CustomizeAnimals.Settings
 		// Growth Moments are not set via GrowthUtility.GrowthMomentAges,
 		//  but use the Pawn_AgeTracker.growthMomentAges instead for some reason.
 		//  So, that list needs to be adjusted to actually apply the changes.
-		private void ApplyGrowthMomentAges(int babyMoment, int[] otherMoments)
+		private void ApplyGrowthMomentAges(int[] moments)
 		{
-			GrowthUtility.GrowthMomentAges.SetFrom(GrowthMomentAges);
+			GrowthUtility.GrowthMomentAges.SetFrom(GrowthMomentAges, fromOffset: 1); // skip first (Baby)!
 
 			if (Pawn_AgeTracker.growthMomentAges == null)
-				Pawn_AgeTracker.growthMomentAges = new List<int>(new int[otherMoments.Length + 1]);
-
-			var growthMomentAges = Pawn_AgeTracker.growthMomentAges;
-			growthMomentAges[0] = babyMoment;
-			for (int i = 0; i < otherMoments.Length && i + 1 < growthMomentAges.Count; i++)
-				growthMomentAges[i + 1] = otherMoments[i];
+				Pawn_AgeTracker.growthMomentAges = new List<int>(moments);
+			else
+			{
+				var growthMomentAges = Pawn_AgeTracker.growthMomentAges;
+				for (int i = 0; i < moments.Length && i < growthMomentAges.Count; i++)
+					growthMomentAges[i] = moments[i];
+			}
 		}
 		#endregion
 	}

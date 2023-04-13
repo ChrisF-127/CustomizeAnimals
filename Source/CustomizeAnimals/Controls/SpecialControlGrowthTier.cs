@@ -90,11 +90,21 @@ namespace CustomizeAnimals.Controls
 				ref TraitChoicesPerTierBuffers);
 
 			// Growth Moment Ages
-			CreateGrowthMomentSetting(
+			CreateArraySetting(
 				ref totalHeight,
 				ref viewWidth,
 				"SY_CA.GrowthMomentAges".Translate(),
 				"SY_CA.TooltipGrowthMomentAges".Translate(),
+				SpecialSettingGrowthTier.GrowthMomentAges,
+				SpecialSettingGrowthTier.DefaultGrowthMomentAges,
+				ref GrowthMomentAgesBuffers,
+				sublabels: new string[]
+				{
+					"SY_CA.GrowthMomentAgesBaby".Translate(),
+					"SY_CA.GrowthMomentAgesChild".Translate(),
+					"SY_CA.GrowthMomentAgesTeen".Translate(),
+					"SY_CA.GrowthMomentAgesAdult".Translate(),
+				},
 				convert: y => y * 60,
 				unit: "d");
 
@@ -109,68 +119,6 @@ namespace CustomizeAnimals.Controls
 			TraitGainsPerTierBuffers = null;
 			TraitChoicesPerTierBuffers = null;
 			GrowthMomentAgesBuffers = null;
-		}
-
-		private void CreateGrowthMomentSetting(
-			ref float totalHeight, 
-			ref float viewWidth, 
-			string label, 
-			string tooltip, 
-			ConvertDelegate<int> convert = null,
-			string unit = null)
-		{
-			var array = SpecialSettingGrowthTier.GrowthMomentAges;
-			var defaultArray = SpecialSettingGrowthTier.DefaultGrowthMomentAges;
-			var length = Mathf.Min(array.Length, defaultArray.Length);
-
-			var sublabels = new string[]
-			{
-				"SY_CA.GrowthMomentAgesBaby".Translate(),
-				"SY_CA.GrowthMomentAgesChild".Translate(),
-				"SY_CA.GrowthMomentAgesTeen".Translate(),
-				"SY_CA.GrowthMomentAgesAdult".Translate(),
-			};
-
-			if (GrowthMomentAgesBuffers == null)
-				GrowthMomentAgesBuffers = new string[length + 1];
-
-			// Label
-			Widgets.Label(new Rect(16f, totalHeight, viewWidth, SettingsRowHeight), label);
-			totalHeight += SettingsRowHeight;
-
-			// Baby
-			Text.Anchor = TextAnchor.MiddleRight;
-			SpecialSettingGrowthTier.GrowthMomentAgesBaby = CreateNumeric(
-				totalHeight,
-				viewWidth,
-				sublabels[0],
-				tooltip,
-				SpecialSettingGrowthTier.GrowthMomentAgesBaby != SpecialSettingGrowthTier.DefaultGrowthMomentAgesBaby,
-				SpecialSettingGrowthTier.GrowthMomentAgesBaby,
-				SpecialSettingGrowthTier.DefaultGrowthMomentAgesBaby,
-				ref GrowthMomentAgesBuffers[0],
-				convert: convert,
-				unit: unit);
-			totalHeight += SettingsRowHeight;
-
-			// Child, Teen & Adult
-			for (int i = 0; i < length; i++)
-			{
-				Text.Anchor = TextAnchor.MiddleRight;
-				array[i] = CreateNumeric(
-					totalHeight,
-					viewWidth,
-					i < sublabels.Length ? sublabels[i + 1] : "ERROR: Unknown Growth Moment",
-					tooltip,
-					array[i] != defaultArray[i],
-					array[i],
-					defaultArray[i],
-					ref GrowthMomentAgesBuffers[i + 1],
-					convert: convert,
-					unit: unit);
-				totalHeight += SettingsRowHeight;
-			}
-			Text.Anchor = TextAnchor.MiddleLeft;
 		}
 		#endregion
 	}
