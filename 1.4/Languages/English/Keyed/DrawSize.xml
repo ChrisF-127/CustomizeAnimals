@@ -4,5 +4,5 @@
 	<SY_CA.TooltipDrawSize>Changing the draw size requires restarting the game to take effect</SY_CA.TooltipDrawSize>
 	
 	<SY_CA.DrawSizeGlobal>Draw size</SY_CA.DrawSizeGlobal>
-	<SY_CA.TooltipHealthScaleGlobal>Changing the draw size requires restarting the game to take effect</SY_CA.TooltipHealthScaleGlobal>
+	<SY_CA.TooltipDrawSizeGlobal>Changing the draw size requires restarting the game to take effect</SY_CA.TooltipDrawSizeGlobal>
 </LanguageData>

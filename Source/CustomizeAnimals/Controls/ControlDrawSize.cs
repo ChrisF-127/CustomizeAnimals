@@ -40,7 +40,7 @@ namespace CustomizeAnimals.Controls
 				offsetY,
 				viewWidth,
 				"SY_CA.DrawSizeGlobal".Translate(),
-				"SY_CA.TooltipHealthScaleGlobal".Translate(),
+				"SY_CA.TooltipDrawSizeGlobal".Translate(),
 				SettingDrawSize.UseGlobal,
 				SettingDrawSize.Global,
 				SettingDrawSize.GlobalDefault,
