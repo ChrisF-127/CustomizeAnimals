@@ -43,7 +43,7 @@ namespace CustomizeAnimals
 
 		public static void MassUtility_Capacity_PostFix(Pawn p, ref float __result)
 		{
-			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && AnimalSettings.IsValidAnimal(p.def))
+			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && (p.def.IsAnimal() || p.def.IsHumanLike()))
 				__result *= p.def.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
 		}
 

@@ -123,7 +123,7 @@ namespace CustomizeAnimals
 			Animals = new List<AnimalSettings>();
 			foreach (var thingDef in DefDatabase<ThingDef>.AllDefs)
 			{
-				if (AnimalSettings.IsValidAnimal(thingDef))
+				if (thingDef.IsAnimal())
 					Animals.Add(new AnimalSettings(thingDef));
 			}
 			Animals.SortBy((a) => a.Animal.label);

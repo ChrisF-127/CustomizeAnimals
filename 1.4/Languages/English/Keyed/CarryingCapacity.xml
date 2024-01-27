@@ -17,5 +17,5 @@ Will not affect mass capacity for caravans unless the setting for it is enabled 
 	<SY_CA.AffectsMassCapacity>affect caravan mass capacity</SY_CA.AffectsMassCapacity>
 	<SY_CA.TooltipAffectsMassCapacity>Make carrying capacity affect caravan mass capacity for all animals
 Base carrying capacity value for animals is 75, higher increases the mass that can be carried, lower will decreases it
-(This only matters for pack animals)</SY_CA.TooltipAffectsMassCapacity>
+(This only matters for pack animals + humans)</SY_CA.TooltipAffectsMassCapacity>
 </LanguageData>

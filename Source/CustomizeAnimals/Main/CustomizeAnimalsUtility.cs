@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -47,8 +48,10 @@ namespace CustomizeAnimals
 			}
 		}
 
-		public static bool IsAnimal(this ThingDef animal) =>
-			!animal.IsHumanLike();
+		public static bool IsAnimal(this ThingDef thingDef) =>
+			!thingDef.IsHumanLike()
+			&& thingDef.thingCategories?.Contains(ThingCategoryDefOf.Animals) == true   // ANIMALS should have thing category "Animals"
+			&& thingDef.race?.trainability != null;                                     // all ANIMALS have trainability, assuming that everything else is NOT an ANIMAL
 		public static bool IsHumanLike(this ThingDef animal) =>
 			animal?.race?.Humanlike == true;
 	}

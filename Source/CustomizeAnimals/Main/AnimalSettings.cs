@@ -173,11 +173,6 @@ namespace CustomizeAnimals
 					return true;
 			return false;
 		}
-
-		public static bool IsValidAnimal(ThingDef thingDef) =>
-			thingDef.thingCategories?.Contains(ThingCategoryDefOf.Animals) == true	// ANIMALS should have thing category "Animals"
-			&& thingDef.race != null												// all ANIMALS should have a race
-			&& thingDef.race.trainability != null;									// all ANIMALS have trainability, assuming that everything else is NOT an ANIMAL
 		#endregion
 
 		#region INTERFACES
