@@ -25,14 +25,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.MarketValue, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.MarketValue, modifier: UseGlobalModifier ? GlobalModifier : 1f);
+			SetStat(StatDefOf.MarketValue, modifier: Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 
 		public override void ExposeData()
 		{

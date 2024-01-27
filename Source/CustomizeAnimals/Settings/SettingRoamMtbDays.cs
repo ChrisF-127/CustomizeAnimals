@@ -24,9 +24,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -37,7 +34,8 @@ namespace CustomizeAnimals.Settings
 			if (Animal?.race != null)
 			{
 				var oldValue = Animal.race.roamMtbDays;
-				var newValue = UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? MinimumRoamMtbDays > Value ? MinimumRoamMtbDays : Value : null : Value > 0 ? Value : null; // don't ask.
+				var newValue = Animal.IsAnimal() && UseMinimumRoamMtbDays ? MinimumRoamMtbDays > 0 ? MinimumRoamMtbDays > Value ? 
+					MinimumRoamMtbDays : Value : null : Value > 0 ? Value : null; // don't ask.
 				if (oldValue == null && newValue != null || oldValue != null && newValue == null)
 					AnimalPenUtility.ResetStaticData();
 				Animal.race.roamMtbDays = newValue;

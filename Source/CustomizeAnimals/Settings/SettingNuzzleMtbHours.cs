@@ -28,9 +28,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -46,7 +43,7 @@ namespace CustomizeAnimals.Settings
 			if (race != null)
 			{
 				var value = Value;
-				if (UseNuzzleMtbHoursLimits)
+				if (Animal.IsAnimal() && UseNuzzleMtbHoursLimits)
 				{
 					// If Minimum is -1, disable nuzzling for all animals
 					if (MinimumNuzzleMtbHours < 0f)

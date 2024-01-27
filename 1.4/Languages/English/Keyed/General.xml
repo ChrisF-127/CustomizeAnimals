@@ -3,7 +3,7 @@
 	<SY_CA.SelectAnimalToCustomize>Select animal to customize:</SY_CA.SelectAnimalToCustomize>
 
 	<SY_CA.GlobalSettings>Global settings</SY_CA.GlobalSettings>
-	<SY_CA.GlobalSettingsSubtitle>Modifies all animals</SY_CA.GlobalSettingsSubtitle>
+	<SY_CA.GlobalSettingsSubtitle>Modifies all animals - except Humans</SY_CA.GlobalSettingsSubtitle>
 	<SY_CA.GlobalSettingsResetAll>Reset all</SY_CA.GlobalSettingsResetAll>
 	<SY_CA.TooltipGlobalSettings>Allows modifying all animals at once</SY_CA.TooltipGlobalSettings>
 	<SY_CA.TooltipUseGlobal>Apply</SY_CA.TooltipUseGlobal>

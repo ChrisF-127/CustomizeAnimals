@@ -22,9 +22,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -38,7 +35,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.manhunterOnTameFailChance = UseLimits ? Mathf.Clamp(Value, Minimum, Maximum) : Value;
+				race.manhunterOnTameFailChance = Animal.IsAnimal() && UseLimits ? Mathf.Clamp(Value, Minimum, Maximum) : Value;
 		}
 
 		public override void ExposeData()
@@ -84,9 +81,6 @@ namespace CustomizeAnimals.Settings
 		#region CONSTRUCTORS
 		public SettingManhunterOnDamage(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
-		#endregion
-
-		#region PUBLIC METHODS
 		#endregion
 
 		#region INTERFACES

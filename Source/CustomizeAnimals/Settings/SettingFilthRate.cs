@@ -23,14 +23,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.FilthRate, false);
 		public override void SetValue() =>
-			SetStat(StatDefOf.FilthRate, UseMaximumFilthRate, 0f, MaximumFilthRate);
+			SetStat(StatDefOf.FilthRate, Animal.IsAnimal() && UseMaximumFilthRate, 0f, MaximumFilthRate);
 
 		public override void ExposeData()
 		{

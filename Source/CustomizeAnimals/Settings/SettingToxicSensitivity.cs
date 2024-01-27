@@ -22,14 +22,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.ToxicResistance, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.ToxicResistance, UseLimits, Minimum, Maximum);
+			SetStat(StatDefOf.ToxicResistance, Animal.IsAnimal() && UseLimits, Minimum, Maximum);
 
 		public override void ExposeData()
 		{

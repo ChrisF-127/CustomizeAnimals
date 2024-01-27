@@ -29,7 +29,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.ComfyTemperatureMax, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.ComfyTemperatureMax, UseMaxTempLimits, MinimumMaxTemp, MaximumMaxTemp);
+			SetStat(StatDefOf.ComfyTemperatureMax, Animal.IsAnimal() && UseMaxTempLimits, MinimumMaxTemp, MaximumMaxTemp);
 
 		public override void ExposeData()
 		{
@@ -105,7 +105,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.ComfyTemperatureMin, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.ComfyTemperatureMin, UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
+			SetStat(StatDefOf.ComfyTemperatureMin, Animal.IsAnimal() && UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
 
 		public override void ExposeData()
 		{

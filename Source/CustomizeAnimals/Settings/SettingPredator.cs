@@ -11,15 +11,9 @@ namespace CustomizeAnimals.Settings
 {
 	internal class SettingPredator : BaseSetting<bool>
 	{
-		#region PROPERTIES
-		#endregion
-
 		#region CONSTRUCTORS
 		public SettingPredator(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{ }
-		#endregion
-
-		#region PUBLIC METHODS
 		#endregion
 
 		#region INTERFACES

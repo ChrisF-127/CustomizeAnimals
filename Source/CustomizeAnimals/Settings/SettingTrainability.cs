@@ -41,7 +41,7 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue()
 		{
 			if (Animal?.race != null)
-				Animal.race.trainability = UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
+				Animal.race.trainability = Animal.IsAnimal() && UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
 		}
 
 		public override void ExposeData()

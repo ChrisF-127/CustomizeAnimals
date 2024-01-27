@@ -25,9 +25,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -41,7 +38,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.gestationPeriodDays = Value * (UseGlobalModifier ? GlobalModifier : 1f);
+				race.gestationPeriodDays = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
 		public override void ExposeData()

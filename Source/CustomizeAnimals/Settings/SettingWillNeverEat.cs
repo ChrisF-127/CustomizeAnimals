@@ -52,7 +52,7 @@ namespace CustomizeAnimals.Settings
 				if (Value.Count > 0)
 					foreach (var value in Value)
 						output.Add(value);
-				if (UseGlobalList && GlobalList.Count > 0)
+				if (Animal.IsAnimal() && UseGlobalList && GlobalList.Count > 0)
 					foreach (var global in GlobalList)
 						if (!output.Contains(global))
 							output.Add(global);

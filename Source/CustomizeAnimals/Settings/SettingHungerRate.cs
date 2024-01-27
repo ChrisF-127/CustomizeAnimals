@@ -25,9 +25,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -44,7 +41,7 @@ namespace CustomizeAnimals.Settings
 			{
 				if (Value is float value)
 				{
-					if (UseHungerRateLimits)
+					if (Animal.IsAnimal() && UseHungerRateLimits)
 						value = Mathf.Clamp(value, MinimumHungerRate, MaximumHungerRate);
 					race.baseHungerRate = value;
 				}

@@ -33,7 +33,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.LeatherAmount, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.LeatherAmount, modifier: UseGlobalModifier ? GlobalModifier : 1f);
+			SetStat(StatDefOf.LeatherAmount, modifier: Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 
 		public override void ExposeData()
 		{

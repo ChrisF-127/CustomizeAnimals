@@ -25,14 +25,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.MoveSpeed, true);
 		public override void SetValue() => 
-			SetStat(StatDefOf.MoveSpeed, modifier: UseGlobalModifier ? GlobalModifier : 1f);
+			SetStat(StatDefOf.MoveSpeed, modifier: Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 
 		public override void ExposeData()
 		{

@@ -28,9 +28,6 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue()
 		{
@@ -44,7 +41,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.lifeExpectancy = Value * (UseGlobalModifier ? GlobalModifier : 1f);
+				race.lifeExpectancy = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
 		public override void ExposeData()

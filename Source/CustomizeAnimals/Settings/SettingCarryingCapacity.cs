@@ -22,14 +22,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.CarryingCapacity, true);
 		public override void SetValue() =>
-			SetStat(StatDefOf.CarryingCapacity, UseLimits, Minimum, Maximum);
+			SetStat(StatDefOf.CarryingCapacity, Animal.IsAnimal() && UseLimits, Minimum, Maximum);
 
 		public override void ExposeData()
 		{

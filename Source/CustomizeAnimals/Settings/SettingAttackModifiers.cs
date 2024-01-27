@@ -38,7 +38,7 @@ namespace CustomizeAnimals.Settings
 			var tools = Animal?.tools;
 			if (tools?.Count > 0)
 			{
-				var global = UseGlobal ? Global : 1f;
+				var global = Animal.IsAnimal() && UseGlobal ? Global : 1f;
 
 				foreach (var tool in tools)
 					tool.power *= (Value / _previousValue) * (global / _previousGlobalValue);
@@ -106,7 +106,7 @@ namespace CustomizeAnimals.Settings
 			var tools = Animal?.tools;
 			if (tools?.Count > 0)
 			{
-				var global = UseGlobal ? Global : 1f;
+				var global = Animal.IsAnimal() && UseGlobal ? Global : 1f;
 
 				foreach (var tool in tools)
 					tool.cooldownTime *= (Value / _previousValue) * (global / _previousGlobalValue);

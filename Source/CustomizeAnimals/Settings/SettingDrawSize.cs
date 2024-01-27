@@ -38,7 +38,7 @@ namespace CustomizeAnimals.Settings
 			var pawnKindDefs = DefDatabase<PawnKindDef>.AllDefs.Where(kd => kd.race == Animal);
 			if (pawnKindDefs?.Count() > 0)
 			{
-				var global = UseGlobal ? Global : 1f;
+				var global = Animal.IsAnimal() && UseGlobal ? Global : 1f;
 
 				foreach (var pawnKindDef in pawnKindDefs)
 				{

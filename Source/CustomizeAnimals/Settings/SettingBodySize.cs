@@ -44,7 +44,7 @@ namespace CustomizeAnimals.Settings
 		{
 			var race = Animal?.race;
 			if (race != null)
-				race.baseBodySize = Value * (UseGlobalModifier ? GlobalModifier : 1f);
+				race.baseBodySize = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
 		public override void ExposeData()
