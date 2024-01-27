@@ -48,7 +48,7 @@ namespace CustomizeAnimals
 		}
 
 		public static bool IsAnimal(this ThingDef animal) =>
-			animal.IsHumanLike();
+			!animal.IsHumanLike();
 		public static bool IsHumanLike(this ThingDef animal) =>
 			animal?.race?.Humanlike == true;
 	}
