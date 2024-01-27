@@ -54,7 +54,7 @@ namespace CustomizeAnimals.Settings
 		#region OVERRIDES
 		public override void GetValue()
 		{
-			if (Animal.IsHumanLike())
+			if (Animal.IsAnimal())
 				return;
 
 			GrowthTierPointsRequirements = GrowthUtility.GrowthTierPointsRequirements.ToArray();
@@ -69,7 +69,7 @@ namespace CustomizeAnimals.Settings
 		}
 		public override void SetValue()
 		{
-			if (Animal.IsHumanLike())
+			if (Animal.IsAnimal())
 				return;
 
 			if (GrowthTierPointsRequirements[0] != 0) // always has to be 0
