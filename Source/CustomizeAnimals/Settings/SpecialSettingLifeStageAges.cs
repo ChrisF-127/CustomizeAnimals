@@ -120,6 +120,5 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 		#endregion
-
 	}
 }

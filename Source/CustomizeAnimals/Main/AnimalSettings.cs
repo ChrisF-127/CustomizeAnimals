@@ -12,7 +12,7 @@ namespace CustomizeAnimals
 	internal class AnimalSettings : IExposable
 	{
 		#region PROPERTIES
-		public bool IsHumanLike => Animal.race.Humanlike;
+		public bool IsHumanLike => Animal.IsHumanLike();
 		public ThingDef Animal { get; }
 		public Dictionary<string, ISettingWithGlobal> GeneralSettings { get; } = new Dictionary<string, ISettingWithGlobal>();
 		public Dictionary<string, ISetting> ReproductionSettings { get; } = new Dictionary<string, ISetting>();

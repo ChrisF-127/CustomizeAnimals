@@ -100,7 +100,7 @@ namespace CustomizeAnimals.Settings
 				return;
 			}
 
-			var statBases = Animal?.statBases;
+			var statBases = Animal.statBases;
 			if (statBases != null)
 			{
 				var local = Value * modifier;

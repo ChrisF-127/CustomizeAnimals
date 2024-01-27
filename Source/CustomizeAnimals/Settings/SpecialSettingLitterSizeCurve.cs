@@ -16,9 +16,6 @@ namespace CustomizeAnimals.Settings
 			Equal = 1,
 		}
 
-		#region PROPERTIES
-		#endregion
-
 		#region CONSTRUCTORS
 		public SettingLitterSizeCurve(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
 		{

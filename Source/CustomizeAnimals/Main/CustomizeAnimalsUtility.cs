@@ -46,5 +46,10 @@ namespace CustomizeAnimals
 				}
 			}
 		}
+
+		public static bool IsAnimal(this ThingDef animal) =>
+			animal.IsHumanLike();
+		public static bool IsHumanLike(this ThingDef animal) =>
+			animal?.race?.Humanlike == true;
 	}
 }
