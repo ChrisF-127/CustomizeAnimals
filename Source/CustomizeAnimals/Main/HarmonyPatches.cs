@@ -17,22 +17,25 @@ namespace CustomizeAnimals
 	[StaticConstructorOnStartup]
 	public static class HarmonyPatches
 	{
+		internal const string PackDummyTexture_Default = "CA_pack_dummy";
+		internal const string PackDummyTexture_West = "CA_pack_dummy_west";
+
 		static HarmonyPatches()
 		{
 			var harmony = new Harmony("syrus.customize_animals");
 
 			harmony.Patch(
 				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks)),
-				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.TrainableUtility_DegradationPeriodTicks_PostFix)));
+				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(TrainableUtility_DegradationPeriodTicks_PostFix)));
 			harmony.Patch(
 				AccessTools.Method(typeof(MassUtility), nameof(MassUtility.Capacity)),
-				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.MassUtility_Capacity_PostFix)));
+				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(MassUtility_Capacity_PostFix)));
 			harmony.Patch(
 				AccessTools.Method(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.BirthdayBiological)),
-				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.Pawn_AgeTracker_BirthdayBiological_Transpiler)));
+				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_AgeTracker_BirthdayBiological_Transpiler)));
 			harmony.Patch(
 				AccessTools.Method(typeof(Graphic_Multi), nameof(Graphic_Multi.Init)),
-				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(HarmonyPatches.Graphic_Multi_Init_Transpiler)));
+				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Graphic_Multi_Init_Transpiler)));
 		}
 
 		public static void TrainableUtility_DegradationPeriodTicks_PostFix(ref int __result)
@@ -90,59 +93,42 @@ namespace CustomizeAnimals
 		{
 			var patched = false;
 			var list = instructions.ToList();
-			for (int i = 4; i < list.Count; i++)
+
+			//Log.Message($"mmmmmmmmmm BEFORE\n{string.Join("\n", list)}");
+			for (int i = 2; i < list.Count; i++)
 			{
-				// 4  ldfld System.String Verse.GraphicRequest::path
-				// 3  ldc.i4.0 NULL
-				// 2  call static UnityEngine.Texture2D Verse.ContentFinder`1<UnityEngine.Texture2D>::Get(System.String itemPath, System.Boolean reportFailure)
-				// 1  stelem.ref NULL
-				//  + ldloc.0 NULL
-				//  + ldc.i4.0 NULL
-				//  + ldelema UnityEngine.Texture2D
-				//  + ldarg.1 NULL
-				//  + ldfld System.String Verse.GraphicRequest::path
-				//  + call static System.Void CustomizeAnimals.HarmonyPatches::Patchy(UnityEngine.Texture2D& texture2D, System.String path)
-				// 0  ldloc.0 NULL [Label0, Label2, Label4, Label6]
-				if (   list[i - 4].opcode == OpCodes.Ldfld
-					&& list[i - 4].operand is FieldInfo fieldInfo
-					&& fieldInfo.DeclaringType == typeof(GraphicRequest)
-					&& fieldInfo.Name == nameof(GraphicRequest.path)
-					&& list[i - 3].opcode == OpCodes.Ldc_I4_0
-					&& list[i - 2].opcode == OpCodes.Call
-					&& list[i - 2].operand is MethodInfo methodInfo
-					&& methodInfo.IsStatic
-					&& methodInfo.DeclaringType == typeof(ContentFinder<Texture2D>)
-					&& methodInfo.Name == nameof(ContentFinder<Texture2D>.Get)
+				// -2    call static UnityEngine.Texture2D Verse.ContentFinder`1<UnityEngine.Texture2D>::Get(System.String itemPath, System.Boolean reportFailure)
+				// -1    stelem.ref NULL
+				//    ++ ldloc.0 NULL
+				//    ++ ldarg.1 NULL
+				//    ++ ldfld System.String Verse.GraphicRequest::path
+				//    ++ call static System.Void CustomizeAnimals.HarmonyPatches::Graphic_Multi_Init_PackTexture_Patch(UnityEngine.Texture2D[] array, System.String path)
+				//  0    ldloc.0 NULL [Label0, Label2, Label4, Label6]
+				if (   list[i - 2].opcode == OpCodes.Call && list[i - 2].operand is MethodInfo mi && mi.DeclaringType == typeof(ContentFinder<Texture2D>) && mi.Name == "Get"
 					&& list[i - 1].opcode == OpCodes.Stelem_Ref
-					&& list[i].opcode == OpCodes.Ldloc_0
-					&& list[i].labels.Count == 4)
+					&& list[i - 0].opcode == OpCodes.Ldloc_0 && list[i].labels.Count == 4)
 				{
-					list.InsertRange(i, new CodeInstruction[]
-					{
-						new CodeInstruction(OpCodes.Ldloc_0),
-						new CodeInstruction(OpCodes.Ldc_I4_0),
-						new CodeInstruction(OpCodes.Ldelema, typeof(Texture2D)),
-						new CodeInstruction(OpCodes.Ldarg_1),
-						new CodeInstruction(OpCodes.Ldfld, typeof(GraphicRequest).GetField(nameof(GraphicRequest.path))),
-						new CodeInstruction(OpCodes.Call, typeof(HarmonyPatches).GetMethod(nameof(HarmonyPatches.Graphic_Multi_Init_PackTexture_Patch), BindingFlags.Static | BindingFlags.NonPublic)),
-					});
+					list.Insert(i++, new CodeInstruction(OpCodes.Ldloc_0));
+					list.Insert(i++, new CodeInstruction(OpCodes.Ldarg_1));
+					list.Insert(i++, new CodeInstruction(OpCodes.Ldfld, AccessTools.Field(typeof(GraphicRequest), nameof(GraphicRequest.path))));
+					list.Insert(i++, new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(HarmonyPatches), nameof(Graphic_Multi_Init_PackTexture_Patch))));
 					patched = true;
 					break;
 				}
 			}
+			//Log.Message($"mmmmmmmmmm AFTER\n{string.Join("\n", list)}");
 
 			if (!patched)
 				Log.Error($"{nameof(CustomizeAnimals)}: failed to apply '{nameof(Graphic_Multi_Init_Transpiler)}'-patch");
 			return list;
 		}
-
-		private static void Graphic_Multi_Init_PackTexture_Patch(ref Texture2D texture2D, string path)
+		private static void Graphic_Multi_Init_PackTexture_Patch(Texture2D[] array, string path)
 		{
-			const string dummy = "CA_pack_dummy";
-			if (texture2D == null && path.EndsWith("Pack"))
+			if (array[0] == null && path.EndsWith("Pack"))
 			{
-				texture2D = CustomizeAnimals.Instance.Content.GetContentHolder<Texture2D>().Get(dummy);
-				Log.Warning($"{nameof(CustomizeAnimals)}: pack animal texture not found: {path} - replacing with dummy: {dummy} - success: {texture2D != null}");
+				array[0] = array[1] = array[2] = CustomizeAnimals.Instance.Content.GetContentHolder<Texture2D>().Get(PackDummyTexture_Default); // don't make static resource, causes infinite loop
+				array[3] = CustomizeAnimals.Instance.Content.GetContentHolder<Texture2D>().Get(PackDummyTexture_West); // don't make static resource, causes infinite loop
+				Log.Message($"{nameof(CustomizeAnimals)}: INFO: pack animal texture not found: {path} - using dummy: {PackDummyTexture_Default} - success: {array[0] != null}");
 			}
 		}
 	}
