@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.LitterSizeCurve>Litter size curve</SY_CA.LitterSizeCurve>
+	<SY_CA.TooltipLitterSizeCurve>Litter size is determined using a curve with points, each with a value for "litter size" and its "probability"
+A valid curve requires at least 3 points and must start and end with a point with probability at 0, otherwise the litter size is set to 1</SY_CA.TooltipLitterSizeCurve>
+	<SY_CA.LitterSizeCurveCount>Litter size</SY_CA.LitterSizeCurveCount>
+	<SY_CA.LitterSizeCurveProbability>Probability</SY_CA.LitterSizeCurveProbability>
+	
+	<SY_CA.TooltipLitterSizeCurveInvalidCount>Invalid number of points:
+3 or more points are required and start/end points must have probability of 0</SY_CA.TooltipLitterSizeCurveInvalidCount>
+	<SY_CA.TooltipLitterSizeCurveInvalidStartOrEnd>Invalid start/end:
+curve has to start and end with a probability of 0</SY_CA.TooltipLitterSizeCurveInvalidStartOrEnd>
+	
+	<SY_CA.TooltipLitterSizeCurveAdd>Add new point</SY_CA.TooltipLitterSizeCurveAdd>
+	<SY_CA.TooltipLitterSizeCurveRemove>Remove this point</SY_CA.TooltipLitterSizeCurveRemove>
+	
+	<SY_CA.TooltipLitterSizeCurveRange>Litter size range</SY_CA.TooltipLitterSizeCurveRange>
+	<SY_CA.TooltipLitterSizeCurveAverage>Average litter size</SY_CA.TooltipLitterSizeCurveAverage>
+	
+	<SY_CA.TooltipLitterSizeCurveCount>x</SY_CA.TooltipLitterSizeCurveCount>
+	<SY_CA.TooltipLitterSizeCurveProbability>y</SY_CA.TooltipLitterSizeCurveProbability>
+</LanguageData>

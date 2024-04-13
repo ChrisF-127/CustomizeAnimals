@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>	
+	<SY_CA.ManhunterOnTameFail>Revenge chance on tame fail</SY_CA.ManhunterOnTameFail>
+	<SY_CA.TooltipManhunterOnTameFail>Set the chance with which an animal will seek revenge on a failed tame attempt
+The actual chance is also affected by the tamer's skill</SY_CA.TooltipManhunterOnTameFail>
+	
+	<SY_CA.ManhunterOnTameFailRange>Revenge chance on tame fail range</SY_CA.ManhunterOnTameFailRange>
+	<SY_CA.TooltipMinManhunterOnTameFail>Set the lowest allowed chance for revenge on a tame fail</SY_CA.TooltipMinManhunterOnTameFail>
+	<SY_CA.TooltipMaxManhunterOnTameFail>Set the highest allowed  for revenge on a tame fail</SY_CA.TooltipMaxManhunterOnTameFail>
+	
+	
+	<SY_CA.ManhunterOnDamage>Revenge chance on harm</SY_CA.ManhunterOnDamage>
+	<SY_CA.TooltipManhunterOnDamage>Set the chance with which an animal will seek revenge when harmed
+The actual chance is also affected by the hunter's skill, weapon and range to the target</SY_CA.TooltipManhunterOnDamage>
+	
+	<SY_CA.ManhunterOnDamageRange>Revenge chance on harm range</SY_CA.ManhunterOnDamageRange>
+	<SY_CA.TooltipMinManhunterOnDamage>Set the lowest allowed chance for revenge on being harmed</SY_CA.TooltipMinManhunterOnDamage>
+	<SY_CA.TooltipMaxManhunterOnDamage>Set the highest allowed chance for revenge on being harmed</SY_CA.TooltipMaxManhunterOnDamage>
+</LanguageData>

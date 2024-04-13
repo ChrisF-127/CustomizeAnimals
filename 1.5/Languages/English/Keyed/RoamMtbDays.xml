@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.RoamMtbDays>Roam interval</SY_CA.RoamMtbDays>
+	<SY_CA.RoamMtbDaysDisabled>roaming disabled</SY_CA.RoamMtbDaysDisabled>
+	<SY_CA.TooltipRoamMtbDaysChk>Enable or disable roaming for this animal. Roamers require a pen
+(A pen restricts movement and makes trainability near pointless)</SY_CA.TooltipRoamMtbDaysChk>
+	<SY_CA.TooltipRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming
+(Roamers require a pen which restricts their movement and makes trainability near pointless)</SY_CA.TooltipRoamMtbDays>
+
+	<SY_CA.MinimumRoamMtbDays>Minimum roam interval</SY_CA.MinimumRoamMtbDays>
+	<SY_CA.TooltipMinimumRoamMtbDaysChk>Disable roaming for all animals or activate a minimum roaming interval for animals which already are roamers
+(Roamers require a pen which restricts their movement and makes trainability near pointless)</SY_CA.TooltipMinimumRoamMtbDaysChk>
+	<SY_CA.TooltipMinimumRoamMtbDays>Roam interval in days. Uncheck the checkbox to disable roaming
+This global setting will only affect animals which already are roamers.
+(Roamers require a pen which restricts their movement and makes trainability near pointless)</SY_CA.TooltipMinimumRoamMtbDays>
+</LanguageData>

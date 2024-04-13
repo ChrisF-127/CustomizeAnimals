@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.CarryingCapacity>Carrying capacity</SY_CA.CarryingCapacity>
+	<SY_CA.TooltipCarryingCapacity>Set the carrying capacity for this animal
+Carrying capacity defines the size of items an animal can carry when hauling
+Will not affect mass capacity for caravans unless the setting for it is enabled under global settings</SY_CA.TooltipCarryingCapacity>
+	
+	<SY_CA.CarryingCapacityRange>Carrying capacity range</SY_CA.CarryingCapacityRange>
+	<SY_CA.TooltipMinCarryingCapacity>Set a minimum carrying capacity modifier for all animals
+Actual carrying capacity depends on body size and the manipulation stat
+Will not affect mass capacity for caravans unless the setting for it is enabled under global settings</SY_CA.TooltipMinCarryingCapacity>
+	<SY_CA.TooltipMaxCarryingCapacity>Set a maximum carrying capacity modifier for all animals
+Actual carrying capacity depends on body size and the manipulation stat
+Will not affect mass capacity for caravans unless the setting for it is enabled under global settings</SY_CA.TooltipMaxCarryingCapacity>
+	
+	
+	<SY_CA.AffectsMassCapacity>affect caravan mass capacity</SY_CA.AffectsMassCapacity>
+	<SY_CA.TooltipAffectsMassCapacity>Make carrying capacity affect caravan mass capacity for all animals
+Base carrying capacity value for animals is 75, higher increases the mass that can be carried, lower will decreases it
+(This only matters for pack animals + humans)</SY_CA.TooltipAffectsMassCapacity>
+</LanguageData>

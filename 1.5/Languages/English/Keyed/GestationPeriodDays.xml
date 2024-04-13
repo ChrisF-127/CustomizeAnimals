@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.GestationPeriodDays>Gestation period</SY_CA.GestationPeriodDays>
+	<SY_CA.TooltipGestationPeriodDays>Adjust the gestation period for this animal
+Negative values disables pregnancies</SY_CA.TooltipGestationPeriodDays>
+	
+	<SY_CA.GestationPeriodDaysGlobal>Gestation period</SY_CA.GestationPeriodDaysGlobal>
+	<SY_CA.TooltipGestationPeriodDaysGlobal>Set a gestation period modifier for all animals</SY_CA.TooltipGestationPeriodDaysGlobal>
+</LanguageData>

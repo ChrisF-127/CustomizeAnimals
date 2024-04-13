@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.SeparatorShearable>Shearable</SY_CA.SeparatorShearable>
+	
+	<SY_CA.ShearableIsShearable>Is shearable</SY_CA.ShearableIsShearable>
+	<SY_CA.TooltipShearableIsShearable>Set the shearability for this animal
+Changing this setting requires reloading to apply the settings!</SY_CA.TooltipShearableIsShearable>
+	<SY_CA.ShearableIsShearableText>requires reloading on change!</SY_CA.ShearableIsShearableText>
+	
+	<SY_CA.ShearableDef>Wool type</SY_CA.ShearableDef>
+	<SY_CA.TooltipShearableDef>Set the item produced by shearing this animal
+(Not restricted to wool!)</SY_CA.TooltipShearableDef>
+	<SY_CA.ShearableNoDef>wool def not set</SY_CA.ShearableNoDef>
+	
+	<SY_CA.ShearableIntervalDays>Shearing interval</SY_CA.ShearableIntervalDays>
+	<SY_CA.TooltipShearableIntervalDays>Set the interval between shearing in days</SY_CA.TooltipShearableIntervalDays>
+	
+	<SY_CA.ShearableAmount>Wool amount</SY_CA.ShearableAmount>
+	<SY_CA.TooltipShearableAmount>Set the amount of wool produced per shearing</SY_CA.TooltipShearableAmount>
+</LanguageData>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.NuzzleMtbHours>Nuzzle interval</SY_CA.NuzzleMtbHours>
+	<SY_CA.TooltipNuzzleMtbHours>Set the nuzzle interval for this animal
+Negative values disables nuzzling
+Postiive values set the mean time in hours before an animal will nuzzle colonists when tamed</SY_CA.TooltipNuzzleMtbHours>
+	
+	<SY_CA.NuzzleMtbHoursRange>Nuzzle interval range</SY_CA.NuzzleMtbHoursRange>
+	<SY_CA.TooltipMinNuzzleMtbHours>Lowest allowed nuzzle interval for all animals
+Negative values disable nuzzling for all animals
+Positive values set a lower limit for the nuzzle interval</SY_CA.TooltipMinNuzzleMtbHours>
+	<SY_CA.TooltipMaxNuzzleMtbHours>Highest allowed nuzzle interval for all animals
+Negative values set the nuzzle interval to unlimited (allowing for nuzzling to be disabled)
+Positive values enable nuzzling for all animals and set an upper limit for the nuzzle interval</SY_CA.TooltipMaxNuzzleMtbHours>
+</LanguageData>

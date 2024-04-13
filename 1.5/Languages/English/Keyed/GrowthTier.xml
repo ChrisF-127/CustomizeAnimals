@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.GrowthTier>Growth Tier</SY_CA.GrowthTier>
+	
+	<SY_CA.GrowthTierPointsRequirements>Points required for Growth Tier</SY_CA.GrowthTierPointsRequirements>
+	<SY_CA.TooltipGrowthTierPointsRequirements>Points required to reach this growth tier</SY_CA.TooltipGrowthTierPointsRequirements>
+	
+	<SY_CA.PassionGainsPerTier>Passions gained at Growth Tier</SY_CA.PassionGainsPerTier>
+	<SY_CA.TooltipPassionGainsPerTier>Passions gained at this growth tier</SY_CA.TooltipPassionGainsPerTier>
+	
+	<SY_CA.PassionChoicesPerTier>Passion choices gained at Growth Tier</SY_CA.PassionChoicesPerTier>
+	<SY_CA.TooltipPassionChoicesPerTier>Passion choices gained at this growth tier</SY_CA.TooltipPassionChoicesPerTier>
+	
+	<SY_CA.TraitGainsPerTier>Traits gained at Growth Tier</SY_CA.TraitGainsPerTier>
+	<SY_CA.TooltipTraitGainsPerTier>Traits gained at this growth tier</SY_CA.TooltipTraitGainsPerTier>
+	
+	<SY_CA.TraitChoicesPerTier>Trait choices gained at Growth Tier</SY_CA.TraitChoicesPerTier>
+	<SY_CA.TooltipTraitChoicesPerTier>Trait choices gained at this growth tier</SY_CA.TooltipTraitChoicesPerTier>
+	
+	<SY_CA.GrowthMomentAges>Growth Moment Ages</SY_CA.GrowthMomentAges>
+	<SY_CA.TooltipGrowthMomentAges>The age at which a child experiences this growth moment</SY_CA.TooltipGrowthMomentAges>
+	
+	<SY_CA.GrowthMomentAgesBaby>Baby >> Child</SY_CA.GrowthMomentAgesBaby>
+	<SY_CA.GrowthMomentAgesChild>Child</SY_CA.GrowthMomentAgesChild>
+	<SY_CA.GrowthMomentAgesTeen>Child</SY_CA.GrowthMomentAgesTeen>
+	<SY_CA.GrowthMomentAgesAdult>Child >> Adult</SY_CA.GrowthMomentAgesAdult>
+</LanguageData>

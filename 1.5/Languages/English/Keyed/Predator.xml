@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.Predator>Predator / Max. prey body size</SY_CA.Predator>
+	<SY_CA.TooltipMaxPreyBodySize>Largest prey (body size) this animal will naturally hunt
+Does not affect manhunters, only natural predatory behaviour</SY_CA.TooltipMaxPreyBodySize>
+	<SY_CA.TooltipPredator>Enabled or disable natural predatory behaviour for this animal</SY_CA.TooltipPredator>
+	
+	<SY_CA.MaxPreyBodySizeNotPredator>animal is not a predator</SY_CA.MaxPreyBodySizeNotPredator>
+</LanguageData>
