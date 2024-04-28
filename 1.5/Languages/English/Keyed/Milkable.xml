@@ -19,6 +19,6 @@ Changing this setting requires reloading to apply the settings!</SY_CA.TooltipMi
 	<SY_CA.TooltipMilkableAmount>Set the amount of milk produced per milking</SY_CA.TooltipMilkableAmount>
 	
 	<SY_CA.MilkableFemaleOnly>Female only</SY_CA.MilkableFemaleOnly>
-	<SY_CA.TooltipMilkableFemaleOnly>Allow milking males</SY_CA.TooltipMilkableFemaleOnly>
-	<SY_CA.MilkableFemaleOnlyText>set to make males milkable</SY_CA.MilkableFemaleOnlyText>
+	<SY_CA.TooltipMilkableFemaleOnly>Only females milkable</SY_CA.TooltipMilkableFemaleOnly>
+	<SY_CA.MilkableFemaleOnlyText>disable to make males milkable</SY_CA.MilkableFemaleOnlyText>
 </LanguageData>
