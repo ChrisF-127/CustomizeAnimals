@@ -146,7 +146,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Krafs.Rimworld.Ref">
-      <Version>1.5.4063</Version>
+      <Version>1.5.4104</Version>
     </PackageReference>
     <PackageReference Include="Lib.Harmony">
       <ExcludeAssets>runtime</ExcludeAssets>
@@ -167,6 +167,6 @@ exit /b 1
 )
 
 set dir=$(TargetDir)
-if "x!dir:RimWorld\Mods=!"=="x%25dir%25" D:\0Stuff\RimWorld\_mods\_deploy.bat $(TargetName)</PostBuildEvent>
+if "x!dir:RimWorld\Mods=!"=="x%25dir%25" D:\0Stuff\2Games\RimWorld\_mods\_deploy.bat $(TargetName)</PostBuildEvent>
   </PropertyGroup>
 </Project>
