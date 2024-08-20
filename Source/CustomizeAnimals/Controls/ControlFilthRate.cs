@@ -18,7 +18,7 @@ namespace CustomizeAnimals.Controls
 				return 0f;
 
 			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["FilthRate"];
-			var value = CreateNullableNumeric(
+			var value = CreateToggleableNumeric(
 				offsetY,
 				viewWidth,
 				"SY_CA.FilthRate".Translate(),
@@ -26,8 +26,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipFilthRate".Translate(),
 				"SY_CA.TooltipFilthRateChk".Translate(),
 				setting.IsModified(),
-				setting.Value,
+				setting.Value ?? setting.DefaultValue,
 				setting.DefaultValue,
+				0.0f,
 				min: StatDefOf.FilthRate.minValue,
 				max: StatDefOf.FilthRate.maxValue);
 

@@ -20,14 +20,17 @@ namespace CustomizeAnimals.Settings
 
 		#region CONSTRUCTORS
 		public SettingFilthRate(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
-		{ }
+		{
+			if (DefaultValue == null)
+				DefaultValue = StatDefOf.FilthRate.defaultBaseValue;
+		}
 		#endregion
 
 		#region INTERFACES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.FilthRate, false);
 		public override void SetValue() =>
-			SetStat(StatDefOf.FilthRate, Animal.IsAnimal() && UseMaximumFilthRate, 0f, MaximumFilthRate);
+			SetStat(StatDefOf.FilthRate, Value ?? StatDefOf.FilthRate.defaultBaseValue, Animal.IsAnimal() && UseMaximumFilthRate, 0f, MaximumFilthRate ?? 0f);
 
 		public override void ExposeData()
 		{
@@ -52,6 +55,9 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxValue, "MaximumFilthRate", DefaultMaximum);
 			MaximumFilthRate = maxValue;
 		}
+
+		public override bool IsModified() =>
+			!(DefaultValue?.Equals(Value ?? StatDefOf.FilthRate.defaultBaseValue) == true);
 
 		public override bool IsGlobalUsed() =>
 			UseMaximumFilthRate;

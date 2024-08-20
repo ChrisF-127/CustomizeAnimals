@@ -398,7 +398,7 @@ namespace CustomizeAnimals.Controls
 				value = val;
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, convert != null && value != null ? convert(value) : null, unit);
+				DrawTextFieldUnit(textFieldRect, convert != null ? convert(value) : value, unit);
 			}
 			else
 			{
@@ -415,6 +415,76 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue?.ToString() ?? "null"))
+			{
+				value = defaultValue;
+				valueBuffer = null;
+			}
+
+			// Output
+			return value;
+		}
+
+		protected T? CreateToggleableNumeric<T>(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool isModified,
+			T? value,
+			T? defaultValue,
+			T? toggleValue,
+			ref string valueBuffer,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate<T?> convert = null,
+			string unit = null)
+			where T : struct
+		{
+			var controlWidth = GetControlWidth(viewWidth);
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Setting
+			var selected = value?.Equals(toggleValue) == false;
+			var checkboxSize = SettingsRowHeight - 8;
+			Widgets.Checkbox(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, ref selected, checkboxSize);
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), tooltipCheckbox);
+
+			// Value
+			float offsetX = controlWidth + checkboxSize + 4;
+			float width = controlWidth - checkboxSize - 6;
+			if (selected)
+			{
+				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
+				var val = value ?? defaultValue ?? default;
+				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
+				DrawTooltip(textFieldRect, tooltip);
+				value = val;
+
+				// Unit
+				DrawTextFieldUnit(textFieldRect, convert != null ? convert(value) : value, unit);
+			}
+			else
+			{
+				// Label when disabled
+				if (labelDisabled != null)
+				{
+					Text.Anchor = TextAnchor.MiddleCenter;
+					Widgets.Label(new Rect(offsetX, offsetY + 4, width, SettingsRowHeight - 8), $"({labelDisabled})");
+					Text.Anchor = TextAnchor.MiddleLeft;
+				}
+
+				value = toggleValue;
+			}
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
 			{
 				value = defaultValue;
 				valueBuffer = null;
@@ -707,6 +777,26 @@ namespace CustomizeAnimals.Controls
 			CreateNullableNumeric(
 				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
 				isModified, value, defaultValue, ref ValueBuffer, min, max, convert, unit);
+
+		protected T? CreateToggleableNumeric<T>(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string labelDisabled,
+			string tooltip,
+			string tooltipCheckbox,
+			bool isModified,
+			T? value,
+			T? defaultValue,
+			T? toggleValue,
+			float min = 0f,
+			float max = 1e+9f,
+			ConvertDelegate<T?> convert = null,
+			string unit = null)
+			where T : struct =>
+			CreateToggleableNumeric(
+				offsetY, viewWidth, label, labelDisabled, tooltip, tooltipCheckbox,
+				isModified, value, defaultValue, toggleValue, ref ValueBuffer, min, max, convert, unit);
 
 
 		protected (bool, T) CreateNumericGlobal<T>(

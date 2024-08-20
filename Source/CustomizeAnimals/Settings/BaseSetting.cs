@@ -92,7 +92,9 @@ namespace CustomizeAnimals.Settings
 				Log.Warning($"{nameof(CustomizeAnimals)}.{GetType()}: {Animal?.defName} statBases is null, value cannot be set!");
 			return null;
 		}
-		protected virtual void SetStat(StatDef stat, bool useLimits = false, float min = 0f, float? max = 1e9f, float modifier = 1f)
+		protected virtual void SetStat(StatDef stat, bool useLimits = false, float min = 0f, float? max = 1e9f, float modifier = 1f) =>
+			SetStat(stat, Value, useLimits, min, max, modifier);
+		protected virtual void SetStat(StatDef stat, float? value, bool useLimits = false, float min = 0f, float? max = 1e9f, float modifier = 1f)
 		{
 			if (Animal == null || stat == null)
 			{
@@ -103,7 +105,7 @@ namespace CustomizeAnimals.Settings
 			var statBases = Animal.statBases;
 			if (statBases != null)
 			{
-				var local = Value * modifier;
+				var local = value * modifier;
 				if (useLimits)
 				{
 					if (max == null)
