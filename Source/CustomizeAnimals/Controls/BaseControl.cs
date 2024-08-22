@@ -277,7 +277,7 @@ namespace CustomizeAnimals.Controls
 				DrawTooltip(textFieldRect, tooltip);
 
 			// Unit
-			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
+			DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : value, unit);
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
@@ -331,7 +331,7 @@ namespace CustomizeAnimals.Controls
 				DrawTooltip(textFieldRect, tooltip);
 
 				// Unit
-				DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : null, unit);
+				DrawTextFieldUnit(textFieldRect, convert != null ? (T?)convert(value) : value, unit);
 			}
 			else
 			{
@@ -461,6 +461,12 @@ namespace CustomizeAnimals.Controls
 			float width = controlWidth - checkboxSize - 6;
 			if (selected)
 			{
+				if (value?.Equals(toggleValue) == true)
+				{
+					value = defaultValue;
+					valueBuffer = $"{value}";
+				}
+
 				var textFieldRect = new Rect(offsetX, offsetY + 6, width, SettingsRowHeight - 12);
 				var val = value ?? defaultValue ?? default;
 				Widgets.TextFieldNumeric(textFieldRect, ref val, ref valueBuffer, min, max);
@@ -481,6 +487,7 @@ namespace CustomizeAnimals.Controls
 				}
 
 				value = toggleValue;
+				valueBuffer = $"{value}";
 			}
 
 			// Reset button
