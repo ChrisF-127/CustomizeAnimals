@@ -13,7 +13,7 @@ namespace CustomizeAnimals.Settings
 	{
 		#region PROPERTIES
 		public static bool UseMaximumFilthRate { get; set; } = false;
-		public static float? MaximumFilthRate { get; set; } = DefaultMaximum;
+		public static float MaximumFilthRate { get; set; } = DefaultMaximum;
 
 		public const float DefaultMaximum = 120f;
 		#endregion
@@ -30,7 +30,7 @@ namespace CustomizeAnimals.Settings
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.FilthRate, false);
 		public override void SetValue() =>
-			SetStat(StatDefOf.FilthRate, Value ?? StatDefOf.FilthRate.defaultBaseValue, Animal.IsAnimal() && UseMaximumFilthRate, 0f, MaximumFilthRate ?? 0f);
+			SetStat(StatDefOf.FilthRate, Value ?? StatDefOf.FilthRate.defaultBaseValue, Animal.IsAnimal() && UseMaximumFilthRate, 0f, MaximumFilthRate);
 
 		public override void ExposeData()
 		{
