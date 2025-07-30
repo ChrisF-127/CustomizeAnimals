@@ -25,7 +25,10 @@ namespace CustomizeAnimals
 			var harmony = new Harmony("syrus.customize_animals");
 
 			harmony.Patch(
-				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks)),
+				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks), new[] { typeof(ThingDef) }),
+				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(TrainableUtility_DegradationPeriodTicks_PostFix)));
+			harmony.Patch(
+				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks), new[] { typeof(Pawn) }),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(TrainableUtility_DegradationPeriodTicks_PostFix)));
 			harmony.Patch(
 				AccessTools.Method(typeof(MassUtility), nameof(MassUtility.Capacity)),
