@@ -38,7 +38,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SpecialSettingGrowthTier(ThingDef animal) : base(animal)
+		public SpecialSettingGrowthTier(ThingDef animal) : 
+			base(animal)
 		{
 			GetValue();
 

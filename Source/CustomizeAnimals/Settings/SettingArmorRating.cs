@@ -15,7 +15,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingArmorRating_Sharp(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingArmorRating_Sharp(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

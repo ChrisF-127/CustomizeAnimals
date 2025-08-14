@@ -21,7 +21,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingHealthScale(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingHealthScale(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

@@ -17,7 +17,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingWillNeverEat(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingWillNeverEat(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{
 			if (!isGlobal)
 				DefaultValue = new List<ThingDef>(Value);

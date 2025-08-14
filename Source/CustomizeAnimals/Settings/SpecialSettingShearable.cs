@@ -29,7 +29,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SpecialSettingShearable(ThingDef animal) : base(animal)
+		public SpecialSettingShearable(ThingDef animal) : 
+			base(animal)
 		{
 			GetValue();
 

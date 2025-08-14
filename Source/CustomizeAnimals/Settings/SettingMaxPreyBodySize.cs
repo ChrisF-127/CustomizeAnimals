@@ -19,7 +19,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingMaxPreyBodySize(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingMaxPreyBodySize(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

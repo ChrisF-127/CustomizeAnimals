@@ -17,7 +17,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingWildness(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingWildness(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{
 			if (DefaultValue == null)
 				DefaultValue = StatDefOf.Wildness.defaultBaseValue;

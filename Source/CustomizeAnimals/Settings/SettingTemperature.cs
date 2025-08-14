@@ -18,7 +18,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingMaxTemperature(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingMaxTemperature(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -74,7 +75,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingMinTemperature(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingMinTemperature(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

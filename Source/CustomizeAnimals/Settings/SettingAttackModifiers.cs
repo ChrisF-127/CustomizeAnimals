@@ -26,7 +26,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingAttackPowerModifier(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingAttackPowerModifier(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -94,7 +95,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingAttackCooldownModifier(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingAttackCooldownModifier(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

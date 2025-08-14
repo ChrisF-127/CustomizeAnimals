@@ -21,7 +21,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingGestationPeriodDays(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingGestationPeriodDays(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

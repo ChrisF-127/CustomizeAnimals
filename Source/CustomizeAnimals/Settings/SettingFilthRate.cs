@@ -19,7 +19,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingFilthRate(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingFilthRate(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{
 			if (DefaultValue == null)
 				DefaultValue = StatDefOf.FilthRate.defaultBaseValue;

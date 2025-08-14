@@ -21,7 +21,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingLeatherAmount(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingLeatherAmount(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

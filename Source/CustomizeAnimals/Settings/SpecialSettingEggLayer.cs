@@ -44,7 +44,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SpecialSettingEggLayer(ThingDef animal) : base(animal)
+		public SpecialSettingEggLayer(ThingDef animal) : 
+			base(animal)
 		{
 			GetValue();
 

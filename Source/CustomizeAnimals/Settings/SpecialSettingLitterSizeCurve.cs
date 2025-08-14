@@ -17,7 +17,8 @@ namespace CustomizeAnimals.Settings
 		}
 
 		#region CONSTRUCTORS
-		public SettingLitterSizeCurve(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingLitterSizeCurve(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{
 			if (!isGlobal)
 				DefaultValue = new SimpleCurve(Value.Points);

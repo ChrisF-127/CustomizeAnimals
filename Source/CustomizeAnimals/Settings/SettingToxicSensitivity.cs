@@ -18,7 +18,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingToxicResistance(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingToxicResistance(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

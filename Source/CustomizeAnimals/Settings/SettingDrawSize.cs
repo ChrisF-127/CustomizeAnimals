@@ -26,7 +26,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingDrawSize(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingDrawSize(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

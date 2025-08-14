@@ -24,7 +24,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingLifeExpectancy(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingLifeExpectancy(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

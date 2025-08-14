@@ -12,7 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingPackAnimal : BaseSetting<bool>
 	{
 		#region CONSTRUCTORS
-		public SettingPackAnimal(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingPackAnimal(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

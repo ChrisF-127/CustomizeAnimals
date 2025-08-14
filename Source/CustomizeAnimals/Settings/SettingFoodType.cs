@@ -12,7 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingFoodType : BaseSetting<FoodTypeFlags>
 	{
 		#region CONSTRUCTORS
-		public SettingFoodType(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingFoodType(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

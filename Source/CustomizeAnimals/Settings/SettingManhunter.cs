@@ -18,7 +18,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingManhunterOnTameFail(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingManhunterOnTameFail(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -79,7 +80,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingManhunterOnDamage(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingManhunterOnDamage(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 
@@ -142,7 +144,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingManhunter(ThingDef animal, bool isGlobal) : base(animal, isGlobal)
+		public SettingManhunter(ThingDef animal, bool isGlobal) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 	}

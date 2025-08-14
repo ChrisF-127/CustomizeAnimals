@@ -11,7 +11,8 @@ namespace CustomizeAnimals.Settings
 	{
 		public List<LifeStageAgeSetting> LifeStageAges { get; set; } = new List<LifeStageAgeSetting>();
 
-		public SpecialSettingLifeStageAges(ThingDef animal) : base(animal)
+		public SpecialSettingLifeStageAges(ThingDef animal) : 
+			base(animal)
 		{
 			GetValue();
 		}

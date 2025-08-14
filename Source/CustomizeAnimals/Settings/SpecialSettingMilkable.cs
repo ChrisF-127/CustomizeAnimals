@@ -31,7 +31,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SpecialSettingMilkable(ThingDef animal) : base(animal)
+		public SpecialSettingMilkable(ThingDef animal) : 
+			base(animal)
 		{
 			GetValue();
 

@@ -24,7 +24,8 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region CONSTRUCTORS
-		public SettingNuzzleMtbHours(ThingDef animal, bool isGlobal = false) : base(animal, isGlobal)
+		public SettingNuzzleMtbHours(ThingDef animal, bool isGlobal = false) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 
