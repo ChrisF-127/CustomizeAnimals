@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.VacuumResistance>Vacuum resistance</SY_CA.VacuumResistance>
+	<SY_CA.TooltipVacuumResistance>Set the vacuum resistance for this animal
+Vacuum resistance adjusts how strongly a creature is affected by vacuum exposure</SY_CA.TooltipVacuumResistance>
+	
+	<SY_CA.VacuumResistanceRange>Vacuum resistance range</SY_CA.VacuumResistanceRange>
+	<SY_CA.TooltipMinVacuumResistance>Set a minimum vacuum resistance for all animals</SY_CA.TooltipMinVacuumResistance>
+	<SY_CA.TooltipMaxVacuumResistance>Set a maximum vacuum resistance for all animals</SY_CA.TooltipMaxVacuumResistance>
+</LanguageData>

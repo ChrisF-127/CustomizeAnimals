@@ -48,8 +48,8 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("MarketValue", new SettingMarketValue(Animal));
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
-			if (!IsHumanLike)
-				GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
+			GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
+			GeneralSettings.Add("VacuumResistance", new SettingVacuumResistance(Animal));
 			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(Animal));

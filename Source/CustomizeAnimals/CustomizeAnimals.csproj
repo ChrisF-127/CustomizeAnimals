@@ -66,6 +66,7 @@
     <Compile Include="Controls\ControlMateMtbHours.cs" />
     <Compile Include="Controls\ControlGestationPeriodDays.cs" />
     <Compile Include="Controls\ControlLitterSizeCurve.cs" />
+    <Compile Include="Controls\ControlVacuumResistance.cs" />
     <Compile Include="Controls\ControlWillNeverEat.cs" />
     <Compile Include="Controls\ControlLeatherAmount.cs" />
     <Compile Include="Controls\ControlMeatAmount.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Settings\SettingArmorRating.cs" />
     <Compile Include="Settings\SettingDrawSize.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
+    <Compile Include="Settings\SettingVacuumResistance.cs" />
     <Compile Include="Settings\SettingMateMtbHours.cs" />
     <Compile Include="Settings\SettingGestationPeriodDays.cs" />
     <Compile Include="Settings\SettingWillNeverEat.cs" />
