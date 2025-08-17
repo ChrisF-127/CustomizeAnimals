@@ -14,6 +14,9 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (animalSettings.IsHumanLike)
+				return 0f;
+
 			var setting = (SettingSpecialTrainables)animalSettings.GeneralSettings["SpecialTrainables"];
 
 			CreateMultiSelector(
