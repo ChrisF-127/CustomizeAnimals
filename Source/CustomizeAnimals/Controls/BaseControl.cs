@@ -1,4 +1,5 @@
 ﻿using CustomizeAnimals.Settings;
+using RimWorld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -807,6 +808,77 @@ namespace CustomizeAnimals.Controls
 
 			// Output
 			return (use, minValue, maxValue);
+		}
+
+		protected void CreateMultiSelector<T, V>(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltipAdd,
+			string tooltipRemove,
+			T setting,
+			IList<V> values,
+			IList<V> selectable,
+			Func<T, IEnumerable<Widgets.DropdownMenuElement<V>>> menuGeneratorAdd,
+			Func<T, IEnumerable<Widgets.DropdownMenuElement<V>>> menuGeneratorRemove,
+			Func<IList<V>, string> listToString)
+			where T : ISetting
+		{
+			if (setting == null)
+				return;
+
+			var controlWidth = GetControlWidth(viewWidth);
+			var buttonDim = SettingsRowHeight - 4;
+			var textDisplayWidth = controlWidth - buttonDim * 2 - 6;
+			var isModified = setting.IsModified();
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Text Field
+			if (values.Count > 0)
+			{
+				Text.Font = GameFont.Tiny;
+				var textRect = new Rect(controlWidth, offsetY + 2, textDisplayWidth, SettingsRowHeight - 4);
+				var text = listToString(values);
+				Widgets.Label(textRect, text);
+				DrawTooltip(textRect, text);
+				Text.Font = OriTextFont;
+			}
+
+			// Add
+			var rect = new Rect(controlWidth + textDisplayWidth + 2, offsetY + 2, buttonDim, buttonDim);
+			if (values.Count != selectable.Count 
+				|| values.Any(d => !selectable.Contains(d)))
+			{
+				Widgets.Dropdown(
+					rect,
+					setting,
+					null,
+					menuGeneratorAdd,
+					"+");
+				DrawTooltip(rect, tooltipAdd);
+			}
+
+			// Remove
+			if (values.Count > 0)
+			{
+				rect = new Rect(controlWidth + textDisplayWidth + 4 + buttonDim, offsetY + 2, buttonDim, buttonDim);
+				Widgets.Dropdown(
+					rect,
+					setting,
+					null,
+					menuGeneratorRemove,
+					"-");
+				DrawTooltip(rect, tooltipRemove);
+			}
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, listToString(selectable)))
+				setting.Reset();
 		}
 		#endregion
 	}
