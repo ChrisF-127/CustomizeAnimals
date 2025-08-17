@@ -42,6 +42,7 @@ namespace CustomizeAnimals
 			new ControlHealthScale(),
 			new ControlMoveSpeed(),
 			new ControlTrainability(),
+			new ControlSpecialTrainables(),
 			new ControlFilthRate(),
 			new ControlCaravanRidingSpeed(),
 			new ControlCarryingCapacity(),
@@ -127,7 +128,7 @@ namespace CustomizeAnimals
 				if (thingDef.IsAnimal())
 					Animals.Add(new AnimalSettings(thingDef));
 			}
-			Animals.SortBy((a) => a.Animal.label);
+			Animals.SortBy(a => a.Animal.label);
 
 			Animals.Insert(0, new AnimalSettings(ThingDefOf.Human));
 

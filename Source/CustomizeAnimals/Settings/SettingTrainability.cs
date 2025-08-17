@@ -47,8 +47,8 @@ namespace CustomizeAnimals.Settings
 
 		public override void ExposeData()
 		{
-			var trainability = Def2String(Value);
-			Scribe_Values.Look(ref trainability, "Trainability", Def2String(DefaultValue));
+			var trainability = Value.Def2String();
+			Scribe_Values.Look(ref trainability, "Trainability", DefaultValue.Def2String());
 			Value = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 		}
 
@@ -64,8 +64,8 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref useGlobal, "UseMinimumTrainability");
 			UseMinimumTrainability = useGlobal;
 
-			var trainability = Def2String(MinimumTrainability);
-			Scribe_Values.Look(ref trainability, "MinimumTrainability", Def2String(TrainabilityDefOf.None));
+			var trainability = MinimumTrainability.Def2String();
+			Scribe_Values.Look(ref trainability, "MinimumTrainability", TrainabilityDefOf.None.Def2String());
 			MinimumTrainability = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 		}
 

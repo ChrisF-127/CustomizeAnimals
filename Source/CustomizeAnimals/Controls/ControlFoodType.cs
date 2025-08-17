@@ -90,7 +90,7 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, setting.DefaultValue.ToString()))
-				setting.Value = setting.DefaultValue;
+				setting.Reset();
 		}
 
 		private bool AllTypesSet(FoodTypeFlags foodTypes)
@@ -101,7 +101,7 @@ namespace CustomizeAnimals.Controls
 			return true;
 		}
 
-		IEnumerable<Widgets.DropdownMenuElement<FoodTypeFlags>> MenuGeneratorAdd(BaseSetting<FoodTypeFlags> target)
+		private IEnumerable<Widgets.DropdownMenuElement<FoodTypeFlags>> MenuGeneratorAdd(BaseSetting<FoodTypeFlags> target)
 		{
 			foreach (var e in Enum.GetValues(typeof(FoodTypeFlags)).Cast<FoodTypeFlags>())
 			{
@@ -118,7 +118,7 @@ namespace CustomizeAnimals.Controls
 				}
 			}
 		}
-		IEnumerable<Widgets.DropdownMenuElement<FoodTypeFlags>> MenuGeneratorRemove(BaseSetting<FoodTypeFlags> target)
+		private IEnumerable<Widgets.DropdownMenuElement<FoodTypeFlags>> MenuGeneratorRemove(BaseSetting<FoodTypeFlags> target)
 		{
 			foreach (var e in Enum.GetValues(typeof(FoodTypeFlags)).Cast<FoodTypeFlags>())
 			{
@@ -126,15 +126,16 @@ namespace CustomizeAnimals.Controls
 				{
 					yield return new Widgets.DropdownMenuElement<FoodTypeFlags>
 					{
-						option = new FloatMenuOption(e.ToString(), 
-						() => 
-						{
-							target.Value &= ~e;
+						option = new FloatMenuOption(
+							e.ToString(), 
+							() => 
+							{
+								target.Value &= ~e;
 
-							// Fungus uses the "4096"-flag-bit which has no Enum-Value of its own, so we need to disable it when "VegetableOrFruit" is disabled
-							if (!target.Value.HasFlag(FoodTypeFlags.VegetableOrFruit))
-								target.Value &= ~FoodTypeFlags.Fungus; 
-						})
+								// Fungus uses the "4096"-flag-bit which has no Enum-Value of its own, so we need to disable it when "VegetableOrFruit" is disabled
+								if (!target.Value.HasFlag(FoodTypeFlags.VegetableOrFruit))
+									target.Value &= ~FoodTypeFlags.Fungus; 
+							})
 						{
 							tooltip = new TipSignal(e.ToHumanString().CapitalizeFirst())
 						},

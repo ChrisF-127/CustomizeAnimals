@@ -54,15 +54,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ControlArmorRating.cs" />
     <Compile Include="Controls\ControlDrawSize.cs" />
     <Compile Include="Controls\ControlAttackModifiers.cs" />
+    <Compile Include="Controls\ControlSpecialTrainables.cs" />
     <Compile Include="Controls\ControlMateMtbHours.cs" />
     <Compile Include="Controls\ControlGestationPeriodDays.cs" />
     <Compile Include="Controls\ControlLitterSizeCurve.cs" />
@@ -108,6 +107,7 @@
     <Compile Include="Settings\SettingArmorRating.cs" />
     <Compile Include="Settings\SettingDrawSize.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
+    <Compile Include="Settings\SettingSpecialTrainables.cs" />
     <Compile Include="Settings\SettingVacuumResistance.cs" />
     <Compile Include="Settings\SettingMateMtbHours.cs" />
     <Compile Include="Settings\SettingGestationPeriodDays.cs" />

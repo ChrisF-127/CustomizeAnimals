@@ -63,9 +63,6 @@ namespace CustomizeAnimals.Settings
 			!(DefaultValue == null && Value == null || DefaultValue?.Equals(Value) == true);
 		public virtual bool IsGlobalUsed() =>
 			false;
-
-		protected static string Def2String(Def def) =>
-			def?.defName ?? "null";
 		#endregion
 	}
 

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CustomizeAnimals.Controls;
+using CustomizeAnimals.Settings;
+using RimWorld;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using CustomizeAnimals.Settings;
-using RimWorld;
 using Verse;
 
 namespace CustomizeAnimals
@@ -76,6 +77,7 @@ namespace CustomizeAnimals
 			if (!IsHumanLike)
 			{
 				GeneralSettings.Add("Trainability", new SettingTrainability(Animal));
+				GeneralSettings.Add("SpecialTrainables", new SettingSpecialTrainables(Animal));
 				GeneralSettings.Add("FilthRate", new SettingFilthRate(Animal));
 				GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 				GeneralSettings.Add("PackAnimal", new SettingPackAnimal(Animal));

@@ -197,7 +197,7 @@ namespace CustomizeAnimals.Controls
 
 			// Reset button
 			if (isModified && DrawResetButton(offsetY, viewWidth, setting.DefaultValue.ToString()))
-				setting.Value = setting.DefaultValue;
+				setting.Reset();
 		}
 
 		protected void CreateDropdownSelectorControl<T>(

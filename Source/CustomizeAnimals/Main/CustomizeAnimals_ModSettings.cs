@@ -20,9 +20,9 @@ namespace CustomizeAnimals
 
 				for (int i = 0; i < animals.Count; i++)
 				{
-					var animal = animals[i];
-					if (animal?.IsModified() == true)
-						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
+					var animalSettings = animals[i];
+					if (animalSettings?.IsModified() == true)
+						Scribe_Deep.Look(ref animalSettings, animalSettings.Animal.defName, animalSettings);
 				}
 			}
 			else
@@ -34,12 +34,12 @@ namespace CustomizeAnimals
 
 				for (int i = 0; i < animals.Count; i++)
 				{
-					var animal = animals[i];
-					if (animal?.Animal != null)
+					var animalSettings = animals[i];
+					if (animalSettings?.Animal != null)
 					{
-						Scribe_Deep.Look(ref animal, animal.Animal.defName, animal);
-						if (animal != null)
-							animals[i] = animal;
+						Scribe_Deep.Look(ref animalSettings, animalSettings.Animal.defName, animalSettings);
+						if (animalSettings != null)
+							animals[i] = animalSettings;
 					}
 					else
 						Log.Error($"{nameof(CustomizeAnimals_ModSettings)}.{nameof(ExposeData)}: 'animal.Animal' should not be null!");

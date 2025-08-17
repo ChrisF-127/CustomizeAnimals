@@ -74,8 +74,8 @@ namespace CustomizeAnimals
 		public void ApplySettings()
 		{
 			GlobalGeneralSettings.ApplySettings();
-			foreach (var animal in CustomizeAnimals.Animals)
-				animal.ApplySettings();
+			foreach (var animalSettings in CustomizeAnimals.Animals)
+				animalSettings.ApplySettings();
 		}
 		public void Reset()
 		{

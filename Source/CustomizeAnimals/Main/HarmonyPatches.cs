@@ -25,6 +25,9 @@ namespace CustomizeAnimals
 			var harmony = new Harmony("syrus.customize_animals");
 
 			harmony.Patch(
+				AccessTools.Method(typeof(Game), nameof(Game.FinalizeInit)),
+				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Game_FinalizeInit_Postfix)));
+			harmony.Patch(
 				AccessTools.Method(typeof(TrainableUtility), nameof(TrainableUtility.DegradationPeriodTicks), new[] { typeof(ThingDef) }),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(TrainableUtility_DegradationPeriodTicks_PostFix)));
 			harmony.Patch(
@@ -39,6 +42,17 @@ namespace CustomizeAnimals
 			harmony.Patch(
 				AccessTools.Method(typeof(Graphic_Multi), nameof(Graphic_Multi.Init)),
 				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Graphic_Multi_Init_Transpiler)));
+		}
+
+		public static void Game_FinalizeInit_Postfix()
+		{
+			var allAnimals = PawnsFinder.All_AliveOrDead.Where(p => p.IsAnimal).ToList();
+			var allTrainableDefs = SettingSpecialTrainables.AllTrainableDefs.Where(td => td.enablesAbility != null).ToList();
+			foreach (var animalSettings in CustomizeAnimals.Animals)
+			{
+				if (animalSettings.GeneralSettings.TryGetValue("SpecialTrainables") is SettingSpecialTrainables specialTrainablesSetting)
+					specialTrainablesSetting.UpdateAbilitiesAfterInit(allAnimals, allTrainableDefs);
+			}
 		}
 
 		public static void TrainableUtility_DegradationPeriodTicks_PostFix(ref int __result)

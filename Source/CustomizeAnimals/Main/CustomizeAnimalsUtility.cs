@@ -98,5 +98,9 @@ namespace CustomizeAnimals
 			&& thingDef.race?.trainability != null;                                     // all ANIMALS have trainability, assuming that everything else is NOT an ANIMAL
 		public static bool IsHumanLike(this ThingDef animal) =>
 			animal?.race?.Humanlike == true;
+
+
+		public static string Def2String(this Def def) =>
+			def?.defName ?? "null";
 	}
 }
