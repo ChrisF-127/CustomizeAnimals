@@ -46,12 +46,15 @@ namespace CustomizeAnimals
 
 		public static void Game_FinalizeInit_Postfix()
 		{
-			var allAnimals = PawnsFinder.All_AliveOrDead.Where(p => p.IsAnimal).ToList();
-			var allTrainableDefs = SettingSpecialTrainables.AllTrainableDefs.Where(td => td.enablesAbility != null).ToList();
-			foreach (var animalSettings in CustomizeAnimals.Animals)
+			var allAnimals = PawnsFinder.All_AliveOrDead?.Where(p => p?.IsAnimal == true)?.ToList();
+			var allTrainableDefs = SettingSpecialTrainables.AllTrainableDefs?.Where(td => td?.enablesAbility != null)?.ToList();
+			if (allAnimals?.Count > 0 && allTrainableDefs?.Count > 0)
 			{
-				if (animalSettings.GeneralSettings.TryGetValue("SpecialTrainables") is SettingSpecialTrainables specialTrainablesSetting)
-					specialTrainablesSetting.UpdateAbilitiesAfterInit(allAnimals, allTrainableDefs);
+				foreach (var animalSettings in CustomizeAnimals.Animals)
+				{
+					if (animalSettings.GeneralSettings.TryGetValue("SpecialTrainables") is SettingSpecialTrainables specialTrainablesSetting)
+						specialTrainablesSetting.UpdateAbilitiesAfterInit(allAnimals, allTrainableDefs);
+				}
 			}
 		}
 
