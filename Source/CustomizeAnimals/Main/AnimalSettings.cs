@@ -50,7 +50,8 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
 			GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
-			GeneralSettings.Add("VacuumResistance", new SettingVacuumResistance(Animal));
+			if (CustomizeAnimals.OdysseyActive)
+				GeneralSettings.Add("VacuumResistance", new SettingVacuumResistance(Animal));
 			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
 			GeneralSettings.Add("HealthScale", new SettingHealthScale(Animal));
 			GeneralSettings.Add("MoveSpeed", new SettingMoveSpeed(Animal));
@@ -77,7 +78,8 @@ namespace CustomizeAnimals
 			if (!IsHumanLike)
 			{
 				GeneralSettings.Add("Trainability", new SettingTrainability(Animal));
-				GeneralSettings.Add("SpecialTrainables", new SettingSpecialTrainables(Animal));
+				if (CustomizeAnimals.OdysseyActive)
+					GeneralSettings.Add("SpecialTrainables", new SettingSpecialTrainables(Animal));
 				GeneralSettings.Add("FilthRate", new SettingFilthRate(Animal));
 				GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 				GeneralSettings.Add("PackAnimal", new SettingPackAnimal(Animal));

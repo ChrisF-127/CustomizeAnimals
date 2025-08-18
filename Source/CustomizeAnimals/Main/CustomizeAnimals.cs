@@ -22,6 +22,9 @@ namespace CustomizeAnimals
 	internal class CustomizeAnimals : Mod
 	{
 		#region PROPERTIES
+		public static bool OdysseyActive =>
+			ModLister.HasActiveModWithName("Odyssey");
+
 		public static CustomizeAnimals Instance { get; private set; } = null;
 
 		public static GlobalSettings Global { get; set; } = new GlobalSettings();

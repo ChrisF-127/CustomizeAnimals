@@ -69,7 +69,8 @@ namespace CustomizeAnimals.Settings
 	internal abstract class NullableFloatSetting : BaseSetting<float?>
 	{
 		#region CONSTRUCTORS
-		public NullableFloatSetting(ThingDef animal, bool isGlobal) : base(animal, isGlobal)
+		public NullableFloatSetting(ThingDef animal, bool isGlobal) : 
+			base(animal, isGlobal)
 		{ }
 		#endregion
 

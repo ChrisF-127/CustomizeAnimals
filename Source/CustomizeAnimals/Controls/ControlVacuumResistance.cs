@@ -14,6 +14,9 @@ namespace CustomizeAnimals.Controls
 	{
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
+			if (!CustomizeAnimals.OdysseyActive)
+				return 0f;
+
 			var setting = (NullableFloatSetting)animalSettings.GeneralSettings["VacuumResistance"];
 			var value = CreateNumeric(
 				offsetY,
@@ -35,6 +38,9 @@ namespace CustomizeAnimals.Controls
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth)
 		{
+			if (!CustomizeAnimals.OdysseyActive)
+				return 0f;
+
 			(var use, var min, var max) = CreateNumericGlobalMinMax(
 				offsetY,
 				viewWidth,
