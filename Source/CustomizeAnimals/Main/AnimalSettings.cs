@@ -65,6 +65,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("WillNeverEat", new SettingWillNeverEat(Animal));
 			GeneralSettings.Add("ManhunterOnTameFail", new SettingManhunterOnTameFail(Animal));
 			GeneralSettings.Add("ManhunterOnDamage", new SettingManhunterOnDamage(Animal));
+			GeneralSettings.Add("CrossAggroWith", new SettingCrossAggroWith(Animal));
 			GeneralSettings.Add("Predator", new SettingPredator(Animal));
 			GeneralSettings.Add("MaxPreyBodySize", new SettingMaxPreyBodySize(Animal));
 

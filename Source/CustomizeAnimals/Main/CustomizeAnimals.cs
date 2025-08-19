@@ -60,6 +60,7 @@ namespace CustomizeAnimals
 			new ControlWillNeverEat(),
 			new ControlManhunterOnTameFail(),
 			new ControlManhunterOnDamage(),
+			new ControlCrossAggroWith(),
 			new ControlPredator(), // Predator & MaxPreyBodySize
 			new ControlNuzzleMtbHours(),
 

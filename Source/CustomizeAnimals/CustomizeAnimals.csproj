@@ -59,6 +59,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\ControlArmorRating.cs" />
+    <Compile Include="Controls\ControlCrossAggroWith.cs" />
     <Compile Include="Controls\ControlDrawSize.cs" />
     <Compile Include="Controls\ControlAttackModifiers.cs" />
     <Compile Include="Controls\ControlCanCrossBreedWith.cs" />
@@ -106,6 +107,7 @@
     <Compile Include="Controls\ControlTrainability.cs" />
     <Compile Include="Settings\BaseSetting.cs" />
     <Compile Include="Settings\SettingArmorRating.cs" />
+    <Compile Include="Settings\SettingCrossAggroWith.cs" />
     <Compile Include="Settings\SettingDrawSize.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
     <Compile Include="Settings\SettingCanCrossBreedWith.cs" />
