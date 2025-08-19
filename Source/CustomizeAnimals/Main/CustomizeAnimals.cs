@@ -69,6 +69,7 @@ namespace CustomizeAnimals
 		};
 		private List<BaseControl> ReproductionControlsList { get; } = new List<BaseControl>
 		{
+			new ControlCanCrossBreedWith(),
 			new ControlMateMtbHours(),
 			new ControlGestationPeriodDays(),
 			new ControlLitterSizeCurve(),
@@ -138,7 +139,7 @@ namespace CustomizeAnimals
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
 		
-		public void ResetControls(AnimalSettings animal)
+		public void ResetControls()
 		{
 			foreach (var control in GeneralControlsList)
 				control.Reset();
@@ -153,7 +154,7 @@ namespace CustomizeAnimals
 			if (animal == null)
 				return;
 			animal.Reset();
-			ResetControls(animal);
+			ResetControls();
 			Log.Message($"{nameof(CustomizeAnimals)}: '{animal.Animal?.label?.CapitalizeFirst()}' settings have been reset!");
 		}
 		public void ResetAll()
@@ -161,7 +162,7 @@ namespace CustomizeAnimals
 			Global.Reset();
 			foreach (var animal in Animals)
 				animal.Reset();
-			ResetControls(null);
+			ResetControls();
 			Log.Message($"{nameof(CustomizeAnimals)}: All settings have been reset!");
 		}
 		#endregion
@@ -304,7 +305,7 @@ namespace CustomizeAnimals
 				// Reset settings text buffers if the animal changes
 				if (_previousAnimal != animal)
 				{
-					ResetControls(SelectedAnimalSettings);
+					ResetControls();
 					_previousAnimal = animal;
 				}
 

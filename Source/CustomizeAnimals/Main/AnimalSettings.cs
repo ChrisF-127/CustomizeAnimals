@@ -99,6 +99,8 @@ namespace CustomizeAnimals
 			}
 
 			// Reproduction
+			if (!IsHumanLike)
+				ReproductionSettings.Add("CanCrossBreedWith", new SettingCanCrossBreedWith(Animal));
 			ReproductionSettings.Add("GestationPeriodDays", new SettingGestationPeriodDays(Animal));
 			ReproductionSettings.Add("LitterSizeCurve", new SettingLitterSizeCurve(Animal));
 			ReproductionSettings.Add("LifeStageAges", new SpecialSettingLifeStageAges(Animal));

@@ -61,6 +61,7 @@
     <Compile Include="Controls\ControlArmorRating.cs" />
     <Compile Include="Controls\ControlDrawSize.cs" />
     <Compile Include="Controls\ControlAttackModifiers.cs" />
+    <Compile Include="Controls\ControlCanCrossBreedWith.cs" />
     <Compile Include="Controls\ControlSpecialTrainables.cs" />
     <Compile Include="Controls\ControlMateMtbHours.cs" />
     <Compile Include="Controls\ControlGestationPeriodDays.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Settings\SettingArmorRating.cs" />
     <Compile Include="Settings\SettingDrawSize.cs" />
     <Compile Include="Settings\SettingAttackModifiers.cs" />
+    <Compile Include="Settings\SettingCanCrossBreedWith.cs" />
     <Compile Include="Settings\SettingSpecialTrainables.cs" />
     <Compile Include="Settings\SettingVacuumResistance.cs" />
     <Compile Include="Settings\SettingMateMtbHours.cs" />
