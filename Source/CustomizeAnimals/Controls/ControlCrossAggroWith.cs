@@ -27,6 +27,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipCrossAggroWithRemove".Translate(),
 				setting,
 				setting.CrossAggroWith,
+				setting.DefaultCrossAggroWith,
 				SettingCrossAggroWith.AllCrossAggroable.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,

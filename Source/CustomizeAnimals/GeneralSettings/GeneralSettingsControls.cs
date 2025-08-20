@@ -26,37 +26,27 @@ namespace CustomizeAnimals.Controls
 		public float CreateTrainabilityLimitsControls(float offsetY, float viewWidth)
 		{
 			var controlWidth = GetControlWidth(viewWidth);
-			var halfWidth = viewWidth / 2;
-			var quarterWidth = halfWidth / 2 - 2;
+			var halfWidth = viewWidth * 0.5f;
+			var quarterWidth = halfWidth * 0.5f - 2;
 			var checkboxSize = SettingsRowHeight - 8;
 			var checkboxOffset = (SettingsRowHeight - checkboxSize) / 2;
 
 			float startOffsetY = offsetY;
-			float offsetX = 0;
-			float value = 0f;
+			float offsetX;
 
 
-			// Training Decay Limits Label
-			if (Settings.IsTrainingDecayFactorModified)
-				GUI.color = ModifiedColor;
-			Widgets.Label(new Rect(offsetX, offsetY, controlWidth, SettingsRowHeight), "SY_CA.TrainingDecay".Translate());
-			GUI.color = OriColor;
-
-			offsetX += controlWidth;
-
-			// Settings
-			var textFieldRect = new Rect(controlWidth + 2, offsetY + 6, controlWidth - 4, SettingsRowHeight - 12);
-			value = Settings.TrainingDecayFactor;
-			Widgets.TextFieldNumeric(textFieldRect, ref value, ref TrainingDecayFactorBuffer, 0f, 1e3f);
-			DrawTooltip(textFieldRect, "SY_CA.TooltipTrainingDecay".Translate());
-
-			// Reset button
-			if (Settings.IsTrainingDecayFactorModified && DrawResetButton(offsetY, viewWidth, Settings.DefaultTrainingDecayFactor.ToString()))
-			{
-				value = Settings.DefaultTrainingDecayFactor;
-				TrainingDecayFactorBuffer = null;
-			}
-			Settings.TrainingDecayFactor = value;
+			// Training Decay Limits
+			Settings.TrainingDecayFactor = CreateNumeric(
+				offsetY,
+				viewWidth,
+				"SY_CA.TrainingDecay".Translate(),
+				"SY_CA.TooltipTrainingDecay".Translate(),
+				Settings.IsTrainingDecayFactorModified,
+				Settings.TrainingDecayFactor,
+				Settings.DefaultTrainingDecayFactor,
+				ref TrainingDecayFactorBuffer,
+				0f,
+				1e3f);
 
 
 			// Next row
@@ -114,7 +104,7 @@ namespace CustomizeAnimals.Controls
 
 
 			// Next row
-			offsetX = 0;
+			//offsetX = 0;
 			offsetY += SettingsRowHeight;
 
 			return offsetY - startOffsetY;

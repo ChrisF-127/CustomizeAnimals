@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.CanCrossBreedWith>Can cross-breed with</SY_CA.CanCrossBreedWith>
+	<SY_CA.TooltipCanCrossBreedWithAdd>Add animal type to list\nMales will be able to impregnate females of the added animal type, but not the other way around</SY_CA.TooltipCanCrossBreedWithAdd>
+	<SY_CA.TooltipCanCrossBreedWithRemove>Remove animal type from list</SY_CA.TooltipCanCrossBreedWithRemove>
+</LanguageData>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.CrossAggroWith>Cross-aggro with</SY_CA.CrossAggroWith>
+	<SY_CA.TooltipCrossAggroWithAdd>Add animal type to list\nCross-aggro causes these animals to join in attacks, for example on a herd manhunter event</SY_CA.TooltipCrossAggroWithAdd>
+	<SY_CA.TooltipCrossAggroWithRemove>Remove animal type from list</SY_CA.TooltipCrossAggroWithRemove>
+</LanguageData>

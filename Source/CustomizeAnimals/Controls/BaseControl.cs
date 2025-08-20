@@ -818,6 +818,7 @@ namespace CustomizeAnimals.Controls
 			string tooltipRemove,
 			T setting,
 			IList<V> values,
+			IList<V> defaultValues,
 			IList<V> selectable,
 			Func<T, IEnumerable<Widgets.DropdownMenuElement<V>>> menuGeneratorAdd,
 			Func<T, IEnumerable<Widgets.DropdownMenuElement<V>>> menuGeneratorRemove,
@@ -877,7 +878,7 @@ namespace CustomizeAnimals.Controls
 			}
 
 			// Reset button
-			if (isModified && DrawResetButton(offsetY, viewWidth, listToString(selectable)))
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValues?.Count > 0 ? listToString(defaultValues) : "---"))
 				setting.Reset();
 		}
 		#endregion

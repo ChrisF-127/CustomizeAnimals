@@ -27,6 +27,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipSpecialTrainablesRemove".Translate(),
 				setting,
 				setting.SpecialTrainables,
+				setting.DefaultSpecialTrainables,
 				SettingSpecialTrainables.AllTrainableDefs.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,

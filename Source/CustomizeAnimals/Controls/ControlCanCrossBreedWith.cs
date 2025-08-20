@@ -27,6 +27,7 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipCanCrossBreedWithRemove".Translate(),
 				setting,
 				setting.CanCrossBreedWith,
+				setting.DefaultCanCrossBreedWith,
 				SettingCanCrossBreedWith.AllCrossBreedables.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,
