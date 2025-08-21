@@ -23,7 +23,7 @@ namespace CustomizeAnimals
 	{
 		#region PROPERTIES
 		public static bool OdysseyActive =>
-			ModLister.HasActiveModWithName("Odyssey");
+			ModLister.AllInstalledMods.FirstOrDefault(mod => mod.SteamAppId == 3022790)?.Active == true;
 
 		public static CustomizeAnimals Instance { get; private set; } = null;
 
