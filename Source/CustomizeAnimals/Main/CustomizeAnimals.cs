@@ -40,6 +40,7 @@ namespace CustomizeAnimals
 			new ControlMeatAmount(),
 			new ControlLeatherAmount(),
 			new ControlToxicResistance(),
+			new ControlToxicEnvironmentResistance(),
 			new ControlVacuumResistance(),
 			new ControlBodySize(),
 			new ControlHealthScale(),

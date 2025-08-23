@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.ToxicEnvironmentResistance>Toxic environment resistance</SY_CA.ToxicEnvironmentResistance>
+	<SY_CA.TooltipToxicEnvironmentResistance>Set the toxic environment resistance for this animal
+Toxic environment resistance adjusts how strongly a creature is affected by environmental toxins like tox gas, rot stink, toxic fallout or polluted terrain</SY_CA.TooltipToxicEnvironmentResistance>
+	
+	<SY_CA.ToxicEnvironmentResistanceRange>Toxic environment resistance range</SY_CA.ToxicEnvironmentResistanceRange>
+	<SY_CA.TooltipMinToxicEnvironmentResistance>Set a minimum toxic environment resistance for all animals</SY_CA.TooltipMinToxicEnvironmentResistance>
+	<SY_CA.TooltipMaxToxicEnvironmentResistance>Set a maximum toxic environment resistance for all animals</SY_CA.TooltipMaxToxicEnvironmentResistance>
+</LanguageData>

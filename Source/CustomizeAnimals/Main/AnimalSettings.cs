@@ -50,6 +50,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("MeatAmount", new SettingMeatAmount(Animal));
 			GeneralSettings.Add("LeatherAmount", new SettingLeatherAmount(Animal));
 			GeneralSettings.Add("ToxicResistance", new SettingToxicResistance(Animal));
+			GeneralSettings.Add("ToxicEnvironmentResistance", new SettingToxicEnvironmentResistance(Animal));
 			if (CustomizeAnimals.OdysseyActive)
 				GeneralSettings.Add("VacuumResistance", new SettingVacuumResistance(Animal));
 			GeneralSettings.Add("BodySize", new SettingBodySize(Animal));
