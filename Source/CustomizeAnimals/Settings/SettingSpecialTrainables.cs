@@ -15,6 +15,7 @@ namespace CustomizeAnimals.Settings
 		#region PROPERTIES
 		public static IEnumerable<TrainableDef> AllTrainableDefs => 
 			DefDatabase<TrainableDef>.AllDefs.Where(d => d.specialTrainable);
+		public static Dictionary<TrainableDef, AbilityDef> AbilityDefDict { get; } = new Dictionary<TrainableDef, AbilityDef>();
 
 		public List<TrainableDef> DefaultSpecialTrainables { get; }
 		public List<TrainableDef> SpecialTrainables { get; } = new List<TrainableDef>();
@@ -86,34 +87,34 @@ namespace CustomizeAnimals.Settings
 		#endregion
 
 		#region PUBLIC METHODS
-		public void UpdateAbilitiesAfterInit(List<Pawn> pawns = null, List<TrainableDef> allTrainableDefs = null)
+		public void UpdateAbilitiesAfterInit(List<Pawn> pawns = null, List<TrainableDef> trainablesWithAbilities = null)
 		{
 			if (pawns == null)
 				pawns = PawnsFinder.All_AliveOrDead;
-			if (allTrainableDefs == null)
-				allTrainableDefs = AllTrainableDefs.Where(td => td.enablesAbility != null).ToList();
+			if (trainablesWithAbilities == null)
+				trainablesWithAbilities = AbilityDefDict.Keys.ToList();
 
 			// check for missing abilities according to trainables
 			var add = new List<AbilityDef>();
 			foreach (var trainableDef in SpecialTrainables)
 			{
 				// filter out abilities
-				if (trainableDef.enablesAbility == null)
+				if (!AbilityDefDict.TryGetValue(trainableDef, out var abilityDef))
 					continue;
 				// mark selected ability for adding
-				add.Add(trainableDef.enablesAbility);
+				add.AddIfNotContains(abilityDef);
 			}
 
 			// iterate over all available trainable defs to find applied abilities without selected trainables (s. SepcialTrainables)
 			var remove = new List<AbilityDef>();
-			foreach (var trainableDef in allTrainableDefs)
+			foreach (var trainableDef in trainablesWithAbilities)
 			{
 				// filter out abilities
-				if (trainableDef.enablesAbility == null)
+				if (!AbilityDefDict.TryGetValue(trainableDef, out var abilityDef))
 					continue;
 				// mark non-selected ability for removal
 				if (!SpecialTrainables.Contains(trainableDef))
-					remove.Add(trainableDef.enablesAbility);
+					remove.AddIfNotContains(abilityDef);
 			}
 
 			// update
@@ -135,18 +136,18 @@ namespace CustomizeAnimals.Settings
 			{
 				if (Animal.race.specialTrainables != null)
 				{
-					foreach (var trainable in Animal.race.specialTrainables)
-						if (trainable.enablesAbility != null && !removedAbilities.Contains(trainable.enablesAbility))
-							removedAbilities.Add(trainable.enablesAbility);
+					foreach (var trainableDef in Animal.race.specialTrainables)
+						if (AbilityDefDict.TryGetValue(trainableDef, out var abilityDef) && !removedAbilities.Contains(abilityDef))
+							removedAbilities.Add(abilityDef);
 					Animal.race.specialTrainables = null;
 				}
 			}
 			// add all trainables
 			else if (Animal.race.specialTrainables == null)
 			{
-				foreach (var trainable in values)
-					if (trainable.enablesAbility != null && !addedAbilities.Contains(trainable.enablesAbility))
-						addedAbilities.Add(trainable.enablesAbility);
+				foreach (var trainableDef in values)
+					if (AbilityDefDict.TryGetValue(trainableDef, out var abilityDef) && !addedAbilities.Contains(abilityDef))
+						addedAbilities.Add(abilityDef);
 				Animal.race.specialTrainables = new List<TrainableDef>(values);
 			}
 			// add / remove trainables
@@ -156,23 +157,23 @@ namespace CustomizeAnimals.Settings
 				// check existing vs values for removed
 				for (int i = specialTrainables.Count - 1; i >= 0; i--)
 				{
-					var trainable = specialTrainables[i];
-					if (!values.Contains(trainable))
+					var trainableDef = specialTrainables[i];
+					if (!values.Contains(trainableDef))
 					{
-						if (trainable.enablesAbility != null && !removedAbilities.Contains(trainable.enablesAbility))
-							removedAbilities.Add(trainable.enablesAbility);
+						if (AbilityDefDict.TryGetValue(trainableDef, out var abilityDef) && !removedAbilities.Contains(abilityDef))
+							removedAbilities.Add(abilityDef);
 						specialTrainables.RemoveAt(i);
 					}
 				}
 				// check values vs existing for added
 				for (int i = 0; i < values.Count; i++)
 				{
-					var trainable = values[i];
-					if (!specialTrainables.Contains(trainable))
+					var trainableDef = values[i];
+					if (!specialTrainables.Contains(trainableDef))
 					{
-						if (trainable.enablesAbility != null && !addedAbilities.Contains(trainable.enablesAbility))
-							addedAbilities.Add(trainable.enablesAbility);
-						specialTrainables.Add(trainable);
+						if (AbilityDefDict.TryGetValue(trainableDef, out var abilityDef) && !addedAbilities.Contains(abilityDef))
+							addedAbilities.Add(abilityDef);
+						specialTrainables.Add(trainableDef);
 					}
 				}
 			}

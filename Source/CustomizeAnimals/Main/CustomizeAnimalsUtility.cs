@@ -6,12 +6,19 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 using Verse;
-using static Mono.Security.X509.X509Stores;
 
 namespace CustomizeAnimals
 {
 	internal static class CustomizeAnimalsUtility
 	{
+		public static bool AddIfNotContains<T>(this List<T> list, T item)
+		{
+			if (list.Contains(item)) 
+				return false;
+			list.Add(item);
+			return true;
+		}
+
 		public static void SetFrom<T>(this T[] to, T[] from, int toOffset = 0, int fromOffset = 0)
 		{
 			if (from == null || to == null)

@@ -46,14 +46,47 @@ namespace CustomizeAnimals
 
 		public static void Game_FinalizeInit_Postfix()
 		{
-			var allAnimals = PawnsFinder.All_AliveOrDead?.Where(p => p?.IsAnimal == true)?.ToList();
-			var allTrainableDefs = SettingSpecialTrainables.AllTrainableDefs?.Where(td => td?.enablesAbility != null)?.ToList();
-			if (allAnimals?.Count > 0 && allTrainableDefs?.Count > 0)
+			// update ability def dictionary
+			var abilityDefDict = SettingSpecialTrainables.AbilityDefDict;
+			abilityDefDict.Clear();
+			// get abilities which require trainable defs
+			foreach (var abilityDef in DefDatabase<AbilityDef>.AllDefs)
 			{
-				foreach (var animalSettings in CustomizeAnimals.Animals)
+				if (abilityDef.comps?.FirstOrDefault(acp => acp is CompProperties_AbilityRequiresTrainable) is CompProperties_AbilityRequiresTrainable cp 
+					&& cp.trainableDef is TrainableDef trainableDef)
 				{
-					if (animalSettings.GeneralSettings.TryGetValue("SpecialTrainables") is SettingSpecialTrainables specialTrainablesSetting)
-						specialTrainablesSetting.UpdateAbilitiesAfterInit(allAnimals, allTrainableDefs);
+					if (!abilityDefDict.TryGetValue(trainableDef, out var conflict))
+						abilityDefDict.Add(trainableDef, abilityDef);
+					else
+						Log.Warning($"{nameof(CustomizeAnimals)}: '{abilityDef.defName}' requires '{trainableDef.defName}', which is already used for '{conflict.defName}'. " +
+							$"Adding '{trainableDef.defName}' to any animal will only allow them to use '{conflict.defName}'!");
+				}
+			}
+#pragma warning disable CS0612 // Type or member is obsolete
+			// check for trainable defs used for ability defs without the ability defs requiring training (using obsolete "enablesAbility")
+			foreach (var trainableDef in DefDatabase<TrainableDef>.AllDefs)
+			{
+				if (trainableDef.enablesAbility is AbilityDef abilityDef && !abilityDefDict.ContainsKey(trainableDef))
+				{
+					Log.Warning($"{nameof(CustomizeAnimals)}: '{trainableDef.defName}' uses '{abilityDef.defName}' but ability does not require training to be usable");
+					abilityDefDict.Add(trainableDef, abilityDef);
+				}
+			}
+#pragma warning restore CS0612 // Type or member is obsolete
+
+			// for all loaded animals...
+			var allAnimals = PawnsFinder.All_AliveOrDead?.Where(p => p?.IsAnimal == true)?.ToList();
+			if (allAnimals?.Count > 0)
+			{ 
+				// ...update abilities according to trainable defs
+				var trainableDefsWithAbility = SettingSpecialTrainables.AbilityDefDict.Keys.ToList();
+				if (trainableDefsWithAbility?.Count > 0)
+				{
+					foreach (var animalSettings in CustomizeAnimals.Animals)
+					{
+						if (animalSettings.GeneralSettings.TryGetValue("SpecialTrainables") is SettingSpecialTrainables specialTrainablesSetting)
+							specialTrainablesSetting.UpdateAbilitiesAfterInit(allAnimals, trainableDefsWithAbility);
+					}
 				}
 			}
 		}
