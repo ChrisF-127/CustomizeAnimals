@@ -86,6 +86,7 @@ namespace CustomizeAnimals
 				GeneralSettings.Add("CaravanRidingSpeed", new SettingCaravanRidingSpeed(Animal));
 				GeneralSettings.Add("PackAnimal", new SettingPackAnimal(Animal));
 				GeneralSettings.Add("RoamMtbDays", new SettingRoamMtbDays(Animal));
+				GeneralSettings.Add("FenceBlocked", new SettingFenceBlocked(Animal));
 				GeneralSettings.Add("NuzzleMtbHours", new SettingNuzzleMtbHours(Animal));
 			}
 

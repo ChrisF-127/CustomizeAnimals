@@ -157,6 +157,72 @@ namespace CustomizeAnimals.Controls
 			return value;
 		}
 
+		protected static bool? CreateNullableCheckbox(
+			float offsetY,
+			float viewWidth,
+			string label,
+			string tooltip,
+			bool? value,
+			bool? defaultValue,
+			string text = null)
+		{
+			MultiCheckboxState state;
+			var controlWidth = GetControlWidth(viewWidth);
+			var isModified = value != defaultValue;
+
+			switch (value)
+			{
+				case true:
+					state = MultiCheckboxState.On;
+					break;
+				case false:
+					state = MultiCheckboxState.Off;
+					break;
+				default:
+					state = MultiCheckboxState.Partial;
+					break;
+			}
+
+			// Label
+			if (isModified)
+				GUI.color = ModifiedColor;
+			Widgets.Label(new Rect(0, offsetY, controlWidth, SettingsRowHeight), label);
+			GUI.color = OriColor;
+
+			// Setting
+			var checkboxSize = SettingsRowHeight - 8;
+			var rect = new Rect(controlWidth, offsetY + (SettingsRowHeight - checkboxSize) / 2, checkboxSize, checkboxSize);
+			state = Widgets.CheckboxMulti(rect, state);
+			DrawTooltip(new Rect(controlWidth, offsetY, checkboxSize, checkboxSize), tooltip);
+
+			switch (state)
+			{
+				case MultiCheckboxState.On:
+					value = true; 
+					break;
+				case MultiCheckboxState.Off:
+					value = false; 
+					break;
+				default:
+					value = null; 
+					break;
+			}
+
+			// Text
+			if (text != null)
+			{
+				Text.Anchor = TextAnchor.MiddleCenter;
+				Widgets.Label(new Rect(controlWidth + checkboxSize + 4, offsetY + 4, controlWidth - checkboxSize - 6, SettingsRowHeight - 8), $"({text})");
+				Text.Anchor = TextAnchor.MiddleLeft;
+			}
+
+			// Reset button
+			if (isModified && DrawResetButton(offsetY, viewWidth, defaultValue.ToString()))
+				value = defaultValue;
+
+			return value;
+		}
+
 		protected static void CreateDropDownEnum<T>(
 			float offsetY,
 			float viewWidth,

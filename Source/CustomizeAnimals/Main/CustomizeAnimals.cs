@@ -29,6 +29,7 @@ namespace CustomizeAnimals
 
 		public static GlobalSettings Global { get; set; } = new GlobalSettings();
 		public static List<AnimalSettings> Animals { get; private set; } = null;
+		public static Dictionary<ThingDef, AnimalSettings> AnimalsDict { get; private set; } = null;
 		public static CustomizeAnimals_ModSettings Settings { get; private set; } = null;
 		public static AnimalSettings SelectedAnimalSettings { get; private set; } = null;
 
@@ -52,6 +53,7 @@ namespace CustomizeAnimals
 			new ControlCarryingCapacity(),
 			new ControlPackAnimal(),
 			new ControlRoamMtbDays(),
+			new ControlFenceBlocked(),
 			new ControlWildness(),
 			new ControlLifeExpectancy(),
 			new ControlMaxTemperature(),
@@ -137,6 +139,10 @@ namespace CustomizeAnimals
 			Animals.SortBy(a => a.Animal.label);
 
 			Animals.Insert(0, new AnimalSettings(ThingDefOf.Human));
+
+			AnimalsDict = new Dictionary<ThingDef, AnimalSettings>();
+			foreach (var animalSettings in Animals)
+				AnimalsDict.Add(animalSettings.Animal, animalSettings);
 
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}

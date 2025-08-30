@@ -37,6 +37,7 @@ namespace CustomizeAnimals
 			GeneralSettings.Add("CarryingCapacity", new SettingCarryingCapacity(null, true));
 			//GeneralSettings.Add("PackAnimal", new SettingPackAnimal(null, true));
 			GeneralSettings.Add("RoamMtbDays", new SettingRoamMtbDays(null, true));
+			GeneralSettings.Add("FenceBlocked", new SettingFenceBlocked(null, true));
 			//GeneralSettings.Add("Wildness", new SettingWildness(null, true)); 
 			GeneralSettings.Add("LifeExpectancy", new SettingLifeExpectancy(null, true));
 			GeneralSettings.Add("MaxTemperature", new SettingMaxTemperature(null, true));

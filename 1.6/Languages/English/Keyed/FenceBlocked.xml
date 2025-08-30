@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<SY_CA.FenceBlocked>Blocked by fence</SY_CA.FenceBlocked>
+	<SY_CA.TooltipFenceBlocked>Set animal to be able to pass or not pass fences, disregarding roaming setting
+Checked - disallow passing fences
+Unchecked - allow passing fences
+Undetermined - uses roaming setting to determine ability to pass fences (set via Reset)</SY_CA.TooltipFenceBlocked>
+	
+	<SY_CA.FenceBlockedAlways>Always</SY_CA.FenceBlockedAlways>
+	<SY_CA.TooltipFenceBlockedAlways>Block all animals from passing fences, can be overridden by "Not when following"</SY_CA.TooltipFenceBlockedAlways>
+	<SY_CA.FenceBlockedNotWhenFollowing>Not when following</SY_CA.FenceBlockedNotWhenFollowing>
+	<SY_CA.TooltipFenceBlockedNotWhenFollowing>Allow animals following their master to ignore fences</SY_CA.TooltipFenceBlockedNotWhenFollowing>
+</LanguageData>

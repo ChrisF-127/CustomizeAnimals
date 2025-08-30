@@ -11,6 +11,7 @@ using Mono.Cecil.Cil;
 using System.Reflection.Emit;
 using System.Reflection;
 using CustomizeAnimals.Settings;
+using Verse.AI;
 
 namespace CustomizeAnimals
 {
@@ -36,6 +37,9 @@ namespace CustomizeAnimals
 			harmony.Patch(
 				AccessTools.Method(typeof(MassUtility), nameof(MassUtility.Capacity)),
 				postfix: new HarmonyMethod(typeof(HarmonyPatches), nameof(MassUtility_Capacity_PostFix)));
+			harmony.Patch(
+				AccessTools.PropertyGetter(typeof(Pawn), nameof(Pawn.FenceBlocked)),
+				prefix: new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_FenceBlocked_PreFix)));
 			harmony.Patch(
 				AccessTools.Method(typeof(Pawn_AgeTracker), nameof(Pawn_AgeTracker.BirthdayBiological)),
 				transpiler: new HarmonyMethod(typeof(HarmonyPatches), nameof(Pawn_AgeTracker_BirthdayBiological_Transpiler)));
@@ -101,6 +105,50 @@ namespace CustomizeAnimals
 		{
 			if (GlobalSettings.GlobalGeneralSettings.CarryingCapacityAffectsMassCapacity && (p.def.IsAnimal() || p.def.IsHumanLike()))
 				__result *= p.def.statBases.GetStatValueFromList(StatDefOf.CarryingCapacity, StatDefOf.CarryingCapacity.defaultBaseValue) / StatDefOf.CarryingCapacity.defaultBaseValue;
+		}
+
+		public static bool Pawn_FenceBlocked_PreFix(Pawn __instance, ref bool __result)
+		{
+			// ignore non-animals
+			if (__instance?.IsAnimal != true)
+				return true;
+
+			// animals are not blocked by fences when following their master (s. ThinkNode_ConditionalShouldFollowMaster.ShouldFollowMaster)
+			if (SettingFenceBlocked.NotWhenFollowing
+				&& __instance.playerSettings?.RespectedMaster is Pawn master
+				&& (master.Spawned && (__instance.playerSettings.followDrafted && master.Drafted 
+						|| __instance.playerSettings.followFieldwork && master.mindState?.lastJobTag == JobTag.Fieldwork)
+					|| master.CarriedBy is Pawn carriedBy && carriedBy.HostileTo(master)))
+			{
+				__result = false;
+				return false;
+			}
+
+			// all animals are blocked by fences, except when drafted is set to not blocked, see above
+			if (SettingFenceBlocked.Always)
+			{
+				__result = true;
+				return false;
+			}
+
+			// otherwise animals are blocked by fences depending on their individual Customize Animals setting
+			var thingDef = __instance.def;
+			//  try get value from cache
+			if (!SettingFenceBlocked.Cache.TryGetValue(thingDef, out var rawValue))
+			{
+				// otherwise add value to cache, cache will be cleared when settings change
+				rawValue = ((SettingFenceBlocked)CustomizeAnimals.AnimalsDict[thingDef].GeneralSettings["FenceBlocked"]).Value;
+				SettingFenceBlocked.Cache.Add(thingDef, rawValue);
+			}
+			//  apply setting unless null (-> use default)
+			if (rawValue is bool fenceBlocked)
+			{
+				__result = fenceBlocked;
+				return false;
+			}
+
+			// use default
+			return true;
 		}
 
 		public static IEnumerable<CodeInstruction> Pawn_AgeTracker_BirthdayBiological_Transpiler(IEnumerable<CodeInstruction> instructions)
