@@ -76,7 +76,7 @@ namespace CustomizeAnimals.Settings
 					}
 				}
 				// apply
-				ApplyValues(crossBreedables);
+				ApplyValues(crossBreedables ?? DefaultCanCrossBreedWith);
 			}
 		}
 

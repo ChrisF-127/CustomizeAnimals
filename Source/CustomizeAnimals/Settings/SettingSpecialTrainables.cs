@@ -74,7 +74,7 @@ namespace CustomizeAnimals.Settings
 					}
 				}
 				// apply
-				ApplyValues(trainables);
+				ApplyValues(trainables ?? DefaultSpecialTrainables);
 			}
 		}
 

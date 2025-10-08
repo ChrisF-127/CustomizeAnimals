@@ -76,7 +76,7 @@ namespace CustomizeAnimals.Settings
 					}
 				}
 				// apply
-				ApplyValues(crossAggroables);
+				ApplyValues(crossAggroables ?? DefaultCrossAggroWith);
 			}
 		}
 
