@@ -10,11 +10,9 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingSpecialTrainables : BaseSpecialSetting, ISettingWithGlobal
+	internal class SettingSpecialTrainables : BaseSpecialSetting
 	{
 		#region PROPERTIES
-		public static IEnumerable<TrainableDef> AllTrainableDefs => 
-			DefDatabase<TrainableDef>.AllDefs.Where(d => d.specialTrainable);
 		public static Dictionary<TrainableDef, AbilityDef> AbilityDefDict { get; } = new Dictionary<TrainableDef, AbilityDef>();
 
 		public List<TrainableDef> DefaultSpecialTrainables { get; }
@@ -77,13 +75,6 @@ namespace CustomizeAnimals.Settings
 				ApplyValues(trainables ?? DefaultSpecialTrainables);
 			}
 		}
-
-		public void ResetGlobal()
-		{ }
-		public void ExposeGlobal()
-		{ }
-		public bool IsGlobalUsed() =>
-			false;
 		#endregion
 
 		#region PUBLIC METHODS

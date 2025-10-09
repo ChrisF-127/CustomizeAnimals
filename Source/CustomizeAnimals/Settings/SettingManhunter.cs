@@ -15,6 +15,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseLimits { get; set; } = false;
 		public static float Minimum { get; set; } = DefaultMinimum;
 		public static float Maximum { get; set; } = DefaultMaximum;
+
+		protected override string ScribeLabel =>
+			"ManhunterOnTameFail";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -39,20 +42,12 @@ namespace CustomizeAnimals.Settings
 				race.manhunterOnTameFailChance = Animal.IsAnimal() && UseLimits ? Mathf.Clamp(Value, Minimum, Maximum) : Value;
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ManhunterOnTameFail", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseLimits = false;
 			Minimum = DefaultMinimum;
 			Maximum = DefaultMaximum;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
@@ -66,7 +61,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxMaxTemp, "MaximumManhunterOnTameFail", DefaultMaximum);
 			Maximum = maxMaxTemp;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseLimits;
 		#endregion
@@ -77,6 +71,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseLimits { get; set; } = false;
 		public static float Minimum { get; set; } = DefaultMinimum;
 		public static float Maximum { get; set; } = DefaultMaximum;
+
+		protected override string ScribeLabel =>
+			"ManhunterOnDamage";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -101,20 +98,12 @@ namespace CustomizeAnimals.Settings
 				race.manhunterOnDamageChance = UseLimits ? Mathf.Clamp(Value, Minimum, Maximum) : Value;
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ManhunterOnDamage", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseLimits = false;
 			Minimum = DefaultMinimum;
 			Maximum = DefaultMaximum;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
@@ -128,12 +117,10 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxMaxTemp, "MaximumManhunterOnDamage", DefaultMaximum);
 			Maximum = maxMaxTemp;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseLimits;
 		#endregion
 	}
-
 
 
 	internal abstract class SettingManhunter : BaseSetting<float>

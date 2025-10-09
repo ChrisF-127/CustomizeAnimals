@@ -12,6 +12,18 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlCrossAggroWith : BaseSettingControl
 	{
+		#region PROPERTIES
+		public static List<ThingDef> AllCrossAggroable { get;  private set; }
+		#endregion
+
+		#region OVERRIDES
+		public override void Initialize()
+		{
+			var defs = DefDatabase<ThingDef>.AllDefs.Where(d => d.IsAnimal()).ToList();
+			defs.Sort((a, b) => string.Compare(a.label, b.label, true));
+			AllCrossAggroable = defs;
+		}
+
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			if (animalSettings.IsHumanLike)
@@ -26,9 +38,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipCrossAggroWithAdd".Translate(),
 				"SY_CA.TooltipCrossAggroWithRemove".Translate(),
 				setting,
-				setting.CrossAggroWith,
-				setting.DefaultCrossAggroWith,
-				SettingCrossAggroWith.AllCrossAggroable.ToList(),
+				setting.Value,
+				setting.DefaultValue,
+				AllCrossAggroable,
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,
 				ListToString);
@@ -37,29 +49,30 @@ namespace CustomizeAnimals.Controls
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		#endregion
 
 		#region PRIVATE METHODS
 		private IEnumerable<Widgets.DropdownMenuElement<ThingDef>> MenuGeneratorAdd(SettingCrossAggroWith target)
 		{
-			foreach (var e in SettingCanCrossBreedWith.AllCrossBreedables)
+			foreach (var e in AllCrossAggroable)
 			{
-				if (target.CrossAggroWith.Contains(e))
+				if (target.Value.Contains(e))
 					continue;
 
 				yield return new Widgets.DropdownMenuElement<ThingDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.CrossAggroWith.Add(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Add(e)),
 					payload = e,
 				};
 			}
 		}
 		private IEnumerable<Widgets.DropdownMenuElement<ThingDef>> MenuGeneratorRemove(SettingCrossAggroWith target)
 		{
-			foreach (var e in target.CrossAggroWith)
+			foreach (var e in target.Value)
 			{
 				yield return new Widgets.DropdownMenuElement<ThingDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.CrossAggroWith.Remove(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Remove(e)),
 					payload = e,
 				};
 			}

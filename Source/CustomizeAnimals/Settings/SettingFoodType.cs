@@ -11,6 +11,11 @@ namespace CustomizeAnimals.Settings
 {
 	internal class SettingFoodType : BaseSetting<FoodTypeFlags>
 	{
+		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"FoodType";
+		#endregion
+
 		#region CONSTRUCTORS
 		public SettingFoodType(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
@@ -31,13 +36,6 @@ namespace CustomizeAnimals.Settings
 			var race = Animal?.race;
 			if (race != null)
 				race.foodType = Value;
-		}
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "FoodType", DefaultValue);
-			Value = value;
 		}
 		#endregion
 	}

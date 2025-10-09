@@ -18,6 +18,9 @@ namespace CustomizeAnimals.Settings
 		public const float GlobalModifierDefault = 1f;
 		public const float MinimumModifier = 1e-3f;
 		public const float MaximumModifier = 1e3f;
+
+		protected override string ScribeLabel =>
+			"LeatherAmount";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -36,19 +39,11 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue() =>
 			SetStat(StatDefOf.LeatherAmount, modifier: Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "LeatherAmount", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobalModifier = false;
 			GlobalModifier = GlobalModifierDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobalModifier;
@@ -59,7 +54,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "LeatherAmountModifier", GlobalModifierDefault);
 			GlobalModifier = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobalModifier;
 		#endregion

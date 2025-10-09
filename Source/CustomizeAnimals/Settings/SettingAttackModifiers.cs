@@ -18,6 +18,9 @@ namespace CustomizeAnimals.Settings
 		public const float GlobalDefault = 1f;
 		public const float Minimum = 1e-3f;
 		public const float Maximum = 1e3f;
+
+		protected override string ScribeLabel =>
+			"AttackPowerModifier";
 		#endregion
 
 		#region FIELDS
@@ -49,19 +52,11 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "AttackPowerModifier", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobal = false;
 			Global = GlobalDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobal;
@@ -72,7 +67,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "GlobalAttackPowerModifier", GlobalDefault);
 			Global = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobal;
 		#endregion
@@ -87,6 +81,9 @@ namespace CustomizeAnimals.Settings
 		public const float GlobalDefault = 1f;
 		public const float Minimum = 1e-3f;
 		public const float Maximum = 1e3f;
+
+		protected override string ScribeLabel =>
+			"AttackCooldownModifier";
 		#endregion
 
 		#region FIELDS
@@ -111,18 +108,11 @@ namespace CustomizeAnimals.Settings
 				var global = Animal.IsAnimal() && UseGlobal ? Global : 1f;
 
 				foreach (var tool in tools)
-					tool.cooldownTime *= (Value / _previousValue) * (global / _previousGlobalValue);
+					tool.cooldownTime *= Value / _previousValue * (global / _previousGlobalValue);
 
 				_previousValue = Value;
 				_previousGlobalValue = global;
 			}
-		}
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "AttackCooldownModifier", DefaultValue);
-			Value = value;
 		}
 
 		public override void ResetGlobal()
@@ -130,7 +120,6 @@ namespace CustomizeAnimals.Settings
 			UseGlobal = false;
 			Global = GlobalDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobal;
@@ -141,7 +130,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "GlobalAttackCooldownModifier", GlobalDefault);
 			Global = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobal;
 		#endregion

@@ -15,6 +15,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseLimits { get; set; } = false;
 		public static float Minimum { get; set; } = StatDefOf.ToxicResistance.minValue;
 		public static float Maximum { get; set; } = StatDefOf.ToxicResistance.maxValue;
+
+		protected override string ScribeLabel =>
+			"ToxicResistance";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -29,20 +32,12 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue() =>
 			SetStat(StatDefOf.ToxicResistance, Animal.IsAnimal() && UseLimits, Minimum, Maximum);
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ToxicResistance", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseLimits = false;
 			Minimum = StatDefOf.ToxicResistance.minValue;
 			Maximum = StatDefOf.ToxicResistance.maxValue;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
@@ -56,7 +51,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxValue, "MaximumToxicResistance", StatDefOf.ToxicResistance.maxValue);
 			Maximum = maxValue;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseLimits;
 		#endregion

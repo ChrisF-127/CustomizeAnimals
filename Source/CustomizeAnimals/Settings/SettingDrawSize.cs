@@ -18,6 +18,9 @@ namespace CustomizeAnimals.Settings
 		public const float GlobalDefault = 1f;
 		public const float Minimum = 1e-3f;
 		public const float Maximum = 1e3f;
+
+		protected override string ScribeLabel =>
+			"DrawSizeModifier";
 		#endregion
 
 		#region FIELDS
@@ -46,9 +49,9 @@ namespace CustomizeAnimals.Settings
 					foreach (var lifeStage in pawnKindDef.lifeStages)
 					{
 						if (lifeStage.bodyGraphicData != null)
-							lifeStage.bodyGraphicData.drawSize *= (Value / _previousValue) * (global / _previousGlobalValue);
+							lifeStage.bodyGraphicData.drawSize *= Value / _previousValue * (global / _previousGlobalValue);
 						if (lifeStage.dessicatedBodyGraphicData != null)
-							lifeStage.dessicatedBodyGraphicData.drawSize *= (Value / _previousValue) * (global / _previousGlobalValue);
+							lifeStage.dessicatedBodyGraphicData.drawSize *= Value / _previousValue * (global / _previousGlobalValue);
 					}
 				}
 
@@ -57,19 +60,11 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "DrawSizeModifier", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobal = false;
 			Global = GlobalDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobal;
@@ -80,7 +75,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "GlobalDrawSizeModifier", GlobalDefault);
 			Global = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobal;
 		#endregion

@@ -21,6 +21,9 @@ namespace CustomizeAnimals.Settings
 
 		public const float DefaultMinimumGlobal = 1f; // 1h
 		public const float DefaultMaximumGlobal = -1f; // -1 = disabled
+
+		protected override string ScribeLabel =>
+			"NuzzleMtbHours";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -63,20 +66,12 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "NuzzleMtbHours", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseNuzzleMtbHoursLimits = false;
 			MinimumNuzzleMtbHours = DefaultMinimumGlobal;
 			MaximumNuzzleMtbHours = DefaultMaximumGlobal;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseNuzzleMtbHoursLimits;
@@ -91,7 +86,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxValue, "MaximumNuzzleMtbHours", DefaultMaximumGlobal);
 			MaximumNuzzleMtbHours = maxValue;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseNuzzleMtbHoursLimits;
 		#endregion

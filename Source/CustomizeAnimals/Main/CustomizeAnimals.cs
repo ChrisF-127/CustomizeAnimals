@@ -91,6 +91,8 @@ namespace CustomizeAnimals
 		#region FIELDS
 		private ThingDef _previousAnimal = null;
 
+		private bool _initializingControls = true;
+
 		private string _searchTerm = "";
 		private float _listViewHeight = 0;
 
@@ -146,16 +148,6 @@ namespace CustomizeAnimals
 
 			Settings = GetSettings<CustomizeAnimals_ModSettings>();
 		}
-		
-		public void ResetControls()
-		{
-			foreach (var control in GeneralControlsList)
-				control.Reset();
-			foreach (var control in ReproductionControlsList)
-				control.Reset();
-			foreach (var control in ProductivityControlsList)
-				control.Reset();
-		}
 
 		public void Reset(AnimalSettings animal)
 		{
@@ -175,7 +167,61 @@ namespace CustomizeAnimals
 		}
 		#endregion
 
+		#region OVERRIDES
+		public override string SettingsCategory() =>
+			"Customize Animals";
+
+		public override void DoSettingsWindowContents(Rect inRect)
+		{
+			var listWidth = inRect.width * 1 / 3 - 4;
+			var optionsWidth = inRect.width * 2 / 3 - 4;
+
+			if (_initializingControls)
+				InitializeControls();
+
+			// Save original settings
+			OriTextFont = Text.Font;
+			OriTextAnchor = Text.Anchor;
+			OriColor = GUI.color;
+
+			// Animal selection list
+			CreateAnimalList(inRect.x, inRect.y, listWidth, inRect.height);
+
+			// Animal settings
+			CreateSettings(inRect.x + listWidth + 8, inRect.y, optionsWidth, inRect.height);
+
+			base.DoSettingsWindowContents(inRect);
+			_initializingControls = false;
+		}
+
+		public override void WriteSettings()
+		{
+			base.WriteSettings();
+			_initializingControls = true;
+		}
+		#endregion
+
 		#region PRIVATE METHODS
+		private void ResetControls()
+		{
+			foreach (var control in GeneralControlsList)
+				control.Reset();
+			foreach (var control in ReproductionControlsList)
+				control.Reset();
+			foreach (var control in ProductivityControlsList)
+				control.Reset();
+		}
+
+		private void InitializeControls()
+		{
+			foreach (var control in GeneralControlsList)
+				control.Initialize();
+			foreach (var control in ReproductionControlsList)
+				control.Initialize();
+			foreach (var control in ProductivityControlsList)
+				control.Initialize();
+		}
+
 		private void CreateAnimalList(float x, float y, float width, float height)
 		{
 			float offsetY = 0;
@@ -592,30 +638,6 @@ namespace CustomizeAnimals
 			Widgets.DrawBox(rect);
 			GUI.color = Color.white;
 			Widgets.DrawHighlightIfMouseover(rect);
-		}
-		#endregion
-
-		#region OVERRIDES
-		public override string SettingsCategory() =>
-			"Customize Animals";
-
-		public override void DoSettingsWindowContents(Rect inRect)
-		{
-			var listWidth = inRect.width * 1 / 3 - 4;
-			var optionsWidth = inRect.width * 2 / 3 - 4;
-
-			// Save original settings
-			OriTextFont = Text.Font;
-			OriTextAnchor = Text.Anchor;
-			OriColor = GUI.color;
-
-			// Animal selection list
-			CreateAnimalList(inRect.x, inRect.y, listWidth, inRect.height);
-
-			// Animal settings
-			CreateSettings(inRect.x + listWidth + 8, inRect.y, optionsWidth, inRect.height);
-
-			base.DoSettingsWindowContents(inRect);
 		}
 		#endregion
 	}

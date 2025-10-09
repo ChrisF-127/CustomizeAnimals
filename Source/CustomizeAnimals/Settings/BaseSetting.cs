@@ -33,6 +33,8 @@ namespace CustomizeAnimals.Settings
 		public T DefaultValue { get; protected set; }
 
 		public bool IsGlobal { get; } = false;
+
+		protected abstract string ScribeLabel { get; }
 		#endregion
 
 		#region CONSTRUCTORS
@@ -52,15 +54,19 @@ namespace CustomizeAnimals.Settings
 		public abstract void SetValue();
 		public virtual void Reset() =>
 			Value = DefaultValue;
-		public abstract void ExposeData();
+		public virtual void ExposeData()
+		{
+			var value = Value;
+			Scribe_Values.Look(ref value, ScribeLabel, DefaultValue);
+			Value = value;
+		}
+		public virtual bool IsModified() =>
+			!(DefaultValue == null && Value == null || DefaultValue?.Equals(Value) == true);
 
 		public virtual void ResetGlobal()
 		{ }
 		public virtual void ExposeGlobal()
 		{ }
-
-		public virtual bool IsModified() =>
-			!(DefaultValue == null && Value == null || DefaultValue?.Equals(Value) == true);
 		public virtual bool IsGlobalUsed() =>
 			false;
 		#endregion
@@ -124,6 +130,41 @@ namespace CustomizeAnimals.Settings
 				}
 				else if (statModifier != null)
 					statBases.Remove(statModifier);
+			}
+		}
+		#endregion
+	}
+
+	internal abstract class ThingDefListSetting : BaseSetting<List<ThingDef>>
+	{
+		#region CONSTRUCTORS
+		public ThingDefListSetting(ThingDef animal, bool isGlobal = false) :
+			base(animal, isGlobal)
+		{
+			if (!IsGlobal)
+				DefaultValue = new List<ThingDef>(Value);
+		}
+		#endregion
+
+		#region INTERFACES
+		public override void Reset()
+		{
+			Value.Clear();
+			if (DefaultValue.Count > 0)
+				foreach (var def in DefaultValue)
+					Value.Add(def);
+		}
+
+		public override bool IsModified() =>
+			Value.IsDifferent(DefaultValue);
+
+		public override void ExposeData()
+		{
+			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
+			{
+				var value = Value;
+				Scribe_Collections.Look(ref value, ScribeLabel);
+				Value = value ?? new List<ThingDef>(DefaultValue);
 			}
 		}
 		#endregion

@@ -15,7 +15,7 @@ namespace CustomizeAnimals
 		#region PROPERTIES
 		public bool IsHumanLike => Animal.IsHumanLike();
 		public ThingDef Animal { get; }
-		public Dictionary<string, ISettingWithGlobal> GeneralSettings { get; } = new Dictionary<string, ISettingWithGlobal>();
+		public Dictionary<string, ISetting> GeneralSettings { get; } = new Dictionary<string, ISetting>();
 		public Dictionary<string, ISetting> ReproductionSettings { get; } = new Dictionary<string, ISetting>();
 		public Dictionary<string, ISetting> ProductivitySettings { get; } = new Dictionary<string, ISetting>();
 		#endregion

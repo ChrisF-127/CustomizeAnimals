@@ -11,6 +11,11 @@ namespace CustomizeAnimals.Settings
 {
 	internal class SettingPredator : BaseSetting<bool>
 	{
+		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"Predator";
+		#endregion
+
 		#region CONSTRUCTORS
 		public SettingPredator(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
@@ -31,13 +36,6 @@ namespace CustomizeAnimals.Settings
 			var race = Animal?.race;
 			if (race != null)
 				race.predator = Value;
-		}
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "Predator", DefaultValue);
-			Value = value;
 		}
 		#endregion
 	}

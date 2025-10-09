@@ -15,6 +15,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseMaxTempLimits { get; set; } = false;
 		public static float MinimumMaxTemp { get; set; } = TemperatureTuning.MinimumTemperature;
 		public static float MaximumMaxTemp { get; set; } = TemperatureTuning.MaximumTemperature;
+
+		protected override string ScribeLabel =>
+			"MaxTemperature";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -23,21 +26,11 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
-		#endregion
-
-		#region INTERFACES
+		#region OVERRIDES
 		public override void GetValue() =>
 			Value = GetStat(StatDefOf.ComfyTemperatureMax, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ComfyTemperatureMax, Animal.IsAnimal() && UseMaxTempLimits, MinimumMaxTemp, MaximumMaxTemp);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "MaxTemperature", DefaultValue);
-			Value = value;
-		}
 
 		public override void ResetGlobal()
 		{
@@ -45,7 +38,6 @@ namespace CustomizeAnimals.Settings
 			MinimumMaxTemp = TemperatureTuning.MinimumTemperature;
 			MaximumMaxTemp = TemperatureTuning.MaximumTemperature;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMaxTempLimits;
@@ -59,7 +51,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxMaxTemp, "MaximumMaxTemp", TemperatureTuning.MaximumTemperature);
 			MaximumMaxTemp = maxMaxTemp;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseMaxTempLimits;
 		#endregion
@@ -72,6 +63,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseMinTempLimits { get; set; } = false;
 		public static float MinimumMinTemp { get; set; } = TemperatureTuning.MinimumTemperature;
 		public static float MaximumMinTemp { get; set; } = TemperatureTuning.MaximumTemperature;
+
+		protected override string ScribeLabel =>
+			"MinTemperature";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -80,14 +74,18 @@ namespace CustomizeAnimals.Settings
 		{ }
 		#endregion
 
-		#region PUBLIC METHODS
+		#region OVERRIDES
+		public override void GetValue() =>
+			Value = GetStat(StatDefOf.ComfyTemperatureMin, true);
+		public override void SetValue() =>
+			SetStat(StatDefOf.ComfyTemperatureMin, Animal.IsAnimal() && UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
+
 		public override void ResetGlobal()
 		{
 			UseMinTempLimits = false;
 			MinimumMinTemp = TemperatureTuning.MinimumTemperature;
 			MaximumMinTemp = TemperatureTuning.MaximumTemperature;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMinTempLimits;
@@ -101,21 +99,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxMinTemp, "MaximumMinTemp", TemperatureTuning.MaximumTemperature);
 			MaximumMinTemp = maxMinTemp;
 		}
-		#endregion
-
-		#region INTERFACES
-		public override void GetValue() =>
-			Value = GetStat(StatDefOf.ComfyTemperatureMin, true);
-		public override void SetValue() =>
-			SetStat(StatDefOf.ComfyTemperatureMin, Animal.IsAnimal() && UseMinTempLimits, MinimumMinTemp, MaximumMinTemp);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "MinTemperature", DefaultValue);
-			Value = value;
-		}
-
 		public override bool IsGlobalUsed() =>
 			UseMinTempLimits;
 		#endregion

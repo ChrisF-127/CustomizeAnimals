@@ -30,6 +30,8 @@ namespace CustomizeAnimals.Controls
 		#endregion
 
 		#region CLASS METHODS
+		public virtual void Initialize()
+		{ }
 		public virtual float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings) =>
 			0f;
 		public virtual float CreateSettingGlobal(float offsetY, float viewWidth) =>
@@ -966,7 +968,6 @@ namespace CustomizeAnimals.Controls
 			MinValueBuffer = null;
 			MaxValueBuffer = null;
 		}
-
 
 		protected T CreateNumeric<T>(
 			float offsetY,

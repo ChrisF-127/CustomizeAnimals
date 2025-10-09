@@ -14,6 +14,9 @@ namespace CustomizeAnimals.Settings
 		#region PROPERTIES
 		public const float DefaultMinimum = 0f;
 		public const float DefaultMaximum = 10f;
+
+		protected override string ScribeLabel =>
+			"Wildness";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -30,14 +33,6 @@ namespace CustomizeAnimals.Settings
 			Value = GetStat(StatDefOf.Wildness, false);
 		public override void SetValue() =>
 			SetStat(StatDefOf.Wildness, Value ?? StatDefOf.Wildness.defaultBaseValue, Animal.IsAnimal(), DefaultMinimum, DefaultMaximum);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "Wildness", DefaultValue);
-			Value = value;
-		}
-
 		public override bool IsModified() =>
 			!(DefaultValue?.Equals(Value ?? StatDefOf.Wildness.defaultBaseValue) == true);
 		#endregion

@@ -16,6 +16,9 @@ namespace CustomizeAnimals.Settings
 
 		public static bool Always { get; set; }
 		public static bool NotWhenFollowing { get; set; }
+
+		protected override string ScribeLabel =>
+			"FenceBlocked";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -33,19 +36,11 @@ namespace CustomizeAnimals.Settings
 			Cache.Clear();
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "FenceBlocked", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			Always = false;
 			NotWhenFollowing = false;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var value = Always;
@@ -56,7 +51,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "FenceBlockedNotWhenFollowing", false);
 			NotWhenFollowing = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			Always || NotWhenFollowing;
 		#endregion

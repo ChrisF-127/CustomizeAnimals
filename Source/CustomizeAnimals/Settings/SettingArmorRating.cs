@@ -12,6 +12,8 @@ namespace CustomizeAnimals.Settings
 	internal class SettingArmorRating_Sharp : SettingArmorRating
 	{
 		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"ArmorRating_Sharp";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -28,19 +30,14 @@ namespace CustomizeAnimals.Settings
 			Value = GetStat(StatDefOf.ArmorRating_Sharp, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Sharp);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ArmorRating_Sharp", DefaultValue);
-			Value = value;
-		}
 		#endregion
 	}
 
 	internal class SettingArmorRating_Blunt : SettingArmorRating
 	{
 		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"ArmorRating_Blunt";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -56,19 +53,14 @@ namespace CustomizeAnimals.Settings
 			Value = GetStat(StatDefOf.ArmorRating_Blunt, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Blunt);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ArmorRating_Blunt", DefaultValue);
-			Value = value;
-		}
 		#endregion
 	}
 
 	internal class SettingArmorRating_Heat : SettingArmorRating
 	{
 		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"ArmorRating_Heat";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -84,13 +76,6 @@ namespace CustomizeAnimals.Settings
 			Value = GetStat(StatDefOf.ArmorRating_Heat, true);
 		public override void SetValue() =>
 			SetStat(StatDefOf.ArmorRating_Heat);
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "ArmorRating_Heat", DefaultValue);
-			Value = value;
-		}
 		#endregion
 	}
 

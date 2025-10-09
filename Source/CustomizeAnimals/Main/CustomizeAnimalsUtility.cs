@@ -37,6 +37,17 @@ namespace CustomizeAnimals
 			return false;
 		}
 
+		public static bool IsDifferent(this List<ThingDef> one, List<ThingDef> two)
+		{
+			if (one?.Count != two?.Count)
+				return true;
+			if (one != null)
+				foreach (var def in one)
+					if (!two.Contains(def))
+						return true;
+			return false;
+		}
+
 		public static bool Compare<T>(this T[] a, T[] b, Func<T, T, bool> comp)
 		{
 			if (a != null && b != null)

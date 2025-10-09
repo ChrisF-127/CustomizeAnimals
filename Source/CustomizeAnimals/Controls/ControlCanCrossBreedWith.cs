@@ -12,6 +12,18 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlCanCrossBreedWith : BaseSettingControl
 	{
+		#region PROPERTIES
+		public static List<ThingDef> AllCrossBreedables { get; private set; }
+		#endregion
+
+		#region OVERRIDE
+		public override void Initialize()
+		{
+			var defs = DefDatabase<ThingDef>.AllDefs.Where(d => d.IsAnimal()).ToList();
+			defs.Sort((a, b) => string.Compare(a.label, b.label, true));
+			AllCrossBreedables = defs;
+		}
+
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			if (animalSettings.IsHumanLike)
@@ -26,9 +38,9 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipCanCrossBreedWithAdd".Translate(),
 				"SY_CA.TooltipCanCrossBreedWithRemove".Translate(),
 				setting,
-				setting.CanCrossBreedWith,
-				setting.DefaultCanCrossBreedWith,
-				SettingCanCrossBreedWith.AllCrossBreedables.ToList(),
+				setting.Value,
+				setting.DefaultValue,
+				AllCrossBreedables.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,
 				ListToString);
@@ -37,29 +49,30 @@ namespace CustomizeAnimals.Controls
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		#endregion
 
 		#region PRIVATE METHODS
 		private IEnumerable<Widgets.DropdownMenuElement<ThingDef>> MenuGeneratorAdd(SettingCanCrossBreedWith target)
 		{
-			foreach (var e in SettingCanCrossBreedWith.AllCrossBreedables)
+			foreach (var e in AllCrossBreedables)
 			{
-				if (target.CanCrossBreedWith.Contains(e))
+				if (target.Value.Contains(e))
 					continue;
 
 				yield return new Widgets.DropdownMenuElement<ThingDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.CanCrossBreedWith.Add(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Add(e)),
 					payload = e,
 				};
 			}
 		}
 		private IEnumerable<Widgets.DropdownMenuElement<ThingDef>> MenuGeneratorRemove(SettingCanCrossBreedWith target)
 		{
-			foreach (var e in target.CanCrossBreedWith)
+			foreach (var e in target.Value)
 			{
 				yield return new Widgets.DropdownMenuElement<ThingDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.CanCrossBreedWith.Remove(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Remove(e)),
 					payload = e,
 				};
 			}

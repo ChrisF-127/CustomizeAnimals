@@ -21,15 +21,15 @@ namespace CustomizeAnimals.Settings
 
 		public const float DefaultMinimum = 1e-3f;
 		public const float DefaultMaximum = 99999f;
+
+		protected override string ScribeLabel =>
+			"BodySize";
 		#endregion
 
 		#region CONSTRUCTORS
 		public SettingBodySize(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
 		{ }
-		#endregion
-
-		#region PUBLIC METHODS
 		#endregion
 
 		#region INTERFACES
@@ -48,19 +48,11 @@ namespace CustomizeAnimals.Settings
 				race.baseBodySize = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "BodySize", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobalModifier = false;
 			GlobalModifier = GlobalModifierDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobalModifier;
@@ -71,7 +63,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "BodySizeModifier", GlobalModifierDefault);
 			GlobalModifier = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobalModifier;
 		#endregion

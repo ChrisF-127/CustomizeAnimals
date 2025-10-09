@@ -9,33 +9,20 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingWillNeverEat : BaseSetting<List<ThingDef>>
+	internal class SettingWillNeverEat : ThingDefListSetting
 	{
 		#region PROPERTIES
 		public static bool UseGlobalList { get; set; } = false;
 		public static List<ThingDef> GlobalList { get; set; } = new List<ThingDef>();
+
+		protected override string ScribeLabel => 
+			"WillNeverEat";
 		#endregion
 
 		#region CONSTRUCTORS
 		public SettingWillNeverEat(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
-		{
-			if (!isGlobal)
-				DefaultValue = new List<ThingDef>(Value);
-		}
-		#endregion
-
-		#region PUBLIC METHODS
-		public static bool IsModified(List<ThingDef> one, List<ThingDef> two)
-		{
-			if (one?.Count != two?.Count)
-				return true;
-			if (one != null)
-				foreach (var def in one)
-					if (!two.Contains(def))
-						return true;
-			return false;
-		}
+		{ }
 		#endregion
 
 		#region OVERRIDES
@@ -61,33 +48,11 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 
-		public override void Reset()
-		{
-			Value.Clear();
-			if (DefaultValue.Count > 0)
-				foreach (var def in DefaultValue)
-					Value.Add(def);
-		}
-
-		public override bool IsModified() =>
-			IsModified(Value, DefaultValue);
-
-		public override void ExposeData()
-		{
-			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
-			{
-				var value = Value;
-				Scribe_Collections.Look(ref value, "WillNeverEat");
-				Value = value ?? new List<ThingDef>(DefaultValue);
-			}
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobalList = false;
 			GlobalList.Clear();
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobalList;
@@ -98,7 +63,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Collections.Look(ref globalList, "WillNeverEatGlobalList");
 			GlobalList = globalList ?? new List<ThingDef>();
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobalList;
 		#endregion

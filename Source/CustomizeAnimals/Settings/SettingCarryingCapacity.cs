@@ -15,6 +15,9 @@ namespace CustomizeAnimals.Settings
 		public static bool UseLimits { get; set; } = false;
 		public static float Minimum { get; set; } = StatDefOf.CarryingCapacity.minValue;
 		public static float Maximum { get; set; } = StatDefOf.CarryingCapacity.maxValue;
+
+		protected override string ScribeLabel =>
+			"CarryingCapacity";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -29,20 +32,12 @@ namespace CustomizeAnimals.Settings
 		public override void SetValue() =>
 			SetStat(StatDefOf.CarryingCapacity, Animal.IsAnimal() && UseLimits, Minimum, Maximum);
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "CarryingCapacity", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseLimits = false;
 			Minimum = StatDefOf.CarryingCapacity.minValue;
 			Maximum = StatDefOf.CarryingCapacity.maxValue;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseLimits;
@@ -56,7 +51,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref maxValue, "MaximumCarryingCapacity", StatDefOf.CarryingCapacity.maxValue);
 			Maximum = maxValue;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseLimits;
 		#endregion

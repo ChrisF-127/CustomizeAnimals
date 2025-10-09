@@ -13,6 +13,9 @@ namespace CustomizeAnimals.Settings
 		#region PROPERTIES
 		public static bool UseMinimumTrainability { get; set; } = false;
 		public static TrainabilityDef MinimumTrainability { get; set; } = TrainabilityDefOf.None;
+
+		protected override string ScribeLabel =>
+			"Trainability";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -44,11 +47,10 @@ namespace CustomizeAnimals.Settings
 			if (Animal?.race != null)
 				Animal.race.trainability = Animal.IsAnimal() && UseMinimumTrainability && ToInt(MinimumTrainability) > ToInt(Value) ? MinimumTrainability : Value;
 		}
-
 		public override void ExposeData()
 		{
 			var trainability = Value.Def2String();
-			Scribe_Values.Look(ref trainability, "Trainability", DefaultValue.Def2String());
+			Scribe_Values.Look(ref trainability, ScribeLabel, DefaultValue.Def2String());
 			Value = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 		}
 
@@ -57,7 +59,6 @@ namespace CustomizeAnimals.Settings
 			UseMinimumTrainability = false;
 			MinimumTrainability = TrainabilityDefOf.None;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMinimumTrainability;
@@ -68,7 +69,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref trainability, "MinimumTrainability", TrainabilityDefOf.None.Def2String());
 			MinimumTrainability = trainability != null && trainability != "null" ? DefDatabase<TrainabilityDef>.GetNamed(trainability) : null;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseMinimumTrainability;
 		#endregion

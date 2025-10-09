@@ -16,6 +16,11 @@ namespace CustomizeAnimals.Settings
 			Equal = 1,
 		}
 
+		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"LitterSizeCurve";
+		#endregion
+
 		#region CONSTRUCTORS
 		public SettingLitterSizeCurve(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
@@ -66,7 +71,7 @@ namespace CustomizeAnimals.Settings
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
 				var points = Value.Points;
-				Scribe_Collections.Look(ref points, "LitterSizeCurve");
+				Scribe_Collections.Look(ref points, ScribeLabel);
 
 				if (points == null)
 					Value = new SimpleCurve(DefaultValue);

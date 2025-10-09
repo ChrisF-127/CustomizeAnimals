@@ -16,6 +16,9 @@ namespace CustomizeAnimals.Settings
 		public const float DefaultMaximum = 99999f;
 
 		public bool IsPredator => Animal?.race?.predator ?? false;
+
+		protected override string ScribeLabel =>
+			"MaxPreyBodySize";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -38,13 +41,6 @@ namespace CustomizeAnimals.Settings
 			var race = Animal?.race;
 			if (race != null)
 				race.maxPreyBodySize = Value;
-		}
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "MaxPreyBodySize", DefaultValue);
-			Value = value;
 		}
 		#endregion
 	}

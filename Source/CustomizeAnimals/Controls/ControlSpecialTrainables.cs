@@ -12,6 +12,18 @@ namespace CustomizeAnimals.Controls
 {
 	internal class ControlSpecialTrainables : BaseSettingControl
 	{
+		#region PROPERTIES
+		public static List<TrainableDef> AllTrainableDefs { get; private set; }
+		#endregion
+
+		#region OVERRIDES
+		public override void Initialize()
+		{
+			var defs = DefDatabase<TrainableDef>.AllDefs.Where(d => d.specialTrainable).ToList();
+			defs.Sort((a, b) => string.Compare(a.label, b.label, true));
+			AllTrainableDefs = defs;
+		}
+
 		public override float CreateSetting(float offsetY, float viewWidth, AnimalSettings animalSettings)
 		{
 			if (animalSettings.IsHumanLike || !CustomizeAnimals.OdysseyActive)
@@ -28,7 +40,7 @@ namespace CustomizeAnimals.Controls
 				setting,
 				setting.SpecialTrainables,
 				setting.DefaultSpecialTrainables,
-				SettingSpecialTrainables.AllTrainableDefs.ToList(),
+				AllTrainableDefs.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,
 				ListToString);
@@ -37,11 +49,12 @@ namespace CustomizeAnimals.Controls
 		}
 
 		public override float CreateSettingGlobal(float offsetY, float viewWidth) => 0f;
+		#endregion
 
 		#region PRIVATE METHODS
 		private IEnumerable<Widgets.DropdownMenuElement<TrainableDef>> MenuGeneratorAdd(SettingSpecialTrainables target)
 		{
-			foreach (var e in SettingSpecialTrainables.AllTrainableDefs)
+			foreach (var e in AllTrainableDefs)
 			{
 				if (target.SpecialTrainables.Contains(e))
 					continue;

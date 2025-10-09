@@ -18,6 +18,9 @@ namespace CustomizeAnimals.Settings
 		public const float GlobalModifierDefault = 1f;
 		public const float MinimumModifier = 1e-3f;
 		public const float MaximumModifier = 1e3f;
+
+		protected override string ScribeLabel =>
+			"HealthScale";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -42,19 +45,11 @@ namespace CustomizeAnimals.Settings
 				race.baseHealthScale = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "HealthScale", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobalModifier = false;
 			GlobalModifier = GlobalModifierDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobalModifier;
@@ -65,7 +60,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "HealthScaleModifier", GlobalModifierDefault);
 			GlobalModifier = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobalModifier;
 		#endregion

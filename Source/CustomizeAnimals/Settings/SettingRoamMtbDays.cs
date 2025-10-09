@@ -17,6 +17,9 @@ namespace CustomizeAnimals.Settings
 		public const float DefaultMaximum = 120f;
 
 		public const float DefaultMinimumGlobal = DefaultMaximum;
+
+		protected override string ScribeLabel =>
+			"RoamMtbDays";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -43,19 +46,11 @@ namespace CustomizeAnimals.Settings
 			}
 		}
 
-		public override void ExposeData()
-		{
-			var roamMtbDays = Value;
-			Scribe_Values.Look(ref roamMtbDays, "RoamMtbDays", DefaultValue);
-			Value = roamMtbDays;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseMinimumRoamMtbDays = false;
 			MinimumRoamMtbDays = null;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseMinimumRoamMtbDays;
@@ -66,7 +61,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref roamMtbDays, "MinimumRoamMtbDays");
 			MinimumRoamMtbDays = roamMtbDays > 0 ? roamMtbDays : null;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseMinimumRoamMtbDays;
 		#endregion

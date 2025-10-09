@@ -11,6 +11,11 @@ namespace CustomizeAnimals.Settings
 {
 	internal class SettingPackAnimal : BaseSetting<bool>
 	{
+		#region PROPERTIES
+		protected override string ScribeLabel =>
+			"PackAnimal";
+		#endregion
+
 		#region CONSTRUCTORS
 		public SettingPackAnimal(ThingDef animal, bool isGlobal = false) : 
 			base(animal, isGlobal)
@@ -44,13 +49,6 @@ namespace CustomizeAnimals.Settings
 			var race = Animal?.race;
 			if (race != null)
 				race.packAnimal = Value;
-		}
-
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "PackAnimal", DefaultValue);
-			Value = value;
 		}
 		#endregion
 	}

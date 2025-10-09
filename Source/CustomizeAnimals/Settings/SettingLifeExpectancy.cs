@@ -21,6 +21,9 @@ namespace CustomizeAnimals.Settings
 
 		public const float DefaultMinimum = 0f;
 		public const float DefaultMaximum = 1e9f;
+
+		protected override string ScribeLabel =>
+			"LifeExpectancy";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -45,19 +48,11 @@ namespace CustomizeAnimals.Settings
 				race.lifeExpectancy = Value * (Animal.IsAnimal() && UseGlobalModifier ? GlobalModifier : 1f);
 		}
 
-		public override void ExposeData()
-		{
-			var value = Value;
-			Scribe_Values.Look(ref value, "LifeExpectancy", DefaultValue);
-			Value = value;
-		}
-
 		public override void ResetGlobal()
 		{
 			UseGlobalModifier = false;
 			GlobalModifier = GlobalModifierDefault;
 		}
-
 		public override void ExposeGlobal()
 		{
 			var useGlobal = UseGlobalModifier;
@@ -68,7 +63,6 @@ namespace CustomizeAnimals.Settings
 			Scribe_Values.Look(ref value, "LifeExpectancyModifier", GlobalModifierDefault);
 			GlobalModifier = value;
 		}
-
 		public override bool IsGlobalUsed() =>
 			UseGlobalModifier;
 		#endregion
