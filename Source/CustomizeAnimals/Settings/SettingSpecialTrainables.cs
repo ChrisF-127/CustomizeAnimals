@@ -23,7 +23,6 @@ namespace CustomizeAnimals.Settings
 		public SettingSpecialTrainables(ThingDef animal) : 
 			base(animal)
 		{
-			GetValue();
 			DefaultValue = Animal?.race?.specialTrainables != null ? new List<TrainableDef>(Animal.race.specialTrainables) : null;
 		}
 		#endregion
