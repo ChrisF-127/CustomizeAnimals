@@ -135,14 +135,14 @@ namespace CustomizeAnimals.Settings
 		#endregion
 	}
 
-	internal abstract class ThingDefListSetting : BaseSetting<List<ThingDef>>
+	internal abstract class ListSetting<T> : BaseSetting<List<T>>
 	{
 		#region CONSTRUCTORS
-		public ThingDefListSetting(ThingDef animal, bool isGlobal = false) :
+		public ListSetting(ThingDef animal, bool isGlobal = false) :
 			base(animal, isGlobal)
 		{
 			if (!IsGlobal)
-				DefaultValue = new List<ThingDef>(Value);
+				DefaultValue = new List<T>(Value);
 		}
 		#endregion
 
@@ -155,18 +155,18 @@ namespace CustomizeAnimals.Settings
 					Value.Add(def);
 		}
 
-		public override bool IsModified() =>
-			Value.IsDifferent(DefaultValue);
-
 		public override void ExposeData()
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
 				var value = Value;
 				Scribe_Collections.Look(ref value, ScribeLabel);
-				Value = value ?? new List<ThingDef>(DefaultValue);
+				Value = value ?? new List<T>(DefaultValue);
 			}
 		}
+
+		public override bool IsModified() =>
+			Value.IsDifferent(DefaultValue);
 		#endregion
 	}
 
@@ -182,7 +182,7 @@ namespace CustomizeAnimals.Settings
 		public abstract void GetValue();
 		public abstract void SetValue();
 		public abstract void Reset();
-		public abstract bool IsModified();
 		public abstract void ExposeData();
+		public abstract bool IsModified();
 	}
 }

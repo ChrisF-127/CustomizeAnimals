@@ -38,8 +38,8 @@ namespace CustomizeAnimals.Controls
 				"SY_CA.TooltipSpecialTrainablesAdd".Translate(),
 				"SY_CA.TooltipSpecialTrainablesRemove".Translate(),
 				setting,
-				setting.SpecialTrainables,
-				setting.DefaultSpecialTrainables,
+				setting.Value,
+				setting.DefaultValue,
 				AllTrainableDefs.ToList(),
 				MenuGeneratorAdd,
 				MenuGeneratorRemove,
@@ -56,23 +56,23 @@ namespace CustomizeAnimals.Controls
 		{
 			foreach (var e in AllTrainableDefs)
 			{
-				if (target.SpecialTrainables.Contains(e))
+				if (target.Value.Contains(e))
 					continue;
 
 				yield return new Widgets.DropdownMenuElement<TrainableDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.SpecialTrainables.Add(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Add(e)),
 					payload = e,
 				};
 			}
 		}
 		private IEnumerable<Widgets.DropdownMenuElement<TrainableDef>> MenuGeneratorRemove(SettingSpecialTrainables target)
 		{
-			foreach (var e in target.SpecialTrainables)
+			foreach (var e in target.Value)
 			{
 				yield return new Widgets.DropdownMenuElement<TrainableDef>
 				{
-					option = new FloatMenuOption(e.LabelCap, () => target.SpecialTrainables.Remove(e)),
+					option = new FloatMenuOption(e.LabelCap, () => target.Value.Remove(e)),
 					payload = e,
 				};
 			}

@@ -37,7 +37,7 @@ namespace CustomizeAnimals
 			return false;
 		}
 
-		public static bool IsDifferent(this List<ThingDef> one, List<ThingDef> two)
+		public static bool IsDifferent<T>(this List<T> one, List<T> two)
 		{
 			if (one?.Count != two?.Count)
 				return true;

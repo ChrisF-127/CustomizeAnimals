@@ -10,13 +10,13 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingSpecialTrainables : BaseSpecialSetting
+	internal class SettingSpecialTrainables : ListSetting<TrainableDef>
 	{
 		#region PROPERTIES
 		public static Dictionary<TrainableDef, AbilityDef> AbilityDefDict { get; } = new Dictionary<TrainableDef, AbilityDef>();
 
-		public List<TrainableDef> DefaultSpecialTrainables { get; }
-		public List<TrainableDef> SpecialTrainables { get; } = new List<TrainableDef>();
+		protected override string ScribeLabel =>
+			"SpecialTrainables";
 		#endregion
 
 		#region CONSTRUCTORS
@@ -24,57 +24,46 @@ namespace CustomizeAnimals.Settings
 			base(animal)
 		{
 			GetValue();
-			DefaultSpecialTrainables = Animal?.race?.specialTrainables != null ? new List<TrainableDef>(Animal.race.specialTrainables) : null;
+			DefaultValue = Animal?.race?.specialTrainables != null ? new List<TrainableDef>(Animal.race.specialTrainables) : null;
 		}
 		#endregion
 
 		#region INTERFACES
 		public override void GetValue()
 		{
+			if (Value == null)
+				Value = new List<TrainableDef>();
 			if (Animal?.race?.specialTrainables != null)
 			{
-				SpecialTrainables.Clear();
-				SpecialTrainables.AddRange(Animal.race.specialTrainables);
+				Value.Clear();
+				Value.AddRange(Animal.race.specialTrainables);
 			}
 		}
 		public override void SetValue()
 		{
 			if (Animal?.race != null && Animal.IsAnimal())
-				ApplyValues(SpecialTrainables);
+				ApplyValues(Value);
 		}
 
 		public override void Reset() => 
-			ApplyValues(DefaultSpecialTrainables);
-
-		public override bool IsModified() =>
-			!(SpecialTrainables.Count == 0 && DefaultSpecialTrainables == null)
-			&& (SpecialTrainables.Count != DefaultSpecialTrainables?.Count || SpecialTrainables.Any(d => !DefaultSpecialTrainables.Contains(d)));
+			ApplyValues(DefaultValue);
 
 		public override void ExposeData()
 		{
 			if (Scribe.mode != LoadSaveMode.Saving || IsModified())
 			{
 				// convert defs to defNames
-				var defNames = SpecialTrainables.Select(d => d.Def2String()).ToList();
+				var value = Value;
 				// save/load
-				Scribe_Collections.Look(ref defNames, "SpecialTrainables");
-
-				// convert defNames to defs
-				List<TrainableDef> trainables = null;
-				if (defNames != null)
-				{
-					trainables = new List<TrainableDef>();
-					foreach (var defName in defNames)
-					{
-						var trainable = defName != null && defName != "null" ? DefDatabase<TrainableDef>.GetNamed(defName) : null;
-						if (trainable != null)
-							trainables.Add(trainable);
-					}
-				}
+				Scribe_Collections.Look(ref value, ScribeLabel);
 				// apply
-				ApplyValues(trainables ?? DefaultSpecialTrainables);
+				ApplyValues(value ?? DefaultValue);
 			}
 		}
+
+		public override bool IsModified() =>
+			!(Value.Count == 0 && DefaultValue == null)
+			&& (Value.Count != DefaultValue?.Count || Value.Any(d => !DefaultValue.Contains(d)));
 		#endregion
 
 		#region PUBLIC METHODS
@@ -87,7 +76,7 @@ namespace CustomizeAnimals.Settings
 
 			// check for missing abilities according to trainables
 			var add = new List<AbilityDef>();
-			foreach (var trainableDef in SpecialTrainables)
+			foreach (var trainableDef in Value)
 			{
 				// filter out abilities
 				if (!AbilityDefDict.TryGetValue(trainableDef, out var abilityDef))
@@ -104,7 +93,7 @@ namespace CustomizeAnimals.Settings
 				if (!AbilityDefDict.TryGetValue(trainableDef, out var abilityDef))
 					continue;
 				// mark non-selected ability for removal
-				if (!SpecialTrainables.Contains(trainableDef))
+				if (!Value.Contains(trainableDef))
 					remove.AddIfNotContains(abilityDef);
 			}
 
@@ -190,11 +179,11 @@ namespace CustomizeAnimals.Settings
 			}
 
 			// update local storage
-			if (values != SpecialTrainables)
+			if (values != Value)
 			{
-				SpecialTrainables.Clear();
+				Value.Clear();
 				if (Animal.race.specialTrainables?.Count > 0)
-					SpecialTrainables.AddRange(Animal.race.specialTrainables);
+					Value.AddRange(Animal.race.specialTrainables);
 			}
 		}
 

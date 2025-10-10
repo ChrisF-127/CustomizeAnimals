@@ -13,7 +13,7 @@ namespace CustomizeAnimals.Settings
 	/// <summary>
 	/// Animals on this list will join in on herd manhunter events, like hunting revenge 
 	/// </summary>
-	internal class SettingCrossAggroWith : ThingDefListSetting
+	internal class SettingCrossAggroWith : ListSetting<ThingDef>
 	{
 		#region PROPERTIES
 		protected override string ScribeLabel =>

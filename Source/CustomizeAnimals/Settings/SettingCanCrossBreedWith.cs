@@ -13,7 +13,7 @@ namespace CustomizeAnimals.Settings
 	/// <summary>
 	/// Cross-breeding depends on the "can cross-breed with" setting of the male only
 	/// </summary>
-	internal class SettingCanCrossBreedWith : ThingDefListSetting
+	internal class SettingCanCrossBreedWith : ListSetting<ThingDef>
 	{
 		#region PROPERTIES
 		protected override string ScribeLabel =>

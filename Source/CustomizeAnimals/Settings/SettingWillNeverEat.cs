@@ -9,7 +9,7 @@ using Verse;
 
 namespace CustomizeAnimals.Settings
 {
-	internal class SettingWillNeverEat : ThingDefListSetting
+	internal class SettingWillNeverEat : ListSetting<ThingDef>
 	{
 		#region PROPERTIES
 		public static bool UseGlobalList { get; set; } = false;
