@@ -137,7 +137,9 @@ namespace CustomizeAnimals
 			if (!SettingFenceBlocked.Cache.TryGetValue(thingDef, out var rawValue))
 			{
 				// otherwise add value to cache, cache will be cleared when settings change
-				rawValue = ((SettingFenceBlocked)CustomizeAnimals.AnimalsDict[thingDef].GeneralSettings["FenceBlocked"]).Value;
+				if (CustomizeAnimals.AnimalsDict.TryGetValue(thingDef, out var animalSettings))
+					rawValue = ((SettingFenceBlocked)animalSettings.GeneralSettings["FenceBlocked"]).Value;
+				// adds null-value if animal is not found
 				SettingFenceBlocked.Cache.Add(thingDef, rawValue);
 			}
 			//  apply setting unless null (-> use default)
